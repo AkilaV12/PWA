@@ -10,9 +10,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--rp:#0076CC;--rp-dk:#005FA3;--rp-black:#202737;--hi:#E5F4FF;--gl:#F7F8F9;--gll:#EBEDEE;--gm:#C6CCD0;--gd:#9BA3A7;--green:#118837;--gbg:#EAF5EE;--red:#D01A1F;--rbg:#FBE9EA;--yel:#D97706;--ybg:#FEF3C7;--pur:#7C3AED;--pbg:#EDE9FE;--font:'Roboto',-apple-system,sans-serif;--br:2px}
+:root{--rp:#0076CC;--rp-dk:#005FA3;--rp-black:#202737;--hi:#E5F4FF;--gl:#F7F8F9;--gll:#EBEDEE;--gm:#C6CCD0;--gd:#9BA3A7;--green:#118837;--gbg:rgba(17,136,55,0.1);--red:#D01A1F;--rbg:rgba(208,26,31,0.1);--orange:#F06000;--yel:#D97706;--ybg:rgba(240,96,0,0.1);--pur:#7C3AED;--pbg:rgba(124,58,237,0.1);--font:'Roboto',-apple-system,sans-serif;--shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font);background:var(--gl);color:#1A202C;font-size:13px;line-height:1.4}
+body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-size:13px;line-height:1.4}
 .omnibar{height:56px;background:var(--rp-black);display:flex;align-items:center;padding:0 16px;gap:10px;position:fixed;top:0;left:0;right:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
 .ob-ham{color:#fff;cursor:pointer;display:flex;align-items:center;padding:4px;border-radius:4px}.ob-ham:hover{background:rgba(255,255,255,.1)}
 .ob-logo{color:#fff;font-size:15px;font-weight:700;letter-spacing:.5px;white-space:nowrap}
@@ -37,56 +37,81 @@ body{font-family:var(--font);background:var(--gl);color:#1A202C;font-size:13px;l
 .sidenav.col{width:52px;min-width:52px}
 .sn-sect{padding:14px 16px 4px;font-size:10px;font-weight:600;color:var(--gd);letter-spacing:.8px;text-transform:uppercase}
 .sidenav.col .sn-sect,.sidenav.col .nav-item span,.sidenav.col .nbadge{display:none}
-.nav-item{display:flex;align-items:center;gap:10px;padding:0 16px;height:44px;cursor:pointer;border-bottom:1px solid var(--gll);color:#4A5568;font-size:13px;position:relative;transition:background .1s;user-select:none}
+.nav-item{display:flex;align-items:center;gap:12px;padding:0 16px;height:46px;cursor:pointer;border-bottom:1px solid var(--gll);color:rgba(32,39,55,0.8);font-size:14px;font-weight:400;position:relative;transition:background .1s;user-select:none}
 .nav-item:hover{background:var(--gl)}
 .nav-item.active{background:var(--hi);color:var(--rp);font-weight:500}
-.nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rp);border-radius:0 2px 2px 0}
 .nbadge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center}
-.nbadge.w{background:var(--yel)}.nbadge.b{background:var(--rp)}
+.nbadge.w{background:var(--orange)}.nbadge.b{background:var(--rp)}
 .sn-bot{margin-top:auto;border-top:1px solid var(--gll);padding:12px}
 .sn-user{display:flex;align-items:center;gap:10px;padding:6px}
 .sidenav.col .sn-user span{display:none}
 .uav{width:32px;height:32px;min-width:32px;border-radius:50%;background:var(--rp);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
-.main{flex:1;overflow-y:auto;padding:20px 24px;transition:padding-right .25s}
-.main.aio{padding-right:404px}
-.ph-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px}
-.ph-title{font-size:20px;font-weight:600;color:#1A202C}
-.ph-sub{font-size:12px;color:var(--gd);margin-top:2px}
-.fbar{background:#fff;border:1px solid var(--gll);border-radius:var(--br);padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10;box-shadow:0 1px 4px rgba(0,0,0,.04)}
-.fbar-sep{width:1px;height:20px;background:var(--gll);margin:0 2px}
-.fc{padding:4px 10px;border-radius:12px;font-size:11px;font-weight:500;cursor:pointer;border:1px solid var(--gll);background:#fff;color:#4A5568;transition:all .1s;white-space:nowrap;user-select:none}
-.fc:hover{border-color:var(--rp);color:var(--rp)}.fc.on{background:var(--rp);color:#fff;border-color:var(--rp)}
-.fsel{padding:4px 8px;border:1px solid var(--gll);border-radius:var(--br);font-size:11px;color:#4A5568;font-family:var(--font);outline:none;background:#fff;cursor:pointer;max-width:130px}
+.main{flex:1;overflow-y:auto;transition:padding-right .25s}
+.main.aio{padding-right:380px}
+/* RAUL Page Header Strip */
+.ph-strip{background:var(--gl);border-bottom:1px solid var(--gll);padding:20px 32px 16px;display:flex;align-items:flex-end;justify-content:space-between}
+.ph-eyebrow{display:flex;gap:5px;align-items:center;margin-bottom:8px}
+.ph-dot{height:8px;border-radius:4px;display:inline-block}
+.ph-dot.or{width:16px;background:var(--orange)}
+.ph-dot.gr{width:28px;background:var(--gm)}
+.ph-title{font-size:20px;font-weight:700;color:var(--rp-black);line-height:26px}
+.ph-sub{font-size:14px;color:var(--rp-black);opacity:0.75;margin-top:3px;line-height:18px}
+.page-body{padding:20px 32px}
+/* RAUL Filter Bar — floating-label select style */
+.fbar{background:#fff;border-bottom:1px solid var(--gll);padding:12px 32px;display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:10;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+/* Search input */
+.fsearch-wrap{position:relative;flex-shrink:0}
+.fsearch{height:40px;width:220px;border:1px solid var(--gm);border-radius:2px;padding:0 12px 0 34px;font-size:14px;font-family:var(--font);outline:none;color:var(--rp-black);background:#fff}
+.fsearch:focus{border-color:var(--rp)}
+.fsearch::placeholder{color:var(--gm)}
+.fsearch-ic{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gm);pointer-events:none}
+/* Floating-label select */
+.fsel-wrap{position:relative;flex-shrink:0}
+.fsel-lbl{position:absolute;top:-9px;left:8px;background:#fff;padding:0 4px;font-size:12px;font-weight:500;color:var(--rp-black);z-index:1;white-space:nowrap;line-height:18px}
+.fsel{height:40px;border:1px solid var(--gm);border-radius:2px;padding:0 28px 0 10px;font-size:14px;font-family:var(--font);outline:none;color:var(--rp-black);background:#fff;appearance:none;cursor:pointer;width:100%}
 .fsel:focus{border-color:var(--rp)}
-.ftog{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:11px;color:#4A5568;padding:4px 8px;border:1px solid var(--gll);border-radius:12px;white-space:nowrap;user-select:none;transition:all .1s}
-.ftog:hover{border-color:var(--rp);color:var(--rp)}
-.tpill{width:24px;height:12px;border-radius:6px;background:var(--gm);position:relative;transition:background .15s;flex-shrink:0}
-.tpill.on{background:var(--rp)}.tpill::after{content:'';position:absolute;width:8px;height:8px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .15s}.tpill.on::after{transform:translateX(12px)}
-.kgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
-.kcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:14px 15px;border-top:2px solid var(--gll);box-shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
-.kcard.g{border-top-color:var(--green)}.kcard.r{border-top-color:var(--red)}.kcard.b{border-top-color:var(--rp)}.kcard.y{border-top-color:var(--yel)}
-.k-lbl{font-size:10px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
-.k-val{font-size:21px;font-weight:700;color:#1A202C;line-height:1}
-.k-sub{font-size:11px;color:var(--gd);margin-top:3px}
-.k-delta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;margin-top:5px;padding:2px 6px;border-radius:10px}
-.k-delta.up{background:var(--gbg);color:var(--green)}.k-delta.dn{background:var(--rbg);color:var(--red)}.k-delta.neu{background:var(--gll);color:#4A5568}
-.li-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
-.li-card{background:#fff;border:1px solid var(--gll);border-radius:var(--br);padding:13px 14px;position:relative;overflow:hidden}
+.fsel-arrow{position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--gd)}
+/* Period tabs within filter bar */
+.fperiod{display:flex;border:1px solid var(--gm);border-radius:2px;overflow:hidden;flex-shrink:0;height:40px}
+.fperiod-tab{padding:0 12px;font-size:13px;font-weight:400;color:var(--rp-black);cursor:pointer;display:flex;align-items:center;border-right:1px solid var(--gm);background:#fff;transition:all .1s;user-select:none;white-space:nowrap}
+.fperiod-tab:last-child{border-right:none}
+.fperiod-tab:hover:not(.on){background:var(--gl)}
+.fperiod-tab.on{background:var(--rp);color:#fff;font-weight:500}
+/* High Risk toggle */
+.ftog{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--rp-black);padding:0 12px;height:40px;border:1px solid var(--gm);border-radius:2px;white-space:nowrap;user-select:none;transition:all .1s;flex-shrink:0}
+.ftog:hover{border-color:var(--rp)}
+.ftog.on{border-color:var(--rp);color:var(--rp)}
+.tpill{width:28px;height:16px;border-radius:8px;background:var(--gm);position:relative;transition:background .15s;flex-shrink:0}
+.tpill.on{background:var(--rp)}.tpill::after{content:'';position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .15s}.tpill.on::after{transform:translateX(12px)}
+/* Filter action buttons */
+.fbtn{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px;border:1px solid var(--gm);border-radius:2px;background:#fff;font-size:13px;font-weight:500;color:var(--rp-black);font-family:var(--font);cursor:pointer;white-space:nowrap;transition:all .1s;flex-shrink:0}
+.fbtn:hover{border-color:var(--rp);color:var(--rp)}
+.kgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:0}
+/* RAUL KPI Card — white, #EBEDEE border, 4px radius, DSCard shadow, orange corner */
+.kcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:20px 18px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kcard::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 16px 16px 0;border-color:transparent var(--orange) transparent transparent}
+.k-lbl{font-size:12px;font-weight:500;color:var(--rp-black);margin-bottom:10px;line-height:18px;text-transform:none;letter-spacing:0}
+.k-val{font-size:26px;font-weight:700;color:var(--rp-black);line-height:1.15}
+.k-sub{font-size:12px;color:var(--rp-black);opacity:0.65;margin-top:4px;line-height:18px}
+.k-delta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:500;margin-top:8px;padding:2px 6px;border-radius:2px}
+.k-delta.up{background:var(--gbg);color:var(--green)}.k-delta.dn{background:var(--rbg);color:var(--red)}.k-delta.neu{background:var(--gll);color:var(--rp-black)}
+.li-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:0}
+.li-card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:14px 16px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
 .li-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
-.li-card.al::before{background:var(--red)}.li-card.rc::before{background:var(--yel)}.li-card.en::before{background:var(--pur)}.li-card.tr::before{background:var(--green)}
-.li-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;display:flex;align-items:center;gap:4px}
-.li-type.al{color:var(--red)}.li-type.rc{color:var(--yel)}.li-type.en{color:var(--pur)}.li-type.tr{color:var(--green)}
-.li-ttl{font-size:12px;font-weight:600;color:#1A202C;margin-bottom:4px;line-height:1.35}
-.li-det{font-size:11px;color:#4A5568;line-height:1.45;margin-bottom:8px}
-.li-cta{font-size:11px;font-weight:600;color:var(--rp);cursor:pointer;display:flex;align-items:center;gap:3px}
+.li-card.al::before{background:var(--red)}.li-card.rc::before{background:var(--orange)}.li-card.en::before{background:var(--pur)}.li-card.tr::before{background:var(--green)}
+.li-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.li-type.al{color:var(--red)}.li-type.rc{color:var(--orange)}.li-type.en{color:var(--pur)}.li-type.tr{color:var(--green)}
+.li-ttl{font-size:13px;font-weight:600;color:var(--rp-black);margin-bottom:5px;line-height:1.4}
+.li-det{font-size:12px;color:rgba(32,39,55,0.75);line-height:1.5;margin-bottom:10px}
+.li-cta{font-size:12px;font-weight:500;color:var(--rp);cursor:pointer;display:flex;align-items:center;gap:3px}
 .li-cta:hover{text-decoration:underline}
-.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:20px}
-.sh-t{font-size:13px;font-weight:600;color:#2D3748;display:flex;align-items:center;gap:8px}
-.sh-l{font-size:11px;color:var(--rp);cursor:pointer}.sh-l:hover{text-decoration:underline}
-.sh-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;background:var(--rbg);color:var(--red)}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;margin-top:24px}
+.sh-t{font-size:14px;font-weight:600;color:var(--rp-black);display:flex;align-items:center;gap:8px}
+.sh-l{font-size:12px;color:var(--rp);cursor:pointer;font-weight:500}.sh-l:hover{text-decoration:underline}
+.sh-badge{font-size:11px;font-weight:500;padding:2px 8px;border-radius:2px;background:var(--rbg);color:var(--red)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
 .g12{display:grid;grid-template-columns:1fr 2fr;gap:12px;margin-bottom:12px}
 .card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:16px;box-shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
 .ct{font-size:11px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
@@ -94,12 +119,12 @@ body{font-family:var(--font);background:var(--gl);color:#1A202C;font-size:13px;l
 .sigcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:14px;box-shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
 .sig-v{font-size:24px;font-weight:700;line-height:1}
 .sig-tgt{font-size:11px;color:var(--gd);margin-top:3px}
-.sig-st{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:6px}
-.sig-st.ok{background:var(--gbg);color:var(--green)}.sig-st.bad{background:var(--rbg);color:var(--red)}.sig-st.warn{background:var(--ybg);color:#92400E}
+.sig-st{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:2px;margin-top:8px}
+.sig-st.ok{background:var(--gbg);color:var(--green)}.sig-st.bad{background:var(--rbg);color:var(--red)}.sig-st.warn{background:var(--ybg);color:var(--orange)}
 .sig-cta{font-size:11px;font-weight:500;color:var(--rp);cursor:pointer;margin-top:8px;display:flex;align-items:center;gap:3px}
 .sig-cta:hover{text-decoration:underline}
 .dt{width:100%;border-collapse:collapse}
-.dt th{font-size:12px;font-weight:500;color:var(--gd);letter-spacing:0;padding:0 12px;height:34px;text-align:left;border-bottom:1px solid var(--gll);background:#fff;white-space:nowrap;vertical-align:middle}
+.dt th{font-size:12px;font-weight:500;color:var(--rp-black);letter-spacing:0;padding:0 12px;height:34px;text-align:left;border-bottom:1px solid var(--gll);background:var(--gl);white-space:nowrap;vertical-align:middle}
 .dt th.r{text-align:right}
 .dt td{padding:0 12px;height:59px;border-bottom:1px solid var(--gll);font-size:12px;color:#2D3748;vertical-align:middle}
 .dt td.r{text-align:right}.dt tr:hover td{background:var(--gl)}.dt tr:last-child td{border-bottom:none}
@@ -116,16 +141,16 @@ body{font-family:var(--font);background:var(--gl);color:#1A202C;font-size:13px;l
 .viol-circle.cr{background:#d01a1f;color:#fff}
 .viol-circle.wa{background:#f06000;color:#fff}
 .viol-circle.lo{background:var(--gll);color:#4A5568}
-.tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px}
-.tag.g{background:var(--gbg);color:var(--green)}.tag.r{background:var(--rbg);color:var(--red)}.tag.y{background:var(--ybg);color:#92400E}.tag.b{background:var(--hi);color:var(--rp)}.tag.gr{background:var(--gll);color:#4A5568}.tag.p{background:var(--pbg);color:var(--pur)}
-.rpill{display:inline-flex;align-items:center;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;text-transform:uppercase;gap:3px}
-.rpill.h{background:var(--rbg);color:var(--red)}.rpill.m{background:var(--ybg);color:#92400E}.rpill.l{background:var(--gbg);color:var(--green)}
-.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:var(--br);font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:all .1s}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:2px}
+.tag.g{background:var(--gbg);color:var(--green)}.tag.r{background:var(--rbg);color:var(--red)}.tag.y{background:var(--ybg);color:var(--orange)}.tag.b{background:rgba(0,118,204,0.1);color:var(--rp)}.tag.gr{background:var(--gll);color:var(--rp-black)}.tag.p{background:var(--pbg);color:var(--pur)}
+.rpill{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px;text-transform:uppercase;gap:3px}
+.rpill.h{background:var(--rbg);color:var(--red)}.rpill.m{background:var(--ybg);color:var(--orange)}.rpill.l{background:var(--gbg);color:var(--green)}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:all .1s}
 .bp{background:var(--rp);color:#fff}.bp:hover{background:var(--rp-dk)}
 .bs{background:#fff;color:var(--rp);border:1px solid var(--rp)}.bs:hover{background:var(--hi)}
-.bg{background:transparent;color:var(--gd);border:1px solid var(--gll)}.bg:hover{background:var(--gl)}
+.bg{background:#fff;color:var(--rp-black);border:1px solid var(--gm)}.bg:hover{background:var(--gl)}
 .bd{background:var(--red);color:#fff}
-.sm{padding:4px 9px;font-size:11px}.xs{padding:3px 7px;font-size:10px}
+.sm{padding:6px 12px;font-size:12px}.xs{padding:3px 9px;font-size:11px}
 .tabs{display:flex;border-bottom:2px solid var(--gll);margin-bottom:14px}
 .tab{padding:8px 16px;font-size:13px;color:var(--gd);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .1s;user-select:none}
 .tab.on{color:var(--rp);font-weight:500;border-bottom-color:var(--rp)}.tab:hover:not(.on){color:#4A5568}
@@ -172,6 +197,9 @@ body{font-family:var(--font);background:var(--gl);color:#1A202C;font-size:13px;l
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--gm);border-radius:3px}
 .panim{animation:fu .2s ease}@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .fw6{font-weight:600}.fs11{font-size:11px}.fs12{font-size:12px}
+/* Filter chip (Investigations quick filter) */
+.fc{display:inline-flex;align-items:center;padding:4px 12px;border:1px solid var(--gm);border-radius:2px;font-size:12px;font-weight:500;color:var(--rp-black);cursor:pointer;user-select:none;transition:all .1s;background:#fff}
+.fc:hover{border-color:var(--rp);color:var(--rp)}.fc.on{background:var(--rp);color:#fff;border-color:var(--rp)}
 </style>
 </head>
 <body>
@@ -382,8 +410,8 @@ const StackBar = ({a,total,colorA='#0076CC',colorB='#EBEDEE',h=10}) => (
 );
 
 /* ── UI PRIMITIVES ────────────────────────────────────────────── */
-const KPICard = ({label,val,sub,delta,dir,accent}) => (
-  <div className={`kcard ${accent}`}>
+const KPICard = ({label,val,sub,delta,dir}) => (
+  <div className="kcard">
     <div className="k-lbl">{label}</div>
     <div className="k-val">{val}</div>
     <div className="k-sub">{sub}</div>
@@ -418,23 +446,54 @@ const SignalCard = ({sig,onPage}) => {
   );
 };
 
+const FSelect = ({label,width=130,children}) => (
+  <div className="fsel-wrap" style={{width}}>
+    <span className="fsel-lbl">{label}</span>
+    <select className="fsel">{children}</select>
+    <svg className="fsel-arrow" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+);
+
 const FilterBar = ({period,onPeriod,riskOnly,onRisk}) => (
   <div className="fbar">
-    {['MTD','QTD','YTD','Custom'].map(p=><span key={p} className={`fc ${period===p?'on':''}`} onClick={()=>onPeriod(p)}>{p}</span>)}
-    <div className="fbar-sep"/>
-    <select className="fsel"><option>All Regions</option><option>Texas</option><option>Florida</option><option>Georgia</option><option>Colorado</option></select>
-    <select className="fsel"><option>All Properties</option><option>Pegasus Meadows</option><option>Pegasus Heights</option><option>Pegasus Ridge</option></select>
-    <select className="fsel"><option>All Categories</option><option>HVAC</option><option>Plumbing</option><option>Landscaping</option><option>Electrical</option></select>
-    <select className="fsel"><option>All Vendors</option><option>Preferred Only</option><option>Non-preferred</option></select>
-    <select className="fsel"><option>Vendor Status</option><option>Credentialed</option><option>Non-credentialed</option></select>
-    <select className="fsel"><option>Invoice Channel</option><option>Online</option><option>Offline</option></select>
-    <select className="fsel"><option>Compliance Type</option><option>Spend</option><option>Process</option><option>Vendor</option></select>
-    <div className="fbar-sep"/>
-    <div className="ftog" onClick={()=>onRisk(!riskOnly)}>
+    {/* Search */}
+    <div className="fsearch-wrap">
+      <svg className="fsearch-ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+      <input className="fsearch" placeholder="Search properties, vendors..."/>
+    </div>
+    {/* Period segmented control */}
+    <div className="fperiod">
+      {['MTD','QTD','YTD','Custom'].map(p=>(
+        <span key={p} className={`fperiod-tab ${period===p?'on':''}`} onClick={()=>onPeriod(p)}>{p}</span>
+      ))}
+    </div>
+    {/* Floating-label selects */}
+    <FSelect label="Region" width={120}>
+      <option>All Regions</option><option>Texas</option><option>Florida</option><option>Georgia</option><option>Colorado</option>
+    </FSelect>
+    <FSelect label="Property" width={130}>
+      <option>All Properties</option><option>Pegasus Meadows</option><option>Pegasus Heights</option><option>Pegasus Ridge</option>
+    </FSelect>
+    <FSelect label="Category" width={120}>
+      <option>All Categories</option><option>HVAC</option><option>Plumbing</option><option>Landscaping</option><option>Electrical</option>
+    </FSelect>
+    <FSelect label="Vendor Status" width={130}>
+      <option>All Vendors</option><option>Preferred</option><option>Non-preferred</option><option>Credentialed</option>
+    </FSelect>
+    <FSelect label="Invoice Channel" width={135}>
+      <option>All Channels</option><option>Online</option><option>Offline / Paper</option>
+    </FSelect>
+    {/* High Risk toggle */}
+    <div className={`ftog ${riskOnly?'on':''}`} onClick={()=>onRisk(!riskOnly)}>
       <div className={`tpill ${riskOnly?'on':''}`}/>
       High Risk Only
     </div>
-    <button className="btn bg sm" style={{marginLeft:'auto'}}>Reset</button>
+    {/* Actions */}
+    <button className="fbtn" style={{marginLeft:'auto'}}>
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
+      Filter
+    </button>
+    <button className="fbtn">Reset</button>
   </div>
 );
 
@@ -449,23 +508,28 @@ const SpendCompliance = ({onPage}) => {
   const trendLbls = ['J','F','M','A','M','J','J','A','S','O','N','D'];
   return (
     <div className="panim">
-      <div className="ph-row">
+      {/* RAUL Page Header Strip */}
+      <div className="ph-strip">
         <div>
+          <div className="ph-eyebrow"><span className="ph-dot or"/><span className="ph-dot gr"/></div>
           <div className="ph-title">Spend Compliance</div>
           <div className="ph-sub">AI-powered visibility into compliant spend, process adherence, vendor behavior, and savings opportunities</div>
         </div>
-        <div style={{display:'flex',gap:8}}>
+        <div style={{display:'flex',gap:8,alignItems:'center'}}>
           <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
           <button className="btn bp sm"><Icon n="bell" s={13}/> Configure Alert</button>
         </div>
       </div>
       <FilterBar period={period} onPeriod={setPeriod} riskOnly={riskOnly} onRisk={setRiskOnly}/>
-      <div className="kgrid">{KPI_DATA.map(k=><KPICard key={k.id} {...k}/>)}</div>
-      <div className="sh">
-        <div className="sh-t"><span style={{background:'linear-gradient(135deg,#6366F1,#8B5CF6)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontWeight:700}}>✦ Lumina</span> AI Insights</div>
-        <div className="sh-l">Configure</div>
+      <div style={{padding:'20px 32px 0'}}>
+        <div className="kgrid">{KPI_DATA.map(k=><KPICard key={k.id} {...k}/>)}</div>
       </div>
-      <div className="li-row">{INSIGHTS.map((ins,i)=><InsightCard key={i} ins={ins} onPage={onPage}/>)}</div>
+      <div style={{padding:'0 32px'}}>
+        <div className="sh">
+          <div className="sh-t"><span style={{background:'linear-gradient(135deg,#6366F1,#8B5CF6)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontWeight:700}}>✦ Lumina</span> AI Insights</div>
+          <div className="sh-l">Configure</div>
+        </div>
+        <div className="li-row">{INSIGHTS.map((ins,i)=><InsightCard key={i} ins={ins} onPage={onPage}/>)}</div>
 
       <div className="sh"><div className="sh-t">Spend Health</div><div className="sh-l">Full report</div></div>
       <div className="g3">
@@ -625,15 +689,20 @@ const ProcessCompliance = () => {
   const d = PROCESS_DATA;
   return (
     <div className="panim">
-      <div className="ph-row">
-        <div><div className="ph-title">Process Compliance</div><div className="ph-sub">ROG compliance, PO-WTN adherence, and vendor invoice compliance across your portfolio</div></div>
+      <div className="ph-strip">
+        <div>
+          <div className="ph-eyebrow"><span className="ph-dot or"/><span className="ph-dot gr"/></div>
+          <div className="ph-title">Process Compliance</div>
+          <div className="ph-sub">ROG compliance, PO-WTN adherence, and vendor invoice compliance across your portfolio</div>
+        </div>
         <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
       </div>
       <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <div className="page-body">
       <div className="bnr y"><Icon n="alert" s={14} c="#D97706"/><span>ROG and Vendor Invoice compliance below target. <strong>PO-WTN at 95%</strong> — above target. <strong>800 invoices</strong> tracked this period (620 compliant).</span></div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
         {[{id:'rog',l:'ROG Compliance',v:77,tgt:80,sub:'800 invoices · 620 compliant'},{id:'po',l:'PO-WTN Compliance',v:95,tgt:80,sub:'Exceeds 80% target'},{id:'vi',l:'Vendor Invoice Compliance',v:68,tgt:75,sub:'Target: 75%'}].map(m=>(
-          <div key={m.id} className="kcard" style={{borderTop:`2px solid ${m.v>=m.tgt?'#118837':'#D01A1F'}`}}>
+          <div key={m.id} className="kcard">
             <div className="k-lbl">{m.l}</div>
             <div className="k-val" style={{color:m.v>=m.tgt?'#118837':'#D01A1F'}}>{m.v}%</div>
             <div className="k-sub">{m.sub}</div>
@@ -717,6 +786,7 @@ const ProcessCompliance = () => {
           </div>
         </div>
       )}
+      </div>{/* /page-body */}
     </div>
   );
 };
@@ -728,16 +798,21 @@ const OfflineLeakage = () => {
   const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
   return (
     <div className="panim">
-      <div className="ph-row">
-        <div><div className="ph-title">Offline Leakage</div><div className="ph-sub">Track offline spend, provisioned vendors transacting off-platform, and missed savings opportunities</div></div>
+      <div className="ph-strip">
+        <div>
+          <div className="ph-eyebrow"><span className="ph-dot or"/><span className="ph-dot gr"/></div>
+          <div className="ph-title">Offline Leakage</div>
+          <div className="ph-sub">Track offline spend, provisioned vendors transacting off-platform, and missed savings opportunities</div>
+        </div>
         <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
       </div>
       <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <div className="page-body">
       <div className="bnr y"><Icon n="alert" s={14} c="#D97706"/><span>Offline leakage at <strong>29.8%</strong> — 9.8pts above 20% target. <strong>1,622 of 5,451 orders</strong> transacting offline. Estimated <strong>$473K in missed platform savings</strong> this year.</span></div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10,marginBottom:16}}>
-        <div className="kcard r"><div className="k-lbl">Offline Rate</div><div className="k-val" style={{color:'#D01A1F'}}>29.8%</div><div className="k-sub">Target: 20% · Gap: 9.8pts</div><div className="k-delta dn">▼ Above target</div></div>
+        <div className="kcard"><div className="k-lbl">Offline Rate</div><div className="k-val" style={{color:'#D01A1F'}}>29.8%</div><div className="k-sub">Target: 20% · Gap: 9.8pts</div><div className="k-delta dn">▼ Above target</div></div>
         <div className="kcard"><div className="k-lbl">Offline Orders</div><div className="k-val">1,622</div><div className="k-sub">of 5,451 total orders YTD</div><div className="k-delta neu">→ Tracking</div></div>
-        <div className="kcard y"><div className="k-lbl">Missed Savings</div><div className="k-val" style={{color:'#D97706'}}>$473K</div><div className="k-sub">15% offline rebate opp.</div><div className="k-delta neu">→ Opportunity</div></div>
+        <div className="kcard"><div className="k-lbl">Missed Savings</div><div className="k-val" style={{color:'#D97706'}}>$473K</div><div className="k-sub">15% offline rebate opp.</div><div className="k-delta neu">→ Opportunity</div></div>
         <div className="kcard"><div className="k-lbl">Provisioned Still Offline</div><div className="k-val">4</div><div className="k-sub">vendors · $354K spend</div><div className="k-delta dn">▼ Action needed</div></div>
       </div>
       <div className="g2">
@@ -790,6 +865,7 @@ const OfflineLeakage = () => {
           </tbody>
         </table>
       </div>
+      </div>{/* /page-body */}
     </div>
   );
 };
@@ -801,20 +877,25 @@ const VendorNetwork = () => {
   const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
   return (
     <div className="panim">
-      <div className="ph-row">
-        <div><div className="ph-title">Vendor Network</div><div className="ph-sub">Online vs offline vendor mix, channel breakdown, credentialing status, and non-compliant vendor tracking</div></div>
+      <div className="ph-strip">
+        <div>
+          <div className="ph-eyebrow"><span className="ph-dot or"/><span className="ph-dot gr"/></div>
+          <div className="ph-title">Vendor Network</div>
+          <div className="ph-sub">Online vs offline vendor mix, channel breakdown, credentialing status, and non-compliant vendor tracking</div>
+        </div>
         <div style={{display:'flex',gap:8}}>
           <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
           <button className="btn bp sm"><Icon n="plus" s={13}/> Onboard Vendor</button>
         </div>
       </div>
       <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <div className="page-body">
       <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:10,marginBottom:16}}>
-        <div className="kcard b"><div className="k-lbl">Total Vendors</div><div className="k-val">261</div><div className="k-sub">Active in portfolio</div><div className="k-delta neu">+5 this quarter</div></div>
-        <div className="kcard g"><div className="k-lbl">Online Vendors</div><div className="k-val">74</div><div className="k-sub">28.4% of vendor base</div><div className="k-delta up">▲ +6 this quarter</div></div>
-        <div className="kcard r"><div className="k-lbl">Offline Vendors</div><div className="k-val">187</div><div className="k-sub">71.6% — above target</div><div className="k-delta dn">▼ Action needed</div></div>
-        <div className="kcard y"><div className="k-lbl">Credentialed</div><div className="k-val">143</div><div className="k-sub">54.8% credentialed</div><div className="k-delta up">▲ +2pts QoQ</div></div>
-        <div className="kcard y"><div className="k-lbl">Non-Credentialed</div><div className="k-val">111</div><div className="k-sub">42.5% · requires action</div><div className="k-delta dn">▼ Review needed</div></div>
+        <div className="kcard"><div className="k-lbl">Total Vendors</div><div className="k-val">261</div><div className="k-sub">Active in portfolio</div><div className="k-delta neu">+5 this quarter</div></div>
+        <div className="kcard"><div className="k-lbl">Online Vendors</div><div className="k-val">74</div><div className="k-sub">28.4% of vendor base</div><div className="k-delta up">▲ +6 this quarter</div></div>
+        <div className="kcard"><div className="k-lbl">Offline Vendors</div><div className="k-val">187</div><div className="k-sub">71.6% — above target</div><div className="k-delta dn">▼ Action needed</div></div>
+        <div className="kcard"><div className="k-lbl">Credentialed</div><div className="k-val">143</div><div className="k-sub">54.8% credentialed</div><div className="k-delta up">▲ +2pts QoQ</div></div>
+        <div className="kcard"><div className="k-lbl">Non-Credentialed</div><div className="k-val">111</div><div className="k-sub">42.5% · requires action</div><div className="k-delta dn">▼ Review needed</div></div>
       </div>
       <div className="g2">
         <div className="card">
@@ -848,7 +929,7 @@ const VendorNetwork = () => {
       <div className="card">
         <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12}}>
           {[{l:'Fully Credentialed',v:143,c:'g',sub:'COI + W-9 + Approved · 54.8%'},{l:'Partially Credentialed',v:7,c:'y',sub:'Missing 1 document'},{l:'Pending Review',v:18,c:'b',sub:'Submitted, under review'},{l:'Not Credentialed',v:93,c:'r',sub:'No compliance docs · 35.6%'}].map((m,i)=>(
-            <div key={i} style={{padding:14,border:'1px solid #EBEDEE',borderRadius:2,borderTop:`2px solid ${m.c==='g'?'#118837':m.c==='y'?'#D97706':m.c==='r'?'#D01A1F':'#0076CC'}`}}>
+            <div key={i} className="kcard" style={{padding:14}}>
               <div style={{fontSize:22,fontWeight:700}}>{m.v}</div>
               <div style={{fontSize:12,fontWeight:600,marginTop:2}}>{m.l}</div>
               <div style={{fontSize:11,color:'#9BA3A7',marginTop:2}}>{m.sub}</div>
@@ -873,6 +954,7 @@ const VendorNetwork = () => {
           </tbody>
         </table>
       </div>
+      </div>{/* /page-body */}
     </div>
   );
 };
@@ -886,14 +968,19 @@ const Investigations = () => {
   const filtered = filter==='all'?CASES:CASES.filter(c=>c.pri===filter);
   return (
     <div className="panim">
-      <div className="ph-row">
-        <div><div className="ph-title">Investigations &amp; Action Center</div><div className="ph-sub">AI-generated compliance cases requiring investigation, decision, or remediation</div></div>
+      <div className="ph-strip">
+        <div>
+          <div className="ph-eyebrow"><span className="ph-dot or"/><span className="ph-dot gr"/></div>
+          <div className="ph-title">Investigations &amp; Action Center</div>
+          <div className="ph-sub">AI-generated compliance cases requiring investigation, decision, or remediation</div>
+        </div>
         <div style={{display:'flex',gap:8}}>
           <button className="btn bg sm"><Icon n="filter" s={13}/> Filter</button>
           <button className="btn bp sm"><Icon n="plus" s={13}/> New Case</button>
         </div>
       </div>
       <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <div className="page-body">
       <div style={{background:'#FBE9EA',border:'1px solid #F5C6C7',borderRadius:2,padding:'10px 14px',marginBottom:14,display:'flex',alignItems:'center',gap:10}}>
         <Icon n="alert" s={16} c="#D01A1F"/>
         <div><div style={{fontSize:13,fontWeight:600,color:'#D01A1F'}}>4 Critical Cases Open</div><div style={{fontSize:11,color:'#4A5568'}}>$164K in immediate financial exposure · Requires VP attention</div></div>
@@ -961,6 +1048,7 @@ const Investigations = () => {
           )}
         </div>
       </div>
+      </div>{/* /page-body */}
     </div>
   );
 };
