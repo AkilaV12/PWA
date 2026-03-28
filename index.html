@@ -1,1731 +1,1151 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <meta name="theme-color" content="#3D7F8D" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
-  <meta name="apple-mobile-web-app-title" content="OPSBUYER" />
-  <title>RealPage OPSBUYER</title>
-  <link rel="manifest" href="data:application/json;base64,eyJuYW1lIjoiUmVhbFBhZ2UgT1BTQlVZRVIiLCJzaG9ydF9uYW1lIjoiT1BTQlVZRVIiLCJzdGFydF91cmwiOiIuIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJiYWNrZ3JvdW5kX2NvbG9yIjoiI2ZmZmZmZiIsInRoZW1lX2NvbG9yIjoiIzNEN0Y4RCJ9" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&family=Roboto:wght@400;500&display=swap" rel="stylesheet" />
-  <style>
-    /* ─── CSS Custom Properties ─────────────────────────────── */
-    :root {
-      --teal: #3D7F8D;
-      --dark: #282829;
-      --secondary: #202737;
-      --border: #E9EAEB;
-      --light-gray: #EBEDEE;
-      --amber-bg: #FFF9EA;
-      --amber-text: #BC8701;
-      --green-text: #118837;
-      --red-text: #D0021B;
-      --white: #ffffff;
-      --nav-inactive: #9BA3A7;
-      --card-shadow: 0px 2px 12px -2px rgba(0,0,0,0.06);
-    }
-
-    /* ─── Reset ─────────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body {
-      font-family: 'Lato', sans-serif;
-      background: #F2F4F5;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      -webkit-tap-highlight-color: transparent;
-    }
-    button { cursor: pointer; border: none; background: none; font-family: inherit; }
-    input, textarea { font-family: inherit; }
-
-    /* ─── App Shell ─────────────────────────────────────────── */
-    #app {
-      max-width: 393px;
-      margin: 0 auto;
-      background: var(--white);
-      min-height: 100vh;
-      position: relative;
-      overflow: hidden;
-    }
-
-    /* ─── Screens ───────────────────────────────────────────── */
-    .screen {
-      display: none;
-      flex-direction: column;
-      min-height: 100vh;
-      background: var(--white);
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-    }
-    .screen.active {
-      display: flex;
-      position: relative;
-    }
-
-    /* ─── iOS Status Bar ────────────────────────────────────── */
-    .status-bar {
-      height: 44px;
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 20px;
-      flex-shrink: 0;
-    }
-    .status-bar .time {
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: 15px;
-      color: var(--dark);
-      letter-spacing: -0.3px;
-    }
-    .status-bar .icons {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    /* ─── Scrollable Content ────────────────────────────────── */
-    .screen-content {
-      flex: 1;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-    }
-    .screen-content::-webkit-scrollbar { display: none; }
-
-    /* ─── Nav Bar ───────────────────────────────────────────── */
-    .nav-bar {
-      background: var(--white);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 16px 12px;
-      flex-shrink: 0;
-    }
-    .nav-circle-btn {
-      width: 44px;
-      height: 44px;
-      border-radius: 50%;
-      background: var(--white);
-      box-shadow: 0px 2px 8px rgba(0,0,0,0.12);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border: none;
-      cursor: pointer;
-      flex-shrink: 0;
-    }
-
-    /* ─── Cards ─────────────────────────────────────────────── */
-    .card {
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-      padding: 24px;
-      background: var(--white);
-    }
-
-    /* ─── Badges ─────────────────────────────────────────────── */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      border-radius: 6px;
-      padding: 4px 8px;
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: 12px;
-      line-height: 1;
-      white-space: nowrap;
-    }
-    .badge-amber { background: var(--amber-bg); color: var(--amber-text); }
-    .badge-gray { background: var(--light-gray); color: rgba(32,39,55,0.7); }
-    .badge-red { background: #FFEAEA; color: var(--red-text); }
-
-    /* ─── Tabs ──────────────────────────────────────────────── */
-    .tabs {
-      display: flex;
-      border-bottom: 1px solid var(--border);
-      background: var(--white);
-      flex-shrink: 0;
-      overflow-x: auto;
-    }
-    .tabs::-webkit-scrollbar { display: none; }
-    .tab {
-      height: 40px;
-      padding: 0 16px;
-      display: flex;
-      align-items: center;
-      font-family: 'Lato', sans-serif;
-      font-size: 14px;
-      font-weight: 400;
-      color: rgba(32,39,55,0.6);
-      border-bottom: 2px solid transparent;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: color 0.2s, border-color 0.2s;
-      margin-bottom: -1px;
-    }
-    .tab.active {
-      font-weight: 700;
-      color: var(--teal);
-      border-bottom-color: var(--teal);
-    }
-
-    /* ─── Bottom Action Bar ─────────────────────────────────── */
-    .bottom-action-bar {
-      background: var(--white);
-      border-top: 1px solid var(--border);
-      padding: 12px 16px;
-      display: flex;
-      gap: 12px;
-      flex-shrink: 0;
-    }
-    .btn-reject {
-      flex: 1;
-      height: 48px;
-      border-radius: 8px;
-      background: var(--white);
-      border: 1px solid var(--border);
-      color: var(--teal);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .btn-approve {
-      flex: 1;
-      height: 48px;
-      border-radius: 8px;
-      background: var(--teal);
-      border: none;
-      color: var(--white);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-    }
-    .btn-more-info {
-      width: 100%;
-      height: 48px;
-      border-radius: 8px;
-      background: var(--white);
-      border: 1px solid var(--teal);
-      color: var(--secondary);
-      font-family: 'Lato', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      cursor: pointer;
-      margin-top: 12px;
-    }
-
-    /* ─── Bottom Nav ────────────────────────────────────────── */
-    .bottom-nav {
-      background: var(--white);
-      border-top: 1px solid var(--border);
-      display: flex;
-      align-items: stretch;
-      flex-shrink: 0;
-    }
-    .nav-item {
-      flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 8px 0 12px;
-      cursor: pointer;
-      gap: 3px;
-    }
-    .nav-item span {
-      font-family: 'Lato', sans-serif;
-      font-size: 10px;
-      font-weight: 400;
-      color: var(--nav-inactive);
-    }
-    .nav-item.active span { color: var(--teal); font-weight: 700; }
-
-    /* ─── Home Indicator ────────────────────────────────────── */
-    .home-indicator {
-      height: 34px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: var(--white);
-      flex-shrink: 0;
-    }
-    .home-indicator-bar {
-      width: 134px;
-      height: 5px;
-      background: var(--dark);
-      border-radius: 3px;
-      opacity: 0.18;
-    }
-
-    /* ─── Toast ─────────────────────────────────────────────── */
-    #toast {
-      position: fixed;
-      bottom: 110px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #1a1a1b;
-      color: white;
-      font-family: 'Lato', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      padding: 12px 24px;
-      border-radius: 24px;
-      opacity: 0;
-      transition: opacity 0.3s, transform 0.3s;
-      z-index: 9999;
-      white-space: nowrap;
-      pointer-events: none;
-      max-width: calc(393px - 40px);
-      text-align: center;
-    }
-    #toast.show {
-      opacity: 1;
-      transform: translateX(-50%) translateY(0);
-    }
-
-    /* ─── Overlay ───────────────────────────────────────────── */
-    #overlay-backdrop {
-      position: fixed;
-      inset: 0;
-      background: rgba(0,0,0,0.5);
-      z-index: 200;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.3s;
-      max-width: 393px;
-      left: 50%;
-      transform: translateX(-50%);
-    }
-    #overlay-backdrop.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
-
-    /* ─── Bottom Sheet ──────────────────────────────────────── */
-    .bottom-sheet {
-      position: fixed;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%) translateY(100%);
-      width: 100%;
-      max-width: 393px;
-      background: var(--white);
-      border-radius: 20px 20px 0 0;
-      z-index: 201;
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      max-height: 92vh;
-      display: flex;
-      flex-direction: column;
-    }
-    .bottom-sheet.show {
-      transform: translateX(-50%) translateY(0);
-    }
-    .sheet-handle {
-      width: 36px;
-      height: 4px;
-      background: #D1D5DB;
-      border-radius: 2px;
-      margin: 12px auto 0;
-      flex-shrink: 0;
-    }
-    .sheet-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 16px 20px 12px;
-      flex-shrink: 0;
-    }
-    .sheet-close {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: var(--light-gray);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      border: none;
-      flex-shrink: 0;
-    }
-    .sheet-body {
-      flex: 1;
-      overflow-y: auto;
-      padding: 0 20px 20px;
-      -webkit-overflow-scrolling: touch;
-    }
-    .sheet-body::-webkit-scrollbar { display: none; }
-
-    /* ─── Search Bar ─────────────────────────────────────────── */
-    .search-bar {
-      display: flex;
-      align-items: center;
-      background: var(--light-gray);
-      border-radius: 10px;
-      padding: 0 12px;
-      height: 40px;
-      gap: 8px;
-    }
-    .search-bar input {
-      flex: 1;
-      background: none;
-      border: none;
-      outline: none;
-      font-family: 'Lato', sans-serif;
-      font-size: 14px;
-      color: var(--dark);
-    }
-    .search-bar input::placeholder { color: #9BA3A7; }
-
-    /* ─── Progress Bar ───────────────────────────────────────── */
-    .progress-bar-track {
-      height: 6px;
-      background: var(--light-gray);
-      border-radius: 3px;
-      overflow: hidden;
-      margin: 10px 0 6px;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: var(--teal);
-      border-radius: 3px;
-    }
-
-    /* ─── Pills ──────────────────────────────────────────────── */
-    .pill-filters { display: flex; gap: 8px; flex-wrap: wrap; }
-    .pill {
-      height: 28px;
-      border-radius: 14px;
-      padding: 0 12px;
-      font-family: 'Lato', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      display: inline-flex;
-      align-items: center;
-      cursor: pointer;
-    }
-    .pill-active { background: var(--teal); color: var(--white); }
-    .pill-inactive { background: var(--light-gray); color: rgba(32,39,55,0.7); }
-
-    /* ─── Approval Card ──────────────────────────────────────── */
-    .approval-card {
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-      padding: 16px;
-      background: var(--white);
-      cursor: pointer;
-    }
-    .card-meta-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 8px;
-    }
-    .card-meta-left {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-    .card-created {
-      font-family: 'Lato', sans-serif;
-      font-size: 12px;
-      color: rgba(40,40,41,0.6);
-    }
-    .card-wtn {
-      font-family: 'Lato', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      color: rgba(40,40,41,0.7);
-      margin-bottom: 4px;
-    }
-    .card-vendor {
-      font-family: 'Lato', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 6px;
-    }
-    .card-location {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: 'Lato', sans-serif;
-      font-size: 12px;
-      color: rgba(40,40,41,0.7);
-      margin-bottom: 8px;
-    }
-    .card-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-top: 4px;
-    }
-    .card-budget-ok {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: 'Lato', sans-serif;
-      font-size: 12px;
-      color: var(--green-text);
-      font-weight: 700;
-    }
-    .card-budget-over {
-      display: flex;
-      align-items: center;
-      gap: 4px;
-      font-family: 'Lato', sans-serif;
-      font-size: 12px;
-      color: var(--red-text);
-      font-weight: 700;
-    }
-    .card-amount {
-      font-family: 'Lato', sans-serif;
-      font-size: 16px;
-      font-weight: 700;
-      color: var(--teal);
-    }
-
-    /* ─── Line Items ─────────────────────────────────────────── */
-    .line-item {
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .line-item:last-of-type { border-bottom: none; }
-    .line-item-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 8px;
-      margin-bottom: 3px;
-    }
-    .line-item-sku {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 500;
-      font-size: 12px;
-      color: var(--dark);
-      flex: 1;
-    }
-    .line-item-amount {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 500;
-      font-size: 12px;
-      color: var(--dark);
-      white-space: nowrap;
-    }
-    .line-item-meta {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-      font-size: 12px;
-      color: rgba(40,40,41,0.8);
-      margin-bottom: 2px;
-    }
-    .line-item-detail {
-      font-family: 'Roboto', sans-serif;
-      font-weight: 400;
-      font-size: 12px;
-      color: rgba(40,40,41,0.8);
-    }
-
-    /* ─── Cost Summary ───────────────────────────────────────── */
-    .cost-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      color: rgba(40,40,41,0.8);
-    }
-    .cost-divider { height: 1px; background: var(--border); margin: 8px 0; }
-    .cost-total {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 6px 0;
-      font-family: 'Roboto', sans-serif;
-      font-weight: 500;
-      font-size: 15px;
-      color: var(--dark);
-    }
-
-    /* ─── Titles ─────────────────────────────────────────────── */
-    .section-title {
-      font-family: 'Lato', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--dark);
-    }
-    .card-title {
-      font-family: 'Lato', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 16px;
-    }
-
-    /* ─── Textarea ───────────────────────────────────────────── */
-    .comment-area {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      font-family: 'Roboto', sans-serif;
-      font-size: 13px;
-      color: rgba(40,40,41,0.8);
-      resize: none;
-      min-height: 80px;
-      outline: none;
-      background: #FAFAFA;
-    }
-    .comment-area:focus { border-color: var(--teal); background: white; }
-
-    /* ─── Mini Stat Cards ────────────────────────────────────── */
-    .mini-stats {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-    .mini-stat-card {
-      border-radius: 12px;
-      border: 1px solid var(--border);
-      box-shadow: var(--card-shadow);
-      padding: 16px;
-      background: var(--white);
-    }
-    .mini-stat-label {
-      font-family: 'Lato', sans-serif;
-      font-size: 11px;
-      color: rgba(40,40,41,0.7);
-      margin-bottom: 8px;
-      line-height: 1.4;
-    }
-    .mini-stat-value {
-      font-family: 'Lato', sans-serif;
-      font-size: 22px;
-      font-weight: 900;
-      color: var(--teal);
-    }
-
-    /* ─── Section Divider ────────────────────────────────────── */
-    .divider-section {
-      height: 8px;
-      background: #F2F4F5;
-      margin: 0;
-    }
-
-    /* ─── Vendor Alert ───────────────────────────────────────── */
-    .vendor-alert-card {
-      border-radius: 12px;
-      border: 1px solid rgba(188,135,1,0.3);
-      background: var(--amber-bg);
-      padding: 16px;
-    }
-    .vendor-alert-title {
-      font-family: 'Lato', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--amber-text);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 6px;
-    }
-    .vendor-alert-sub {
-      font-family: 'Roboto', sans-serif;
-      font-size: 12px;
-      color: rgba(188,135,1,0.85);
-    }
-
-    /* ─── GL Summary ─────────────────────────────────────────── */
-    .gl-row {
-      display: flex;
-      justify-content: space-between;
-      padding: 8px 0;
-      border-bottom: 1px solid var(--border);
-      font-family: 'Roboto', sans-serif;
-      font-size: 13px;
-    }
-    .gl-row:last-child { border-bottom: none; }
-
-    /* ─── Reject sheet ───────────────────────────────────────── */
-    .reject-label {
-      font-family: 'Lato', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--dark);
-      margin-bottom: 8px;
-      display: block;
-    }
-    .reject-textarea {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 8px;
-      padding: 12px;
-      font-family: 'Roboto', sans-serif;
-      font-size: 14px;
-      color: var(--dark);
-      resize: none;
-      min-height: 100px;
-      outline: none;
-    }
-    .reject-textarea:focus { border-color: var(--teal); }
-    .reject-warning {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--amber-bg);
-      border-radius: 8px;
-      padding: 10px 12px;
-      margin-top: 12px;
-      font-family: 'Lato', sans-serif;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--amber-text);
-    }
-
-    /* ─── Sort row ───────────────────────────────────────────── */
-    .sort-row {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 8px 16px;
-    }
-    .sort-label {
-      font-family: 'Lato', sans-serif;
-      font-size: 13px;
-      color: rgba(40,40,41,0.7);
-    }
-    .filter-count-pill {
-      background: var(--teal);
-      color: white;
-      border-radius: 10px;
-      padding: 2px 8px;
-      font-family: 'Lato', sans-serif;
-      font-size: 11px;
-      font-weight: 700;
-    }
-
-    /* ─── Links ──────────────────────────────────────────────── */
-    .view-all-link {
-      font-family: 'Lato', sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      color: var(--teal);
-      cursor: pointer;
-    }
-    .teal-link {
-      font-family: 'Lato', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      color: var(--teal);
-      cursor: pointer;
-    }
-
-    /* ─── Peek card ──────────────────────────────────────────── */
-    .peek-wrapper {
-      position: relative;
-      height: 110px;
-      overflow: hidden;
-      border-radius: 12px;
-    }
-    .peek-wrapper::after {
-      content: '';
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      height: 50px;
-      background: linear-gradient(to bottom, transparent, rgba(242,244,245,0.98));
-      pointer-events: none;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Spend Compliance Agent — OPSBUYER | RealPage</title>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--rp:#0076CC;--rp-dk:#005FA3;--rp-black:#202737;--hi:#E5F4FF;--gl:#F7F8F9;--gll:#EBEDEE;--gm:#C6CCD0;--gd:#9BA3A7;--green:#118837;--gbg:#EAF5EE;--red:#D01A1F;--rbg:#FBE9EA;--yel:#D97706;--ybg:#FEF3C7;--pur:#7C3AED;--pbg:#EDE9FE;--font:'Roboto',-apple-system,sans-serif;--br:2px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--gl);color:#1A202C;font-size:13px;line-height:1.4}
+.omnibar{height:56px;background:var(--rp-black);display:flex;align-items:center;padding:0 16px;gap:10px;position:fixed;top:0;left:0;right:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+.ob-ham{color:#fff;cursor:pointer;display:flex;align-items:center;padding:4px;border-radius:4px}.ob-ham:hover{background:rgba(255,255,255,.1)}
+.ob-logo{color:#fff;font-size:15px;font-weight:700;letter-spacing:.5px;white-space:nowrap}
+.ob-div{width:1px;height:28px;background:rgba(255,255,255,.2);margin:0 2px}
+.ob-badge{background:var(--rp);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;letter-spacing:.5px}
+.ob-prop{display:flex;flex-direction:column;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:4px 10px;cursor:pointer;min-width:150px}
+.ob-prop .pn{color:#fff;font-size:12px;font-weight:500}.ob-prop .ps{color:rgba(255,255,255,.6);font-size:10px}
+.ob-search{flex:1;max-width:320px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:15px;padding:6px 14px;display:flex;align-items:center;gap:8px}
+.ob-search input{background:transparent;border:none;outline:none;color:#fff;font-size:12px;width:100%;font-family:var(--font)}
+.ob-search input::placeholder{color:rgba(255,255,255,.4)}
+.ob-acts{display:flex;align-items:center;gap:2px;margin-left:auto}
+.ob-ib{width:32px;height:32px;border-radius:50%;background:transparent;border:none;color:rgba(255,255,255,.7);cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;transition:background .15s}
+.ob-ib:hover{background:rgba(255,255,255,.1)}
+.ob-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;background:#F06000;border-radius:50%;border:1.5px solid var(--rp-black)}
+.ob-user{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.85);font-size:12px}
+.ob-av{width:28px;height:28px;border-radius:50%;background:var(--rp);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
+.lumina-btn{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:15px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:var(--font);white-space:nowrap;transition:all .15s}
+.lumina-btn:hover{background:linear-gradient(135deg,#4F46E5,#7C3AED)}
+.lumina-btn.active{box-shadow:0 0 0 2px rgba(99,102,241,.7),0 0 12px rgba(99,102,241,.4)}
+.app-shell{display:flex;margin-top:56px;height:calc(100vh - 56px)}
+.sidenav{width:240px;min-width:240px;background:#fff;border-right:1px solid var(--gll);display:flex;flex-direction:column;overflow-y:auto;transition:width .2s}
+.sidenav.col{width:52px;min-width:52px}
+.sn-sect{padding:14px 16px 4px;font-size:10px;font-weight:600;color:var(--gd);letter-spacing:.8px;text-transform:uppercase}
+.sidenav.col .sn-sect,.sidenav.col .nav-item span,.sidenav.col .nbadge{display:none}
+.nav-item{display:flex;align-items:center;gap:10px;padding:0 16px;height:44px;cursor:pointer;border-bottom:1px solid var(--gll);color:#4A5568;font-size:13px;position:relative;transition:background .1s;user-select:none}
+.nav-item:hover{background:var(--gl)}
+.nav-item.active{background:var(--hi);color:var(--rp);font-weight:500}
+.nav-item.active::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--rp);border-radius:0 2px 2px 0}
+.nbadge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center}
+.nbadge.w{background:var(--yel)}.nbadge.b{background:var(--rp)}
+.sn-bot{margin-top:auto;border-top:1px solid var(--gll);padding:12px}
+.sn-user{display:flex;align-items:center;gap:10px;padding:6px}
+.sidenav.col .sn-user span{display:none}
+.uav{width:32px;height:32px;min-width:32px;border-radius:50%;background:var(--rp);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
+.main{flex:1;overflow-y:auto;padding:20px 24px;transition:padding-right .25s}
+.main.aio{padding-right:404px}
+.ph-row{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px}
+.ph-title{font-size:20px;font-weight:600;color:#1A202C}
+.ph-sub{font-size:12px;color:var(--gd);margin-top:2px}
+.fbar{background:#fff;border:1px solid var(--gll);border-radius:var(--br);padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;position:sticky;top:0;z-index:10;box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.fbar-sep{width:1px;height:20px;background:var(--gll);margin:0 2px}
+.fc{padding:4px 10px;border-radius:12px;font-size:11px;font-weight:500;cursor:pointer;border:1px solid var(--gll);background:#fff;color:#4A5568;transition:all .1s;white-space:nowrap;user-select:none}
+.fc:hover{border-color:var(--rp);color:var(--rp)}.fc.on{background:var(--rp);color:#fff;border-color:var(--rp)}
+.fsel{padding:4px 8px;border:1px solid var(--gll);border-radius:var(--br);font-size:11px;color:#4A5568;font-family:var(--font);outline:none;background:#fff;cursor:pointer;max-width:130px}
+.fsel:focus{border-color:var(--rp)}
+.ftog{display:flex;align-items:center;gap:6px;cursor:pointer;font-size:11px;color:#4A5568;padding:4px 8px;border:1px solid var(--gll);border-radius:12px;white-space:nowrap;user-select:none;transition:all .1s}
+.ftog:hover{border-color:var(--rp);color:var(--rp)}
+.tpill{width:24px;height:12px;border-radius:6px;background:var(--gm);position:relative;transition:background .15s;flex-shrink:0}
+.tpill.on{background:var(--rp)}.tpill::after{content:'';position:absolute;width:8px;height:8px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .15s}.tpill.on::after{transform:translateX(12px)}
+.kgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:16px}
+.kcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:14px 15px;border-top:2px solid var(--gll);box-shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
+.kcard.g{border-top-color:var(--green)}.kcard.r{border-top-color:var(--red)}.kcard.b{border-top-color:var(--rp)}.kcard.y{border-top-color:var(--yel)}
+.k-lbl{font-size:10px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.6px;margin-bottom:5px}
+.k-val{font-size:21px;font-weight:700;color:#1A202C;line-height:1}
+.k-sub{font-size:11px;color:var(--gd);margin-top:3px}
+.k-delta{display:inline-flex;align-items:center;gap:3px;font-size:10px;font-weight:600;margin-top:5px;padding:2px 6px;border-radius:10px}
+.k-delta.up{background:var(--gbg);color:var(--green)}.k-delta.dn{background:var(--rbg);color:var(--red)}.k-delta.neu{background:var(--gll);color:#4A5568}
+.li-row{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+.li-card{background:#fff;border:1px solid var(--gll);border-radius:var(--br);padding:13px 14px;position:relative;overflow:hidden}
+.li-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.li-card.al::before{background:var(--red)}.li-card.rc::before{background:var(--yel)}.li-card.en::before{background:var(--pur)}.li-card.tr::before{background:var(--green)}
+.li-type{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:4px;display:flex;align-items:center;gap:4px}
+.li-type.al{color:var(--red)}.li-type.rc{color:var(--yel)}.li-type.en{color:var(--pur)}.li-type.tr{color:var(--green)}
+.li-ttl{font-size:12px;font-weight:600;color:#1A202C;margin-bottom:4px;line-height:1.35}
+.li-det{font-size:11px;color:#4A5568;line-height:1.45;margin-bottom:8px}
+.li-cta{font-size:11px;font-weight:600;color:var(--rp);cursor:pointer;display:flex;align-items:center;gap:3px}
+.li-cta:hover{text-decoration:underline}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;margin-top:20px}
+.sh-t{font-size:13px;font-weight:600;color:#2D3748;display:flex;align-items:center;gap:8px}
+.sh-l{font-size:11px;color:var(--rp);cursor:pointer}.sh-l:hover{text-decoration:underline}
+.sh-badge{font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px;background:var(--rbg);color:var(--red)}
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
+.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:12px;margin-bottom:12px}
+.card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:16px;box-shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
+.ct{font-size:11px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ct-link{font-size:11px;font-weight:500;color:var(--rp);cursor:pointer;text-transform:none;letter-spacing:0}.ct-link:hover{text-decoration:underline}
+.sigcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:14px;box-shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
+.sig-v{font-size:24px;font-weight:700;line-height:1}
+.sig-tgt{font-size:11px;color:var(--gd);margin-top:3px}
+.sig-st{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:700;padding:2px 7px;border-radius:10px;margin-top:6px}
+.sig-st.ok{background:var(--gbg);color:var(--green)}.sig-st.bad{background:var(--rbg);color:var(--red)}.sig-st.warn{background:var(--ybg);color:#92400E}
+.sig-cta{font-size:11px;font-weight:500;color:var(--rp);cursor:pointer;margin-top:8px;display:flex;align-items:center;gap:3px}
+.sig-cta:hover{text-decoration:underline}
+.dt{width:100%;border-collapse:collapse}
+.dt th{font-size:12px;font-weight:500;color:var(--gd);letter-spacing:0;padding:0 12px;height:34px;text-align:left;border-bottom:1px solid var(--gll);background:#fff;white-space:nowrap;vertical-align:middle}
+.dt th.r{text-align:right}
+.dt td{padding:0 12px;height:59px;border-bottom:1px solid var(--gll);font-size:12px;color:#2D3748;vertical-align:middle}
+.dt td.r{text-align:right}.dt tr:hover td{background:var(--gl)}.dt tr:last-child td{border-bottom:none}
+.dt td.vlink{color:#0076cc;font-weight:500;cursor:pointer}.dt td.vlink:hover{text-decoration:underline}
+/* RAUL DSBadge exact colors */
+.ds-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:4px;white-space:nowrap}
+.ds-badge.compliant{background:#E8F4FC;color:#3d94c0;border:1px solid #b8dcf0}
+.ds-badge.non-compliant{background:#FBE9EA;color:#d01a1f;border:1px solid #f5c6c7}
+.ds-badge.under-review{background:#FEF0E6;color:#f06000;border:1px solid #fbd5b5}
+.ds-badge.preferred{background:#EAF5EE;color:#118837;border:1px solid #b7dfc4}
+.ds-badge.non-preferred{background:var(--gll);color:#4A5568;border:1px solid #d4d8db}
+/* Circle violation badge */
+.viol-circle{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0}
+.viol-circle.cr{background:#d01a1f;color:#fff}
+.viol-circle.wa{background:#f06000;color:#fff}
+.viol-circle.lo{background:var(--gll);color:#4A5568}
+.tag{display:inline-flex;align-items:center;gap:4px;font-size:10px;font-weight:600;padding:2px 7px;border-radius:10px}
+.tag.g{background:var(--gbg);color:var(--green)}.tag.r{background:var(--rbg);color:var(--red)}.tag.y{background:var(--ybg);color:#92400E}.tag.b{background:var(--hi);color:var(--rp)}.tag.gr{background:var(--gll);color:#4A5568}.tag.p{background:var(--pbg);color:var(--pur)}
+.rpill{display:inline-flex;align-items:center;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;text-transform:uppercase;gap:3px}
+.rpill.h{background:var(--rbg);color:var(--red)}.rpill.m{background:var(--ybg);color:#92400E}.rpill.l{background:var(--gbg);color:var(--green)}
+.btn{display:inline-flex;align-items:center;gap:5px;padding:6px 12px;border-radius:var(--br);font-size:12px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:all .1s}
+.bp{background:var(--rp);color:#fff}.bp:hover{background:var(--rp-dk)}
+.bs{background:#fff;color:var(--rp);border:1px solid var(--rp)}.bs:hover{background:var(--hi)}
+.bg{background:transparent;color:var(--gd);border:1px solid var(--gll)}.bg:hover{background:var(--gl)}
+.bd{background:var(--red);color:#fff}
+.sm{padding:4px 9px;font-size:11px}.xs{padding:3px 7px;font-size:10px}
+.tabs{display:flex;border-bottom:2px solid var(--gll);margin-bottom:14px}
+.tab{padding:8px 16px;font-size:13px;color:var(--gd);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .1s;user-select:none}
+.tab.on{color:var(--rp);font-weight:500;border-bottom-color:var(--rp)}.tab:hover:not(.on){color:#4A5568}
+.prog{height:6px;background:var(--gll);border-radius:3px;overflow:hidden}
+.prog-f{height:100%;border-radius:3px;transition:width .4s}
+.bnr{border-left:3px solid;border-radius:var(--br);padding:9px 12px;font-size:12px;display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.bnr.r{background:var(--rbg);border-left-color:var(--red)}.bnr.y{background:var(--ybg);border-left-color:var(--yel)}.bnr.b{background:var(--hi);border-left-color:var(--rp)}.bnr.g{background:var(--gbg);border-left-color:var(--green)}
+.ccase{background:#fff;border:1px solid var(--gll);border-left:3px solid;border-radius:var(--br);padding:14px;margin-bottom:10px;cursor:pointer;transition:box-shadow .15s}
+.ccase:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.ccase.cr{border-left-color:var(--red)}.ccase.wa{border-left-color:var(--yel)}
+.prev{background:#fff;border:1px solid var(--gll);border-radius:var(--br);padding:16px}
+.prev-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
+.prev-v{font-size:17px;font-weight:700;color:#1A202C}
+.prev-l{font-size:10px;color:var(--gd);margin-top:1px}
+.prev-cta{font-size:11px;font-weight:600;color:var(--rp);cursor:pointer;display:flex;align-items:center;gap:3px;margin-top:8px;justify-content:flex-end}
+.prev-cta:hover{text-decoration:underline}
+.lp{position:fixed;top:56px;right:0;bottom:0;width:380px;background:#fff;border-left:1px solid var(--gll);display:flex;flex-direction:column;z-index:90;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 20px rgba(0,0,0,.08)}
+.lp.open{transform:translateX(0)}
+.lp-hdr{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--gll);background:linear-gradient(135deg,#6366F1,#8B5CF6)}
+.lp-ic{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.2);display:flex;align-items:center;justify-content:center}
+.lp-t{color:#fff;font-size:14px;font-weight:600}.lp-s{color:rgba(255,255,255,.75);font-size:10px}
+.lp-cl{margin-left:auto;color:rgba(255,255,255,.8);cursor:pointer;padding:4px;border-radius:50%}.lp-cl:hover{background:rgba(255,255,255,.1)}
+.lp-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
+.lm{max-width:90%}.lm.ai{align-self:flex-start}.lm.user{align-self:flex-end}
+.lb{padding:9px 11px;border-radius:10px;font-size:12px;line-height:1.5}
+.lm.ai .lb{background:var(--gl);border:1px solid var(--gll);color:#2D3748;border-radius:2px 10px 10px 10px}
+.lm.user .lb{background:var(--rp);color:#fff;border-radius:10px 10px 2px 10px}
+.lt{font-size:10px;color:var(--gd);margin-top:3px}
+.ldc{background:#fff;border:1px solid var(--gll);border-radius:6px;padding:9px;margin-top:7px}
+.ldc-t{font-size:10px;font-weight:600;color:var(--gd);margin-bottom:5px}
+.ldr{display:flex;justify-content:space-between;padding:3px 0;font-size:11px;border-bottom:1px solid var(--gll)}.ldr:last-child{border-bottom:none}
+.ldr .dv{font-weight:600}.ldr .dv.r{color:var(--red)}.ldr .dv.g{color:var(--green)}.ldr .dv.w{color:var(--yel)}
+.lp-chips{display:flex;flex-wrap:wrap;gap:5px;padding:8px 12px;border-top:1px solid var(--gll)}
+.lchip{padding:5px 9px;border-radius:12px;font-size:11px;background:var(--gl);border:1px solid var(--gll);cursor:pointer;color:#4A5568;transition:all .1s}
+.lchip:hover{background:var(--hi);border-color:var(--rp);color:var(--rp)}
+.lp-inp{padding:9px 12px;border-top:1px solid var(--gll);display:flex;gap:7px}
+.linput{flex:1;border:1px solid var(--gll);border-radius:15px;padding:6px 12px;font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s}
+.linput:focus{border-color:var(--rp)}
+.lsend{width:30px;height:30px;background:var(--rp);color:#fff;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.tdots{display:flex;gap:4px;padding:5px 2px}
+.tdot{width:6px;height:6px;border-radius:50%;background:var(--gd);animation:bnc 1.4s infinite}
+.tdot:nth-child(2){animation-delay:.2s}.tdot:nth-child(3){animation-delay:.4s}
+@keyframes bnc{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--gm);border-radius:3px}
+.panim{animation:fu .2s ease}@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+.fw6{font-weight:600}.fs11{font-size:11px}.fs12{font-size:12px}
+</style>
 </head>
 <body>
-<div id="app">
-
-<!-- ════════════════════════════════════════════════════════════
-     SCREEN 1: DASHBOARD
-════════════════════════════════════════════════════════════════ -->
-<div class="screen active" id="screen-dashboard">
-  <div class="status-bar">
-    <span class="time">9:41</span>
-    <div class="icons">
-      <!-- Signal bars -->
-      <svg width="17" height="12" viewBox="0 0 17 12" fill="none">
-        <rect x="0" y="8" width="3" height="4" rx="0.5" fill="#282829"/>
-        <rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5" fill="#282829"/>
-        <rect x="9" y="3" width="3" height="9" rx="0.5" fill="#282829"/>
-        <rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#282829"/>
-      </svg>
-      <!-- WiFi -->
-      <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
-        <path d="M8 10a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" fill="#282829"/>
-        <path d="M8 7c1.5 0 2.9.6 3.9 1.6l1.1-1.1A7 7 0 008 5a7 7 0 00-4.9 2.5l1.1 1.1A5 5 0 018 7z" fill="#282829"/>
-        <path d="M8 4c2.3 0 4.3.9 5.8 2.4l1.1-1.1A9.5 9.5 0 008 2a9.5 9.5 0 00-6.8 3.3l1.1 1.1A7.5 7.5 0 018 4z" fill="#282829" opacity="0.5"/>
-      </svg>
-      <!-- Battery -->
-      <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
-        <rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#282829" stroke-opacity="0.35"/>
-        <rect x="2" y="2" width="16" height="8" rx="2" fill="#282829"/>
-        <path d="M23 4v4a2 2 0 000-4z" fill="#282829" opacity="0.4"/>
-      </svg>
-    </div>
-  </div>
-
-  <div class="screen-content">
-    <!-- Header -->
-    <div style="padding:8px 16px 16px;">
-      <h1 style="font-family:'Lato',sans-serif;font-weight:900;font-size:20px;color:var(--dark);margin-bottom:4px;">Good morning Tom</h1>
-      <p style="font-family:'Lato',sans-serif;font-size:14px;color:rgba(40,40,41,0.8);margin-bottom:8px;">Here are your approvals for today, Jul 2</p>
-      <span style="font-family:'Lato',sans-serif;font-size:14px;font-weight:700;color:var(--teal);display:inline-flex;align-items:center;gap:4px;cursor:pointer;">
-        Villa Verano, +1
-        <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3.5 5.5L7 9L10.5 5.5" stroke="#3D7F8D" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-      </span>
-    </div>
-
-    <!-- Pending Approvals Card -->
-    <div style="padding:0 16px 16px;">
-      <div class="card">
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;">
-          <span class="section-title">My Pending Approvals</span>
-          <span class="view-all-link" onclick="navigate('screen-orders')">View All →</span>
-        </div>
-        <div style="font-family:'Lato',sans-serif;font-weight:900;font-size:32px;color:var(--teal);line-height:1.1;">17 Total</div>
-        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:3%;"></div></div>
-        <div style="font-family:'Lato',sans-serif;font-size:12px;color:rgba(40,40,41,0.6);margin-bottom:14px;">1/17 &nbsp;·&nbsp; 3% complete</div>
-        <div class="pill-filters">
-          <span class="pill pill-active">All 17</span>
-          <span class="pill pill-inactive">Orders</span>
-          <span class="pill pill-inactive">Invoices</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Approval Cards -->
-    <div style="padding:0 16px 4px;display:flex;flex-direction:column;gap:12px;">
-      <!-- Card 1 -->
-      <div class="approval-card" onclick="navigate('screen-order-details')">
-        <div class="card-meta-row">
-          <div class="card-meta-left">
-            <span class="badge badge-amber">Due: Feb 09</span>
-            <span class="card-created">Created: 07/02/2026</span>
-          </div>
-        </div>
-        <div class="card-wtn">WTN #: 1234567</div>
-        <div class="card-vendor">Dell Technology</div>
-        <div class="card-location">
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 13 6 13S10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="#9BA3A7"/></svg>
-          Villa Verano - Building 1, Unit-05
-        </div>
-        <div class="card-footer">
-          <div class="card-budget-ok">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#E6F4EA"/><path d="M4 7L6 9L10 5" stroke="#118837" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Within budget
-          </div>
-          <span class="card-amount">$18,500 →</span>
-        </div>
-      </div>
-
-      <!-- Card 2 - Partially visible peek -->
-      <div class="peek-wrapper">
-        <div class="approval-card" onclick="navigate('screen-order-details')" style="border-bottom-left-radius:0;border-bottom-right-radius:0;">
-          <div class="card-meta-row">
-            <div class="card-meta-left">
-              <span class="badge badge-amber">Due: Feb 12</span>
-            </div>
-          </div>
-          <div class="card-wtn">WTN #: 1245890</div>
-          <div class="card-vendor">Apex Maintenance</div>
-          <div class="card-location">
-            <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 13 6 13S10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="#9BA3A7"/></svg>
-            Hampshire Hill - Unit-108
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="divider-section" style="margin:16px 0;"></div>
-
-    <!-- Overall Approvals -->
-    <div style="padding:0 16px 28px;">
-      <h2 style="font-family:'Lato',sans-serif;font-weight:700;font-size:16px;color:var(--dark);margin-bottom:2px;">Overall Approval</h2>
-      <p style="font-family:'Lato',sans-serif;font-size:13px;color:rgba(40,40,41,0.6);margin-bottom:14px;">Across all properties</p>
-      <div class="mini-stats">
-        <div class="mini-stat-card">
-          <div class="mini-stat-label">Total Pending Order Approvals</div>
-          <div class="mini-stat-value">8,349</div>
-        </div>
-        <div class="mini-stat-card">
-          <div class="mini-stat-label">Total Pending Invoice Approvals</div>
-          <div class="mini-stat-value">8,349</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Bottom Nav -->
-  <div class="bottom-nav">
-    <div class="nav-item active" onclick="navigate('screen-dashboard')">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M2 8.5L11 2L20 8.5V20H14V14H8V20H2V8.5Z" stroke="#3D7F8D" stroke-width="1.8" stroke-linejoin="round"/></svg>
-      <span style="color:var(--teal);">Home</span>
-    </div>
-    <div class="nav-item" onclick="navigate('screen-orders')">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" rx="3" stroke="#9BA3A7" stroke-width="1.8"/><path d="M7 8h8M7 11h8M7 14h5" stroke="#9BA3A7" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <span>Orders</span>
-    </div>
-    <div class="nav-item" onclick="navigate('screen-invoices')">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M13 2H5a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V7l-6-5z" stroke="#9BA3A7" stroke-width="1.8" fill="none"/><path d="M13 2v5h5" stroke="#9BA3A7" stroke-width="1.8"/><path d="M8 12h6M8 15h4" stroke="#9BA3A7" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <span>Invoices</span>
-    </div>
-    <div class="nav-item" onclick="void(0)">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="6" r="1.5" fill="#9BA3A7"/><circle cx="11" cy="11" r="1.5" fill="#9BA3A7"/><circle cx="11" cy="16" r="1.5" fill="#9BA3A7"/></svg>
-      <span>More</span>
-    </div>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════════════════
-     SCREEN 2: ORDERS LIST
-════════════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-orders">
-  <div class="status-bar">
-    <span class="time">9:41</span>
-    <div class="icons">
-      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="8" width="3" height="4" rx="0.5" fill="#282829"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5" fill="#282829"/><rect x="9" y="3" width="3" height="9" rx="0.5" fill="#282829"/><rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#282829"/></svg>
-      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#282829" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#282829"/><path d="M23 4v4a2 2 0 000-4z" fill="#282829" opacity="0.4"/></svg>
-    </div>
-  </div>
-
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px;flex-shrink:0;">
-    <div>
-      <h1 style="font-family:'Lato',sans-serif;font-weight:900;font-size:20px;color:var(--dark);">Orders</h1>
-      <p style="font-family:'Lato',sans-serif;font-size:14px;color:rgba(40,40,41,0.7);margin-top:2px;">17 pending approvals</p>
-    </div>
-    <button style="width:40px;height:40px;border-radius:8px;background:var(--light-gray);border:none;display:flex;align-items:center;justify-content:center;">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 5H16M4 9H14M6 13H12" stroke="#282829" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-
-  <div style="padding:4px 16px 6px;flex-shrink:0;">
-    <div class="search-bar">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#9BA3A7" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#9BA3A7" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <input type="text" placeholder="Search by WTN, vendor..." />
-    </div>
-  </div>
-
-  <div class="sort-row" style="flex-shrink:0;">
-    <span class="sort-label">Sort: <strong style="color:var(--dark);">Due Date</strong></span>
-    <div style="display:flex;align-items:center;gap:6px;">
-      <span style="font-family:'Lato',sans-serif;font-size:13px;color:rgba(40,40,41,0.6);">Filters</span>
-      <span class="filter-count-pill">2</span>
-    </div>
-  </div>
-
-  <div class="screen-content">
-    <div style="padding:4px 16px 24px;display:flex;flex-direction:column;gap:12px;">
-      <!-- Card 1 -->
-      <div class="approval-card" onclick="navigate('screen-order-details')">
-        <div class="card-meta-row">
-          <div class="card-meta-left">
-            <span class="badge badge-amber">Due: Feb 09</span>
-            <span class="card-created">Created: 07/02/2026</span>
-          </div>
-        </div>
-        <div class="card-wtn">WTN #: 1234567</div>
-        <div class="card-vendor">Dell Technology</div>
-        <div class="card-location">
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 13 6 13S10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="#9BA3A7"/></svg>
-          Villa Verano - Building 1, Unit-05
-        </div>
-        <div class="card-footer">
-          <div class="card-budget-ok">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#E6F4EA"/><path d="M4 7L6 9L10 5" stroke="#118837" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Within budget
-          </div>
-          <span class="card-amount">$18,500 →</span>
-        </div>
-      </div>
-
-      <!-- Card 2 -->
-      <div class="approval-card" onclick="navigate('screen-order-details')">
-        <div class="card-meta-row">
-          <div class="card-meta-left">
-            <span class="badge badge-amber">Due: Feb 12</span>
-            <span class="card-created">Created: 07/01/2026</span>
-          </div>
-        </div>
-        <div class="card-wtn">WTN #: 1245890</div>
-        <div class="card-vendor">Apex Maintenance</div>
-        <div class="card-location">
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 13 6 13S10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="#9BA3A7"/></svg>
-          Hampshire Hill - Unit-108
-        </div>
-        <div class="card-footer">
-          <div class="card-budget-over">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#FFEAEA"/><path d="M7 4v4M7 9.5v.5" stroke="#D0021B" stroke-width="1.5" stroke-linecap="round"/></svg>
-            Over budget
-          </div>
-          <span class="card-amount">$4,200 →</span>
-        </div>
-      </div>
-
-      <!-- Card 3 -->
-      <div class="approval-card" onclick="navigate('screen-order-details')">
-        <div class="card-meta-row">
-          <div class="card-meta-left">
-            <span class="badge badge-red">Overdue: Feb 01</span>
-          </div>
-        </div>
-        <div class="card-wtn">WTN #: 1198234</div>
-        <div class="card-vendor">Capitol Builders</div>
-        <div class="card-location">
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 13 6 13S10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="#9BA3A7"/></svg>
-          Villa Verano - Phase 2
-        </div>
-        <div class="card-footer">
-          <div></div>
-          <span class="card-amount">$187,000 →</span>
-        </div>
-      </div>
-
-      <!-- Card 4 -->
-      <div class="approval-card" onclick="navigate('screen-order-details')">
-        <div class="card-meta-row">
-          <div class="card-meta-left">
-            <span class="badge badge-gray">Due: Feb 20</span>
-          </div>
-        </div>
-        <div class="card-wtn">WTN #: 1267543</div>
-        <div class="card-vendor">Green Thumb Landscaping</div>
-        <div class="card-location">
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 13 6 13S10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="#9BA3A7"/></svg>
-          Hampshire Hill - Exterior
-        </div>
-        <div class="card-footer">
-          <div class="card-budget-ok">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#E6F4EA"/><path d="M4 7L6 9L10 5" stroke="#118837" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Within budget
-          </div>
-          <span class="card-amount">$2,800 →</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bottom-nav">
-    <div class="nav-item" onclick="navigate('screen-dashboard')">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M2 8.5L11 2L20 8.5V20H14V14H8V20H2V8.5Z" stroke="#9BA3A7" stroke-width="1.8" stroke-linejoin="round"/></svg>
-      <span>Home</span>
-    </div>
-    <div class="nav-item active" onclick="navigate('screen-orders')">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" rx="3" stroke="#3D7F8D" stroke-width="1.8"/><path d="M7 8h8M7 11h8M7 14h5" stroke="#3D7F8D" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <span style="color:var(--teal);">Orders</span>
-    </div>
-    <div class="nav-item" onclick="navigate('screen-invoices')">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M13 2H5a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V7l-6-5z" stroke="#9BA3A7" stroke-width="1.8" fill="none"/><path d="M13 2v5h5" stroke="#9BA3A7" stroke-width="1.8"/><path d="M8 12h6M8 15h4" stroke="#9BA3A7" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <span>Invoices</span>
-    </div>
-    <div class="nav-item" onclick="void(0)">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="6" r="1.5" fill="#9BA3A7"/><circle cx="11" cy="11" r="1.5" fill="#9BA3A7"/><circle cx="11" cy="16" r="1.5" fill="#9BA3A7"/></svg>
-      <span>More</span>
-    </div>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════════════════
-     SCREEN 3: INVOICES LIST
-════════════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-invoices">
-  <div class="status-bar">
-    <span class="time">9:41</span>
-    <div class="icons">
-      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="8" width="3" height="4" rx="0.5" fill="#282829"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5" fill="#282829"/><rect x="9" y="3" width="3" height="9" rx="0.5" fill="#282829"/><rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#282829"/></svg>
-      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#282829" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#282829"/><path d="M23 4v4a2 2 0 000-4z" fill="#282829" opacity="0.4"/></svg>
-    </div>
-  </div>
-
-  <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px;flex-shrink:0;">
-    <div>
-      <h1 style="font-family:'Lato',sans-serif;font-weight:900;font-size:20px;color:var(--dark);">Invoices</h1>
-      <p style="font-family:'Lato',sans-serif;font-size:14px;color:rgba(40,40,41,0.7);margin-top:2px;">12 pending approvals</p>
-    </div>
-    <button style="width:40px;height:40px;border-radius:8px;background:var(--light-gray);border:none;display:flex;align-items:center;justify-content:center;">
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M2 5H16M4 9H14M6 13H12" stroke="#282829" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-
-  <div style="padding:4px 16px 6px;flex-shrink:0;">
-    <div class="search-bar">
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="5" stroke="#9BA3A7" stroke-width="1.5"/><path d="M11 11L14 14" stroke="#9BA3A7" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <input type="text" placeholder="Search by IRN, vendor..." />
-    </div>
-  </div>
-
-  <div class="sort-row" style="flex-shrink:0;">
-    <span class="sort-label">Sort: <strong style="color:var(--dark);">Due Date</strong></span>
-    <div style="display:flex;align-items:center;gap:6px;">
-      <span style="font-family:'Lato',sans-serif;font-size:13px;color:rgba(40,40,41,0.6);">Filters</span>
-      <span class="filter-count-pill">1</span>
-    </div>
-  </div>
-
-  <div class="screen-content">
-    <div style="padding:4px 16px 24px;display:flex;flex-direction:column;gap:12px;">
-      <!-- Invoice 1 -->
-      <div class="approval-card" onclick="navigate('screen-invoice-details')">
-        <div class="card-meta-row">
-          <div class="card-meta-left">
-            <span class="badge badge-amber">Due: Feb 09</span>
-            <span class="card-created">Created: 07/01/2026</span>
-          </div>
-        </div>
-        <div class="card-wtn">IRN #: INV-2026-0892</div>
-        <div class="card-vendor">Apex Maintenance LLC</div>
-        <div class="card-location">
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 13 6 13S10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="#9BA3A7"/></svg>
-          Hampshire Hill - Unit-108
-        </div>
-        <div class="card-footer">
-          <span class="badge badge-amber">3× Avg</span>
-          <span class="card-amount">$887.65 →</span>
-        </div>
-      </div>
-
-      <!-- Invoice 2 -->
-      <div class="approval-card" onclick="navigate('screen-invoice-details')">
-        <div class="card-meta-row">
-          <div class="card-meta-left">
-            <span class="badge badge-amber">Due: Feb 14</span>
-            <span class="card-created">Created: 07/03/2026</span>
-          </div>
-        </div>
-        <div class="card-wtn">IRN #: INV-2026-0901</div>
-        <div class="card-vendor">GreenWave Electric</div>
-        <div class="card-location">
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 13 6 13S10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="#9BA3A7"/></svg>
-          Villa Verano - Building 3
-        </div>
-        <div class="card-footer">
-          <div class="card-budget-ok">
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><circle cx="7" cy="7" r="7" fill="#E6F4EA"/><path d="M4 7L6 9L10 5" stroke="#118837" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            Within budget
-          </div>
-          <span class="card-amount">$1,240.00 →</span>
-        </div>
-      </div>
-
-      <!-- Invoice 3 -->
-      <div class="approval-card" onclick="navigate('screen-invoice-details')">
-        <div class="card-meta-row">
-          <div class="card-meta-left">
-            <span class="badge badge-red">Overdue: Jan 28</span>
-          </div>
-        </div>
-        <div class="card-wtn">IRN #: INV-2026-0845</div>
-        <div class="card-vendor">Precision Plumbing Co.</div>
-        <div class="card-location">
-          <svg width="12" height="14" viewBox="0 0 12 14" fill="none"><path d="M6 0C3.79 0 2 1.79 2 4C2 7 6 13 6 13S10 7 10 4C10 1.79 8.21 0 6 0ZM6 5.5C5.17 5.5 4.5 4.83 4.5 4C4.5 3.17 5.17 2.5 6 2.5C6.83 2.5 7.5 3.17 7.5 4C7.5 4.83 6.83 5.5 6 5.5Z" fill="#9BA3A7"/></svg>
-          Hampshire Hill - Unit-204
-        </div>
-        <div class="card-footer">
-          <div></div>
-          <span class="card-amount">$3,150.00 →</span>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bottom-nav">
-    <div class="nav-item" onclick="navigate('screen-dashboard')">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M2 8.5L11 2L20 8.5V20H14V14H8V20H2V8.5Z" stroke="#9BA3A7" stroke-width="1.8" stroke-linejoin="round"/></svg>
-      <span>Home</span>
-    </div>
-    <div class="nav-item" onclick="navigate('screen-orders')">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect x="3" y="3" width="16" height="16" rx="3" stroke="#9BA3A7" stroke-width="1.8"/><path d="M7 8h8M7 11h8M7 14h5" stroke="#9BA3A7" stroke-width="1.8" stroke-linecap="round"/></svg>
-      <span>Orders</span>
-    </div>
-    <div class="nav-item active" onclick="navigate('screen-invoices')">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M13 2H5a2 2 0 00-2 2v14a2 2 0 002 2h12a2 2 0 002-2V7l-6-5z" stroke="#3D7F8D" stroke-width="1.8" fill="none"/><path d="M13 2v5h5" stroke="#3D7F8D" stroke-width="1.8"/><path d="M8 12h6M8 15h4" stroke="#3D7F8D" stroke-width="1.5" stroke-linecap="round"/></svg>
-      <span style="color:var(--teal);">Invoices</span>
-    </div>
-    <div class="nav-item" onclick="void(0)">
-      <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><circle cx="11" cy="6" r="1.5" fill="#9BA3A7"/><circle cx="11" cy="11" r="1.5" fill="#9BA3A7"/><circle cx="11" cy="16" r="1.5" fill="#9BA3A7"/></svg>
-      <span>More</span>
-    </div>
-  </div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════════════════
-     SCREEN 4: ORDER DETAILS
-════════════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-order-details">
-  <div class="status-bar">
-    <span class="time">9:41</span>
-    <div class="icons">
-      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="8" width="3" height="4" rx="0.5" fill="#282829"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5" fill="#282829"/><rect x="9" y="3" width="3" height="9" rx="0.5" fill="#282829"/><rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#282829"/></svg>
-      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#282829" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#282829"/><path d="M23 4v4a2 2 0 000-4z" fill="#282829" opacity="0.4"/></svg>
-    </div>
-  </div>
-
-  <div class="nav-bar">
-    <button class="nav-circle-btn" onclick="goBack()">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10L12.5 15" stroke="#282829" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-    <button class="nav-circle-btn">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="5" r="1.5" fill="#282829"/><circle cx="10" cy="10" r="1.5" fill="#282829"/><circle cx="10" cy="15" r="1.5" fill="#282829"/></svg>
-    </button>
-  </div>
-
-  <!-- Header Info -->
-  <div style="padding:4px 16px 16px;flex-shrink:0;">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
-      <span style="font-family:'Lato',sans-serif;font-weight:700;font-size:14px;color:var(--dark);">WTN #: 1234567</span>
-      <span style="font-family:'Lato',sans-serif;font-size:12px;color:rgba(40,40,41,0.7);">Due: <strong>Jul 1</strong></span>
-      <span style="font-family:'Lato',sans-serif;font-size:12px;color:rgba(40,40,41,0.7);">Created: <strong>07/02/2026</strong></span>
-    </div>
-    <h1 style="font-family:'Lato',sans-serif;font-weight:900;font-size:20px;color:var(--dark);margin-bottom:4px;">Dell Technology</h1>
-    <p style="font-family:'Lato',sans-serif;font-size:14px;color:rgba(40,40,41,0.7);margin-bottom:4px;">123 St ddd545, Concord, AK 99452</p>
-    <p style="font-family:'Lato',sans-serif;font-size:12px;color:rgba(40,40,41,0.7);margin-bottom:12px;">Phone: (999) 888 7777</p>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;">
-      <span class="badge badge-amber">Pending Workflow Approval</span>
-      <span class="badge badge-gray">Non compliant</span>
-      <span class="badge badge-gray">Offline</span>
-    </div>
-  </div>
-
-  <!-- Tabs -->
-  <div class="tabs" id="order-tabs">
-    <div class="tab active" onclick="switchTab('order','details',this)">Details</div>
-    <div class="tab" onclick="switchTab('order','budget',this)">Budget</div>
-    <div class="tab" onclick="switchTab('order','additional',this)">Additional</div>
-    <div class="tab" onclick="switchTab('order','attachments',this)">Attachments</div>
-  </div>
-
-  <!-- Tab: Details -->
-  <div class="screen-content" id="order-tab-details">
-    <div style="padding:16px;display:flex;flex-direction:column;gap:12px;">
-      <!-- Line Item Summary -->
-      <div class="card">
-        <div class="card-title">Line Item Summary</div>
-        <div class="line-item">
-          <div class="line-item-top">
-            <span class="line-item-sku">Sku 1 &nbsp;&nbsp; Fence Panel (Cedar 6ft)</span>
-            <span class="line-item-amount">$480.00</span>
-          </div>
-          <div class="line-item-meta">Hampshire Hill &nbsp; QTY 8 × $60.00</div>
-          <div class="line-item-detail">Unit: 108 A &nbsp;·&nbsp; Project: 1001 &nbsp;·&nbsp; GL Code: 1001</div>
-        </div>
-        <div class="line-item">
-          <div class="line-item-top">
-            <span class="line-item-sku">Sku 2 &nbsp;&nbsp; Gate Hardware Kit</span>
-            <span class="line-item-amount">$144.00</span>
-          </div>
-          <div class="line-item-meta">Hampshire Hill &nbsp; QTY 4 × $36.00</div>
-          <div class="line-item-detail">Unit: 108 A &nbsp;·&nbsp; Project: 1001 &nbsp;·&nbsp; GL Code: 1001</div>
-        </div>
-        <div class="line-item">
-          <div class="line-item-top">
-            <span class="line-item-sku">Sku 3 &nbsp;&nbsp; Post Cap (Vinyl 4×4)</span>
-            <span class="line-item-amount">$72.00</span>
-          </div>
-          <div class="line-item-meta">Hampshire Hill &nbsp; QTY 6 × $12.00</div>
-          <div class="line-item-detail">Unit: 108 A &nbsp;·&nbsp; Project: 1001 &nbsp;·&nbsp; GL Code: 1001</div>
-        </div>
-        <div style="margin-top:14px;">
-          <span class="teal-link" onclick="openMoreInfo('order')">+ 4 more items →</span>
-        </div>
-        <button class="btn-more-info" onclick="openMoreInfo('order')">More Info</button>
-      </div>
-
-      <!-- Total Cost Summary -->
-      <div class="card">
-        <div class="card-title">Total Cost Summary</div>
-        <div class="cost-row"><span>Subtotal</span><span>$480.00</span></div>
-        <div class="cost-row"><span>Shipping</span><span>$0.00</span></div>
-        <div class="cost-row"><span>Tax</span><span>$0.00</span></div>
-        <div class="cost-divider"></div>
-        <div class="cost-total"><span>Order Total</span><span>$480.00</span></div>
-      </div>
-
-      <!-- Workflow Comments -->
-      <div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
-          <span class="section-title">Workflow Comments</span>
-          <span class="teal-link" style="font-size:13px;">Add comments</span>
-        </div>
-        <textarea class="comment-area" rows="3">Replaced faulty thermostat, tested cooling system and confirmed proper operation. All work completed per maintenance schedule.</textarea>
-      </div>
-
-      <!-- Buyer Notes -->
-      <div style="padding-bottom:8px;">
-        <span class="section-title" style="display:block;margin-bottom:8px;">Buyer notes</span>
-        <p style="font-family:'Roboto',sans-serif;font-size:13px;color:rgba(40,40,41,0.5);font-style:italic;">Note unavailable</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tab: Budget -->
-  <div class="screen-content" id="order-tab-budget" style="display:none;">
-    <div style="padding:16px;">
-      <div class="card">
-        <div class="card-title">Budget Overview</div>
-        <div class="cost-row"><span>Budget Allocated</span><span style="color:var(--teal);font-weight:700;">$25,000.00</span></div>
-        <div class="cost-row"><span>Amount Spent</span><span>$18,500.00</span></div>
-        <div class="cost-divider"></div>
-        <div class="cost-row"><span>Remaining</span><span style="color:var(--green-text);font-weight:700;">$6,500.00</span></div>
-        <div class="progress-bar-track" style="margin-top:12px;height:8px;">
-          <div class="progress-bar-fill" style="width:74%;"></div>
-        </div>
-        <p style="font-family:'Lato',sans-serif;font-size:12px;color:rgba(40,40,41,0.6);margin-top:6px;">74% of budget used</p>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tab: Additional -->
-  <div class="screen-content" id="order-tab-additional" style="display:none;">
-    <div style="padding:16px;">
-      <div class="card">
-        <div class="card-title">Additional Information</div>
-        <div class="cost-row"><span>Purchase Type</span><span>Standard PO</span></div>
-        <div class="cost-row"><span>Requester</span><span>Jane Smith</span></div>
-        <div class="cost-row"><span>Department</span><span>Maintenance</span></div>
-        <div class="cost-row"><span>Priority</span><span>Normal</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tab: Attachments -->
-  <div class="screen-content" id="order-tab-attachments" style="display:none;">
-    <div style="padding:16px;">
-      <div class="card" style="display:flex;flex-direction:column;align-items:center;padding:40px 24px;gap:12px;">
-        <svg width="48" height="48" viewBox="0 0 48 48" fill="none"><rect width="48" height="48" rx="12" fill="var(--light-gray)"/><path d="M16 32V16h10l6 6v10H16z" stroke="#9BA3A7" stroke-width="1.8" fill="none"/><path d="M26 16v6h6" stroke="#9BA3A7" stroke-width="1.8"/></svg>
-        <p style="font-family:'Lato',sans-serif;font-size:14px;color:rgba(40,40,41,0.5);">No attachments found</p>
-      </div>
-    </div>
-  </div>
-
-  <div class="bottom-action-bar">
-    <button class="btn-reject" onclick="openRejectSheet('order')">Reject</button>
-    <button class="btn-approve" onclick="doApprove('order')">Approve</button>
-  </div>
-  <div class="home-indicator"><div class="home-indicator-bar"></div></div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════════════════
-     SCREEN 5: INVOICE DETAILS
-════════════════════════════════════════════════════════════════ -->
-<div class="screen" id="screen-invoice-details">
-  <div class="status-bar">
-    <span class="time">9:41</span>
-    <div class="icons">
-      <svg width="17" height="12" viewBox="0 0 17 12" fill="none"><rect x="0" y="8" width="3" height="4" rx="0.5" fill="#282829"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="0.5" fill="#282829"/><rect x="9" y="3" width="3" height="9" rx="0.5" fill="#282829"/><rect x="13.5" y="0" width="3" height="12" rx="0.5" fill="#282829"/></svg>
-      <svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.5" stroke="#282829" stroke-opacity="0.35"/><rect x="2" y="2" width="16" height="8" rx="2" fill="#282829"/><path d="M23 4v4a2 2 0 000-4z" fill="#282829" opacity="0.4"/></svg>
-    </div>
-  </div>
-
-  <div class="nav-bar">
-    <button class="nav-circle-btn" onclick="goBack()">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M12.5 5L7.5 10L12.5 15" stroke="#282829" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    </button>
-    <button class="nav-circle-btn">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><circle cx="10" cy="5" r="1.5" fill="#282829"/><circle cx="10" cy="10" r="1.5" fill="#282829"/><circle cx="10" cy="15" r="1.5" fill="#282829"/></svg>
-    </button>
-  </div>
-
-  <div style="padding:4px 16px 16px;flex-shrink:0;">
-    <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px;">
-      <span style="font-family:'Lato',sans-serif;font-weight:700;font-size:14px;color:var(--dark);">IRN #: INV-2026-0892</span>
-      <span style="font-family:'Lato',sans-serif;font-size:12px;color:rgba(40,40,41,0.7);">Due: <strong>Feb 09</strong></span>
-      <span style="font-family:'Lato',sans-serif;font-size:12px;color:rgba(40,40,41,0.7);">Created: <strong>07/01/2026</strong></span>
-    </div>
-    <h1 style="font-family:'Lato',sans-serif;font-weight:900;font-size:20px;color:var(--dark);margin-bottom:4px;">Apex Maintenance LLC</h1>
-    <p style="font-family:'Lato',sans-serif;font-size:14px;color:rgba(40,40,41,0.7);margin-bottom:4px;">456 Commerce Blvd, Austin, TX 78701</p>
-    <p style="font-family:'Lato',sans-serif;font-size:12px;color:rgba(40,40,41,0.7);margin-bottom:12px;">Phone: (512) 445 9900</p>
-    <div style="display:flex;flex-wrap:wrap;gap:6px;">
-      <span class="badge badge-amber">Pending Invoice Approval</span>
-      <span class="badge badge-amber">3× Avg</span>
-    </div>
-  </div>
-
-  <div class="tabs" id="invoice-tabs">
-    <div class="tab active" onclick="switchTab('invoice','details',this)">Details</div>
-    <div class="tab" onclick="switchTab('invoice','order-match',this)">Order Match</div>
-    <div class="tab" onclick="switchTab('invoice','attachments',this)">Attachments</div>
-  </div>
-
-  <!-- Tab: Details -->
-  <div class="screen-content" id="invoice-tab-details">
-    <div style="padding:16px;display:flex;flex-direction:column;gap:12px;">
-      <!-- Invoice Line Items -->
-      <div class="card">
-        <div class="card-title">Invoice Line Items</div>
-        <div class="line-item">
-          <div class="line-item-top">
-            <span class="line-item-sku">INV-001 &nbsp;&nbsp; HVAC Filter Replacement</span>
-            <span class="line-item-amount">$540.00</span>
-          </div>
-          <div class="line-item-meta">Hampshire Hill &nbsp; QTY 12 × $45.00</div>
-          <div class="line-item-detail">Unit: 108A &nbsp;·&nbsp; Project: 2001 &nbsp;·&nbsp; GL Code: 6100</div>
-        </div>
-        <div class="line-item">
-          <div class="line-item-top">
-            <span class="line-item-sku">INV-002 &nbsp;&nbsp; Thermostat Service</span>
-            <span class="line-item-amount">$280.00</span>
-          </div>
-          <div class="line-item-meta">Hampshire Hill &nbsp; QTY 1 × $280.00</div>
-          <div class="line-item-detail">Unit: 108A &nbsp;·&nbsp; Project: 2001 &nbsp;·&nbsp; GL Code: 6110</div>
-        </div>
-        <div style="margin-top:14px;">
-          <span class="teal-link" onclick="openMoreInfo('invoice')">+ 3 more items →</span>
-        </div>
-        <button class="btn-more-info" onclick="openMoreInfo('invoice')">More Info</button>
-      </div>
-
-      <!-- Invoice Summary -->
-      <div class="card">
-        <div class="card-title">Invoice Summary</div>
-        <div class="cost-row"><span>Subtotal</span><span>$820.00</span></div>
-        <div class="cost-row"><span>Tax (8.25%)</span><span>$67.65</span></div>
-        <div class="cost-divider"></div>
-        <div class="cost-total"><span>Invoice Total</span><span>$887.65</span></div>
-      </div>
-
-      <!-- Vendor Alert -->
-      <div class="vendor-alert-card">
-        <div class="vendor-alert-title">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M8 1.5L14.5 13.5H1.5L8 1.5Z" stroke="#BC8701" stroke-width="1.5" stroke-linejoin="round" fill="none"/><path d="M8 6v4M8 11.5v.5" stroke="#BC8701" stroke-width="1.5" stroke-linecap="round"/></svg>
-          Invoice 3× above vendor average
-        </div>
-        <div class="vendor-alert-sub">Avg invoice: $295 &nbsp;·&nbsp; This invoice: $887.65</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tab: Order Match -->
-  <div class="screen-content" id="invoice-tab-order-match" style="display:none;">
-    <div style="padding:16px;">
-      <div class="card">
-        <div class="card-title">Order Match</div>
-        <div class="cost-row"><span>Matched PO</span><span style="color:var(--teal);font-weight:700;">WTN #1245890</span></div>
-        <div class="cost-row"><span>Match Status</span><span style="color:var(--green-text);font-weight:700;">Matched</span></div>
-        <div class="cost-row"><span>PO Amount</span><span>$850.00</span></div>
-        <div class="cost-row"><span>Invoice Amount</span><span>$887.65</span></div>
-        <div class="cost-divider"></div>
-        <div class="cost-row"><span>Variance</span><span style="color:var(--amber-text);font-weight:700;">+$37.65</span></div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tab: Attachments -->
-  <div class="screen-content" id="invoice-tab-attachments" style="display:none;">
-    <div style="padding:16px;">
-      <div class="card" style="padding:16px;">
-        <div style="display:flex;align-items:center;gap:12px;padding:12px;background:var(--light-gray);border-radius:8px;">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="8" fill="#E9EAEB"/><path d="M10 22V10h7l5 5v7H10z" stroke="#9BA3A7" stroke-width="1.5" fill="none"/><path d="M17 10v5h5" stroke="#9BA3A7" stroke-width="1.5"/></svg>
-          <div>
-            <p style="font-family:'Lato',sans-serif;font-size:13px;font-weight:700;color:var(--dark);">Invoice_INV-2026-0892.pdf</p>
-            <p style="font-family:'Lato',sans-serif;font-size:11px;color:rgba(40,40,41,0.6);">245 KB</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="bottom-action-bar">
-    <button class="btn-reject" onclick="openRejectSheet('invoice')">Reject</button>
-    <button class="btn-approve" onclick="doApprove('invoice')">Approve</button>
-  </div>
-  <div class="home-indicator"><div class="home-indicator-bar"></div></div>
-</div>
-
-
-<!-- ════════════════════════════════════════════════════════════
-     OVERLAYS
-════════════════════════════════════════════════════════════════ -->
-<div id="overlay-backdrop" onclick="closeAllSheets()"></div>
-
-<!-- More Info Sheet -->
-<div class="bottom-sheet" id="sheet-more-info">
-  <div class="sheet-handle"></div>
-  <div class="sheet-header">
-    <span id="sheet-title" style="font-family:'Lato',sans-serif;font-weight:700;font-size:16px;color:var(--dark);">Line Items (6 total)</span>
-    <button class="sheet-close" onclick="closeMoreInfo()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2L12 12M12 2L2 12" stroke="#282829" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-  <div class="sheet-body">
-    <!-- Order items -->
-    <div id="more-info-order">
-      <div class="line-item">
-        <div class="line-item-top"><span class="line-item-sku">Sku 1 &nbsp;&nbsp; Fence Panel (Cedar 6ft)</span><span class="line-item-amount">$480.00</span></div>
-        <div class="line-item-meta">Hampshire Hill &nbsp; QTY 8 × $60.00</div>
-        <div class="line-item-detail">Unit: 108 A &nbsp;·&nbsp; Project: 1001 &nbsp;·&nbsp; GL Code: 1001</div>
-      </div>
-      <div class="line-item">
-        <div class="line-item-top"><span class="line-item-sku">Sku 2 &nbsp;&nbsp; Gate Hardware Kit</span><span class="line-item-amount">$144.00</span></div>
-        <div class="line-item-meta">Hampshire Hill &nbsp; QTY 4 × $36.00</div>
-        <div class="line-item-detail">Unit: 108 A &nbsp;·&nbsp; Project: 1001 &nbsp;·&nbsp; GL Code: 1001</div>
-      </div>
-      <div class="line-item">
-        <div class="line-item-top"><span class="line-item-sku">Sku 3 &nbsp;&nbsp; Post Cap (Vinyl 4×4)</span><span class="line-item-amount">$72.00</span></div>
-        <div class="line-item-meta">Hampshire Hill &nbsp; QTY 6 × $12.00</div>
-        <div class="line-item-detail">Unit: 108 A &nbsp;·&nbsp; Project: 1001 &nbsp;·&nbsp; GL Code: 1001</div>
-      </div>
-      <div class="line-item">
-        <div class="line-item-top"><span class="line-item-sku">Sku 4 &nbsp;&nbsp; Concrete Mix (60lb bag)</span><span class="line-item-amount">$120.00</span></div>
-        <div class="line-item-meta">Hampshire Hill &nbsp; QTY 8 × $15.00</div>
-        <div class="line-item-detail">Unit: 108 A &nbsp;·&nbsp; Project: 1001 &nbsp;·&nbsp; GL Code: 1001</div>
-      </div>
-      <div class="line-item">
-        <div class="line-item-top"><span class="line-item-sku">Sku 5 &nbsp;&nbsp; Deck Screws (1lb box)</span><span class="line-item-amount">$48.00</span></div>
-        <div class="line-item-meta">Hampshire Hill &nbsp; QTY 6 × $8.00</div>
-        <div class="line-item-detail">Unit: 108 A &nbsp;·&nbsp; Project: 1001 &nbsp;·&nbsp; GL Code: 6100</div>
-      </div>
-      <div class="line-item">
-        <div class="line-item-top"><span class="line-item-sku">Sku 6 &nbsp;&nbsp; Wood Stain (Gallon)</span><span class="line-item-amount">$96.00</span></div>
-        <div class="line-item-meta">Hampshire Hill &nbsp; QTY 4 × $24.00</div>
-        <div class="line-item-detail">Unit: 108 A &nbsp;·&nbsp; Project: 1001 &nbsp;·&nbsp; GL Code: 6100</div>
-      </div>
-      <div style="margin-top:20px;">
-        <h3 style="font-family:'Lato',sans-serif;font-weight:700;font-size:14px;color:var(--dark);margin-bottom:12px;">GL Code Summary</h3>
-        <div class="gl-row"><span style="font-weight:500;color:var(--dark);">GL 1001</span><span>$816.00</span></div>
-        <div class="gl-row"><span style="font-weight:500;color:var(--dark);">GL 6100</span><span>$144.00</span></div>
-      </div>
-    </div>
-
-    <!-- Invoice items -->
-    <div id="more-info-invoice" style="display:none;">
-      <div class="line-item">
-        <div class="line-item-top"><span class="line-item-sku">INV-001 &nbsp;&nbsp; HVAC Filter Replacement</span><span class="line-item-amount">$540.00</span></div>
-        <div class="line-item-meta">Hampshire Hill &nbsp; QTY 12 × $45.00</div>
-        <div class="line-item-detail">Unit: 108A &nbsp;·&nbsp; Project: 2001 &nbsp;·&nbsp; GL Code: 6100</div>
-      </div>
-      <div class="line-item">
-        <div class="line-item-top"><span class="line-item-sku">INV-002 &nbsp;&nbsp; Thermostat Service</span><span class="line-item-amount">$280.00</span></div>
-        <div class="line-item-meta">Hampshire Hill &nbsp; QTY 1 × $280.00</div>
-        <div class="line-item-detail">Unit: 108A &nbsp;·&nbsp; Project: 2001 &nbsp;·&nbsp; GL Code: 6110</div>
-      </div>
-      <div class="line-item">
-        <div class="line-item-top"><span class="line-item-sku">INV-003 &nbsp;&nbsp; Coil Cleaning Service</span><span class="line-item-amount">$67.65</span></div>
-        <div class="line-item-meta">Hampshire Hill &nbsp; QTY 1 × $67.65</div>
-        <div class="line-item-detail">Unit: 108A &nbsp;·&nbsp; Project: 2001 &nbsp;·&nbsp; GL Code: 6100</div>
-      </div>
-      <div style="margin-top:20px;">
-        <h3 style="font-family:'Lato',sans-serif;font-weight:700;font-size:14px;color:var(--dark);margin-bottom:12px;">GL Code Summary</h3>
-        <div class="gl-row"><span style="font-weight:500;color:var(--dark);">GL 6100</span><span>$607.65</span></div>
-        <div class="gl-row"><span style="font-weight:500;color:var(--dark);">GL 6110</span><span>$280.00</span></div>
-      </div>
-    </div>
-  </div>
-  <div class="home-indicator" style="background:var(--white);"><div class="home-indicator-bar"></div></div>
-</div>
-
-<!-- Reject Sheet -->
-<div class="bottom-sheet" id="sheet-reject">
-  <div class="sheet-handle"></div>
-  <div class="sheet-header">
-    <span id="reject-title" style="font-family:'Lato',sans-serif;font-weight:700;font-size:16px;color:var(--dark);">Reject Order</span>
-    <button class="sheet-close" onclick="closeRejectSheet()">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 2L12 12M12 2L2 12" stroke="#282829" stroke-width="1.8" stroke-linecap="round"/></svg>
-    </button>
-  </div>
-  <div class="sheet-body">
-    <label class="reject-label">Reason for rejection</label>
-    <textarea class="reject-textarea" id="reject-reason" rows="4" placeholder="Enter reason for rejection..."></textarea>
-
-    <div class="reject-warning">
-      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M7 1.5L13 12.5H1L7 1.5Z" stroke="#BC8701" stroke-width="1.2" stroke-linejoin="round" fill="none"/><path d="M7 5.5v3M7 10v.5" stroke="#BC8701" stroke-width="1.2" stroke-linecap="round"/></svg>
-      Workflow Comments (Required)
-    </div>
-
-    <label class="reject-label" style="margin-top:14px;">Workflow Comments</label>
-    <textarea class="reject-textarea" id="reject-comments" rows="3" placeholder="Add comments for the workflow..."></textarea>
-
-    <div style="display:flex;gap:12px;margin-top:20px;margin-bottom:8px;">
-      <button onclick="closeRejectSheet()" style="flex:1;height:48px;border-radius:8px;background:var(--white);border:1px solid var(--border);color:var(--secondary);font-family:'Lato',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">Cancel</button>
-      <button onclick="submitRejection()" style="flex:1;height:48px;border-radius:8px;background:#D0021B;border:none;color:white;font-family:'Lato',sans-serif;font-weight:700;font-size:14px;cursor:pointer;">Submit Rejection</button>
-    </div>
-  </div>
-  <div class="home-indicator" style="background:var(--white);"><div class="home-indicator-bar"></div></div>
-</div>
-
-</div><!-- /#app -->
-
-<!-- Toast -->
-<div id="toast"></div>
-
-<script>
-// ── State ──────────────────────────────────────────────────────
-var navHistory = ['screen-dashboard'];
-var currentScreen = 'screen-dashboard';
-var rejectContext = null;
-var activeSheet = null;
-
-// ── Navigation ─────────────────────────────────────────────────
-function navigate(screenId) {
-  if (screenId === currentScreen) return;
-  var from = document.getElementById(currentScreen);
-  var to   = document.getElementById(screenId);
-
-  // Prepare destination off-screen to the right
-  to.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:0;left:0;right:0;bottom:0;transform:translateX(100%);transition:none;background:#fff;';
-  to.offsetHeight; // reflow
-
-  // Animate
-  from.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
-  to.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
-
-  requestAnimationFrame(function() {
-    from.style.transform = 'translateX(-28%)';
-    from.style.opacity = '0.6';
-    to.style.transform = 'translateX(0)';
-  });
-
-  setTimeout(function() {
-    // Clean up from
-    from.style.cssText = 'display:none;';
-    from.classList.remove('active');
-    // Settle to
-    to.style.cssText = 'display:flex;flex-direction:column;min-height:100vh;background:#fff;';
-    to.classList.add('active');
-    currentScreen = screenId;
-    navHistory.push(screenId);
-  }, 310);
-}
-
-function goBack() {
-  if (navHistory.length <= 1) return;
-  navHistory.pop();
-  var prev = navHistory[navHistory.length - 1];
-  var from = document.getElementById(currentScreen);
-  var to   = document.getElementById(prev);
-
-  to.style.cssText = 'display:flex;flex-direction:column;position:absolute;top:0;left:0;right:0;bottom:0;transform:translateX(-28%);opacity:0.6;transition:none;background:#fff;';
-  to.offsetHeight;
-
-  from.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
-  to.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
-
-  requestAnimationFrame(function() {
-    from.style.transform = 'translateX(100%)';
-    to.style.transform = 'translateX(0)';
-    to.style.opacity = '1';
-  });
-
-  setTimeout(function() {
-    from.style.cssText = 'display:none;';
-    from.classList.remove('active');
-    to.style.cssText = 'display:flex;flex-direction:column;min-height:100vh;background:#fff;';
-    to.classList.add('active');
-    currentScreen = prev;
-  }, 310);
-}
-
-// ── Tab switching ──────────────────────────────────────────────
-var tabPanels = {
-  order: ['details','budget','additional','attachments'],
-  invoice: ['details','order-match','attachments']
+<div id="root"></div>
+<script type="text/babel">
+const {useState,useEffect,useRef} = React;
+
+const KPI_DATA = [
+  {id:'ts',label:'Total Spend',val:'$10.5M',sub:'1,247 properties · YTD',delta:'+7.1% vs LY',dir:'neu',accent:'b'},
+  {id:'cs',label:'Compliant Spend',val:'$8.6M',sub:'82% compliance rate',delta:'+4pts QoQ',dir:'up',accent:'g'},
+  {id:'ms',label:'Maverick Spend',val:'$1.2M',sub:'11.4% of total spend',delta:'-1.7pts QoQ',dir:'up',accent:'r'},
+  {id:'ps',label:'Potential Savings',val:'$320K',sub:'Vendor consolidation + preferred',delta:'Identified',dir:'neu',accent:'y'},
+  {id:'sr',label:'Spend at Risk',val:'18%',sub:'$1.89M · 148 properties',delta:'-3pts vs Q3',dir:'up',accent:'y'},
+  {id:'av',label:'Active Violations',val:'23',sub:'8 critical · 67 impacted props',delta:'5 new this week',dir:'dn',accent:'r'},
+];
+
+const INSIGHTS = [
+  {type:'al',label:'Alert',icon:'⚠',title:'HVAC maverick spend spiked 34% MTD',detail:'$280K across 12 Texas properties used non-preferred vendors. Creates $42K excess cost vs preferred vendor pricing at current run rate.',cta:'View HVAC vendors',page:'vendors'},
+  {type:'rc',label:'Recommendation',icon:'💡',title:'Consolidate 8 FL landscaping vendors to 2 preferred',detail:'Estimated $89K annual savings (22% reduction). ProGreen and GreenBridge cover 100% of FL property types with existing contracts.',cta:'View consolidation plan',page:'vendors'},
+  {type:'en',label:'Enforcement',icon:'🛡',title:'Approval bypass detected in Colorado — 11 incidents / 30 days',detail:'3 properties bypassed PO-first workflow for $62K in spend. Pattern suggests systematic non-compliance or deliberate workaround.',cta:'Open investigation',page:'investigations'},
+  {type:'tr',label:'Trend',icon:'📈',title:'Portfolio compliance improved +4pts to 82% QoQ',detail:'Primary driver: Texas Class A properties adopted online invoicing (+18%). Georgia at 78% is highest region. 3 regions still below target.',cta:'View trend details',page:'compliance'},
+];
+
+const SIGNALS = [
+  {id:'rog',label:'ROG Compliance',val:77,target:80,unit:'%',trend:[70,71,72,74,75,77],delta:'+3',page:'process',inverse:false},
+  {id:'po',label:'PO-WTN Compliance',val:95,target:80,unit:'%',trend:[88,89,91,92,94,95],delta:'+3',page:'process',inverse:false},
+  {id:'vi',label:'Vendor Invoice Compliance',val:68,target:75,unit:'%',trend:[62,64,65,66,67,68],delta:'+1',page:'process',inverse:false},
+  {id:'off',label:'Offline Leakage',val:30,target:20,unit:'%',trend:[34,33,32,31,30,30],delta:'-1',page:'offline',inverse:true},
+];
+
+const CATEGORIES = [
+  {name:'HVAC',comp:1400000,mav:700000,total:2100000,rate:67,trend:'dn',status:'r'},
+  {name:'Plumbing',comp:1602000,mav:198000,total:1800000,rate:89,trend:'up',status:'g'},
+  {name:'Landscaping',comp:603000,mav:297000,total:900000,rate:67,trend:'fl',status:'y'},
+  {name:'Electrical',comp:651000,mav:49000,total:700000,rate:93,trend:'up',status:'g'},
+  {name:'Cleaning',comp:350000,mav:150000,total:500000,rate:70,trend:'dn',status:'y'},
+  {name:'General M&R',comp:852000,mav:348000,total:1200000,rate:71,trend:'fl',status:'y'},
+  {name:'Roofing',comp:552000,mav:48000,total:600000,rate:92,trend:'up',status:'g'},
+  {name:'Security',comp:380000,mav:20000,total:400000,rate:95,trend:'up',status:'g'},
+];
+
+const MAV_VENDORS = [
+  {name:'Apex Maintenance Grp',region:'TX',cat:'M&R',spend:180000,viol:4,status:'preferred',issue:'Split invoices'},
+  {name:'Southwest Electrical',region:'TX/FL',cat:'Electrical',spend:68000,viol:3,status:'non-cred',issue:'Lapsed COI'},
+  {name:'GreenScape Landscaping',region:'FL',cat:'Landscaping',spend:45000,viol:2,status:'preferred',issue:'No PO issued'},
+  {name:'Capitol Builders LLC',region:'TX',cat:'Construction',spend:28500,viol:2,status:'unauth',issue:'Unauthorized'},
+  {name:'Martinez Consulting',region:'Portfolio',cat:'Prof Svcs',spend:22000,viol:1,status:'non-pref',issue:'Non-preferred'},
+];
+
+const REGIONS_DATA = [
+  {name:'Colorado',spend:900000,mavPct:28,score:61,props:124,viol:4},
+  {name:'Florida',spend:2400000,mavPct:18,score:68,props:312,viol:7},
+  {name:'Texas',spend:3800000,mavPct:12,score:72,props:487,viol:8},
+  {name:'Georgia',spend:1500000,mavPct:8,score:78,props:198,viol:4},
+  {name:'Others (34)',spend:1900000,mavPct:14,score:74,props:126,viol:0},
+];
+
+const PROPS_DATA = [
+  {name:'Pegasus Canyon',region:'CO',score:54,mavPct:38,viol:5},
+  {name:'Pegasus Peaks',region:'CO',score:65,mavPct:28,viol:4},
+  {name:'Pegasus Bay',region:'FL',score:62,mavPct:24,viol:4},
+  {name:'Pegasus Ridge',region:'TX',score:69,mavPct:22,viol:4},
+  {name:'Pegasus Park',region:'TX',score:73,mavPct:18,viol:3},
+  {name:'Pegasus Shores',region:'FL',score:73,mavPct:17,viol:3},
+  {name:'Pegasus Grove',region:'FL',score:70,mavPct:19,viol:3},
+  {name:'Pegasus Heights',region:'TX',score:71,mavPct:20,viol:3},
+  {name:'Pegasus Meadows',region:'TX',score:84,mavPct:8,viol:2},
+  {name:'Pegasus Summit',region:'GA',score:86,mavPct:6,viol:1},
+];
+
+const CASES = [
+  {id:'C-001',pri:'cr',type:'Split Invoice Pattern',vendor:'Apex Maintenance Group',region:'TX',prop:'Pegasus Meadows',amt:45200,age:5,status:'open',desc:'3 invoices submitted same-day, all just below $15K VP approval threshold. Total: $45,200. AI confidence: High (97%).',actions:['Escalate to VP','Hold payment','Request invoice audit']},
+  {id:'C-002',pri:'cr',type:'Unauthorized Vendor',vendor:'Capitol Builders LLC',region:'TX',prop:'Pegasus Heights',amt:28500,age:3,status:'open',desc:'Engagement with non-vetted vendor for renovation work. No COI, no W-9, no approved vendor status on file.',actions:['Stop work order','Request COI and W-9','Rebid with approved vendor']},
+  {id:'C-003',pri:'cr',type:'Lapsed COI',vendor:'Southwest Electrical',region:'TX/FL',prop:'7 properties',amt:68000,age:12,status:'in-review',desc:'COI expired 45 days ago. Active work orders at 7 properties create $68K liability exposure.',actions:['Suspend work orders','Request renewed COI','Notify risk management']},
+  {id:'C-004',pri:'cr',type:'Approval Bypass',vendor:'N/A',region:'CO',prop:'Pegasus Canyon',amt:22000,age:1,status:'open',desc:'Admin override approved $22K invoice outside standard workflow. Site manager exceeded $5K authority limit.',actions:['Reverse approval','Retrain site manager','Audit all overrides']},
+  {id:'C-005',pri:'wa',type:'Budget Overrun Trajectory',vendor:'Various',region:'TX',prop:'Pegasus Ridge',amt:31200,age:7,status:'open',desc:'HVAC at 108% of annual budget with Q4 remaining. Year-end projection: 187% utilization.',actions:['Freeze discretionary HVAC','Request budget amendment']},
+  {id:'C-006',pri:'wa',type:'Vendor Concentration Risk',vendor:'Apex Maintenance Group',region:'TX',prop:'Texas Region',amt:280000,age:21,status:'open',desc:'Single vendor = 28% of Texas M&R spend ($280K). No secondary preferred vendor exists for region.',actions:['Onboard secondary vendor','Review contract terms']},
+];
+
+const PROCESS_DATA = {
+  rog:{val:77,tgt:80,trend:[70,71,72,74,75,77],lbls:['Jul','Aug','Sep','Oct','Nov','Dec'],props:[{n:'Pegasus Towers',r:94},{n:'Pegasus Meadows',r:91},{n:'Pegasus Heights',r:80},{n:'Pegasus Ridge',r:72},{n:'Pegasus Canyon',r:58}],invoices:{total:800,compliant:620}},
+  po:{val:95,tgt:80,trend:[88,89,91,92,94,95],lbls:['Jul','Aug','Sep','Oct','Nov','Dec'],issues:[{prop:'Pegasus Canyon',issue:'Repeated no-PO purchases',count:4,amt:18200},{prop:'Pegasus Bay',issue:'PO issued after receipt',count:2,amt:9400},{prop:'Pegasus Ridge',issue:'PO limit exceeded',count:1,amt:5800}]},
+  vi:{val:68,tgt:75,countRate:68,spendRate:74},
 };
 
-function switchTab(screen, tabName, el) {
-  var tabsEl = document.getElementById(screen + '-tabs');
-  tabsEl.querySelectorAll('.tab').forEach(function(t){ t.classList.remove('active'); });
-  el.classList.add('active');
+const OFFLINE_DATA = {
+  val:30,tgt:20,offSpend:3150000,missed:472500,
+  orders:{total:5451,offline:1622,pct:29.8},
+  trend:{lbls:['Jul','Aug','Sep','Oct','Nov','Dec'],off:[34,33,32,31,30,30],on:[66,67,68,69,70,70]},
+  provisioned:[{v:'GreenScape Landscaping',s:145000,cat:'Landscaping',props:15},{v:'ProClean Services',s:89000,cat:'Cleaning',props:10},{v:'SafeGuard Security',s:78000,cat:'Security',props:9},{v:'Elite Roofing',s:42000,cat:'Roofing',props:4}],
+  unprovisioned:[{v:'Southwest Electrical',s:68000,opp:13600,props:7},{v:'Martinez Consulting',s:22000,opp:4400,props:1},{v:'AquaClean Systems',s:14800,opp:2960,props:2}],
+};
 
-  var prefix = screen + '-tab-';
-  tabPanels[screen].forEach(function(p) {
-    var panel = document.getElementById(prefix + p);
-    if (panel) panel.style.display = 'none';
-  });
-  var active = document.getElementById(prefix + tabName);
-  if (active) { active.style.display = 'flex'; active.style.flexDirection = 'column'; }
-}
+const VENDOR_DATA = {
+  total:261,online:74,offline:187,cred:143,nonCredPct:42.5,credPct:54.8,pending:18,
+  channels:[{n:'Catalog / PO',cnt:74,spend:3800000,pct:36},{n:'eInvoice',cnt:0,spend:0,pct:0},{n:'Offline / Check',cnt:187,spend:3600000,pct:34}],
+  growth:{lbls:['Jul','Aug','Sep','Oct','Nov','Dec'],on:[60,63,66,68,71,74],tot:[248,251,254,256,259,261]},
+  nonCompl:[{n:'Southwest Electrical',s:68000,issues:['Lapsed COI','No contract'],risk:'h'},{n:'Capitol Builders LLC',s:28500,issues:['Unauthorized','No COI'],risk:'h'},{n:'Martinez Consulting',s:22000,issues:['Non-preferred','No PO'],risk:'m'},{n:'AquaClean Systems',s:14800,issues:['Non-preferred'],risk:'m'},{n:'Generic Repairs Inc',s:8200,issues:['No COI'],risk:'m'}],
+};
 
-// ── Overlay helper ─────────────────────────────────────────────
-function showOverlay() {
-  var bd = document.getElementById('overlay-backdrop');
-  bd.style.display = 'block';
-  bd.offsetHeight;
-  bd.classList.add('show');
-}
-function hideOverlay() {
-  var bd = document.getElementById('overlay-backdrop');
-  bd.classList.remove('show');
-  setTimeout(function(){ bd.style.display = 'none'; }, 300);
-}
+const LUMINA_RESP = {
+  maverick:{text:'HVAC maverick spend is up 34% MoM, driven by 12 Texas properties sourcing outside preferred vendors. Top offenders: Apex Maintenance ($180K, split invoice pattern), Southwest Electrical ($68K, lapsed COI), one-time unvetted vendors ($32K). Preferred vendor AirTech HVAC has capacity to cover all impacted properties.',rows:[{l:'HVAC Compliance Rate',v:'67% (vs 82% avg)',t:'r'},{l:'Excess Cost vs Preferred',v:'$42K',t:'r'},{l:'Impacted Properties',v:'12 (Texas)',t:'w'}]},
+  vendors:{text:'Top 5 non-compliant vendors account for $201K in maverick spend. Southwest Electrical is highest risk: COI expired 45 days ago with active work at 7 properties. Capitol Builders LLC has zero vetting on file. Recommend immediate suspension of both vendors pending compliance documentation.',rows:[{l:'Southwest Electrical',v:'$68K — Lapsed COI',t:'r'},{l:'Capitol Builders LLC',v:'$28.5K — Unauthorized',t:'r'},{l:'Martinez Consulting',v:'$22K — Non-preferred',t:'w'}]},
+  offline:{text:'Colorado has the highest offline leakage at 38%, well above the 20% target. Primary driver: 3 provisioned vendors (GreenScape, ProClean, SafeGuard) still transacting offline despite platform onboarding. Estimated missed savings: $88K annually if shifted online.',rows:[{l:'Colorado Offline Rate',v:'38% (target: 20%)',t:'r'},{l:'Provisioned-But-Offline',v:'$314K spend',t:'w'},{l:'Missed Savings Estimate',v:'$88K per year',t:'w'}]},
+  default:{text:'Portfolio compliance is at 82% YTD, up 4pts vs last quarter. Key risks: 8 critical violations ($202K exposure), HVAC at 67% compliance (portfolio laggard), offline leakage at 29.8% vs 20% target (1,622 of 5,451 orders offline). Only 74 of 261 vendors are online (28.4%). PO-WTN compliance is strong at 95%. Where would you like to investigate?',rows:[{l:'Portfolio Compliance',v:'82% (+4pts QoQ)',t:'g'},{l:'PO-WTN Compliance',v:'95% — above target',t:'g'},{l:'Offline Orders',v:'1,622/5,451 (29.8%)',t:'r'},{l:'Vendor Online Rate',v:'74/261 (28.4%)',t:'r'}]},
+};
 
-// ── More Info Sheet ────────────────────────────────────────────
-function openMoreInfo(type) {
-  document.getElementById('more-info-order').style.display = type === 'order' ? 'block' : 'none';
-  document.getElementById('more-info-invoice').style.display = type === 'invoice' ? 'block' : 'none';
-  document.getElementById('sheet-title').textContent = type === 'order' ? 'Line Items (6 total)' : 'Line Items (5 total)';
-  activeSheet = 'more-info';
-  showOverlay();
-  document.getElementById('sheet-more-info').classList.add('show');
-}
-function closeMoreInfo() {
-  document.getElementById('sheet-more-info').classList.remove('show');
-  activeSheet = null;
-  hideOverlay();
-}
+/* ── ICON ─────────────────────────────────────────────────────── */
+const SVG_PATHS = {
+  shield:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
+  alert:'M12 9v4 M12 17h.01',
+  bell:'M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9',
+  search:'M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z',
+  grid:'M3 3h7v7H3z M14 3h7v7h-7z M14 14h7v7h-7z M3 14h7v7H3z',
+  chevron:'M9 18l6-6-6-6',
+  user:'M20 21v-2a4 4 00-4-4H8a4 4 00-4 4v2 M12 11a4 4 100-8 0 4 4 008 0z',
+  file:'M14 2H6a2 2 00-2 2v16a2 2 002 2h12a2 2 002-2V8z M14 2v6h6',
+  building:'M3 9l9-7 9 7v11a2 2 01-2 2H5a2 2 01-2-2z M9 22V12h6v10',
+  filter:'M22 3H2l8 9.46V19l4 2v-8.54L22 3z',
+  export:'M21 15v4a2 2 01-2 2H5a2 2 01-2-2v-4 M17 8l-5-5-5 5 M12 3v12',
+  plus:'M12 5v14 M5 12h14',
+  x:'M18 6L6 18 M6 6l12 12',
+  check:'M20 6L9 17l-5-5',
+  zap:'M13 2L3 14h9l-1 8 10-12h-9l1-8z',
+  eye:'M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z M12 9a3 3 100-6 0 3 3 006 0z',
+  link:'M15 7h3a5 5 015 5 5 5 0 01-5 5h-3 M9 17H6A5 5 011 12a5 5 015-5h3 M8 12h8',
+  layers:'M12 2L2 7l10 5 10-5-10-5z M2 17l10 5 10-5 M2 12l10 5 10-5',
+  cart:'M6 2L3 6v14a2 2 002 2h14a2 2 002-2V6l-3-4z M3 6h18',
+  help:'M9.09 9a3 3 015.83 1c0 2-3 3-3 3 M12 17h.01',
+  logout:'M9 21H5a2 2 01-2-2V5a2 2 012-2h4 M16 17l5-5-5-5 M21 12H9',
+};
+const Icon = ({n,s=16,c='currentColor'}) => {
+  const d = SVG_PATHS[n]||'';
+  return (
+    <svg width={s} height={s} viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round">
+      {d.split(' M').map((seg,i)=><path key={i} d={i===0?seg:`M${seg}`}/>)}
+    </svg>
+  );
+};
 
-// ── Reject Sheet ───────────────────────────────────────────────
-function openRejectSheet(type) {
-  rejectContext = type;
-  document.getElementById('reject-title').textContent = type === 'order' ? 'Reject Order' : 'Reject Invoice';
-  document.getElementById('reject-reason').value = '';
-  document.getElementById('reject-comments').value = '';
-  document.getElementById('reject-reason').style.borderColor = '';
-  activeSheet = 'reject';
-  showOverlay();
-  document.getElementById('sheet-reject').classList.add('show');
-}
-function closeRejectSheet() {
-  document.getElementById('sheet-reject').classList.remove('show');
-  activeSheet = null;
-  hideOverlay();
-}
+/* ── CHARTS ───────────────────────────────────────────────────── */
+const DonutChart = ({segs,size=130,thick=22}) => {
+  const cx=size/2,cy=size/2,r=size/2-thick/2;
+  const toXY=(deg)=>{const rad=(deg-90)*Math.PI/180;return{x:cx+r*Math.cos(rad),y:cy+r*Math.sin(rad)};};
+  let start=0;
+  const arcs=segs.map(seg=>{const sw=(seg.pct/100)*359.99;const s=toXY(start);const e=toXY(start+sw);const d=`M ${s.x} ${s.y} A ${r} ${r} 0 ${sw>180?1:0} 1 ${e.x} ${e.y}`;start+=sw;return {...seg,d};});
+  const cx2=cx,cy2=cy;
+  return (
+    <svg width={size} height={size}>
+      <circle cx={cx2} cy={cy2} r={r} fill="none" stroke="#EBEDEE" strokeWidth={thick}/>
+      {arcs.map((a,i)=><path key={i} d={a.d} fill="none" stroke={a.color} strokeWidth={thick} strokeLinecap="butt"/>)}
+    </svg>
+  );
+};
 
-function closeAllSheets() {
-  closeMoreInfo();
-  closeRejectSheet();
-}
+const LineChart = ({series,lbls,w=340,h=110,colors=['#0076CC','#D01A1F'],showDots=true}) => {
+  const all=series.flat();
+  const mn=Math.min(...all)-3,mx=Math.max(...all)+3,rng=mx-mn||1;
+  const pl={t:8,r:8,b:22,l:30};
+  const cw=w-pl.l-pl.r,ch=h-pl.t-pl.b;
+  const px=(v,i,len)=>pl.l+(i/Math.max(len-1,1))*cw;
+  const py=(v)=>pl.t+ch-((v-mn)/rng)*ch;
+  const mkPath=(s)=>s.map((v,i)=>`${i===0?'M':'L'} ${px(v,i,s.length)} ${py(v)}`).join(' ');
+  return (
+    <svg width={w} height={h} style={{overflow:'visible'}}>
+      {[0,25,50,75,100].map(v=>{const y=py(v);return (y>=pl.t&&y<=pl.t+ch)?<line key={v} x1={pl.l} y1={y} x2={pl.l+cw} y2={y} stroke="#EBEDEE" strokeWidth={1}/>:null;})}
+      {series.map((s,i)=>(
+        <g key={i}>
+          <path d={mkPath(s)} fill="none" stroke={colors[i]||'#0076CC'} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"/>
+          {showDots&&s.map((v,j)=><circle key={j} cx={px(v,j,s.length)} cy={py(v)} r={2.5} fill={colors[i]||'#0076CC'}/>)}
+        </g>
+      ))}
+      {lbls&&lbls.map((l,i)=><text key={i} x={pl.l+(i/Math.max(lbls.length-1,1))*cw} y={h-5} textAnchor="middle" fontSize={9} fill="#9BA3A7">{l}</text>)}
+    </svg>
+  );
+};
 
-function submitRejection() {
-  var reason = document.getElementById('reject-reason').value.trim();
-  if (!reason) {
-    document.getElementById('reject-reason').style.borderColor = '#D0021B';
-    document.getElementById('reject-reason').focus();
-    return;
-  }
-  closeRejectSheet();
-  showToast(rejectContext === 'order' ? 'Order rejected' : 'Invoice rejected');
-  setTimeout(goBack, 1400);
-}
+const Spark = ({data,color='#0076CC',h=18}) => {
+  const mn=Math.min(...data),mx=Math.max(...data),rng=mx-mn||1;
+  return (
+    <svg width={data.length*6} height={h}>
+      {data.map((v,i)=>{const bh=Math.max(2,((v-mn)/rng)*(h-2)+2);return <rect key={i} x={i*6} y={h-bh} width={5} height={bh} rx={1} fill={color} opacity={0.75}/>;} )}
+    </svg>
+  );
+};
 
-// ── Approve ────────────────────────────────────────────────────
-function doApprove(type) {
-  showToast(type === 'order' ? 'Order approved successfully' : 'Invoice approved successfully');
-  setTimeout(goBack, 1600);
-}
+const HBar = ({data,max,bh=8,gap=8,lw=110}) => {
+  const m=max||Math.max(...data.map(d=>d.value||0))||1;
+  return (
+    <div>
+      {data.map((item,i)=>(
+        <div key={i} style={{display:'flex',alignItems:'center',gap:8,marginBottom:gap}}>
+          <div style={{width:lw,fontSize:11,color:'#4A5568',flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.label}</div>
+          <div style={{flex:1,height:bh,background:'#EBEDEE',borderRadius:4,overflow:'hidden'}}>
+            <div style={{height:'100%',width:`${Math.min((item.value/m)*100,100)}%`,background:item.color||'#0076CC',borderRadius:4,transition:'width .4s'}}/>
+          </div>
+          <div style={{fontSize:11,fontWeight:600,color:'#2D3748',width:48,textAlign:'right',flexShrink:0}}>{item.disp!=null?item.disp:item.value}</div>
+        </div>
+      ))}
+    </div>
+  );
+};
 
-// ── Toast ──────────────────────────────────────────────────────
-function showToast(msg) {
-  var t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(function(){ t.classList.remove('show'); }, 2500);
-}
+const StackBar = ({a,total,colorA='#0076CC',colorB='#EBEDEE',h=10}) => (
+  <div style={{height:h,background:colorB,borderRadius:4,overflow:'hidden'}}>
+    <div style={{width:`${(a/total)*100}%`,height:'100%',background:colorA,borderRadius:'4px 0 0 4px',transition:'width .4s'}}/>
+  </div>
+);
+
+/* ── UI PRIMITIVES ────────────────────────────────────────────── */
+const KPICard = ({label,val,sub,delta,dir,accent}) => (
+  <div className={`kcard ${accent}`}>
+    <div className="k-lbl">{label}</div>
+    <div className="k-val">{val}</div>
+    <div className="k-sub">{sub}</div>
+    <div className={`k-delta ${dir}`}>{dir==='up'?'▲':dir==='dn'?'▼':'→'} {delta}</div>
+  </div>
+);
+
+const InsightCard = ({ins,onPage}) => (
+  <div className={`li-card ${ins.type}`}>
+    <div className={`li-type ${ins.type}`}>{ins.icon} {ins.label}</div>
+    <div className="li-ttl">{ins.title}</div>
+    <div className="li-det">{ins.detail}</div>
+    <div className="li-cta" onClick={()=>onPage(ins.page)}>{ins.cta} →</div>
+  </div>
+);
+
+const SignalCard = ({sig,onPage}) => {
+  const ok=sig.inverse?sig.val<=sig.target:sig.val>=sig.target;
+  const near=sig.inverse?sig.val<=sig.target+5:sig.val>=sig.target-5;
+  const cls=ok?'ok':near?'warn':'bad';
+  const lbl=ok?'Above target':near?'Near target':'Below target';
+  const sc=ok?'#118837':near?'#D97706':'#D01A1F';
+  return (
+    <div className="sigcard">
+      <div className="ct" style={{marginBottom:8}}>{sig.label}</div>
+      <div className="sig-v" style={{color:sc}}>{sig.val}{sig.unit}</div>
+      <div className="sig-tgt">Target: {sig.target}{sig.unit} · {sig.delta} pts MTD</div>
+      <div className={`sig-st ${cls}`}>{lbl}</div>
+      <div style={{marginTop:10}}><Spark data={sig.trend} color={sc} h={20}/></div>
+      <div className="sig-cta" onClick={()=>onPage(sig.page)}>View details →</div>
+    </div>
+  );
+};
+
+const FilterBar = ({period,onPeriod,riskOnly,onRisk}) => (
+  <div className="fbar">
+    {['MTD','QTD','YTD','Custom'].map(p=><span key={p} className={`fc ${period===p?'on':''}`} onClick={()=>onPeriod(p)}>{p}</span>)}
+    <div className="fbar-sep"/>
+    <select className="fsel"><option>All Regions</option><option>Texas</option><option>Florida</option><option>Georgia</option><option>Colorado</option></select>
+    <select className="fsel"><option>All Properties</option><option>Pegasus Meadows</option><option>Pegasus Heights</option><option>Pegasus Ridge</option></select>
+    <select className="fsel"><option>All Categories</option><option>HVAC</option><option>Plumbing</option><option>Landscaping</option><option>Electrical</option></select>
+    <select className="fsel"><option>All Vendors</option><option>Preferred Only</option><option>Non-preferred</option></select>
+    <select className="fsel"><option>Vendor Status</option><option>Credentialed</option><option>Non-credentialed</option></select>
+    <select className="fsel"><option>Invoice Channel</option><option>Online</option><option>Offline</option></select>
+    <select className="fsel"><option>Compliance Type</option><option>Spend</option><option>Process</option><option>Vendor</option></select>
+    <div className="fbar-sep"/>
+    <div className="ftog" onClick={()=>onRisk(!riskOnly)}>
+      <div className={`tpill ${riskOnly?'on':''}`}/>
+      High Risk Only
+    </div>
+    <button className="btn bg sm" style={{marginLeft:'auto'}}>Reset</button>
+  </div>
+);
+
+/* ── PAGE 1: SPEND COMPLIANCE ─────────────────────────────────── */
+const SpendCompliance = ({onPage}) => {
+  const [period,setPeriod] = useState('YTD');
+  const [riskOnly,setRiskOnly] = useState(false);
+  const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
+  const slbl = (s)=>s==='g'?'Good':s==='r'?'At Risk':'Watch';
+  const donutSegs = [{pct:82,color:'#118837',label:'Compliant'},{pct:11.4,color:'#D01A1F',label:'Maverick'},{pct:6.6,color:'#C6CCD0',label:'Unclassified'}];
+  const trendSeries = [[74,75,76,77,77,78,79,80,81,81,82,82],[18,17,16,16,15,15,14,14,13,13,12,11]];
+  const trendLbls = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+  return (
+    <div className="panim">
+      <div className="ph-row">
+        <div>
+          <div className="ph-title">Spend Compliance</div>
+          <div className="ph-sub">AI-powered visibility into compliant spend, process adherence, vendor behavior, and savings opportunities</div>
+        </div>
+        <div style={{display:'flex',gap:8}}>
+          <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
+          <button className="btn bp sm"><Icon n="bell" s={13}/> Configure Alert</button>
+        </div>
+      </div>
+      <FilterBar period={period} onPeriod={setPeriod} riskOnly={riskOnly} onRisk={setRiskOnly}/>
+      <div className="kgrid">{KPI_DATA.map(k=><KPICard key={k.id} {...k}/>)}</div>
+      <div className="sh">
+        <div className="sh-t"><span style={{background:'linear-gradient(135deg,#6366F1,#8B5CF6)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontWeight:700}}>✦ Lumina</span> AI Insights</div>
+        <div className="sh-l">Configure</div>
+      </div>
+      <div className="li-row">{INSIGHTS.map((ins,i)=><InsightCard key={i} ins={ins} onPage={onPage}/>)}</div>
+
+      <div className="sh"><div className="sh-t">Spend Health</div><div className="sh-l">Full report</div></div>
+      <div className="g3">
+        <div className="card">
+          <div className="ct">Spend Compliance Breakdown</div>
+          <div style={{display:'flex',alignItems:'center',gap:14}}>
+            <DonutChart segs={donutSegs} size={120} thick={20}/>
+            <div style={{flex:1}}>
+              {donutSegs.map((s,i)=>(
+                <div key={i} style={{display:'flex',alignItems:'center',gap:8,marginBottom:8}}>
+                  <div style={{width:10,height:10,borderRadius:2,background:s.color,flexShrink:0}}/>
+                  <div style={{flex:1,fontSize:12,color:'#4A5568'}}>{s.label}</div>
+                  <div style={{fontSize:12,fontWeight:600}}>{s.pct}%</div>
+                </div>
+              ))}
+              <div style={{borderTop:'1px solid #EBEDEE',paddingTop:8,marginTop:2}}>
+                <div style={{fontSize:10,color:'#9BA3A7'}}>Total Portfolio</div>
+                <div style={{fontSize:15,fontWeight:700}}>$10.5M YTD</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="card">
+          <div className="ct">
+            Compliance Rate Trend — 12 months
+            <div style={{display:'flex',gap:10,fontSize:11,fontWeight:400,textTransform:'none',letterSpacing:0}}>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:3,background:'#118837',borderRadius:2}}/> Compliant</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:3,background:'#D01A1F',borderRadius:2}}/> Maverick</span>
+            </div>
+          </div>
+          <LineChart series={trendSeries} lbls={trendLbls} w={310} h={108} colors={['#118837','#D01A1F']}/>
+        </div>
+        <div className="card">
+          <div className="ct">Compliance Rate by Category</div>
+          <HBar lw={85} bh={10} gap={9} max={100} data={[...CATEGORIES].sort((a,b)=>a.rate-b.rate).map(c=>({label:c.name,value:c.rate,color:c.rate>=85?'#118837':c.rate>=70?'#0076CC':'#D01A1F',disp:`${c.rate}%`}))}/>
+        </div>
+      </div>
+
+      <div className="sh"><div className="sh-t">Compliance Performance Signals <span className="sh-badge">2 below target</span></div><div className="sh-l" onClick={()=>onPage('process')}>View process details →</div></div>
+      <div className="g4">{SIGNALS.map(sig=><SignalCard key={sig.id} sig={sig} onPage={onPage}/>)}</div>
+
+      <div className="sh"><div className="sh-t">Category &amp; Vendor Risk</div><div className="sh-l">View all</div></div>
+      <div className="g2">
+        <div className="card" style={{padding:0,overflow:'hidden'}}>
+          <div style={{padding:'14px 16px 10px'}} className="ct">Category Compliance</div>
+          <table className="dt">
+            <thead><tr><th>Category</th><th className="r">Compliant</th><th className="r">Maverick</th><th className="r">Rate</th><th style={{textAlign:'center'}}>Trend</th><th>Status</th></tr></thead>
+            <tbody>
+              {CATEGORIES.map((c,i)=>(
+                <tr key={i}>
+                  <td style={{fontWeight:500,color:'#1A202C'}}>{c.name}</td>
+                  <td className="r">{fmtM(c.comp)}</td>
+                  <td className="r" style={{color:'#D01A1F',fontWeight:600}}>{fmtM(c.mav)}</td>
+                  <td className="r" style={{fontWeight:700,color:c.rate>=85?'#118837':c.rate>=70?'#D97706':'#D01A1F'}}>{c.rate}%</td>
+                  <td style={{textAlign:'center'}}><span style={{color:c.trend==='up'?'#118837':c.trend==='dn'?'#D01A1F':'#9BA3A7',fontSize:13}}>{c.trend==='up'?'▲':c.trend==='dn'?'▼':'→'}</span></td>
+                  <td><span className={`ds-badge ${c.status==='g'?'compliant':c.status==='r'?'non-compliant':'under-review'}`}>{slbl(c.status)}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="card" style={{padding:0,overflow:'hidden'}}>
+          <div style={{padding:'14px 16px 10px'}} className="ct">Top Maverick Vendors <span className="ct-link" onClick={()=>onPage('vendors')}>View vendor network →</span></div>
+          <table className="dt">
+            <thead><tr><th>Vendor</th><th>Region</th><th>Category</th><th className="r">Mav. Spend</th><th style={{textAlign:'center'}}>Violations</th><th>Status</th></tr></thead>
+            <tbody>
+              {MAV_VENDORS.map((v,i)=>(
+                <tr key={i}>
+                  <td className="vlink">{v.name}</td>
+                  <td style={{color:'#4A5568'}}>{v.region}</td>
+                  <td style={{color:'#4A5568'}}>{v.cat}</td>
+                  <td className="r fw6" style={{color:'#D01A1F'}}>{fmtM(v.spend)}</td>
+                  <td style={{textAlign:'center'}}><span className={`viol-circle ${v.viol>=3?'cr':v.viol>=2?'wa':'lo'}`}>{v.viol}</span></td>
+                  <td><span className={`ds-badge ${v.status==='preferred'?'preferred':v.status==='unauth'?'non-compliant':v.status==='non-pref'?'non-preferred':'under-review'}`}>{v.issue}</span></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div className="sh"><div className="sh-t">Regional &amp; Property Hotspots</div><div className="sh-l">View all regions</div></div>
+      <div className="g2">
+        <div className="card">
+          <div className="ct">Regional Maverick Spend — Ranked</div>
+          <HBar lw={100} bh={12} gap={10} max={40} data={[...REGIONS_DATA].sort((a,b)=>b.mavPct-a.mavPct).map(r=>({label:r.name,value:r.mavPct,color:r.mavPct>25?'#D01A1F':r.mavPct>15?'#D97706':'#0076CC',disp:`${r.mavPct}%`}))}/>
+          <div style={{marginTop:10,display:'flex',gap:12,fontSize:11,color:'#9BA3A7'}}>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#D01A1F'}}/> High (over 25%)</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#D97706'}}/> Watch (15-25%)</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#0076CC'}}/> Good (under 15%)</span>
+          </div>
+        </div>
+        <div className="card">
+          <div className="ct">Property Compliance — Bottom 10</div>
+          {PROPS_DATA.map((p,i)=>(
+            <div key={i} style={{marginBottom:10}}>
+              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:3}}>
+                <div style={{display:'flex',alignItems:'center',gap:8}}>
+                  <span style={{fontSize:12,fontWeight:500}}>{p.name}</span>
+                  <span style={{fontSize:10,color:'#9BA3A7'}}>{p.region}</span>
+                </div>
+                <div style={{display:'flex',alignItems:'center',gap:8}}>
+                  {p.viol>0&&<span className="tag r">{p.viol}</span>}
+                  <span style={{fontSize:12,fontWeight:700,color:p.score>=80?'#118837':p.score>=65?'#0076CC':'#D01A1F'}}>{p.score}</span>
+                </div>
+              </div>
+              <div className="prog"><div className="prog-f" style={{width:`${p.score}%`,background:p.score>=80?'#118837':p.score>=65?'#0076CC':'#D01A1F'}}/></div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="sh"><div className="sh-t">Deep Dive Domains</div></div>
+      <div className="g3" style={{marginBottom:24}}>
+        <div className="prev">
+          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="layers" s={15} c="#0076CC"/><div style={{fontSize:13,fontWeight:600}}>Process Compliance</div></div>
+          <div style={{fontSize:11,color:'#9BA3A7',marginBottom:8}}>ROG · PO-WTN · Vendor invoice adherence</div>
+          <div className="prev-kpis">
+            <div><div className="prev-v" style={{color:'#D97706'}}>77%</div><div className="prev-l">ROG Rate</div></div>
+            <div><div className="prev-v" style={{color:'#118837'}}>95%</div><div className="prev-l">PO-WTN Rate</div></div>
+            <div><div className="prev-v" style={{color:'#D01A1F'}}>68%</div><div className="prev-l">Vendor Invoice</div></div>
+          </div>
+          <Spark data={[70,71,72,74,75,77]} color="#0076CC" h={22}/>
+          <div className="prev-cta" onClick={()=>onPage('process')}>View Process Compliance →</div>
+        </div>
+        <div className="prev">
+          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="link" s={15} c="#D97706"/><div style={{fontSize:13,fontWeight:600}}>Offline Leakage</div></div>
+          <div style={{fontSize:11,color:'#9BA3A7',marginBottom:8}}>Provisioned · Unprovisioned · Missed savings</div>
+          <div className="prev-kpis">
+            <div><div className="prev-v" style={{color:'#D01A1F'}}>29.8%</div><div className="prev-l">Offline Rate</div></div>
+            <div><div className="prev-v">$3.15M</div><div className="prev-l">Offline Spend</div></div>
+            <div><div className="prev-v" style={{color:'#D97706'}}>$473K</div><div className="prev-l">Missed Savings</div></div>
+          </div>
+          <Spark data={[34,33,32,31,30,30]} color="#D97706" h={22}/>
+          <div className="prev-cta" onClick={()=>onPage('offline')}>View Offline Leakage →</div>
+        </div>
+        <div className="prev">
+          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="building" s={15} c="#118837"/><div style={{fontSize:13,fontWeight:600}}>Vendor Network</div></div>
+          <div style={{fontSize:11,color:'#9BA3A7',marginBottom:8}}>Online · Offline · Credentialing status</div>
+          <div className="prev-kpis">
+            <div><div className="prev-v" style={{color:'#D97706'}}>28.4%</div><div className="prev-l">Online (74/261)</div></div>
+            <div><div className="prev-v">54.8%</div><div className="prev-l">Credentialed</div></div>
+            <div><div className="prev-v" style={{color:'#D97706'}}>18</div><div className="prev-l">Pending</div></div>
+          </div>
+          <Spark data={[60,63,66,68,71,74]} color="#118837" h={22}/>
+          <div className="prev-cta" onClick={()=>onPage('vendors')}>View Vendor Network →</div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ── PAGE 2: PROCESS COMPLIANCE ───────────────────────────────── */
+const ProcessCompliance = () => {
+  const [tab,setTab] = useState('rog');
+  const [period,setPeriod] = useState('QTD');
+  const d = PROCESS_DATA;
+  return (
+    <div className="panim">
+      <div className="ph-row">
+        <div><div className="ph-title">Process Compliance</div><div className="ph-sub">ROG compliance, PO-WTN adherence, and vendor invoice compliance across your portfolio</div></div>
+        <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
+      </div>
+      <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <div className="bnr y"><Icon n="alert" s={14} c="#D97706"/><span>ROG and Vendor Invoice compliance below target. <strong>PO-WTN at 95%</strong> — above target. <strong>800 invoices</strong> tracked this period (620 compliant).</span></div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
+        {[{id:'rog',l:'ROG Compliance',v:77,tgt:80,sub:'800 invoices · 620 compliant'},{id:'po',l:'PO-WTN Compliance',v:95,tgt:80,sub:'Exceeds 80% target'},{id:'vi',l:'Vendor Invoice Compliance',v:68,tgt:75,sub:'Target: 75%'}].map(m=>(
+          <div key={m.id} className="kcard" style={{borderTop:`2px solid ${m.v>=m.tgt?'#118837':'#D01A1F'}`}}>
+            <div className="k-lbl">{m.l}</div>
+            <div className="k-val" style={{color:m.v>=m.tgt?'#118837':'#D01A1F'}}>{m.v}%</div>
+            <div className="k-sub">{m.sub}</div>
+            <div className={`k-delta ${m.v>=m.tgt?'up':'dn'}`}>{m.v>=m.tgt?'▲ Above target':'▼ Below target'}</div>
+          </div>
+        ))}
+      </div>
+      <div className="tabs">
+        {[['rog','ROG Compliance'],['po','PO-WTN Compliance'],['vi','Vendor Invoice Compliance']].map(([id,lbl])=>(
+          <div key={id} className={`tab ${tab===id?'on':''}`} onClick={()=>setTab(id)}>{lbl}</div>
+        ))}
+      </div>
+      {(tab==='rog'||tab==='po')&&(
+        <div className="g2">
+          <div className="card">
+            <div className="ct">Compliance Trend — 6 Months</div>
+            <LineChart series={[tab==='rog'?d.rog.trend:d.po.trend,[80,80,80,80,80,80]]} lbls={tab==='rog'?d.rog.lbls:d.po.lbls} w={290} h={120} colors={['#0076CC','#EBEDEE']}/>
+            <div style={{display:'flex',gap:14,marginTop:8,fontSize:11}}>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:2,background:'#0076CC'}}/> Actual</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:2,background:'#C6CCD0'}}/> Target</span>
+            </div>
+          </div>
+          {tab==='rog'?(
+            <div className="card" style={{padding:0,overflow:'hidden'}}>
+              <div style={{padding:'14px 16px 10px'}} className="ct">Property Breakdown — ROG Rate</div>
+              <table className="dt">
+                <thead><tr><th>Property</th><th className="r">ROG Rate</th><th>Status</th></tr></thead>
+                <tbody>
+                  {d.rog.props.map((p,i)=>(
+                    <tr key={i}>
+                      <td className="fw6">{p.n}</td>
+                      <td className="r">
+                        <div style={{display:'flex',alignItems:'center',justifyContent:'flex-end',gap:8}}>
+                          <div style={{width:80,height:6,background:'#EBEDEE',borderRadius:3,overflow:'hidden'}}><div style={{width:`${p.r}%`,height:'100%',background:p.r>=80?'#118837':p.r>=65?'#0076CC':'#D01A1F',borderRadius:3}}/></div>
+                          <span className="fw6" style={{color:p.r>=80?'#118837':p.r>=65?'#0076CC':'#D01A1F'}}>{p.r}%</span>
+                        </div>
+                      </td>
+                      <td><span className={`tag ${p.r>=80?'g':p.r>=65?'b':'r'}`}>{p.r>=80?'On target':p.r>=65?'Near target':'Below target'}</span></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          ):(
+            <div className="card">
+              <div className="ct">PO-WTN Behavior Issues</div>
+              {d.po.issues.map((iss,i)=>(
+                <div key={i} style={{padding:'10px 0',borderBottom:'1px solid #EBEDEE'}}>
+                  <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
+                    <span className="fw6 fs12">{iss.prop}</span>
+                    <span className="tag r">{iss.count} incidents</span>
+                  </div>
+                  <div style={{fontSize:11,color:'#4A5568',marginBottom:3}}>{iss.issue}</div>
+                  <div style={{fontSize:11,color:'#D01A1F',fontWeight:600}}>${iss.amt.toLocaleString()} spend affected</div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
+      {tab==='vi'&&(
+        <div className="g2">
+          <div className="card">
+            <div className="ct">Invoice Compliance — Count vs Spend Rate</div>
+            <div style={{display:'flex',gap:24,marginBottom:16}}>
+              <div><div style={{fontSize:32,fontWeight:700,color:'#0076CC'}}>{d.vi.countRate}%</div><div style={{fontSize:11,color:'#9BA3A7'}}>By invoice count</div></div>
+              <div><div style={{fontSize:32,fontWeight:700,color:'#118837'}}>{d.vi.spendRate}%</div><div style={{fontSize:11,color:'#9BA3A7'}}>By spend value</div></div>
+            </div>
+            <div style={{fontSize:12,color:'#4A5568',lineHeight:1.6}}>Higher spend-based rate indicates large vendors are more compliant than smaller, frequent vendors. Focus remediation on high-frequency, low-value non-compliant invoices.</div>
+          </div>
+          <div className="card">
+            <div className="ct">Improvement Opportunities</div>
+            {[{l:'Automate PO matching for repeat vendors',impact:'High',effort:'Low'},{l:'Add invoice channel validation at entry',impact:'High',effort:'Medium'},{l:'Mandatory COI check before work order',impact:'Medium',effort:'Low'},{l:'Vendor portal adoption campaign',impact:'High',effort:'High'}].map((opp,i)=>(
+              <div key={i} style={{display:'flex',alignItems:'center',gap:10,padding:'9px 0',borderBottom:'1px solid #EBEDEE'}}>
+                <Icon n="zap" s={14} c="#D97706"/>
+                <div style={{flex:1,fontSize:12}}>{opp.l}</div>
+                <span className={`tag ${opp.impact==='High'?'r':opp.impact==='Medium'?'y':'g'}`}>{opp.impact}</span>
+                <span className={`tag ${opp.effort==='Low'?'g':opp.effort==='Medium'?'y':'b'}`}>{opp.effort}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+/* ── PAGE 3: OFFLINE LEAKAGE ──────────────────────────────────── */
+const OfflineLeakage = () => {
+  const [period,setPeriod] = useState('YTD');
+  const d = OFFLINE_DATA;
+  const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
+  return (
+    <div className="panim">
+      <div className="ph-row">
+        <div><div className="ph-title">Offline Leakage</div><div className="ph-sub">Track offline spend, provisioned vendors transacting off-platform, and missed savings opportunities</div></div>
+        <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
+      </div>
+      <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <div className="bnr y"><Icon n="alert" s={14} c="#D97706"/><span>Offline leakage at <strong>29.8%</strong> — 9.8pts above 20% target. <strong>1,622 of 5,451 orders</strong> transacting offline. Estimated <strong>$473K in missed platform savings</strong> this year.</span></div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10,marginBottom:16}}>
+        <div className="kcard r"><div className="k-lbl">Offline Rate</div><div className="k-val" style={{color:'#D01A1F'}}>29.8%</div><div className="k-sub">Target: 20% · Gap: 9.8pts</div><div className="k-delta dn">▼ Above target</div></div>
+        <div className="kcard"><div className="k-lbl">Offline Orders</div><div className="k-val">1,622</div><div className="k-sub">of 5,451 total orders YTD</div><div className="k-delta neu">→ Tracking</div></div>
+        <div className="kcard y"><div className="k-lbl">Missed Savings</div><div className="k-val" style={{color:'#D97706'}}>$473K</div><div className="k-sub">15% offline rebate opp.</div><div className="k-delta neu">→ Opportunity</div></div>
+        <div className="kcard"><div className="k-lbl">Provisioned Still Offline</div><div className="k-val">4</div><div className="k-sub">vendors · $354K spend</div><div className="k-delta dn">▼ Action needed</div></div>
+      </div>
+      <div className="g2">
+        <div className="card">
+          <div className="ct">Offline vs Online Trend — 6 Months</div>
+          <LineChart series={[d.trend.off,d.trend.on]} lbls={d.trend.lbls} w={290} h={120} colors={['#D01A1F','#118837']}/>
+          <div style={{display:'flex',gap:14,marginTop:8,fontSize:11}}>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#D01A1F',borderRadius:2}}/> Offline %</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#118837',borderRadius:2}}/> Online %</span>
+          </div>
+        </div>
+        <div className="card">
+          <div className="ct">Offline vs Target</div>
+          <div style={{display:'flex',alignItems:'center',gap:20,marginBottom:16}}>
+            <div style={{textAlign:'center'}}><div style={{fontSize:38,fontWeight:700,color:'#D01A1F'}}>29.8%</div><div style={{fontSize:11,color:'#9BA3A7'}}>Current offline</div></div>
+            <div style={{flex:1}}>
+              <div style={{fontSize:11,color:'#9BA3A7',marginBottom:6}}>vs 20% target</div>
+              <StackBar a={20} total={35} colorA="#118837" colorB="#FBE9EA" h={14}/>
+              <div style={{display:'flex',justifyContent:'space-between',marginTop:4}}><span style={{fontSize:10,color:'#118837',fontWeight:600}}>Target 20%</span><span style={{fontSize:10,color:'#D01A1F',fontWeight:600}}>Current 29.8%</span></div>
+            </div>
+          </div>
+          <div style={{borderTop:'1px solid #EBEDEE',paddingTop:12}}>
+            <div style={{fontSize:12,fontWeight:600,marginBottom:8}}>Impact if Target Met</div>
+            <div style={{display:'flex',gap:16}}>
+              <div><div style={{fontSize:16,fontWeight:700,color:'#118837'}}>$473K</div><div style={{fontSize:11,color:'#9BA3A7'}}>Savings recovered</div></div>
+              <div><div style={{fontSize:16,fontWeight:700,color:'#0076CC'}}>9.8pts</div><div style={{fontSize:11,color:'#9BA3A7'}}>Compliance boost</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="sh"><div className="sh-t">Provisioned Vendors Still Offline</div><div className="sh-l">Send reminder</div></div>
+      <div className="card" style={{padding:0,overflow:'hidden'}}>
+        <table className="dt">
+          <thead><tr><th>Vendor</th><th>Category</th><th className="r">YTD Offline Spend</th><th className="r">Properties</th><th>Savings Opp.</th><th>Action</th></tr></thead>
+          <tbody>
+            {d.provisioned.map((v,i)=>(
+              <tr key={i}><td className="fw6">{v.v}</td><td>{v.cat}</td><td className="r fw6">{fmtM(v.s)}</td><td className="r">{v.props}</td><td><span className="tag y">{fmtM(v.s*0.15)} / yr</span></td><td><button className="btn bp xs">Send activation</button></td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="sh"><div className="sh-t">Unprovisioned Vendors — Missed Savings</div><div className="sh-l">Start onboarding</div></div>
+      <div className="card" style={{padding:0,overflow:'hidden'}}>
+        <table className="dt">
+          <thead><tr><th>Vendor</th><th className="r">YTD Spend</th><th className="r">Properties</th><th>Savings if Onboarded</th><th>Action</th></tr></thead>
+          <tbody>
+            {d.unprovisioned.map((v,i)=>(
+              <tr key={i}><td className="fw6">{v.v}</td><td className="r">{fmtM(v.s)}</td><td className="r">{v.props}</td><td><span className="tag g">{fmtM(v.opp)} / yr</span></td><td><button className="btn bs xs">Initiate onboarding</button></td></tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+/* ── PAGE 4: VENDOR NETWORK ───────────────────────────────────── */
+const VendorNetwork = () => {
+  const [period,setPeriod] = useState('YTD');
+  const d = VENDOR_DATA;
+  const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
+  return (
+    <div className="panim">
+      <div className="ph-row">
+        <div><div className="ph-title">Vendor Network</div><div className="ph-sub">Online vs offline vendor mix, channel breakdown, credentialing status, and non-compliant vendor tracking</div></div>
+        <div style={{display:'flex',gap:8}}>
+          <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
+          <button className="btn bp sm"><Icon n="plus" s={13}/> Onboard Vendor</button>
+        </div>
+      </div>
+      <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:10,marginBottom:16}}>
+        <div className="kcard b"><div className="k-lbl">Total Vendors</div><div className="k-val">261</div><div className="k-sub">Active in portfolio</div><div className="k-delta neu">+5 this quarter</div></div>
+        <div className="kcard g"><div className="k-lbl">Online Vendors</div><div className="k-val">74</div><div className="k-sub">28.4% of vendor base</div><div className="k-delta up">▲ +6 this quarter</div></div>
+        <div className="kcard r"><div className="k-lbl">Offline Vendors</div><div className="k-val">187</div><div className="k-sub">71.6% — above target</div><div className="k-delta dn">▼ Action needed</div></div>
+        <div className="kcard y"><div className="k-lbl">Credentialed</div><div className="k-val">143</div><div className="k-sub">54.8% credentialed</div><div className="k-delta up">▲ +2pts QoQ</div></div>
+        <div className="kcard y"><div className="k-lbl">Non-Credentialed</div><div className="k-val">111</div><div className="k-sub">42.5% · requires action</div><div className="k-delta dn">▼ Review needed</div></div>
+      </div>
+      <div className="g2">
+        <div className="card">
+          <div className="ct">Invoice Channel Mix</div>
+          {[{n:'Online (Catalog / PO)',cnt:74,spend:3800000,pct:51},{n:'Offline / Paper / Check',cnt:187,spend:3600000,pct:49}].map((ch,i)=>(
+            <div key={i} style={{marginBottom:14}}>
+              <div style={{display:'flex',justifyContent:'space-between',marginBottom:5}}>
+                <span style={{fontSize:12,fontWeight:500}}>{ch.n}</span>
+                <span style={{fontSize:12,fontWeight:600}}>{ch.pct}% · {fmtM(ch.spend)}</span>
+              </div>
+              <StackBar a={ch.pct} total={100} colorA={i===0?'#118837':'#D01A1F'} colorB="#EBEDEE" h={10}/>
+              <div style={{fontSize:11,color:'#9BA3A7',marginTop:3}}>{ch.cnt} vendors · {i===0?'28.4% online mix':'71.6% still offline'}</div>
+            </div>
+          ))}
+        </div>
+        <div className="card">
+          <div className="ct">Online Vendor Growth
+            <div style={{display:'flex',gap:10,fontSize:11,fontWeight:400,textTransform:'none',letterSpacing:0}}>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:3,background:'#118837',borderRadius:2}}/> Online</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:3,background:'#C6CCD0',borderRadius:2}}/> Total</span>
+            </div>
+          </div>
+          <LineChart series={[d.growth.on,d.growth.tot]} lbls={d.growth.lbls} w={290} h={110} colors={['#118837','#C6CCD0']}/>
+          <div style={{display:'flex',gap:16,marginTop:10}}>
+            <div><div style={{fontSize:15,fontWeight:700,color:'#118837'}}>+14</div><div style={{fontSize:11,color:'#9BA3A7'}}>New online vendors (6 months)</div></div>
+            <div><div style={{fontSize:15,fontWeight:700,color:'#0076CC'}}>28.4%</div><div style={{fontSize:11,color:'#9BA3A7'}}>Online mix (up from 24%)</div></div>
+          </div>
+        </div>
+      </div>
+      <div className="sh"><div className="sh-t">Credentialing Status</div></div>
+      <div className="card">
+        <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12}}>
+          {[{l:'Fully Credentialed',v:143,c:'g',sub:'COI + W-9 + Approved · 54.8%'},{l:'Partially Credentialed',v:7,c:'y',sub:'Missing 1 document'},{l:'Pending Review',v:18,c:'b',sub:'Submitted, under review'},{l:'Not Credentialed',v:93,c:'r',sub:'No compliance docs · 35.6%'}].map((m,i)=>(
+            <div key={i} style={{padding:14,border:'1px solid #EBEDEE',borderRadius:2,borderTop:`2px solid ${m.c==='g'?'#118837':m.c==='y'?'#D97706':m.c==='r'?'#D01A1F':'#0076CC'}`}}>
+              <div style={{fontSize:22,fontWeight:700}}>{m.v}</div>
+              <div style={{fontSize:12,fontWeight:600,marginTop:2}}>{m.l}</div>
+              <div style={{fontSize:11,color:'#9BA3A7',marginTop:2}}>{m.sub}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className="sh"><div className="sh-t">Top Non-Compliant Vendors <span className="sh-badge">Requires action</span></div></div>
+      <div className="card" style={{padding:0,overflow:'hidden',marginBottom:24}}>
+        <table className="dt">
+          <thead><tr><th>Vendor</th><th className="r">YTD Spend</th><th>Compliance Issues</th><th>Risk</th><th>Action</th></tr></thead>
+          <tbody>
+            {d.nonCompl.map((v,i)=>(
+              <tr key={i}>
+                <td className="vlink">{v.n}</td>
+                <td className="r fw6" style={{color:'#D01A1F'}}>{fmtM(v.s)}</td>
+                <td>{v.issues.map((iss,j)=><span key={j} className="ds-badge non-compliant" style={{marginRight:4,marginBottom:2,display:'inline-flex'}}>{iss}</span>)}</td>
+                <td><span className={`rpill ${v.risk}`}>{v.risk==='h'?'High':'Medium'}</span></td>
+                <td><div style={{display:'flex',gap:6}}><button className="btn bs xs">Review</button>{v.risk==='h'&&<button className="btn bd xs">Suspend</button>}</div></td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+};
+
+/* ── PAGE 5: INVESTIGATIONS ───────────────────────────────────── */
+const Investigations = () => {
+  const [filter,setFilter] = useState('all');
+  const [sel,setSel] = useState(null);
+  const [period,setPeriod] = useState('QTD');
+  const fmtM = (v)=>v>=1000?`$${(v/1000).toFixed(1)}K`:`$${v}`;
+  const filtered = filter==='all'?CASES:CASES.filter(c=>c.pri===filter);
+  return (
+    <div className="panim">
+      <div className="ph-row">
+        <div><div className="ph-title">Investigations &amp; Action Center</div><div className="ph-sub">AI-generated compliance cases requiring investigation, decision, or remediation</div></div>
+        <div style={{display:'flex',gap:8}}>
+          <button className="btn bg sm"><Icon n="filter" s={13}/> Filter</button>
+          <button className="btn bp sm"><Icon n="plus" s={13}/> New Case</button>
+        </div>
+      </div>
+      <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <div style={{background:'#FBE9EA',border:'1px solid #F5C6C7',borderRadius:2,padding:'10px 14px',marginBottom:14,display:'flex',alignItems:'center',gap:10}}>
+        <Icon n="alert" s={16} c="#D01A1F"/>
+        <div><div style={{fontSize:13,fontWeight:600,color:'#D01A1F'}}>4 Critical Cases Open</div><div style={{fontSize:11,color:'#4A5568'}}>$164K in immediate financial exposure · Requires VP attention</div></div>
+        <button className="btn bd sm" style={{marginLeft:'auto'}}>Review Critical</button>
+      </div>
+      <div style={{display:'flex',gap:8,marginBottom:14,alignItems:'center'}}>
+        {[['all','All Cases'],['cr','Critical'],['wa','Warnings']].map(([id,lbl])=>(
+          <span key={id} className={`fc ${filter===id?'on':''}`} onClick={()=>setFilter(id)}>{lbl}</span>
+        ))}
+        <span style={{marginLeft:'auto',fontSize:11,color:'#9BA3A7'}}>{filtered.length} cases</span>
+      </div>
+      <div className="g12" style={{alignItems:'flex-start'}}>
+        <div>
+          {filtered.map((c)=>(
+            <div key={c.id} className={`ccase ${c.pri}`} onClick={()=>setSel(sel&&sel.id===c.id?null:c)}>
+              <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:6}}>
+                <span style={{fontSize:10,fontWeight:700,color:'#9BA3A7'}}>{c.id}</span>
+                <span className={`tag ${c.pri==='cr'?'r':'y'}`}>{c.pri==='cr'?'Critical':'Warning'}</span>
+                <span className="tag gr">{c.status==='open'?'Open':c.status==='in-review'?'In Review':'Resolved'}</span>
+                <span style={{marginLeft:'auto',fontSize:10,color:'#9BA3A7'}}>{c.age}d ago</span>
+              </div>
+              <div style={{fontSize:13,fontWeight:600,color:'#1A202C',marginBottom:4}}>{c.type}</div>
+              <div style={{display:'flex',gap:12,fontSize:11,color:'#9BA3A7',flexWrap:'wrap'}}>
+                <span>Property: {c.prop}</span><span>Region: {c.region}</span><span>Exposure: {fmtM(c.amt)}</span>
+              </div>
+            </div>
+          ))}
+        </div>
+        <div>
+          {sel?(
+            <div className="card" style={{position:'sticky',top:8}}>
+              <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}>
+                <span style={{fontSize:11,fontWeight:700,color:'#9BA3A7'}}>{sel.id}</span>
+                <span className={`tag ${sel.pri==='cr'?'r':'y'}`}>{sel.pri==='cr'?'Critical':'Warning'}</span>
+                <button className="btn bg xs" style={{marginLeft:'auto'}} onClick={()=>setSel(null)}>Close</button>
+              </div>
+              <div style={{fontSize:15,fontWeight:600,marginBottom:4}}>{sel.type}</div>
+              <div style={{display:'flex',gap:10,fontSize:11,color:'#9BA3A7',marginBottom:12}}>
+                <span>{sel.prop}</span><span>·</span><span>{sel.region}</span><span>·</span><span style={{color:'#D01A1F',fontWeight:600}}>{fmtM(sel.amt)}</span>
+              </div>
+              <div style={{background:'#F7F8F9',border:'1px solid #EBEDEE',borderRadius:2,padding:12,marginBottom:14}}>
+                <div style={{fontSize:10,fontWeight:600,color:'#9BA3A7',marginBottom:4}}>AI INVESTIGATION SUMMARY</div>
+                <div style={{fontSize:12,color:'#2D3748',lineHeight:1.6}}>{sel.desc}</div>
+              </div>
+              <div style={{marginBottom:14}}>
+                <div style={{fontSize:11,fontWeight:600,color:'#9BA3A7',marginBottom:8}}>RECOMMENDED ACTIONS</div>
+                {sel.actions.map((a,i)=>(
+                  <div key={i} style={{display:'flex',alignItems:'center',gap:10,padding:'8px 0',borderBottom:'1px solid #EBEDEE'}}>
+                    <div style={{width:20,height:20,borderRadius:'50%',background:'#E5F4FF',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:700,color:'#0076CC',flexShrink:0}}>{i+1}</div>
+                    <div style={{flex:1,fontSize:12}}>{a}</div>
+                    <button className="btn bp xs">Act</button>
+                  </div>
+                ))}
+              </div>
+              <div style={{display:'flex',gap:8}}>
+                <button className="btn bp sm" style={{flex:1}}>Assign Case</button>
+                <button className="btn bs sm" style={{flex:1}}>Mark Resolved</button>
+              </div>
+            </div>
+          ):(
+            <div style={{background:'#fff',border:'1px solid #EBEDEE',borderRadius:2,padding:32,textAlign:'center',color:'#9BA3A7'}}>
+              <Icon n="eye" s={32} c="#EBEDEE"/>
+              <div style={{marginTop:8,fontSize:12}}>Select a case to view details and recommended actions</div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ── LUMINA PANEL ─────────────────────────────────────────────── */
+const LuminaPanel = ({open,onClose}) => {
+  const initMsg = {type:'ai',text:'Hello Akila. Portfolio at 82% compliance — up 4pts this quarter. ROG at 77% (below 80% target), PO-WTN strong at 95%. 1,622 of 5,451 orders offline (29.8% vs 20% target). Only 74 of 261 vendors are online — this is a key area to address. 4 critical cases open. How can I help?',time:'Now',rows:[{l:'Portfolio Score',v:'82% (+4pts QoQ)',t:'g'},{l:'PO-WTN Compliance',v:'95% — above target',t:'g'},{l:'Offline Orders',v:'29.8% (target: 20%)',t:'r'},{l:'Online Vendors',v:'74 of 261 (28.4%)',t:'r'}]};
+  const [msgs,setMsgs] = useState([initMsg]);
+  const [inp,setInp] = useState('');
+  const [typing,setTyping] = useState(false);
+  const endRef = useRef(null);
+
+  useEffect(()=>{endRef.current?.scrollIntoView({behavior:'smooth'})},[msgs,typing]);
+
+  const CHIPS = ['Why is maverick spend rising?','Show non-compliant vendors','Where are offline leaks highest?','What is my biggest risk?','Show budget overrun properties'];
+
+  const getResp = (q) => {
+    const ql = q.toLowerCase();
+    if (ql.includes('maverick')||ql.includes('rising')||ql.includes('hvac')) return LUMINA_RESP.maverick;
+    if (ql.includes('vendor')||ql.includes('non-compliant')||ql.includes('coi')) return LUMINA_RESP.vendors;
+    if (ql.includes('offline')||ql.includes('leak')) return LUMINA_RESP.offline;
+    return LUMINA_RESP.default;
+  };
+
+  const send = (text) => {
+    const q=(text||inp).trim();
+    if (!q) return;
+    setMsgs(m=>[...m,{type:'user',text:q,time:'Now'}]);
+    setInp('');
+    setTyping(true);
+    setTimeout(()=>{
+      const resp=getResp(q);
+      setTyping(false);
+      setMsgs(m=>[...m,{type:'ai',text:resp.text,time:'Now',rows:resp.rows}]);
+    },1400);
+  };
+
+  const tagColor = (t)=>t==='r'?'#D01A1F':t==='g'?'#118837':t==='w'?'#D97706':'#0076CC';
+
+  return (
+    <div className={`lp ${open?'open':''}`}>
+      <div className="lp-hdr">
+        <div className="lp-ic">
+          <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        </div>
+        <div><div className="lp-t">Lumina AI</div><div className="lp-s">Spend Compliance Intelligence</div></div>
+        <div className="lp-cl" onClick={onClose}>
+          <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
+        </div>
+      </div>
+      <div className="lp-msgs">
+        {msgs.map((m,i)=>(
+          <div key={i} className={`lm ${m.type}`}>
+            <div className="lb">
+              {m.text}
+              {m.rows&&(
+                <div className="ldc">
+                  <div className="ldc-t">COMPLIANCE SNAPSHOT</div>
+                  {m.rows.map((r,j)=>(
+                    <div key={j} className="ldr">
+                      <span style={{color:'#4A5568'}}>{r.l}</span>
+                      <span className="dv" style={{color:tagColor(r.t)}}>{r.v}</span>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+            <div className="lt">{m.time}</div>
+          </div>
+        ))}
+        {typing&&<div className="lm ai"><div className="lb"><div className="tdots"><div className="tdot"/><div className="tdot"/><div className="tdot"/></div></div></div>}
+        <div ref={endRef}/>
+      </div>
+      <div className="lp-chips">{CHIPS.map((c,i)=><div key={i} className="lchip" onClick={()=>send(c)}>{c}</div>)}</div>
+      <div className="lp-inp">
+        <input className="linput" placeholder="Ask about compliance, vendors, spend..." value={inp} onChange={e=>setInp(e.target.value)} onKeyDown={e=>e.key==='Enter'&&send()}/>
+        <button className="lsend" onClick={()=>send()}>
+          <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z"/></svg>
+        </button>
+      </div>
+    </div>
+  );
+};
+
+/* ── OMNIBAR ──────────────────────────────────────────────────── */
+const Omnibar = ({aiOpen,onAI,onMenu}) => (
+  <div className="omnibar">
+    <div className="ob-ham" onClick={onMenu}>
+      <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
+    </div>
+    <div className="ob-logo">OPSBUYER</div>
+    <div className="ob-div"/>
+    <span className="ob-badge">SPEND COMPLIANCE</span>
+    <div className="ob-prop">
+      <div className="pn">Pegasus Properties ▾</div>
+      <div className="ps">1,247 properties · 38 regions</div>
+    </div>
+    <div className="ob-search">
+      <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" strokeWidth={2} strokeLinecap="round"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
+      <input placeholder="Search properties, vendors, violations..."/>
+    </div>
+    <div className="ob-acts">
+      {[['cart',false],['grid',false],['bell',true],['help',false]].map(([ic,dot],i)=>(
+        <button key={i} className="ob-ib">
+          <Icon n={ic} s={16} c="rgba(255,255,255,.7)"/>
+          {dot&&<div className="ob-dot"/>}
+        </button>
+      ))}
+    </div>
+    <div className="ob-user">
+      <div className="ob-av">AV</div>
+      <span>Akila V.</span>
+    </div>
+    <button className={`lumina-btn ${aiOpen?'active':''}`} onClick={onAI}>
+      <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      Ask Lumina AI
+    </button>
+  </div>
+);
+
+/* ── SIDENAV ──────────────────────────────────────────────────── */
+const SideNav = ({page,onPage,col}) => {
+  const main = [
+    {id:'compliance',icon:'shield',label:'Spend Compliance',badge:null},
+    {id:'process',icon:'layers',label:'Process Compliance',badge:'3',badgeCls:'w'},
+    {id:'offline',icon:'link',label:'Offline Leakage',badge:null},
+    {id:'vendors',icon:'building',label:'Vendor Network',badge:'5',badgeCls:'w'},
+    {id:'investigations',icon:'eye',label:'Investigations',badge:'23',badgeCls:''},
+  ];
+  const ops = [
+    {id:'pos',icon:'file',label:'Purchase Orders',badge:null},
+    {id:'invoices',icon:'file',label:'Invoices',badge:null},
+    {id:'vendormgmt',icon:'user',label:'Vendor Management',badge:null},
+  ];
+  return (
+    <div className={`sidenav ${col?'col':''}`}>
+      <div className="sn-sect">Compliance Agent</div>
+      {main.map(item=>(
+        <div key={item.id} className={`nav-item ${page===item.id?'active':''}`} onClick={()=>onPage(item.id)}>
+          <Icon n={item.icon} s={16} c={page===item.id?'#0076CC':'#4A5568'}/>
+          <span>{item.label}</span>
+          {item.badge&&<span className={`nbadge ${item.badgeCls||''}`}>{item.badge}</span>}
+        </div>
+      ))}
+      <div className="sn-sect">OPSBUYER</div>
+      {ops.map(item=>(
+        <div key={item.id} className={`nav-item ${page===item.id?'active':''}`} onClick={()=>onPage(item.id)}>
+          <Icon n={item.icon} s={16} c="#4A5568"/>
+          <span>{item.label}</span>
+        </div>
+      ))}
+      <div className="sn-bot">
+        <div className="sn-user">
+          <div className="uav">AV</div>
+          <div>
+            <div style={{fontSize:12,fontWeight:500}}>Akila Viswanathan</div>
+            <div style={{fontSize:10,color:'#9BA3A7'}}>VP Procurement</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* ── APP ──────────────────────────────────────────────────────── */
+const App = () => {
+  const [page,setPage] = useState('compliance');
+  const [aiOpen,setAiOpen] = useState(false);
+  const [navCol,setNavCol] = useState(false);
+  const pages = {compliance:<SpendCompliance onPage={setPage}/>,process:<ProcessCompliance/>,offline:<OfflineLeakage/>,vendors:<VendorNetwork/>,investigations:<Investigations/>};
+  return (
+    <>
+      <Omnibar aiOpen={aiOpen} onAI={()=>setAiOpen(o=>!o)} onMenu={()=>setNavCol(c=>!c)}/>
+      <div className="app-shell">
+        <SideNav page={page} onPage={setPage} col={navCol}/>
+        <div className={`main ${aiOpen?'aio':''}`}>
+          {pages[page]||<SpendCompliance onPage={setPage}/>}
+        </div>
+      </div>
+      <LuminaPanel open={aiOpen} onClose={()=>setAiOpen(false)}/>
+    </>
+  );
+};
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
 </script>
 </body>
 </html>
