@@ -10,7 +10,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--rp:#0076CC;--rp-dk:#005FA3;--rp-black:#202737;--hi:#E5F4FF;--gl:#F7F8F9;--gll:#EBEDEE;--gm:#C6CCD0;--gd:#9BA3A7;--green:#118837;--gbg:rgba(17,136,55,0.1);--red:#D01A1F;--rbg:rgba(208,26,31,0.1);--orange:#F06000;--yel:#D97706;--ybg:rgba(240,96,0,0.1);--pur:#7C3AED;--pbg:rgba(124,58,237,0.1);--font:'Roboto',-apple-system,sans-serif;--shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
+:root{--rp:#0076CC;--rp-dk:#005FA3;--rp-black:#202737;--hi:#E5F4FF;--gl:#F7F8F9;--gll:#EBEDEE;--gm:#C6CCD0;--gd:#9BA3A7;--green:#118837;--gbg:rgba(17,136,55,0.1);--red:#D01A1F;--rbg:rgba(208,26,31,0.1);--orange:#F06000;--yel:#D97706;--ybg:rgba(240,96,0,0.1);--pur:#7C3AED;--pbg:rgba(124,58,237,0.1);--font:'Roboto',-apple-system,sans-serif;--shadow:0px 6px 8px 0px rgba(32,39,55,0.04);--ch1:#B9E6EC;--ch2:#77C6D0;--ch3:#3D94C0;--ch4:#2A5599;--ch5:#131C57}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-size:13px;line-height:1.4}
 .omnibar{height:56px;background:var(--rp-black);display:flex;align-items:center;padding:0 16px;gap:10px;position:fixed;top:0;left:0;right:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
@@ -49,16 +49,16 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .main{flex:1;overflow-y:auto;transition:padding-right .25s}
 .main.aio{padding-right:380px}
 /* RAUL Page Header Strip */
-.ph-strip{background:var(--gl);border-bottom:1px solid var(--gll);padding:20px 32px 16px;display:flex;align-items:flex-end;justify-content:space-between}
+.ph-strip{background:var(--gl);border-bottom:1px solid var(--gll);padding:24px 40px;display:flex;align-items:flex-end;justify-content:space-between}
 .ph-eyebrow{display:flex;gap:5px;align-items:center;margin-bottom:8px}
 .ph-dot{height:8px;border-radius:4px;display:inline-block}
 .ph-dot.or{width:16px;background:var(--orange)}
 .ph-dot.gr{width:28px;background:var(--gm)}
 .ph-title{font-size:20px;font-weight:700;color:var(--rp-black);line-height:26px}
 .ph-sub{font-size:14px;color:var(--rp-black);opacity:0.75;margin-top:3px;line-height:18px}
-.page-body{padding:20px 32px}
+.page-body{padding:24px 40px}
 /* RAUL Filter Bar — floating-label select style */
-.fbar{background:#fff;border-bottom:1px solid var(--gll);padding:12px 32px;display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:10;box-shadow:0 1px 3px rgba(0,0,0,.04)}
+.fbar{background:#fff;border-bottom:1px solid var(--gll);padding:12px 40px;display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:10;box-shadow:0 1px 3px rgba(0,0,0,.04)}
 /* Search input */
 .fsearch-wrap{position:relative;flex-shrink:0}
 .fsearch{height:40px;width:220px;border:1px solid var(--gm);border-radius:2px;padding:0 12px 0 34px;font-size:14px;font-family:var(--font);outline:none;color:var(--rp-black);background:#fff}
@@ -88,47 +88,51 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .fbtn:hover{border-color:var(--rp);color:var(--rp)}
 .kgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:0}
 /* RAUL KPI Card — white, #EBEDEE border, 4px radius, DSCard shadow, orange corner */
-.kcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:20px 18px 16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.kcard::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 16px 16px 0;border-color:transparent var(--orange) transparent transparent}
+.kcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:24px 22px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.kcard::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
 .k-lbl{font-size:12px;font-weight:500;color:var(--rp-black);margin-bottom:10px;line-height:18px;text-transform:none;letter-spacing:0}
-.k-val{font-size:26px;font-weight:700;color:var(--rp-black);line-height:1.15}
-.k-sub{font-size:12px;color:var(--rp-black);opacity:0.65;margin-top:4px;line-height:18px}
-.k-delta{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:500;margin-top:8px;padding:2px 6px;border-radius:2px}
+.k-val{font-size:36px;font-weight:700;color:var(--rp-black);line-height:40px}
+.k-sub{font-size:14px;font-weight:400;color:var(--rp-black);opacity:0.8;margin-top:6px;line-height:18px}
+.k-delta{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:500;margin-top:10px;padding:2px 6px;border-radius:2px}
 .k-delta.up{background:var(--gbg);color:var(--green)}.k-delta.dn{background:var(--rbg);color:var(--red)}.k-delta.neu{background:var(--gll);color:var(--rp-black)}
 .li-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:0}
-.li-card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:14px 16px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+.li-card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:20px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
 .li-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
 .li-card.al::before{background:var(--red)}.li-card.rc::before{background:var(--orange)}.li-card.en::before{background:var(--pur)}.li-card.tr::before{background:var(--green)}
-.li-type{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;margin-bottom:6px;display:flex;align-items:center;gap:4px}
+.li-card::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
+.li-type{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:4px}
 .li-type.al{color:var(--red)}.li-type.rc{color:var(--orange)}.li-type.en{color:var(--pur)}.li-type.tr{color:var(--green)}
-.li-ttl{font-size:13px;font-weight:600;color:var(--rp-black);margin-bottom:5px;line-height:1.4}
-.li-det{font-size:12px;color:rgba(32,39,55,0.75);line-height:1.5;margin-bottom:10px}
-.li-cta{font-size:12px;font-weight:500;color:var(--rp);cursor:pointer;display:flex;align-items:center;gap:3px}
+.li-ttl{font-size:14px;font-weight:700;color:var(--rp-black);margin-bottom:6px;line-height:1.4}
+.li-det{font-size:14px;font-weight:400;color:var(--rp-black);opacity:0.8;line-height:18px;margin-bottom:12px}
+.li-cta{font-size:14px;font-weight:500;color:var(--rp);cursor:pointer;display:flex;align-items:center;gap:3px}
 .li-cta:hover{text-decoration:underline}
-.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;margin-top:24px}
-.sh-t{font-size:14px;font-weight:600;color:var(--rp-black);display:flex;align-items:center;gap:8px}
-.sh-l{font-size:12px;color:var(--rp);cursor:pointer;font-weight:500}.sh-l:hover{text-decoration:underline}
-.sh-badge{font-size:11px;font-weight:500;padding:2px 8px;border-radius:2px;background:var(--rbg);color:var(--red)}
+.sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;margin-top:28px}
+.sh-t{font-size:16px;font-weight:700;color:var(--rp-black);line-height:20px;display:flex;align-items:center;gap:8px}
+.sh-l{font-size:14px;color:var(--rp);cursor:pointer;font-weight:500}.sh-l:hover{text-decoration:underline}
+.sh-badge{font-size:12px;font-weight:500;padding:2px 8px;border-radius:2px;background:var(--rbg);color:var(--red)}
 .g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
 .g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
 .g12{display:grid;grid-template-columns:1fr 2fr;gap:12px;margin-bottom:12px}
-.card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:16px;box-shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
-.ct{font-size:11px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
-.ct-link{font-size:11px;font-weight:500;color:var(--rp);cursor:pointer;text-transform:none;letter-spacing:0}.ct-link:hover{text-decoration:underline}
-.sigcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:14px;box-shadow:0px 6px 8px 0px rgba(32,39,55,0.04)}
-.sig-v{font-size:24px;font-weight:700;line-height:1}
-.sig-tgt{font-size:11px;color:var(--gd);margin-top:3px}
-.sig-st{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:2px;margin-top:8px}
+.card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.card::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
+.ct{font-size:16px;font-weight:700;color:var(--rp-black);line-height:20px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.ct-sub{font-size:14px;font-weight:400;color:var(--rp-black);opacity:0.8;margin-top:4px;line-height:18px}
+.ct-link{font-size:12px;font-weight:500;color:var(--rp);cursor:pointer;text-transform:none;letter-spacing:0}.ct-link:hover{text-decoration:underline}
+.sigcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+.sigcard::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
+.sig-v{font-size:36px;font-weight:700;line-height:40px}
+.sig-tgt{font-size:14px;font-weight:400;color:var(--rp-black);opacity:0.8;margin-top:6px}
+.sig-st{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;padding:2px 8px;border-radius:2px;margin-top:10px}
 .sig-st.ok{background:var(--gbg);color:var(--green)}.sig-st.bad{background:var(--rbg);color:var(--red)}.sig-st.warn{background:var(--ybg);color:var(--orange)}
-.sig-cta{font-size:11px;font-weight:500;color:var(--rp);cursor:pointer;margin-top:8px;display:flex;align-items:center;gap:3px}
+.sig-cta{font-size:14px;font-weight:500;color:var(--rp);cursor:pointer;margin-top:12px;display:flex;align-items:center;gap:3px}
 .sig-cta:hover{text-decoration:underline}
 .dt{width:100%;border-collapse:collapse}
-.dt th{font-size:12px;font-weight:500;color:var(--rp-black);letter-spacing:0;padding:0 12px;height:34px;text-align:left;border-bottom:1px solid var(--gll);background:var(--gl);white-space:nowrap;vertical-align:middle}
+.dt th{font-size:12px;font-weight:500;color:var(--rp-black);letter-spacing:0;padding:0 16px;height:37px;text-align:left;border-bottom:1px solid var(--gll);background:var(--gl);white-space:nowrap;vertical-align:middle}
 .dt th.r{text-align:right}
-.dt td{padding:0 12px;height:59px;border-bottom:1px solid var(--gll);font-size:12px;color:#2D3748;vertical-align:middle}
+.dt td{padding:0 16px;height:38px;border-bottom:1px solid var(--gll);font-size:12px;color:var(--rp-black);vertical-align:middle}
 .dt td.r{text-align:right}.dt tr:hover td{background:var(--gl)}.dt tr:last-child td{border-bottom:none}
-.dt td.vlink{color:#0076cc;font-weight:500;cursor:pointer}.dt td.vlink:hover{text-decoration:underline}
+.dt td.vlink{color:var(--rp);font-weight:500;cursor:pointer}.dt td.vlink:hover{text-decoration:underline}
 /* RAUL DSBadge exact colors */
 .ds-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:4px;white-space:nowrap}
 .ds-badge.compliant{background:#E8F4FC;color:#3d94c0;border:1px solid #b8dcf0}
@@ -145,7 +149,7 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .tag.g{background:var(--gbg);color:var(--green)}.tag.r{background:var(--rbg);color:var(--red)}.tag.y{background:var(--ybg);color:var(--orange)}.tag.b{background:rgba(0,118,204,0.1);color:var(--rp)}.tag.gr{background:var(--gll);color:var(--rp-black)}.tag.p{background:var(--pbg);color:var(--pur)}
 .rpill{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px;text-transform:uppercase;gap:3px}
 .rpill.h{background:var(--rbg);color:var(--red)}.rpill.m{background:var(--ybg);color:var(--orange)}.rpill.l{background:var(--gbg);color:var(--green)}
-.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:20px;font-size:13px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:all .1s}
+.btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:4px;font-size:14px;font-weight:500;cursor:pointer;border:none;font-family:var(--font);transition:all .1s}
 .bp{background:var(--rp);color:#fff}.bp:hover{background:var(--rp-dk)}
 .bs{background:#fff;color:var(--rp);border:1px solid var(--rp)}.bs:hover{background:var(--hi)}
 .bg{background:#fff;color:var(--rp-black);border:1px solid var(--gm)}.bg:hover{background:var(--gl)}
@@ -213,7 +217,7 @@ const KPI_DATA = [
   {id:'ms',label:'Maverick Spend',val:'$1.2M',sub:'11.4% of total spend',delta:'-1.7pts QoQ',dir:'up',accent:'r'},
   {id:'ps',label:'Potential Savings',val:'$320K',sub:'Vendor consolidation + preferred',delta:'Identified',dir:'neu',accent:'y'},
   {id:'sr',label:'Spend at Risk',val:'18%',sub:'$1.89M · 148 properties',delta:'-3pts vs Q3',dir:'up',accent:'y'},
-  {id:'av',label:'Active Violations',val:'23',sub:'8 critical · 67 impacted props',delta:'5 new this week',dir:'dn',accent:'r'},
+  {id:'ncp',label:'Non-Compliant Properties',val:'148',sub:'of 1,247 total · 11.9%',delta:'-12 vs Q3',dir:'up',accent:'y'},
 ];
 
 const INSIGHTS = [
@@ -433,14 +437,14 @@ const SignalCard = ({sig,onPage}) => {
   const near=sig.inverse?sig.val<=sig.target+5:sig.val>=sig.target-5;
   const cls=ok?'ok':near?'warn':'bad';
   const lbl=ok?'Above target':near?'Near target':'Below target';
-  const sc=ok?'#118837':near?'#D97706':'#D01A1F';
+  const sc=ok?'#3D94C0':near?'#77C6D0':'#2A5599';
   return (
     <div className="sigcard">
-      <div className="ct" style={{marginBottom:8}}>{sig.label}</div>
+      <div style={{fontSize:12,fontWeight:500,color:'var(--rp-black)',marginBottom:10,lineHeight:'18px'}}>{sig.label}</div>
       <div className="sig-v" style={{color:sc}}>{sig.val}{sig.unit}</div>
       <div className="sig-tgt">Target: {sig.target}{sig.unit} · {sig.delta} pts MTD</div>
       <div className={`sig-st ${cls}`}>{lbl}</div>
-      <div style={{marginTop:10}}><Spark data={sig.trend} color={sc} h={20}/></div>
+      <div style={{marginTop:12}}><Spark data={sig.trend} color={sc} h={22}/></div>
       <div className="sig-cta" onClick={()=>onPage(sig.page)}>View details →</div>
     </div>
   );
@@ -503,7 +507,7 @@ const SpendCompliance = ({onPage}) => {
   const [riskOnly,setRiskOnly] = useState(false);
   const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
   const slbl = (s)=>s==='g'?'Good':s==='r'?'At Risk':'Watch';
-  const donutSegs = [{pct:82,color:'#118837',label:'Compliant'},{pct:11.4,color:'#D01A1F',label:'Maverick'},{pct:6.6,color:'#C6CCD0',label:'Unclassified'}];
+  const donutSegs = [{pct:82,color:'#3D94C0',label:'Compliant'},{pct:11.4,color:'#2A5599',label:'Maverick'},{pct:6.6,color:'#B9E6EC',label:'Unclassified'}];
   const trendSeries = [[74,75,76,77,77,78,79,80,81,81,82,82],[18,17,16,16,15,15,14,14,13,13,12,11]];
   const trendLbls = ['J','F','M','A','M','J','J','A','S','O','N','D'];
   return (
@@ -521,12 +525,12 @@ const SpendCompliance = ({onPage}) => {
         </div>
       </div>
       <FilterBar period={period} onPeriod={setPeriod} riskOnly={riskOnly} onRisk={setRiskOnly}/>
-      <div style={{padding:'20px 32px 0'}}>
+      <div style={{padding:'24px 40px 0'}}>
         <div className="kgrid">{KPI_DATA.map(k=><KPICard key={k.id} {...k}/>)}</div>
       </div>
-      <div style={{padding:'0 32px'}}>
+      <div style={{padding:'0 40px'}}>
         <div className="sh">
-          <div className="sh-t"><span style={{background:'linear-gradient(135deg,#6366F1,#8B5CF6)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent',fontWeight:700}}>✦ Lumina</span> AI Insights</div>
+          <div className="sh-t"><span style={{background:'linear-gradient(135deg,#6366F1,#8B5CF6)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>✦ Lumina</span> AI Insights</div>
           <div className="sh-l">Configure</div>
         </div>
         <div className="li-row">{INSIGHTS.map((ins,i)=><InsightCard key={i} ins={ins} onPage={onPage}/>)}</div>
@@ -555,16 +559,16 @@ const SpendCompliance = ({onPage}) => {
         <div className="card">
           <div className="ct">
             Compliance Rate Trend — 12 months
-            <div style={{display:'flex',gap:10,fontSize:11,fontWeight:400,textTransform:'none',letterSpacing:0}}>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:3,background:'#118837',borderRadius:2}}/> Compliant</span>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:3,background:'#D01A1F',borderRadius:2}}/> Maverick</span>
+            <div style={{display:'flex',gap:10,fontSize:12,fontWeight:400,textTransform:'none',letterSpacing:0}}>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#3D94C0',borderRadius:2}}/> Compliant</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#2A5599',borderRadius:2}}/> Maverick</span>
             </div>
           </div>
-          <LineChart series={trendSeries} lbls={trendLbls} w={310} h={108} colors={['#118837','#D01A1F']}/>
+          <LineChart series={trendSeries} lbls={trendLbls} w={310} h={108} colors={['#3D94C0','#2A5599']}/>
         </div>
         <div className="card">
           <div className="ct">Compliance Rate by Category</div>
-          <HBar lw={85} bh={10} gap={9} max={100} data={[...CATEGORIES].sort((a,b)=>a.rate-b.rate).map(c=>({label:c.name,value:c.rate,color:c.rate>=85?'#118837':c.rate>=70?'#0076CC':'#D01A1F',disp:`${c.rate}%`}))}/>
+          <HBar lw={85} bh={10} gap={9} max={100} data={[...CATEGORIES].sort((a,b)=>a.rate-b.rate).map(c=>({label:c.name,value:c.rate,color:c.rate>=85?'#3D94C0':c.rate>=70?'#77C6D0':'#2A5599',disp:`${c.rate}%`}))}/>
         </div>
       </div>
 
@@ -573,8 +577,8 @@ const SpendCompliance = ({onPage}) => {
 
       <div className="sh"><div className="sh-t">Category &amp; Vendor Risk</div><div className="sh-l">View all</div></div>
       <div className="g2">
-        <div className="card" style={{padding:0,overflow:'hidden'}}>
-          <div style={{padding:'14px 16px 10px'}} className="ct">Category Compliance</div>
+        <div className="card" style={{padding:0}}>
+          <div style={{padding:'20px 20px 12px'}} className="ct">Category Compliance</div>
           <table className="dt">
             <thead><tr><th>Category</th><th className="r">Compliant</th><th className="r">Maverick</th><th className="r">Rate</th><th style={{textAlign:'center'}}>Trend</th><th>Status</th></tr></thead>
             <tbody>
@@ -583,16 +587,16 @@ const SpendCompliance = ({onPage}) => {
                   <td style={{fontWeight:500,color:'#1A202C'}}>{c.name}</td>
                   <td className="r">{fmtM(c.comp)}</td>
                   <td className="r" style={{color:'#D01A1F',fontWeight:600}}>{fmtM(c.mav)}</td>
-                  <td className="r" style={{fontWeight:700,color:c.rate>=85?'#118837':c.rate>=70?'#D97706':'#D01A1F'}}>{c.rate}%</td>
-                  <td style={{textAlign:'center'}}><span style={{color:c.trend==='up'?'#118837':c.trend==='dn'?'#D01A1F':'#9BA3A7',fontSize:13}}>{c.trend==='up'?'▲':c.trend==='dn'?'▼':'→'}</span></td>
+                  <td className="r" style={{fontWeight:700,color:c.rate>=85?'#3D94C0':c.rate>=70?'#77C6D0':'#2A5599'}}>{c.rate}%</td>
+                  <td style={{textAlign:'center'}}><span style={{color:c.trend==='up'?'#3D94C0':c.trend==='dn'?'#2A5599':'var(--gd)',fontSize:13}}>{c.trend==='up'?'▲':c.trend==='dn'?'▼':'→'}</span></td>
                   <td><span className={`ds-badge ${c.status==='g'?'compliant':c.status==='r'?'non-compliant':'under-review'}`}>{slbl(c.status)}</span></td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <div className="card" style={{padding:0,overflow:'hidden'}}>
-          <div style={{padding:'14px 16px 10px'}} className="ct">Top Maverick Vendors <span className="ct-link" onClick={()=>onPage('vendors')}>View vendor network →</span></div>
+        <div className="card" style={{padding:0}}>
+          <div style={{padding:'20px 20px 12px'}} className="ct">Top Maverick Vendors <span className="ct-link" onClick={()=>onPage('vendors')}>View vendor network →</span></div>
           <table className="dt">
             <thead><tr><th>Vendor</th><th>Region</th><th>Category</th><th className="r">Mav. Spend</th><th style={{textAlign:'center'}}>Violations</th><th>Status</th></tr></thead>
             <tbody>
@@ -615,11 +619,11 @@ const SpendCompliance = ({onPage}) => {
       <div className="g2">
         <div className="card">
           <div className="ct">Regional Maverick Spend — Ranked</div>
-          <HBar lw={100} bh={12} gap={10} max={40} data={[...REGIONS_DATA].sort((a,b)=>b.mavPct-a.mavPct).map(r=>({label:r.name,value:r.mavPct,color:r.mavPct>25?'#D01A1F':r.mavPct>15?'#D97706':'#0076CC',disp:`${r.mavPct}%`}))}/>
-          <div style={{marginTop:10,display:'flex',gap:12,fontSize:11,color:'#9BA3A7'}}>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#D01A1F'}}/> High (over 25%)</span>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#D97706'}}/> Watch (15-25%)</span>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#0076CC'}}/> Good (under 15%)</span>
+          <HBar lw={100} bh={12} gap={10} max={40} data={[...REGIONS_DATA].sort((a,b)=>b.mavPct-a.mavPct).map(r=>({label:r.name,value:r.mavPct,color:r.mavPct>25?'#131C57':r.mavPct>15?'#2A5599':'#B9E6EC',disp:`${r.mavPct}%`}))}/>
+          <div style={{marginTop:10,display:'flex',gap:12,fontSize:12,color:' var(--gd)'}}>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#131C57'}}/> High (over 25%)</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#2A5599'}}/> Watch (15-25%)</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#B9E6EC'}}/> Good (under 15%)</span>
           </div>
         </div>
         <div className="card">
@@ -633,10 +637,10 @@ const SpendCompliance = ({onPage}) => {
                 </div>
                 <div style={{display:'flex',alignItems:'center',gap:8}}>
                   {p.viol>0&&<span className="tag r">{p.viol}</span>}
-                  <span style={{fontSize:12,fontWeight:700,color:p.score>=80?'#118837':p.score>=65?'#0076CC':'#D01A1F'}}>{p.score}</span>
+                  <span style={{fontSize:12,fontWeight:700,color:p.score>=80?'#3D94C0':p.score>=65?'#77C6D0':'#2A5599'}}>{p.score}</span>
                 </div>
               </div>
-              <div className="prog"><div className="prog-f" style={{width:`${p.score}%`,background:p.score>=80?'#118837':p.score>=65?'#0076CC':'#D01A1F'}}/></div>
+              <div className="prog"><div className="prog-f" style={{width:`${p.score}%`,background:p.score>=80?'#3D94C0':p.score>=65?'#77C6D0':'#2A5599'}}/></div>
             </div>
           ))}
         </div>
@@ -705,7 +709,7 @@ const ProcessCompliance = () => {
         {[{id:'rog',l:'ROG Compliance',v:77,tgt:80,sub:'800 invoices · 620 compliant'},{id:'po',l:'PO-WTN Compliance',v:95,tgt:80,sub:'Exceeds 80% target'},{id:'vi',l:'Vendor Invoice Compliance',v:68,tgt:75,sub:'Target: 75%'}].map(m=>(
           <div key={m.id} className="kcard">
             <div className="k-lbl">{m.l}</div>
-            <div className="k-val" style={{color:m.v>=m.tgt?'#118837':'#D01A1F'}}>{m.v}%</div>
+            <div className="k-val" style={{color:m.v>=m.tgt?'#3D94C0':'#2A5599'}}>{m.v}%</div>
             <div className="k-sub">{m.sub}</div>
             <div className={`k-delta ${m.v>=m.tgt?'up':'dn'}`}>{m.v>=m.tgt?'▲ Above target':'▼ Below target'}</div>
           </div>
@@ -720,10 +724,10 @@ const ProcessCompliance = () => {
         <div className="g2">
           <div className="card">
             <div className="ct">Compliance Trend — 6 Months</div>
-            <LineChart series={[tab==='rog'?d.rog.trend:d.po.trend,[80,80,80,80,80,80]]} lbls={tab==='rog'?d.rog.lbls:d.po.lbls} w={290} h={120} colors={['#0076CC','#EBEDEE']}/>
-            <div style={{display:'flex',gap:14,marginTop:8,fontSize:11}}>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:2,background:'#0076CC'}}/> Actual</span>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:2,background:'#C6CCD0'}}/> Target</span>
+            <LineChart series={[tab==='rog'?d.rog.trend:d.po.trend,[80,80,80,80,80,80]]} lbls={tab==='rog'?d.rog.lbls:d.po.lbls} w={290} h={120} colors={['#3D94C0','#B9E6EC']}/>
+            <div style={{display:'flex',gap:14,marginTop:8,fontSize:12}}>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#3D94C0',borderRadius:2}}/> Actual</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#B9E6EC',borderRadius:2}}/> Target</span>
             </div>
           </div>
           {tab==='rog'?(
@@ -737,8 +741,8 @@ const ProcessCompliance = () => {
                       <td className="fw6">{p.n}</td>
                       <td className="r">
                         <div style={{display:'flex',alignItems:'center',justifyContent:'flex-end',gap:8}}>
-                          <div style={{width:80,height:6,background:'#EBEDEE',borderRadius:3,overflow:'hidden'}}><div style={{width:`${p.r}%`,height:'100%',background:p.r>=80?'#118837':p.r>=65?'#0076CC':'#D01A1F',borderRadius:3}}/></div>
-                          <span className="fw6" style={{color:p.r>=80?'#118837':p.r>=65?'#0076CC':'#D01A1F'}}>{p.r}%</span>
+                          <div style={{width:80,height:6,background:'#EBEDEE',borderRadius:3,overflow:'hidden'}}><div style={{width:`${p.r}%`,height:'100%',background:p.r>=80?'#3D94C0':p.r>=65?'#77C6D0':'#2A5599',borderRadius:3}}/></div>
+                          <span className="fw6" style={{color:p.r>=80?'#3D94C0':p.r>=65?'#77C6D0':'#2A5599'}}>{p.r}%</span>
                         </div>
                       </td>
                       <td><span className={`tag ${p.r>=80?'g':p.r>=65?'b':'r'}`}>{p.r>=80?'On target':p.r>=65?'Near target':'Below target'}</span></td>
@@ -769,8 +773,8 @@ const ProcessCompliance = () => {
           <div className="card">
             <div className="ct">Invoice Compliance — Count vs Spend Rate</div>
             <div style={{display:'flex',gap:24,marginBottom:16}}>
-              <div><div style={{fontSize:32,fontWeight:700,color:'#0076CC'}}>{d.vi.countRate}%</div><div style={{fontSize:11,color:'#9BA3A7'}}>By invoice count</div></div>
-              <div><div style={{fontSize:32,fontWeight:700,color:'#118837'}}>{d.vi.spendRate}%</div><div style={{fontSize:11,color:'#9BA3A7'}}>By spend value</div></div>
+              <div><div style={{fontSize:36,fontWeight:700,color:'#3D94C0',lineHeight:'40px'}}>{d.vi.countRate}%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>By invoice count</div></div>
+              <div><div style={{fontSize:36,fontWeight:700,color:'#2A5599',lineHeight:'40px'}}>{d.vi.spendRate}%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>By spend value</div></div>
             </div>
             <div style={{fontSize:12,color:'#4A5568',lineHeight:1.6}}>Higher spend-based rate indicates large vendors are more compliant than smaller, frequent vendors. Focus remediation on high-frequency, low-value non-compliant invoices.</div>
           </div>
@@ -819,27 +823,27 @@ const OfflineLeakage = () => {
       <div className="g2">
         <div className="card">
           <div className="ct">Offline vs Online Trend — 6 Months</div>
-          <LineChart series={[d.trend.off,d.trend.on]} lbls={d.trend.lbls} w={290} h={120} colors={['#D01A1F','#118837']}/>
-          <div style={{display:'flex',gap:14,marginTop:8,fontSize:11}}>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#D01A1F',borderRadius:2}}/> Offline %</span>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#118837',borderRadius:2}}/> Online %</span>
+          <LineChart series={[d.trend.off,d.trend.on]} lbls={d.trend.lbls} w={290} h={120} colors={['#2A5599','#77C6D0']}/>
+          <div style={{display:'flex',gap:14,marginTop:8,fontSize:12}}>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#2A5599',borderRadius:2}}/> Offline %</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#77C6D0',borderRadius:2}}/> Online %</span>
           </div>
         </div>
         <div className="card">
           <div className="ct">Offline vs Target</div>
           <div style={{display:'flex',alignItems:'center',gap:20,marginBottom:16}}>
-            <div style={{textAlign:'center'}}><div style={{fontSize:38,fontWeight:700,color:'#D01A1F'}}>29.8%</div><div style={{fontSize:11,color:'#9BA3A7'}}>Current offline</div></div>
+            <div style={{textAlign:'center'}}><div style={{fontSize:36,fontWeight:700,color:'#2A5599',lineHeight:'40px'}}>29.8%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>Current offline</div></div>
             <div style={{flex:1}}>
-              <div style={{fontSize:11,color:'#9BA3A7',marginBottom:6}}>vs 20% target</div>
-              <StackBar a={20} total={35} colorA="#118837" colorB="#FBE9EA" h={14}/>
-              <div style={{display:'flex',justifyContent:'space-between',marginTop:4}}><span style={{fontSize:10,color:'#118837',fontWeight:600}}>Target 20%</span><span style={{fontSize:10,color:'#D01A1F',fontWeight:600}}>Current 29.8%</span></div>
+              <div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginBottom:6}}>vs 20% target</div>
+              <StackBar a={20} total={35} colorA="#77C6D0" colorB="#E5F4FF" h={14}/>
+              <div style={{display:'flex',justifyContent:'space-between',marginTop:4}}><span style={{fontSize:12,color:'#3D94C0',fontWeight:500}}>Target 20%</span><span style={{fontSize:12,color:'#2A5599',fontWeight:500}}>Current 29.8%</span></div>
             </div>
           </div>
           <div style={{borderTop:'1px solid #EBEDEE',paddingTop:12}}>
             <div style={{fontSize:12,fontWeight:600,marginBottom:8}}>Impact if Target Met</div>
             <div style={{display:'flex',gap:16}}>
-              <div><div style={{fontSize:16,fontWeight:700,color:'#118837'}}>$473K</div><div style={{fontSize:11,color:'#9BA3A7'}}>Savings recovered</div></div>
-              <div><div style={{fontSize:16,fontWeight:700,color:'#0076CC'}}>9.8pts</div><div style={{fontSize:11,color:'#9BA3A7'}}>Compliance boost</div></div>
+              <div><div style={{fontSize:16,fontWeight:700,color:'#3D94C0'}}>$473K</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Savings recovered</div></div>
+              <div><div style={{fontSize:16,fontWeight:700,color:'#2A5599'}}>9.8pts</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Compliance boost</div></div>
             </div>
           </div>
         </div>
@@ -907,22 +911,22 @@ const VendorNetwork = () => {
                 <span style={{fontSize:12,fontWeight:500}}>{ch.n}</span>
                 <span style={{fontSize:12,fontWeight:600}}>{ch.pct}% · {fmtM(ch.spend)}</span>
               </div>
-              <StackBar a={ch.pct} total={100} colorA={i===0?'#118837':'#D01A1F'} colorB="#EBEDEE" h={10}/>
+              <StackBar a={ch.pct} total={100} colorA={i===0?'#3D94C0':'#2A5599'} colorB="#EBEDEE" h={10}/>
               <div style={{fontSize:11,color:'#9BA3A7',marginTop:3}}>{ch.cnt} vendors · {i===0?'28.4% online mix':'71.6% still offline'}</div>
             </div>
           ))}
         </div>
         <div className="card">
           <div className="ct">Online Vendor Growth
-            <div style={{display:'flex',gap:10,fontSize:11,fontWeight:400,textTransform:'none',letterSpacing:0}}>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:3,background:'#118837',borderRadius:2}}/> Online</span>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:3,background:'#C6CCD0',borderRadius:2}}/> Total</span>
+            <div style={{display:'flex',gap:10,fontSize:12,fontWeight:400,textTransform:'none',letterSpacing:0}}>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#3D94C0',borderRadius:2}}/> Online</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#B9E6EC',borderRadius:2}}/> Total</span>
             </div>
           </div>
-          <LineChart series={[d.growth.on,d.growth.tot]} lbls={d.growth.lbls} w={290} h={110} colors={['#118837','#C6CCD0']}/>
+          <LineChart series={[d.growth.on,d.growth.tot]} lbls={d.growth.lbls} w={290} h={110} colors={['#3D94C0','#B9E6EC']}/>
           <div style={{display:'flex',gap:16,marginTop:10}}>
-            <div><div style={{fontSize:15,fontWeight:700,color:'#118837'}}>+14</div><div style={{fontSize:11,color:'#9BA3A7'}}>New online vendors (6 months)</div></div>
-            <div><div style={{fontSize:15,fontWeight:700,color:'#0076CC'}}>28.4%</div><div style={{fontSize:11,color:'#9BA3A7'}}>Online mix (up from 24%)</div></div>
+            <div><div style={{fontSize:16,fontWeight:700,color:'#3D94C0'}}>+14</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>New online vendors (6 months)</div></div>
+            <div><div style={{fontSize:16,fontWeight:700,color:'#2A5599'}}>28.4%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Online mix (up from 24%)</div></div>
           </div>
         </div>
       </div>
@@ -1140,12 +1144,15 @@ const Omnibar = ({aiOpen,onAI,onMenu}) => (
     <div className="ob-ham" onClick={onMenu}>
       <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
     </div>
-    <div className="ob-logo">OPSBUYER</div>
-    <div className="ob-div"/>
-    <span className="ob-badge">SPEND COMPLIANCE</span>
-    <div className="ob-prop">
-      <div className="pn">Pegasus Properties ▾</div>
-      <div className="ps">1,247 properties · 38 regions</div>
+    {/* RAUL 3-dot logo */}
+    <div style={{display:'flex',gap:4,marginRight:4}}>
+      <div style={{width:8,height:8,borderRadius:'50%',background:'#F06000'}}/>
+      <div style={{width:8,height:8,borderRadius:'50%',background:'#F06000'}}/>
+      <div style={{width:8,height:8,borderRadius:'50%',background:'#0076CC'}}/>
+    </div>
+    <div style={{display:'flex',flexDirection:'column'}}>
+      <div className="ob-logo">OPSBUYER</div>
+      <div style={{color:'rgba(255,255,255,.6)',fontSize:10,lineHeight:'12px'}}>Pegasus Properties | 1,247 properties</div>
     </div>
     <div className="ob-search">
       <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" strokeWidth={2} strokeLinecap="round"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
