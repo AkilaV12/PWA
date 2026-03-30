@@ -10,38 +10,58 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--rp:#0076CC;--rp-dk:#005FA3;--rp-black:#202737;--hi:#E5F4FF;--gl:#F7F8F9;--gll:#EBEDEE;--gm:#C6CCD0;--gd:#9BA3A7;--green:#118837;--gbg:rgba(17,136,55,0.1);--red:#D01A1F;--rbg:rgba(208,26,31,0.1);--orange:#F06000;--yel:#D97706;--ybg:rgba(240,96,0,0.1);--pur:#7C3AED;--pbg:rgba(124,58,237,0.1);--font:'Roboto',-apple-system,sans-serif;--shadow:0px 6px 8px 0px rgba(32,39,55,0.04);--ch1:#B9E6EC;--ch2:#77C6D0;--ch3:#3D94C0;--ch4:#2A5599;--ch5:#131C57}
+:root{--rp:#0076CC;--rp-dk:#005FA3;--rp-black:#202737;--hi:#E5F4FF;--gl:#F7F8F9;--gll:#EBEDEE;--gm:#C6CCD0;--gd:#9BA3A7;--green:#118837;--gbg:rgba(17,136,55,0.1);--red:#D01A1F;--rbg:rgba(208,26,31,0.1);--orange:#F06000;--yel:#D97706;--ybg:rgba(240,96,0,0.1);--pur:#7C3AED;--pbg:rgba(124,58,237,0.1);--font:'Roboto',-apple-system,sans-serif;--shadow:0px 6px 8px 0px rgba(32,39,55,0.04);--br:4px;--ch1:#B9E6EC;--ch2:#77C6D0;--ch3:#3D94C0;--ch4:#2A5599;--ch5:#131C57}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-size:13px;line-height:1.4}
-.omnibar{height:56px;background:var(--rp-black);display:flex;align-items:center;padding:0 16px;gap:10px;position:fixed;top:0;left:0;right:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.ob-ham{color:#fff;cursor:pointer;display:flex;align-items:center;padding:4px;border-radius:4px}.ob-ham:hover{background:rgba(255,255,255,.1)}
-.ob-logo{color:#fff;font-size:15px;font-weight:700;letter-spacing:.5px;white-space:nowrap}
-.ob-div{width:1px;height:28px;background:rgba(255,255,255,.2);margin:0 2px}
-.ob-badge{background:var(--rp);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:10px;letter-spacing:.5px}
-.ob-prop{display:flex;flex-direction:column;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:3px;padding:4px 10px;cursor:pointer;min-width:150px}
-.ob-prop .pn{color:#fff;font-size:12px;font-weight:500}.ob-prop .ps{color:rgba(255,255,255,.6);font-size:10px}
-.ob-search{flex:1;max-width:320px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:15px;padding:6px 14px;display:flex;align-items:center;gap:8px}
-.ob-search input{background:transparent;border:none;outline:none;color:#fff;font-size:12px;width:100%;font-family:var(--font)}
-.ob-search input::placeholder{color:rgba(255,255,255,.4)}
-.ob-acts{display:flex;align-items:center;gap:2px;margin-left:auto}
-.ob-ib{width:32px;height:32px;border-radius:50%;background:transparent;border:none;color:rgba(255,255,255,.7);cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;transition:background .15s}
+body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-size:14px;line-height:1.4}
+/* RAUL Omnibar — #202737 dark bar, 56px height */
+.omnibar{height:56px;background:var(--rp-black);display:flex;align-items:center;padding:0 16px;gap:12px;position:fixed;top:0;left:0;right:0;z-index:100}
+.ob-ham{color:#fff;cursor:pointer;display:flex;align-items:center;padding:4px;border-radius:4px;flex-shrink:0}.ob-ham:hover{background:rgba(255,255,255,.1)}
+/* RAUL 3-dot logo cluster */
+.ob-dots{display:flex;gap:3px;flex-shrink:0}
+.ob-dots span{width:8px;height:8px;border-radius:50%;display:block}
+.ob-dots span:nth-child(1),.ob-dots span:nth-child(2){background:var(--orange)}
+.ob-dots span:nth-child(3){background:var(--rp)}
+/* Product name + context line */
+.ob-brand{display:flex;flex-direction:column;flex-shrink:0}
+.ob-brand-name{color:#fff;font-size:14px;font-weight:700;line-height:18px;letter-spacing:.3px}
+.ob-brand-ctx{color:rgba(255,255,255,.55);font-size:12px;line-height:14px}
+/* Centered search */
+.ob-search{flex:1;max-width:340px;margin:0 auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:4px;padding:7px 14px;display:flex;align-items:center;gap:8px}
+.ob-search input{background:transparent;border:none;outline:none;color:#fff;font-size:14px;width:100%;font-family:var(--font)}
+.ob-search input::placeholder{color:rgba(255,255,255,.35)}
+/* Right icon group */
+.ob-acts{display:flex;align-items:center;gap:2px;flex-shrink:0}
+.ob-ib{width:32px;height:32px;border-radius:50%;background:transparent;border:none;color:rgba(255,255,255,.7);cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;transition:background .15s;flex-shrink:0}
 .ob-ib:hover{background:rgba(255,255,255,.1)}
-.ob-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;background:#F06000;border-radius:50%;border:1.5px solid var(--rp-black)}
-.ob-user{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.85);font-size:12px}
-.ob-av{width:28px;height:28px;border-radius:50%;background:var(--rp);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600}
-.lumina-btn{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:15px;padding:6px 14px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:var(--font);white-space:nowrap;transition:all .15s}
+.ob-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;background:var(--orange);border-radius:50%;border:1.5px solid var(--rp-black)}
+/* RAUL User section */
+.ob-user{display:flex;align-items:center;gap:8px;flex-shrink:0}
+.ob-user-info{display:flex;flex-direction:column;text-align:right}
+.ob-user-name{color:#fff;font-size:12px;font-weight:500;line-height:14px}
+.ob-user-role{color:rgba(255,255,255,.55);font-size:10px;line-height:12px}
+.ob-av{width:28px;height:28px;border-radius:50%;background:var(--rp);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
+/* Lumina AI button */
+.lumina-btn{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:4px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:var(--font);white-space:nowrap;transition:all .15s;flex-shrink:0}
 .lumina-btn:hover{background:linear-gradient(135deg,#4F46E5,#7C3AED)}
 .lumina-btn.active{box-shadow:0 0 0 2px rgba(99,102,241,.7),0 0 12px rgba(99,102,241,.4)}
 .app-shell{display:flex;margin-top:56px;height:calc(100vh - 56px)}
+/* RAUL Left Navigation — white bg, E5F4FF active, 14px Roboto */
 .sidenav{width:240px;min-width:240px;background:#fff;border-right:1px solid var(--gll);display:flex;flex-direction:column;overflow-y:auto;transition:width .2s}
 .sidenav.col{width:52px;min-width:52px}
-.sn-sect{padding:14px 16px 4px;font-size:10px;font-weight:600;color:var(--gd);letter-spacing:.8px;text-transform:uppercase}
-.sidenav.col .sn-sect,.sidenav.col .nav-item span,.sidenav.col .nbadge{display:none}
-.nav-item{display:flex;align-items:center;gap:12px;padding:0 16px;height:46px;cursor:pointer;border-bottom:1px solid var(--gll);color:rgba(32,39,55,0.8);font-size:14px;font-weight:400;position:relative;transition:background .1s;user-select:none}
+.sidenav.col .sn-sect,.sidenav.col .nav-item span,.sidenav.col .nav-chev{display:none}
+/* RAUL nav item — 46px, 14px Roboto Regular, house icon */
+.nav-item{display:flex;align-items:center;gap:12px;padding:0 16px;height:46px;cursor:pointer;color:var(--rp-black);font-size:14px;font-weight:400;position:relative;transition:background .1s;user-select:none}
 .nav-item:hover{background:var(--gl)}
+/* RAUL active state — full E5F4FF bg, blue text, no left bar */
 .nav-item.active{background:var(--hi);color:var(--rp);font-weight:500}
-.nbadge{margin-left:auto;background:var(--red);color:#fff;font-size:10px;font-weight:700;padding:1px 6px;border-radius:10px;min-width:18px;text-align:center}
-.nbadge.w{background:var(--orange)}.nbadge.b{background:var(--rp)}
+/* RAUL chevron for expandable sections */
+.nav-chev{margin-left:auto;color:var(--gd);display:flex;align-items:center;transition:transform .2s}
+.nav-chev.up{transform:rotate(180deg)}
+/* RAUL sub-nav items — indented, no icon */
+.nav-sub{padding-left:44px;height:38px;font-size:14px;font-weight:400;color:var(--rp-black);display:flex;align-items:center;cursor:pointer;transition:background .1s}
+.nav-sub:hover{background:var(--gl)}
+.nav-sub.active{color:var(--rp);font-weight:500}
+/* Bottom user */
 .sn-bot{margin-top:auto;border-top:1px solid var(--gll);padding:12px}
 .sn-user{display:flex;align-items:center;gap:10px;padding:6px}
 .sidenav.col .sn-user span{display:none}
@@ -86,6 +106,12 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 /* Filter action buttons */
 .fbtn{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px;border:1px solid var(--gm);border-radius:2px;background:#fff;font-size:13px;font-weight:500;color:var(--rp-black);font-family:var(--font);cursor:pointer;white-space:nowrap;transition:all .1s;flex-shrink:0}
 .fbtn:hover{border-color:var(--rp);color:var(--rp)}
+/* RAUL Primary CTA — green button */
+.fbtn-cta{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px;border:none;border-radius:var(--br);background:var(--green);font-size:13px;font-weight:600;color:#fff;font-family:var(--font);cursor:pointer;white-space:nowrap;transition:all .1s;flex-shrink:0}
+.fbtn-cta:hover{background:#0e7030}
+/* RAUL SideNav section label */
+.sn-sect{padding:16px 16px 6px;font-size:11px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.5px}
+.sn-divider{height:1px;background:var(--gll);margin:8px 16px}
 .kgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:0}
 /* RAUL KPI Card — white, #EBEDEE border, 4px radius, DSCard shadow, orange corner */
 .kcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:24px 22px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
@@ -139,12 +165,12 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .ds-badge.non-compliant{background:#FBE9EA;color:#d01a1f;border:1px solid #f5c6c7}
 .ds-badge.under-review{background:#FEF0E6;color:#f06000;border:1px solid #fbd5b5}
 .ds-badge.preferred{background:#EAF5EE;color:#118837;border:1px solid #b7dfc4}
-.ds-badge.non-preferred{background:var(--gll);color:#4A5568;border:1px solid #d4d8db}
+.ds-badge.non-preferred{background:var(--gll);color:var(--gd);border:1px solid #d4d8db}
 /* Circle violation badge */
 .viol-circle{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0}
 .viol-circle.cr{background:#d01a1f;color:#fff}
 .viol-circle.wa{background:#f06000;color:#fff}
-.viol-circle.lo{background:var(--gll);color:#4A5568}
+.viol-circle.lo{background:var(--gll);color:var(--gd)}
 .tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:2px}
 .tag.g{background:var(--gbg);color:var(--green)}.tag.r{background:var(--rbg);color:var(--red)}.tag.y{background:var(--ybg);color:var(--orange)}.tag.b{background:rgba(0,118,204,0.1);color:var(--rp)}.tag.gr{background:var(--gll);color:var(--rp-black)}.tag.p{background:var(--pbg);color:var(--pur)}
 .rpill{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px;text-transform:uppercase;gap:3px}
@@ -157,7 +183,7 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .sm{padding:6px 12px;font-size:12px}.xs{padding:3px 9px;font-size:11px}
 .tabs{display:flex;border-bottom:2px solid var(--gll);margin-bottom:14px}
 .tab{padding:8px 16px;font-size:13px;color:var(--gd);cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-2px;transition:all .1s;user-select:none}
-.tab.on{color:var(--rp);font-weight:500;border-bottom-color:var(--rp)}.tab:hover:not(.on){color:#4A5568}
+.tab.on{color:var(--rp);font-weight:500;border-bottom-color:var(--rp)}.tab:hover:not(.on){color:var(--gd)}
 .prog{height:6px;background:var(--gll);border-radius:3px;overflow:hidden}
 .prog-f{height:100%;border-radius:3px;transition:width .4s}
 .bnr{border-left:3px solid;border-radius:var(--br);padding:9px 12px;font-size:12px;display:flex;align-items:center;gap:10px;margin-bottom:12px}
@@ -167,7 +193,7 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .ccase.cr{border-left-color:var(--red)}.ccase.wa{border-left-color:var(--yel)}
 .prev{background:#fff;border:1px solid var(--gll);border-radius:var(--br);padding:16px}
 .prev-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
-.prev-v{font-size:17px;font-weight:700;color:#1A202C}
+.prev-v{font-size:17px;font-weight:700;color:var(--rp-black)}
 .prev-l{font-size:10px;color:var(--gd);margin-top:1px}
 .prev-cta{font-size:11px;font-weight:600;color:var(--rp);cursor:pointer;display:flex;align-items:center;gap:3px;margin-top:8px;justify-content:flex-end}
 .prev-cta:hover{text-decoration:underline}
@@ -180,7 +206,7 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .lp-msgs{flex:1;overflow-y:auto;padding:12px;display:flex;flex-direction:column;gap:10px}
 .lm{max-width:90%}.lm.ai{align-self:flex-start}.lm.user{align-self:flex-end}
 .lb{padding:9px 11px;border-radius:10px;font-size:12px;line-height:1.5}
-.lm.ai .lb{background:var(--gl);border:1px solid var(--gll);color:#2D3748;border-radius:2px 10px 10px 10px}
+.lm.ai .lb{background:var(--gl);border:1px solid var(--gll);color:var(--rp-black);border-radius:2px 10px 10px 10px}
 .lm.user .lb{background:var(--rp);color:#fff;border-radius:10px 10px 2px 10px}
 .lt{font-size:10px;color:var(--gd);margin-top:3px}
 .ldc{background:#fff;border:1px solid var(--gll);border-radius:6px;padding:9px;margin-top:7px}
@@ -188,7 +214,7 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .ldr{display:flex;justify-content:space-between;padding:3px 0;font-size:11px;border-bottom:1px solid var(--gll)}.ldr:last-child{border-bottom:none}
 .ldr .dv{font-weight:600}.ldr .dv.r{color:var(--red)}.ldr .dv.g{color:var(--green)}.ldr .dv.w{color:var(--yel)}
 .lp-chips{display:flex;flex-wrap:wrap;gap:5px;padding:8px 12px;border-top:1px solid var(--gll)}
-.lchip{padding:5px 9px;border-radius:12px;font-size:11px;background:var(--gl);border:1px solid var(--gll);cursor:pointer;color:#4A5568;transition:all .1s}
+.lchip{padding:5px 9px;border-radius:12px;font-size:11px;background:var(--gl);border:1px solid var(--gll);cursor:pointer;color:var(--gd);transition:all .1s}
 .lchip:hover{background:var(--hi);border-color:var(--rp);color:var(--rp)}
 .lp-inp{padding:9px 12px;border-top:1px solid var(--gll);display:flex;gap:7px}
 .linput{flex:1;border:1px solid var(--gll);border-radius:15px;padding:6px 12px;font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s}
@@ -353,13 +379,13 @@ const DonutChart = ({segs,size=130,thick=22}) => {
   const cx2=cx,cy2=cy;
   return (
     <svg width={size} height={size}>
-      <circle cx={cx2} cy={cy2} r={r} fill="none" stroke="#EBEDEE" strokeWidth={thick}/>
+      <circle cx={cx2} cy={cy2} r={r} fill="none" stroke="var(--gll)" strokeWidth={thick}/>
       {arcs.map((a,i)=><path key={i} d={a.d} fill="none" stroke={a.color} strokeWidth={thick} strokeLinecap="butt"/>)}
     </svg>
   );
 };
 
-const LineChart = ({series,lbls,w=340,h=110,colors=['#0076CC','#D01A1F'],showDots=true}) => {
+const LineChart = ({series,lbls,w=340,h=110,colors=['var(--ch3)','var(--ch4)'],showDots=true}) => {
   const all=series.flat();
   const mn=Math.min(...all)-3,mx=Math.max(...all)+3,rng=mx-mn||1;
   const pl={t:8,r:8,b:22,l:30};
@@ -369,19 +395,19 @@ const LineChart = ({series,lbls,w=340,h=110,colors=['#0076CC','#D01A1F'],showDot
   const mkPath=(s)=>s.map((v,i)=>`${i===0?'M':'L'} ${px(v,i,s.length)} ${py(v)}`).join(' ');
   return (
     <svg width={w} height={h} style={{overflow:'visible'}}>
-      {[0,25,50,75,100].map(v=>{const y=py(v);return (y>=pl.t&&y<=pl.t+ch)?<line key={v} x1={pl.l} y1={y} x2={pl.l+cw} y2={y} stroke="#EBEDEE" strokeWidth={1}/>:null;})}
+      {[0,25,50,75,100].map(v=>{const y=py(v);return (y>=pl.t&&y<=pl.t+ch)?<line key={v} x1={pl.l} y1={y} x2={pl.l+cw} y2={y} stroke="var(--gll)" strokeWidth={1}/>:null;})}
       {series.map((s,i)=>(
         <g key={i}>
-          <path d={mkPath(s)} fill="none" stroke={colors[i]||'#0076CC'} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"/>
-          {showDots&&s.map((v,j)=><circle key={j} cx={px(v,j,s.length)} cy={py(v)} r={2.5} fill={colors[i]||'#0076CC'}/>)}
+          <path d={mkPath(s)} fill="none" stroke={colors[i]||'var(--ch3)'} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"/>
+          {showDots&&s.map((v,j)=><circle key={j} cx={px(v,j,s.length)} cy={py(v)} r={2.5} fill={colors[i]||'var(--ch3)'}/>)}
         </g>
       ))}
-      {lbls&&lbls.map((l,i)=><text key={i} x={pl.l+(i/Math.max(lbls.length-1,1))*cw} y={h-5} textAnchor="middle" fontSize={9} fill="#9BA3A7">{l}</text>)}
+      {lbls&&lbls.map((l,i)=><text key={i} x={pl.l+(i/Math.max(lbls.length-1,1))*cw} y={h-5} textAnchor="middle" fontSize={9} fill="var(--gd)">{l}</text>)}
     </svg>
   );
 };
 
-const Spark = ({data,color='#0076CC',h=18}) => {
+const Spark = ({data,color='var(--ch3)',h=18}) => {
   const mn=Math.min(...data),mx=Math.max(...data),rng=mx-mn||1;
   return (
     <svg width={data.length*6} height={h}>
@@ -396,26 +422,36 @@ const HBar = ({data,max,bh=8,gap=8,lw=110}) => {
     <div>
       {data.map((item,i)=>(
         <div key={i} style={{display:'flex',alignItems:'center',gap:8,marginBottom:gap}}>
-          <div style={{width:lw,fontSize:11,color:'#4A5568',flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.label}</div>
-          <div style={{flex:1,height:bh,background:'#EBEDEE',borderRadius:4,overflow:'hidden'}}>
-            <div style={{height:'100%',width:`${Math.min((item.value/m)*100,100)}%`,background:item.color||'#0076CC',borderRadius:4,transition:'width .4s'}}/>
+          <div style={{width:lw,fontSize:11,color:'var(--rp-black)',opacity:0.7,flexShrink:0,overflow:'hidden',textOverflow:'ellipsis',whiteSpace:'nowrap'}}>{item.label}</div>
+          <div style={{flex:1,height:bh,background:'var(--gll)',borderRadius:4,overflow:'hidden'}}>
+            <div style={{height:'100%',width:`${Math.min((item.value/m)*100,100)}%`,background:item.color||'var(--ch3)',borderRadius:4,transition:'width .4s'}}/>
           </div>
-          <div style={{fontSize:11,fontWeight:600,color:'#2D3748',width:48,textAlign:'right',flexShrink:0}}>{item.disp!=null?item.disp:item.value}</div>
+          <div style={{fontSize:11,fontWeight:600,color:'var(--rp-black)',width:48,textAlign:'right',flexShrink:0}}>{item.disp!=null?item.disp:item.value}</div>
         </div>
       ))}
     </div>
   );
 };
 
-const StackBar = ({a,total,colorA='#0076CC',colorB='#EBEDEE',h=10}) => (
+const StackBar = ({a,total,colorA='var(--ch3)',colorB='var(--gll)',h=10}) => (
   <div style={{height:h,background:colorB,borderRadius:4,overflow:'hidden'}}>
     <div style={{width:`${(a/total)*100}%`,height:'100%',background:colorA,borderRadius:'4px 0 0 4px',transition:'width .4s'}}/>
   </div>
 );
 
 /* ── UI PRIMITIVES ────────────────────────────────────────────── */
+/* RAUL Card overflow menu (3-dot vertical) */
+const CardOverflow = () => (
+  <div style={{position:'absolute',top:24,right:24,cursor:'pointer',color:'var(--gd)',display:'flex',flexDirection:'column',gap:2,padding:4}}>
+    <div style={{width:3,height:3,borderRadius:'50%',background:'var(--gd)'}}/>
+    <div style={{width:3,height:3,borderRadius:'50%',background:'var(--gd)'}}/>
+    <div style={{width:3,height:3,borderRadius:'50%',background:'var(--gd)'}}/>
+  </div>
+);
+
 const KPICard = ({label,val,sub,delta,dir}) => (
   <div className="kcard">
+    <CardOverflow/>
     <div className="k-lbl">{label}</div>
     <div className="k-val">{val}</div>
     <div className="k-sub">{sub}</div>
@@ -437,9 +473,10 @@ const SignalCard = ({sig,onPage}) => {
   const near=sig.inverse?sig.val<=sig.target+5:sig.val>=sig.target-5;
   const cls=ok?'ok':near?'warn':'bad';
   const lbl=ok?'Above target':near?'Near target':'Below target';
-  const sc=ok?'#3D94C0':near?'#77C6D0':'#2A5599';
+  const sc=ok?'var(--ch3)':near?'var(--ch2)':'var(--ch4)';
   return (
     <div className="sigcard">
+      <CardOverflow/>
       <div style={{fontSize:12,fontWeight:500,color:'var(--rp-black)',marginBottom:10,lineHeight:'18px'}}>{sig.label}</div>
       <div className="sig-v" style={{color:sc}}>{sig.val}{sig.unit}</div>
       <div className="sig-tgt">Target: {sig.target}{sig.unit} · {sig.delta} pts MTD</div>
@@ -498,6 +535,7 @@ const FilterBar = ({period,onPeriod,riskOnly,onRisk}) => (
       Filter
     </button>
     <button className="fbtn">Reset</button>
+    <button className="fbtn-cta">Apply Filters</button>
   </div>
 );
 
@@ -507,7 +545,7 @@ const SpendCompliance = ({onPage}) => {
   const [riskOnly,setRiskOnly] = useState(false);
   const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
   const slbl = (s)=>s==='g'?'Good':s==='r'?'At Risk':'Watch';
-  const donutSegs = [{pct:82,color:'#3D94C0',label:'Compliant'},{pct:11.4,color:'#2A5599',label:'Maverick'},{pct:6.6,color:'#B9E6EC',label:'Unclassified'}];
+  const donutSegs = [{pct:82,color:'var(--ch3)',label:'Compliant'},{pct:11.4,color:'var(--ch4)',label:'Maverick'},{pct:6.6,color:'var(--ch1)',label:'Unclassified'}];
   const trendSeries = [[74,75,76,77,77,78,79,80,81,81,82,82],[18,17,16,16,15,15,14,14,13,13,12,11]];
   const trendLbls = ['J','F','M','A','M','J','J','A','S','O','N','D'];
   return (
@@ -538,6 +576,7 @@ const SpendCompliance = ({onPage}) => {
       <div className="sh"><div className="sh-t">Spend Health</div><div className="sh-l">Full report</div></div>
       <div className="g3">
         <div className="card">
+          <CardOverflow/>
           <div className="ct">Spend Compliance Breakdown</div>
           <div style={{display:'flex',alignItems:'center',gap:14}}>
             <DonutChart segs={donutSegs} size={120} thick={20}/>
@@ -545,30 +584,32 @@ const SpendCompliance = ({onPage}) => {
               {donutSegs.map((s,i)=>(
                 <div key={i} style={{display:'flex',alignItems:'center',gap:8,marginBottom:8}}>
                   <div style={{width:10,height:10,borderRadius:2,background:s.color,flexShrink:0}}/>
-                  <div style={{flex:1,fontSize:12,color:'#4A5568'}}>{s.label}</div>
+                  <div style={{flex:1,fontSize:12,color:'var(--rp-black)',opacity:0.7}}>{s.label}</div>
                   <div style={{fontSize:12,fontWeight:600}}>{s.pct}%</div>
                 </div>
               ))}
-              <div style={{borderTop:'1px solid #EBEDEE',paddingTop:8,marginTop:2}}>
-                <div style={{fontSize:10,color:'#9BA3A7'}}>Total Portfolio</div>
+              <div style={{borderTop:'1px solid var(--gll)',paddingTop:8,marginTop:2}}>
+                <div style={{fontSize:10,color:'var(--gd)'}}>Total Portfolio</div>
                 <div style={{fontSize:15,fontWeight:700}}>$10.5M YTD</div>
               </div>
             </div>
           </div>
         </div>
         <div className="card">
+          <CardOverflow/>
           <div className="ct">
             Compliance Rate Trend — 12 months
             <div style={{display:'flex',gap:10,fontSize:12,fontWeight:400,textTransform:'none',letterSpacing:0}}>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#3D94C0',borderRadius:2}}/> Compliant</span>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#2A5599',borderRadius:2}}/> Maverick</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Compliant</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch4)',borderRadius:2}}/> Maverick</span>
             </div>
           </div>
-          <LineChart series={trendSeries} lbls={trendLbls} w={310} h={108} colors={['#3D94C0','#2A5599']}/>
+          <LineChart series={trendSeries} lbls={trendLbls} w={310} h={108} colors={['var(--ch3)','var(--ch4)']}/>
         </div>
         <div className="card">
+          <CardOverflow/>
           <div className="ct">Compliance Rate by Category</div>
-          <HBar lw={85} bh={10} gap={9} max={100} data={[...CATEGORIES].sort((a,b)=>a.rate-b.rate).map(c=>({label:c.name,value:c.rate,color:c.rate>=85?'#3D94C0':c.rate>=70?'#77C6D0':'#2A5599',disp:`${c.rate}%`}))}/>
+          <HBar lw={85} bh={10} gap={9} max={100} data={[...CATEGORIES].sort((a,b)=>a.rate-b.rate).map(c=>({label:c.name,value:c.rate,color:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)',disp:`${c.rate}%`}))}/>
         </div>
       </div>
 
@@ -584,11 +625,11 @@ const SpendCompliance = ({onPage}) => {
             <tbody>
               {CATEGORIES.map((c,i)=>(
                 <tr key={i}>
-                  <td style={{fontWeight:500,color:'#1A202C'}}>{c.name}</td>
+                  <td style={{fontWeight:500,color:'var(--rp-black)'}}>{c.name}</td>
                   <td className="r">{fmtM(c.comp)}</td>
-                  <td className="r" style={{color:'#D01A1F',fontWeight:600}}>{fmtM(c.mav)}</td>
-                  <td className="r" style={{fontWeight:700,color:c.rate>=85?'#3D94C0':c.rate>=70?'#77C6D0':'#2A5599'}}>{c.rate}%</td>
-                  <td style={{textAlign:'center'}}><span style={{color:c.trend==='up'?'#3D94C0':c.trend==='dn'?'#2A5599':'var(--gd)',fontSize:13}}>{c.trend==='up'?'▲':c.trend==='dn'?'▼':'→'}</span></td>
+                  <td className="r" style={{color:'var(--red)',fontWeight:600}}>{fmtM(c.mav)}</td>
+                  <td className="r" style={{fontWeight:700,color:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)'}}>{c.rate}%</td>
+                  <td style={{textAlign:'center'}}><span style={{color:c.trend==='up'?'var(--ch3)':c.trend==='dn'?'var(--ch4)':'var(--gd)',fontSize:13}}>{c.trend==='up'?'▲':c.trend==='dn'?'▼':'→'}</span></td>
                   <td><span className={`ds-badge ${c.status==='g'?'compliant':c.status==='r'?'non-compliant':'under-review'}`}>{slbl(c.status)}</span></td>
                 </tr>
               ))}
@@ -603,9 +644,9 @@ const SpendCompliance = ({onPage}) => {
               {MAV_VENDORS.map((v,i)=>(
                 <tr key={i}>
                   <td className="vlink">{v.name}</td>
-                  <td style={{color:'#4A5568'}}>{v.region}</td>
-                  <td style={{color:'#4A5568'}}>{v.cat}</td>
-                  <td className="r fw6" style={{color:'#D01A1F'}}>{fmtM(v.spend)}</td>
+                  <td style={{color:'var(--rp-black)',opacity:0.7}}>{v.region}</td>
+                  <td style={{color:'var(--rp-black)',opacity:0.7}}>{v.cat}</td>
+                  <td className="r fw6" style={{color:'var(--red)'}}>{fmtM(v.spend)}</td>
                   <td style={{textAlign:'center'}}><span className={`viol-circle ${v.viol>=3?'cr':v.viol>=2?'wa':'lo'}`}>{v.viol}</span></td>
                   <td><span className={`ds-badge ${v.status==='preferred'?'preferred':v.status==='unauth'?'non-compliant':v.status==='non-pref'?'non-preferred':'under-review'}`}>{v.issue}</span></td>
                 </tr>
@@ -618,29 +659,31 @@ const SpendCompliance = ({onPage}) => {
       <div className="sh"><div className="sh-t">Regional &amp; Property Hotspots</div><div className="sh-l">View all regions</div></div>
       <div className="g2">
         <div className="card">
+          <CardOverflow/>
           <div className="ct">Regional Maverick Spend — Ranked</div>
-          <HBar lw={100} bh={12} gap={10} max={40} data={[...REGIONS_DATA].sort((a,b)=>b.mavPct-a.mavPct).map(r=>({label:r.name,value:r.mavPct,color:r.mavPct>25?'#131C57':r.mavPct>15?'#2A5599':'#B9E6EC',disp:`${r.mavPct}%`}))}/>
+          <HBar lw={100} bh={12} gap={10} max={40} data={[...REGIONS_DATA].sort((a,b)=>b.mavPct-a.mavPct).map(r=>({label:r.name,value:r.mavPct,color:r.mavPct>25?'var(--ch5)':r.mavPct>15?'var(--ch4)':'var(--ch1)',disp:`${r.mavPct}%`}))}/>
           <div style={{marginTop:10,display:'flex',gap:12,fontSize:12,color:' var(--gd)'}}>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#131C57'}}/> High (over 25%)</span>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#2A5599'}}/> Watch (15-25%)</span>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'#B9E6EC'}}/> Good (under 15%)</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'var(--ch5)'}}/> High (over 25%)</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'var(--ch4)'}}/> Watch (15-25%)</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'var(--ch1)'}}/> Good (under 15%)</span>
           </div>
         </div>
         <div className="card">
+          <CardOverflow/>
           <div className="ct">Property Compliance — Bottom 10</div>
           {PROPS_DATA.map((p,i)=>(
             <div key={i} style={{marginBottom:10}}>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:3}}>
                 <div style={{display:'flex',alignItems:'center',gap:8}}>
                   <span style={{fontSize:12,fontWeight:500}}>{p.name}</span>
-                  <span style={{fontSize:10,color:'#9BA3A7'}}>{p.region}</span>
+                  <span style={{fontSize:10,color:'var(--gd)'}}>{p.region}</span>
                 </div>
                 <div style={{display:'flex',alignItems:'center',gap:8}}>
                   {p.viol>0&&<span className="tag r">{p.viol}</span>}
-                  <span style={{fontSize:12,fontWeight:700,color:p.score>=80?'#3D94C0':p.score>=65?'#77C6D0':'#2A5599'}}>{p.score}</span>
+                  <span style={{fontSize:12,fontWeight:700,color:p.score>=80?'var(--ch3)':p.score>=65?'var(--ch2)':'var(--ch4)'}}>{p.score}</span>
                 </div>
               </div>
-              <div className="prog"><div className="prog-f" style={{width:`${p.score}%`,background:p.score>=80?'#3D94C0':p.score>=65?'#77C6D0':'#2A5599'}}/></div>
+              <div className="prog"><div className="prog-f" style={{width:`${p.score}%`,background:p.score>=80?'var(--ch3)':p.score>=65?'var(--ch2)':'var(--ch4)'}}/></div>
             </div>
           ))}
         </div>
@@ -649,36 +692,36 @@ const SpendCompliance = ({onPage}) => {
       <div className="sh"><div className="sh-t">Deep Dive Domains</div></div>
       <div className="g3" style={{marginBottom:24}}>
         <div className="prev">
-          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="layers" s={15} c="#0076CC"/><div style={{fontSize:13,fontWeight:600}}>Process Compliance</div></div>
-          <div style={{fontSize:11,color:'#9BA3A7',marginBottom:8}}>ROG · PO-WTN · Vendor invoice adherence</div>
+          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="layers" s={15} c="var(--rp)"/><div style={{fontSize:13,fontWeight:600}}>Process Compliance</div></div>
+          <div style={{fontSize:11,color:'var(--gd)',marginBottom:8}}>ROG · PO-WTN · Vendor invoice adherence</div>
           <div className="prev-kpis">
-            <div><div className="prev-v" style={{color:'#D97706'}}>77%</div><div className="prev-l">ROG Rate</div></div>
-            <div><div className="prev-v" style={{color:'#118837'}}>95%</div><div className="prev-l">PO-WTN Rate</div></div>
-            <div><div className="prev-v" style={{color:'#D01A1F'}}>68%</div><div className="prev-l">Vendor Invoice</div></div>
+            <div><div className="prev-v" style={{color:'var(--yel)'}}>77%</div><div className="prev-l">ROG Rate</div></div>
+            <div><div className="prev-v" style={{color:'var(--green)'}}>95%</div><div className="prev-l">PO-WTN Rate</div></div>
+            <div><div className="prev-v" style={{color:'var(--red)'}}>68%</div><div className="prev-l">Vendor Invoice</div></div>
           </div>
-          <Spark data={[70,71,72,74,75,77]} color="#0076CC" h={22}/>
+          <Spark data={[70,71,72,74,75,77]} color="var(--ch3)" h={22}/>
           <div className="prev-cta" onClick={()=>onPage('process')}>View Process Compliance →</div>
         </div>
         <div className="prev">
-          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="link" s={15} c="#D97706"/><div style={{fontSize:13,fontWeight:600}}>Offline Leakage</div></div>
-          <div style={{fontSize:11,color:'#9BA3A7',marginBottom:8}}>Provisioned · Unprovisioned · Missed savings</div>
+          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="link" s={15} c="var(--yel)"/><div style={{fontSize:13,fontWeight:600}}>Offline Leakage</div></div>
+          <div style={{fontSize:11,color:'var(--gd)',marginBottom:8}}>Provisioned · Unprovisioned · Missed savings</div>
           <div className="prev-kpis">
-            <div><div className="prev-v" style={{color:'#D01A1F'}}>29.8%</div><div className="prev-l">Offline Rate</div></div>
+            <div><div className="prev-v" style={{color:'var(--red)'}}>29.8%</div><div className="prev-l">Offline Rate</div></div>
             <div><div className="prev-v">$3.15M</div><div className="prev-l">Offline Spend</div></div>
-            <div><div className="prev-v" style={{color:'#D97706'}}>$473K</div><div className="prev-l">Missed Savings</div></div>
+            <div><div className="prev-v" style={{color:'var(--yel)'}}>$473K</div><div className="prev-l">Missed Savings</div></div>
           </div>
-          <Spark data={[34,33,32,31,30,30]} color="#D97706" h={22}/>
+          <Spark data={[34,33,32,31,30,30]} color="var(--ch4)" h={22}/>
           <div className="prev-cta" onClick={()=>onPage('offline')}>View Offline Leakage →</div>
         </div>
         <div className="prev">
-          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="building" s={15} c="#118837"/><div style={{fontSize:13,fontWeight:600}}>Vendor Network</div></div>
-          <div style={{fontSize:11,color:'#9BA3A7',marginBottom:8}}>Online · Offline · Credentialing status</div>
+          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="building" s={15} c="var(--green)"/><div style={{fontSize:13,fontWeight:600}}>Vendor Network</div></div>
+          <div style={{fontSize:11,color:'var(--gd)',marginBottom:8}}>Online · Offline · Credentialing status</div>
           <div className="prev-kpis">
-            <div><div className="prev-v" style={{color:'#D97706'}}>28.4%</div><div className="prev-l">Online (74/261)</div></div>
+            <div><div className="prev-v" style={{color:'var(--yel)'}}>28.4%</div><div className="prev-l">Online (74/261)</div></div>
             <div><div className="prev-v">54.8%</div><div className="prev-l">Credentialed</div></div>
-            <div><div className="prev-v" style={{color:'#D97706'}}>18</div><div className="prev-l">Pending</div></div>
+            <div><div className="prev-v" style={{color:'var(--yel)'}}>18</div><div className="prev-l">Pending</div></div>
           </div>
-          <Spark data={[60,63,66,68,71,74]} color="#118837" h={22}/>
+          <Spark data={[60,63,66,68,71,74]} color="var(--ch2)" h={22}/>
           <div className="prev-cta" onClick={()=>onPage('vendors')}>View Vendor Network →</div>
         </div>
       </div>
@@ -704,12 +747,12 @@ const ProcessCompliance = () => {
       </div>
       <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
       <div className="page-body">
-      <div className="bnr y"><Icon n="alert" s={14} c="#D97706"/><span>ROG and Vendor Invoice compliance below target. <strong>PO-WTN at 95%</strong> — above target. <strong>800 invoices</strong> tracked this period (620 compliant).</span></div>
+      <div className="bnr y"><Icon n="alert" s={14} c="var(--yel)"/><span>ROG and Vendor Invoice compliance below target. <strong>PO-WTN at 95%</strong> — above target. <strong>800 invoices</strong> tracked this period (620 compliant).</span></div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
         {[{id:'rog',l:'ROG Compliance',v:77,tgt:80,sub:'800 invoices · 620 compliant'},{id:'po',l:'PO-WTN Compliance',v:95,tgt:80,sub:'Exceeds 80% target'},{id:'vi',l:'Vendor Invoice Compliance',v:68,tgt:75,sub:'Target: 75%'}].map(m=>(
           <div key={m.id} className="kcard">
             <div className="k-lbl">{m.l}</div>
-            <div className="k-val" style={{color:m.v>=m.tgt?'#3D94C0':'#2A5599'}}>{m.v}%</div>
+            <div className="k-val" style={{color:m.v>=m.tgt?'var(--ch3)':'var(--ch4)'}}>{m.v}%</div>
             <div className="k-sub">{m.sub}</div>
             <div className={`k-delta ${m.v>=m.tgt?'up':'dn'}`}>{m.v>=m.tgt?'▲ Above target':'▼ Below target'}</div>
           </div>
@@ -724,10 +767,10 @@ const ProcessCompliance = () => {
         <div className="g2">
           <div className="card">
             <div className="ct">Compliance Trend — 6 Months</div>
-            <LineChart series={[tab==='rog'?d.rog.trend:d.po.trend,[80,80,80,80,80,80]]} lbls={tab==='rog'?d.rog.lbls:d.po.lbls} w={290} h={120} colors={['#3D94C0','#B9E6EC']}/>
+            <LineChart series={[tab==='rog'?d.rog.trend:d.po.trend,[80,80,80,80,80,80]]} lbls={tab==='rog'?d.rog.lbls:d.po.lbls} w={290} h={120} colors={['var(--ch3)','var(--ch1)']}/>
             <div style={{display:'flex',gap:14,marginTop:8,fontSize:12}}>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#3D94C0',borderRadius:2}}/> Actual</span>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#B9E6EC',borderRadius:2}}/> Target</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Actual</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch1)',borderRadius:2}}/> Target</span>
             </div>
           </div>
           {tab==='rog'?(
@@ -741,8 +784,8 @@ const ProcessCompliance = () => {
                       <td className="fw6">{p.n}</td>
                       <td className="r">
                         <div style={{display:'flex',alignItems:'center',justifyContent:'flex-end',gap:8}}>
-                          <div style={{width:80,height:6,background:'#EBEDEE',borderRadius:3,overflow:'hidden'}}><div style={{width:`${p.r}%`,height:'100%',background:p.r>=80?'#3D94C0':p.r>=65?'#77C6D0':'#2A5599',borderRadius:3}}/></div>
-                          <span className="fw6" style={{color:p.r>=80?'#3D94C0':p.r>=65?'#77C6D0':'#2A5599'}}>{p.r}%</span>
+                          <div style={{width:80,height:6,background:'var(--gll)',borderRadius:3,overflow:'hidden'}}><div style={{width:`${p.r}%`,height:'100%',background:p.r>=80?'var(--ch3)':p.r>=65?'var(--ch2)':'var(--ch4)',borderRadius:3}}/></div>
+                          <span className="fw6" style={{color:p.r>=80?'var(--ch3)':p.r>=65?'var(--ch2)':'var(--ch4)'}}>{p.r}%</span>
                         </div>
                       </td>
                       <td><span className={`tag ${p.r>=80?'g':p.r>=65?'b':'r'}`}>{p.r>=80?'On target':p.r>=65?'Near target':'Below target'}</span></td>
@@ -755,13 +798,13 @@ const ProcessCompliance = () => {
             <div className="card">
               <div className="ct">PO-WTN Behavior Issues</div>
               {d.po.issues.map((iss,i)=>(
-                <div key={i} style={{padding:'10px 0',borderBottom:'1px solid #EBEDEE'}}>
+                <div key={i} style={{padding:'10px 0',borderBottom:'1px solid var(--gll)'}}>
                   <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
                     <span className="fw6 fs12">{iss.prop}</span>
                     <span className="tag r">{iss.count} incidents</span>
                   </div>
-                  <div style={{fontSize:11,color:'#4A5568',marginBottom:3}}>{iss.issue}</div>
-                  <div style={{fontSize:11,color:'#D01A1F',fontWeight:600}}>${iss.amt.toLocaleString()} spend affected</div>
+                  <div style={{fontSize:11,color:'var(--rp-black)',opacity:0.7,marginBottom:3}}>{iss.issue}</div>
+                  <div style={{fontSize:11,color:'var(--red)',fontWeight:600}}>${iss.amt.toLocaleString()} spend affected</div>
                 </div>
               ))}
             </div>
@@ -773,16 +816,16 @@ const ProcessCompliance = () => {
           <div className="card">
             <div className="ct">Invoice Compliance — Count vs Spend Rate</div>
             <div style={{display:'flex',gap:24,marginBottom:16}}>
-              <div><div style={{fontSize:36,fontWeight:700,color:'#3D94C0',lineHeight:'40px'}}>{d.vi.countRate}%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>By invoice count</div></div>
-              <div><div style={{fontSize:36,fontWeight:700,color:'#2A5599',lineHeight:'40px'}}>{d.vi.spendRate}%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>By spend value</div></div>
+              <div><div style={{fontSize:36,fontWeight:700,color:'var(--ch3)',lineHeight:'40px'}}>{d.vi.countRate}%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>By invoice count</div></div>
+              <div><div style={{fontSize:36,fontWeight:700,color:'var(--ch4)',lineHeight:'40px'}}>{d.vi.spendRate}%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>By spend value</div></div>
             </div>
-            <div style={{fontSize:12,color:'#4A5568',lineHeight:1.6}}>Higher spend-based rate indicates large vendors are more compliant than smaller, frequent vendors. Focus remediation on high-frequency, low-value non-compliant invoices.</div>
+            <div style={{fontSize:12,color:'var(--rp-black)',opacity:0.7,lineHeight:1.6}}>Higher spend-based rate indicates large vendors are more compliant than smaller, frequent vendors. Focus remediation on high-frequency, low-value non-compliant invoices.</div>
           </div>
           <div className="card">
             <div className="ct">Improvement Opportunities</div>
             {[{l:'Automate PO matching for repeat vendors',impact:'High',effort:'Low'},{l:'Add invoice channel validation at entry',impact:'High',effort:'Medium'},{l:'Mandatory COI check before work order',impact:'Medium',effort:'Low'},{l:'Vendor portal adoption campaign',impact:'High',effort:'High'}].map((opp,i)=>(
-              <div key={i} style={{display:'flex',alignItems:'center',gap:10,padding:'9px 0',borderBottom:'1px solid #EBEDEE'}}>
-                <Icon n="zap" s={14} c="#D97706"/>
+              <div key={i} style={{display:'flex',alignItems:'center',gap:10,padding:'9px 0',borderBottom:'1px solid var(--gll)'}}>
+                <Icon n="zap" s={14} c="var(--yel)"/>
                 <div style={{flex:1,fontSize:12}}>{opp.l}</div>
                 <span className={`tag ${opp.impact==='High'?'r':opp.impact==='Medium'?'y':'g'}`}>{opp.impact}</span>
                 <span className={`tag ${opp.effort==='Low'?'g':opp.effort==='Medium'?'y':'b'}`}>{opp.effort}</span>
@@ -813,37 +856,37 @@ const OfflineLeakage = () => {
       </div>
       <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
       <div className="page-body">
-      <div className="bnr y"><Icon n="alert" s={14} c="#D97706"/><span>Offline leakage at <strong>29.8%</strong> — 9.8pts above 20% target. <strong>1,622 of 5,451 orders</strong> transacting offline. Estimated <strong>$473K in missed platform savings</strong> this year.</span></div>
+      <div className="bnr y"><Icon n="alert" s={14} c="var(--yel)"/><span>Offline leakage at <strong>29.8%</strong> — 9.8pts above 20% target. <strong>1,622 of 5,451 orders</strong> transacting offline. Estimated <strong>$473K in missed platform savings</strong> this year.</span></div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10,marginBottom:16}}>
-        <div className="kcard"><div className="k-lbl">Offline Rate</div><div className="k-val" style={{color:'#D01A1F'}}>29.8%</div><div className="k-sub">Target: 20% · Gap: 9.8pts</div><div className="k-delta dn">▼ Above target</div></div>
+        <div className="kcard"><div className="k-lbl">Offline Rate</div><div className="k-val" style={{color:'var(--red)'}}>29.8%</div><div className="k-sub">Target: 20% · Gap: 9.8pts</div><div className="k-delta dn">▼ Above target</div></div>
         <div className="kcard"><div className="k-lbl">Offline Orders</div><div className="k-val">1,622</div><div className="k-sub">of 5,451 total orders YTD</div><div className="k-delta neu">→ Tracking</div></div>
-        <div className="kcard"><div className="k-lbl">Missed Savings</div><div className="k-val" style={{color:'#D97706'}}>$473K</div><div className="k-sub">15% offline rebate opp.</div><div className="k-delta neu">→ Opportunity</div></div>
+        <div className="kcard"><div className="k-lbl">Missed Savings</div><div className="k-val" style={{color:'var(--yel)'}}>$473K</div><div className="k-sub">15% offline rebate opp.</div><div className="k-delta neu">→ Opportunity</div></div>
         <div className="kcard"><div className="k-lbl">Provisioned Still Offline</div><div className="k-val">4</div><div className="k-sub">vendors · $354K spend</div><div className="k-delta dn">▼ Action needed</div></div>
       </div>
       <div className="g2">
         <div className="card">
           <div className="ct">Offline vs Online Trend — 6 Months</div>
-          <LineChart series={[d.trend.off,d.trend.on]} lbls={d.trend.lbls} w={290} h={120} colors={['#2A5599','#77C6D0']}/>
+          <LineChart series={[d.trend.off,d.trend.on]} lbls={d.trend.lbls} w={290} h={120} colors={['var(--ch4)','var(--ch2)']}/>
           <div style={{display:'flex',gap:14,marginTop:8,fontSize:12}}>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#2A5599',borderRadius:2}}/> Offline %</span>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#77C6D0',borderRadius:2}}/> Online %</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch4)',borderRadius:2}}/> Offline %</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch2)',borderRadius:2}}/> Online %</span>
           </div>
         </div>
         <div className="card">
           <div className="ct">Offline vs Target</div>
           <div style={{display:'flex',alignItems:'center',gap:20,marginBottom:16}}>
-            <div style={{textAlign:'center'}}><div style={{fontSize:36,fontWeight:700,color:'#2A5599',lineHeight:'40px'}}>29.8%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>Current offline</div></div>
+            <div style={{textAlign:'center'}}><div style={{fontSize:36,fontWeight:700,color:'var(--ch4)',lineHeight:'40px'}}>29.8%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>Current offline</div></div>
             <div style={{flex:1}}>
               <div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginBottom:6}}>vs 20% target</div>
-              <StackBar a={20} total={35} colorA="#77C6D0" colorB="#E5F4FF" h={14}/>
-              <div style={{display:'flex',justifyContent:'space-between',marginTop:4}}><span style={{fontSize:12,color:'#3D94C0',fontWeight:500}}>Target 20%</span><span style={{fontSize:12,color:'#2A5599',fontWeight:500}}>Current 29.8%</span></div>
+              <StackBar a={20} total={35} colorA="var(--ch2)" colorB="var(--hi)" h={14}/>
+              <div style={{display:'flex',justifyContent:'space-between',marginTop:4}}><span style={{fontSize:12,color:'var(--ch3)',fontWeight:500}}>Target 20%</span><span style={{fontSize:12,color:'var(--ch4)',fontWeight:500}}>Current 29.8%</span></div>
             </div>
           </div>
-          <div style={{borderTop:'1px solid #EBEDEE',paddingTop:12}}>
+          <div style={{borderTop:'1px solid var(--gll)',paddingTop:12}}>
             <div style={{fontSize:12,fontWeight:600,marginBottom:8}}>Impact if Target Met</div>
             <div style={{display:'flex',gap:16}}>
-              <div><div style={{fontSize:16,fontWeight:700,color:'#3D94C0'}}>$473K</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Savings recovered</div></div>
-              <div><div style={{fontSize:16,fontWeight:700,color:'#2A5599'}}>9.8pts</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Compliance boost</div></div>
+              <div><div style={{fontSize:16,fontWeight:700,color:'var(--ch3)'}}>$473K</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Savings recovered</div></div>
+              <div><div style={{fontSize:16,fontWeight:700,color:'var(--ch4)'}}>9.8pts</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Compliance boost</div></div>
             </div>
           </div>
         </div>
@@ -911,22 +954,22 @@ const VendorNetwork = () => {
                 <span style={{fontSize:12,fontWeight:500}}>{ch.n}</span>
                 <span style={{fontSize:12,fontWeight:600}}>{ch.pct}% · {fmtM(ch.spend)}</span>
               </div>
-              <StackBar a={ch.pct} total={100} colorA={i===0?'#3D94C0':'#2A5599'} colorB="#EBEDEE" h={10}/>
-              <div style={{fontSize:11,color:'#9BA3A7',marginTop:3}}>{ch.cnt} vendors · {i===0?'28.4% online mix':'71.6% still offline'}</div>
+              <StackBar a={ch.pct} total={100} colorA={i===0?'var(--ch3)':'var(--ch4)'} colorB="var(--gll)" h={10}/>
+              <div style={{fontSize:11,color:'var(--gd)',marginTop:3}}>{ch.cnt} vendors · {i===0?'28.4% online mix':'71.6% still offline'}</div>
             </div>
           ))}
         </div>
         <div className="card">
           <div className="ct">Online Vendor Growth
             <div style={{display:'flex',gap:10,fontSize:12,fontWeight:400,textTransform:'none',letterSpacing:0}}>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#3D94C0',borderRadius:2}}/> Online</span>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'#B9E6EC',borderRadius:2}}/> Total</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Online</span>
+              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch1)',borderRadius:2}}/> Total</span>
             </div>
           </div>
-          <LineChart series={[d.growth.on,d.growth.tot]} lbls={d.growth.lbls} w={290} h={110} colors={['#3D94C0','#B9E6EC']}/>
+          <LineChart series={[d.growth.on,d.growth.tot]} lbls={d.growth.lbls} w={290} h={110} colors={['var(--ch3)','var(--ch1)']}/>
           <div style={{display:'flex',gap:16,marginTop:10}}>
-            <div><div style={{fontSize:16,fontWeight:700,color:'#3D94C0'}}>+14</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>New online vendors (6 months)</div></div>
-            <div><div style={{fontSize:16,fontWeight:700,color:'#2A5599'}}>28.4%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Online mix (up from 24%)</div></div>
+            <div><div style={{fontSize:16,fontWeight:700,color:'var(--ch3)'}}>+14</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>New online vendors (6 months)</div></div>
+            <div><div style={{fontSize:16,fontWeight:700,color:'var(--ch4)'}}>28.4%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Online mix (up from 24%)</div></div>
           </div>
         </div>
       </div>
@@ -937,7 +980,7 @@ const VendorNetwork = () => {
             <div key={i} className="kcard" style={{padding:14}}>
               <div style={{fontSize:22,fontWeight:700}}>{m.v}</div>
               <div style={{fontSize:12,fontWeight:600,marginTop:2}}>{m.l}</div>
-              <div style={{fontSize:11,color:'#9BA3A7',marginTop:2}}>{m.sub}</div>
+              <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>{m.sub}</div>
             </div>
           ))}
         </div>
@@ -950,7 +993,7 @@ const VendorNetwork = () => {
             {d.nonCompl.map((v,i)=>(
               <tr key={i}>
                 <td className="vlink">{v.n}</td>
-                <td className="r fw6" style={{color:'#D01A1F'}}>{fmtM(v.s)}</td>
+                <td className="r fw6" style={{color:'var(--red)'}}>{fmtM(v.s)}</td>
                 <td>{v.issues.map((iss,j)=><span key={j} className="ds-badge non-compliant" style={{marginRight:4,marginBottom:2,display:'inline-flex'}}>{iss}</span>)}</td>
                 <td><span className={`rpill ${v.risk}`}>{v.risk==='h'?'High':'Medium'}</span></td>
                 <td><div style={{display:'flex',gap:6}}><button className="btn bs xs">Review</button>{v.risk==='h'&&<button className="btn bd xs">Suspend</button>}</div></td>
@@ -986,29 +1029,29 @@ const Investigations = () => {
       </div>
       <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
       <div className="page-body">
-      <div style={{background:'#FBE9EA',border:'1px solid #F5C6C7',borderRadius:2,padding:'10px 14px',marginBottom:14,display:'flex',alignItems:'center',gap:10}}>
-        <Icon n="alert" s={16} c="#D01A1F"/>
-        <div><div style={{fontSize:13,fontWeight:600,color:'#D01A1F'}}>4 Critical Cases Open</div><div style={{fontSize:11,color:'#4A5568'}}>$164K in immediate financial exposure · Requires VP attention</div></div>
+      <div style={{background:'var(--rbg)',border:'1px solid var(--red)',borderRadius:'var(--br)',padding:'10px 14px',marginBottom:14,display:'flex',alignItems:'center',gap:10,opacity:0.9}}>
+        <Icon n="alert" s={16} c="var(--red)"/>
+        <div><div style={{fontSize:13,fontWeight:600,color:'var(--red)'}}>4 Critical Cases Open</div><div style={{fontSize:11,color:'var(--rp-black)',opacity:0.7}}>$164K in immediate financial exposure · Requires VP attention</div></div>
         <button className="btn bd sm" style={{marginLeft:'auto'}}>Review Critical</button>
       </div>
       <div style={{display:'flex',gap:8,marginBottom:14,alignItems:'center'}}>
         {[['all','All Cases'],['cr','Critical'],['wa','Warnings']].map(([id,lbl])=>(
           <span key={id} className={`fc ${filter===id?'on':''}`} onClick={()=>setFilter(id)}>{lbl}</span>
         ))}
-        <span style={{marginLeft:'auto',fontSize:11,color:'#9BA3A7'}}>{filtered.length} cases</span>
+        <span style={{marginLeft:'auto',fontSize:11,color:'var(--gd)'}}>{filtered.length} cases</span>
       </div>
       <div className="g12" style={{alignItems:'flex-start'}}>
         <div>
           {filtered.map((c)=>(
             <div key={c.id} className={`ccase ${c.pri}`} onClick={()=>setSel(sel&&sel.id===c.id?null:c)}>
               <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:6}}>
-                <span style={{fontSize:10,fontWeight:700,color:'#9BA3A7'}}>{c.id}</span>
+                <span style={{fontSize:10,fontWeight:700,color:'var(--gd)'}}>{c.id}</span>
                 <span className={`tag ${c.pri==='cr'?'r':'y'}`}>{c.pri==='cr'?'Critical':'Warning'}</span>
                 <span className="tag gr">{c.status==='open'?'Open':c.status==='in-review'?'In Review':'Resolved'}</span>
-                <span style={{marginLeft:'auto',fontSize:10,color:'#9BA3A7'}}>{c.age}d ago</span>
+                <span style={{marginLeft:'auto',fontSize:10,color:'var(--gd)'}}>{c.age}d ago</span>
               </div>
-              <div style={{fontSize:13,fontWeight:600,color:'#1A202C',marginBottom:4}}>{c.type}</div>
-              <div style={{display:'flex',gap:12,fontSize:11,color:'#9BA3A7',flexWrap:'wrap'}}>
+              <div style={{fontSize:13,fontWeight:600,color:'var(--rp-black)',marginBottom:4}}>{c.type}</div>
+              <div style={{display:'flex',gap:12,fontSize:11,color:'var(--gd)',flexWrap:'wrap'}}>
                 <span>Property: {c.prop}</span><span>Region: {c.region}</span><span>Exposure: {fmtM(c.amt)}</span>
               </div>
             </div>
@@ -1018,23 +1061,23 @@ const Investigations = () => {
           {sel?(
             <div className="card" style={{position:'sticky',top:8}}>
               <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:12}}>
-                <span style={{fontSize:11,fontWeight:700,color:'#9BA3A7'}}>{sel.id}</span>
+                <span style={{fontSize:11,fontWeight:700,color:'var(--gd)'}}>{sel.id}</span>
                 <span className={`tag ${sel.pri==='cr'?'r':'y'}`}>{sel.pri==='cr'?'Critical':'Warning'}</span>
                 <button className="btn bg xs" style={{marginLeft:'auto'}} onClick={()=>setSel(null)}>Close</button>
               </div>
               <div style={{fontSize:15,fontWeight:600,marginBottom:4}}>{sel.type}</div>
-              <div style={{display:'flex',gap:10,fontSize:11,color:'#9BA3A7',marginBottom:12}}>
-                <span>{sel.prop}</span><span>·</span><span>{sel.region}</span><span>·</span><span style={{color:'#D01A1F',fontWeight:600}}>{fmtM(sel.amt)}</span>
+              <div style={{display:'flex',gap:10,fontSize:11,color:'var(--gd)',marginBottom:12}}>
+                <span>{sel.prop}</span><span>·</span><span>{sel.region}</span><span>·</span><span style={{color:'var(--red)',fontWeight:600}}>{fmtM(sel.amt)}</span>
               </div>
-              <div style={{background:'#F7F8F9',border:'1px solid #EBEDEE',borderRadius:2,padding:12,marginBottom:14}}>
-                <div style={{fontSize:10,fontWeight:600,color:'#9BA3A7',marginBottom:4}}>AI INVESTIGATION SUMMARY</div>
-                <div style={{fontSize:12,color:'#2D3748',lineHeight:1.6}}>{sel.desc}</div>
+              <div style={{background:'var(--gl)',border:'1px solid var(--gll)',borderRadius:2,padding:12,marginBottom:14}}>
+                <div style={{fontSize:10,fontWeight:600,color:'var(--gd)',marginBottom:4}}>AI INVESTIGATION SUMMARY</div>
+                <div style={{fontSize:12,color:'var(--rp-black)',lineHeight:1.6}}>{sel.desc}</div>
               </div>
               <div style={{marginBottom:14}}>
-                <div style={{fontSize:11,fontWeight:600,color:'#9BA3A7',marginBottom:8}}>RECOMMENDED ACTIONS</div>
+                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',marginBottom:8}}>RECOMMENDED ACTIONS</div>
                 {sel.actions.map((a,i)=>(
-                  <div key={i} style={{display:'flex',alignItems:'center',gap:10,padding:'8px 0',borderBottom:'1px solid #EBEDEE'}}>
-                    <div style={{width:20,height:20,borderRadius:'50%',background:'#E5F4FF',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:700,color:'#0076CC',flexShrink:0}}>{i+1}</div>
+                  <div key={i} style={{display:'flex',alignItems:'center',gap:10,padding:'8px 0',borderBottom:'1px solid var(--gll)'}}>
+                    <div style={{width:20,height:20,borderRadius:'50%',background:'var(--hi)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:10,fontWeight:700,color:'var(--rp)',flexShrink:0}}>{i+1}</div>
                     <div style={{flex:1,fontSize:12}}>{a}</div>
                     <button className="btn bp xs">Act</button>
                   </div>
@@ -1046,8 +1089,8 @@ const Investigations = () => {
               </div>
             </div>
           ):(
-            <div style={{background:'#fff',border:'1px solid #EBEDEE',borderRadius:2,padding:32,textAlign:'center',color:'#9BA3A7'}}>
-              <Icon n="eye" s={32} c="#EBEDEE"/>
+            <div style={{background:'#fff',border:'1px solid var(--gll)',borderRadius:2,padding:32,textAlign:'center',color:'var(--gd)'}}>
+              <Icon n="eye" s={32} c="var(--gll)"/>
               <div style={{marginTop:8,fontSize:12}}>Select a case to view details and recommended actions</div>
             </div>
           )}
@@ -1091,7 +1134,7 @@ const LuminaPanel = ({open,onClose}) => {
     },1400);
   };
 
-  const tagColor = (t)=>t==='r'?'#D01A1F':t==='g'?'#118837':t==='w'?'#D97706':'#0076CC';
+  const tagColor = (t)=>t==='r'?'var(--red)':t==='g'?'var(--green)':t==='w'?'var(--yel)':'var(--rp)';
 
   return (
     <div className={`lp ${open?'open':''}`}>
@@ -1114,7 +1157,7 @@ const LuminaPanel = ({open,onClose}) => {
                   <div className="ldc-t">COMPLIANCE SNAPSHOT</div>
                   {m.rows.map((r,j)=>(
                     <div key={j} className="ldr">
-                      <span style={{color:'#4A5568'}}>{r.l}</span>
+                      <span style={{color:'var(--rp-black)',opacity:0.7}}>{r.l}</span>
                       <span className="dv" style={{color:tagColor(r.t)}}>{r.v}</span>
                     </div>
                   ))}
@@ -1138,26 +1181,24 @@ const LuminaPanel = ({open,onClose}) => {
   );
 };
 
-/* ── OMNIBAR ──────────────────────────────────────────────────── */
+/* ── OMNIBAR — RAUL OmnibarHeader ────────────────────────────── */
 const Omnibar = ({aiOpen,onAI,onMenu}) => (
   <div className="omnibar">
     <div className="ob-ham" onClick={onMenu}>
       <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
     </div>
     {/* RAUL 3-dot logo */}
-    <div style={{display:'flex',gap:4,marginRight:4}}>
-      <div style={{width:8,height:8,borderRadius:'50%',background:'#F06000'}}/>
-      <div style={{width:8,height:8,borderRadius:'50%',background:'#F06000'}}/>
-      <div style={{width:8,height:8,borderRadius:'50%',background:'#0076CC'}}/>
+    <div className="ob-dots"><span/><span/><span/></div>
+    <div className="ob-brand">
+      <div className="ob-brand-name">OPSBUYER</div>
+      <div className="ob-brand-ctx">Pegasus Properties | Spend Compliance</div>
     </div>
-    <div style={{display:'flex',flexDirection:'column'}}>
-      <div className="ob-logo">OPSBUYER</div>
-      <div style={{color:'rgba(255,255,255,.6)',fontSize:10,lineHeight:'12px'}}>Pegasus Properties | 1,247 properties</div>
-    </div>
+    {/* RAUL centered search */}
     <div className="ob-search">
-      <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" strokeWidth={2} strokeLinecap="round"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
-      <input placeholder="Search properties, vendors, violations..."/>
+      <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" strokeWidth={2} strokeLinecap="round"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
+      <input placeholder="Search"/>
     </div>
+    {/* RAUL right icon group */}
     <div className="ob-acts">
       {[['cart',false],['grid',false],['bell',true],['help',false]].map(([ic,dot],i)=>(
         <button key={i} className="ob-ib">
@@ -1166,9 +1207,13 @@ const Omnibar = ({aiOpen,onAI,onMenu}) => (
         </button>
       ))}
     </div>
+    {/* RAUL user name + role + avatar */}
     <div className="ob-user">
+      <div className="ob-user-info">
+        <div className="ob-user-name">Akila V.</div>
+        <div className="ob-user-role">VP Procurement</div>
+      </div>
       <div className="ob-av">AV</div>
-      <span>Akila V.</span>
     </div>
     <button className={`lumina-btn ${aiOpen?'active':''}`} onClick={onAI}>
       <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -1177,34 +1222,50 @@ const Omnibar = ({aiOpen,onAI,onMenu}) => (
   </div>
 );
 
-/* ── SIDENAV ──────────────────────────────────────────────────── */
+/* ── SIDENAV — RAUL OmnibarLeftNavigation ────────────────────── */
 const SideNav = ({page,onPage,col}) => {
-  const main = [
-    {id:'compliance',icon:'shield',label:'Spend Compliance',badge:null},
-    {id:'process',icon:'layers',label:'Process Compliance',badge:'3',badgeCls:'w'},
-    {id:'offline',icon:'link',label:'Offline Leakage',badge:null},
-    {id:'vendors',icon:'building',label:'Vendor Network',badge:'5',badgeCls:'w'},
-    {id:'investigations',icon:'eye',label:'Investigations',badge:'23',badgeCls:''},
+  const [expanded,setExpanded] = useState({compliance:true});
+  const sections = [
+    {id:'compliance',icon:'shield',label:'Spend Compliance',expandable:true,
+      subs:[
+        {id:'process',label:'Process Compliance'},
+        {id:'offline',label:'Offline Leakage'},
+        {id:'vendors',label:'Vendor Network'},
+      ]},
+    {id:'investigations',icon:'eye',label:'Investigations'},
   ];
   const ops = [
-    {id:'pos',icon:'file',label:'Purchase Orders',badge:null},
-    {id:'invoices',icon:'file',label:'Invoices',badge:null},
-    {id:'vendormgmt',icon:'user',label:'Vendor Management',badge:null},
+    {id:'pos',icon:'file',label:'Purchase Orders'},
+    {id:'invoices',icon:'layers',label:'Invoices'},
+    {id:'vendormgmt',icon:'user',label:'Vendor Management'},
   ];
+  const toggleExpand = (id) => setExpanded(e=>({...e,[id]:!e[id]}));
   return (
     <div className={`sidenav ${col?'col':''}`}>
-      <div className="sn-sect">Compliance Agent</div>
-      {main.map(item=>(
-        <div key={item.id} className={`nav-item ${page===item.id?'active':''}`} onClick={()=>onPage(item.id)}>
-          <Icon n={item.icon} s={16} c={page===item.id?'#0076CC':'#4A5568'}/>
-          <span>{item.label}</span>
-          {item.badge&&<span className={`nbadge ${item.badgeCls||''}`}>{item.badge}</span>}
-        </div>
+      {sections.map(item=>(
+        <React.Fragment key={item.id}>
+          <div className={`nav-item ${page===item.id?'active':''}`}
+            onClick={()=>{if(item.expandable){toggleExpand(item.id)}onPage(item.id)}}>
+            <Icon n={item.icon} s={16} c={page===item.id?'var(--rp)':'var(--rp-black)'}/>
+            <span>{item.label}</span>
+            {item.expandable&&(
+              <span className={`nav-chev ${expanded[item.id]?'up':''}`}>
+                <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M6 9l6 6 6-6"/></svg>
+              </span>
+            )}
+          </div>
+          {item.expandable&&expanded[item.id]&&item.subs&&item.subs.map(sub=>(
+            <div key={sub.id} className={`nav-sub ${page===sub.id?'active':''}`} onClick={()=>onPage(sub.id)}>
+              {sub.label}
+            </div>
+          ))}
+        </React.Fragment>
       ))}
-      <div className="sn-sect">OPSBUYER</div>
+      <div className="sn-divider"/>
+      <div className="sn-sect">Operations</div>
       {ops.map(item=>(
         <div key={item.id} className={`nav-item ${page===item.id?'active':''}`} onClick={()=>onPage(item.id)}>
-          <Icon n={item.icon} s={16} c="#4A5568"/>
+          <Icon n={item.icon} s={16} c={page===item.id?'var(--rp)':'var(--rp-black)'}/>
           <span>{item.label}</span>
         </div>
       ))}
@@ -1213,7 +1274,7 @@ const SideNav = ({page,onPage,col}) => {
           <div className="uav">AV</div>
           <div>
             <div style={{fontSize:12,fontWeight:500}}>Akila Viswanathan</div>
-            <div style={{fontSize:10,color:'#9BA3A7'}}>VP Procurement</div>
+            <div style={{fontSize:10,color:'var(--gd)'}}>VP Procurement</div>
           </div>
         </div>
       </div>
