@@ -13,62 +13,51 @@
 :root{--rp:#0076CC;--rp-dk:#005FA3;--rp-black:#202737;--hi:#E5F4FF;--gl:#F7F8F9;--gll:#EBEDEE;--gm:#C6CCD0;--gd:#9BA3A7;--green:#118837;--gbg:rgba(17,136,55,0.1);--red:#D01A1F;--rbg:rgba(208,26,31,0.1);--orange:#F06000;--yel:#D97706;--ybg:rgba(240,96,0,0.1);--pur:#7C3AED;--pbg:rgba(124,58,237,0.1);--font:'Roboto',-apple-system,sans-serif;--shadow:0px 6px 8px 0px rgba(32,39,55,0.04);--br:4px;--ch1:#B9E6EC;--ch2:#77C6D0;--ch3:#3D94C0;--ch4:#2A5599;--ch5:#131C57}
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-size:14px;line-height:1.4}
-/* RAUL Omnibar — #202737 dark bar, 56px height */
+/* RAUL Omnibar */
 .omnibar{height:56px;background:var(--rp-black);display:flex;align-items:center;padding:0 16px;gap:12px;position:fixed;top:0;left:0;right:0;z-index:100}
 .ob-ham{color:#fff;cursor:pointer;display:flex;align-items:center;padding:4px;border-radius:4px;flex-shrink:0}.ob-ham:hover{background:rgba(255,255,255,.1)}
-/* RAUL 3-dot logo cluster */
 .ob-dots{display:flex;gap:3px;flex-shrink:0}
 .ob-dots span{width:8px;height:8px;border-radius:50%;display:block}
 .ob-dots span:nth-child(1),.ob-dots span:nth-child(2){background:var(--orange)}
 .ob-dots span:nth-child(3){background:var(--rp)}
-/* Product name + context line */
 .ob-brand{display:flex;flex-direction:column;flex-shrink:0}
 .ob-brand-name{color:#fff;font-size:14px;font-weight:700;line-height:18px;letter-spacing:.3px}
 .ob-brand-ctx{color:rgba(255,255,255,.55);font-size:12px;line-height:14px}
-/* Centered search */
 .ob-search{flex:1;max-width:340px;margin:0 auto;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);border-radius:4px;padding:7px 14px;display:flex;align-items:center;gap:8px}
 .ob-search input{background:transparent;border:none;outline:none;color:#fff;font-size:14px;width:100%;font-family:var(--font)}
 .ob-search input::placeholder{color:rgba(255,255,255,.35)}
-/* Right icon group */
 .ob-acts{display:flex;align-items:center;gap:2px;flex-shrink:0}
 .ob-ib{width:32px;height:32px;border-radius:50%;background:transparent;border:none;color:rgba(255,255,255,.7);cursor:pointer;display:flex;align-items:center;justify-content:center;position:relative;transition:background .15s;flex-shrink:0}
 .ob-ib:hover{background:rgba(255,255,255,.1)}
 .ob-dot{position:absolute;top:4px;right:4px;width:8px;height:8px;background:var(--orange);border-radius:50%;border:1.5px solid var(--rp-black)}
-/* RAUL User section */
 .ob-user{display:flex;align-items:center;gap:8px;flex-shrink:0}
 .ob-user-info{display:flex;flex-direction:column;text-align:right}
 .ob-user-name{color:#fff;font-size:12px;font-weight:500;line-height:14px}
 .ob-user-role{color:rgba(255,255,255,.55);font-size:10px;line-height:12px}
 .ob-av{width:28px;height:28px;border-radius:50%;background:var(--rp);color:#fff;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:600;flex-shrink:0}
-/* Lumina AI button */
 .lumina-btn{background:linear-gradient(135deg,#6366F1,#8B5CF6);color:#fff;border:none;border-radius:4px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:6px;font-family:var(--font);white-space:nowrap;transition:all .15s;flex-shrink:0}
 .lumina-btn:hover{background:linear-gradient(135deg,#4F46E5,#7C3AED)}
 .lumina-btn.active{box-shadow:0 0 0 2px rgba(99,102,241,.7),0 0 12px rgba(99,102,241,.4)}
 .app-shell{display:flex;margin-top:56px;height:calc(100vh - 56px)}
-/* RAUL Left Navigation — white bg, E5F4FF active, 14px Roboto */
+/* RAUL SideNav */
 .sidenav{width:240px;min-width:240px;background:#fff;border-right:1px solid var(--gll);display:flex;flex-direction:column;overflow-y:auto;transition:width .2s}
 .sidenav.col{width:52px;min-width:52px}
 .sidenav.col .sn-sect,.sidenav.col .nav-item span,.sidenav.col .nav-chev{display:none}
-/* RAUL nav item — 46px, 14px Roboto Regular, house icon */
 .nav-item{display:flex;align-items:center;gap:12px;padding:0 16px;height:46px;cursor:pointer;color:var(--rp-black);font-size:14px;font-weight:400;position:relative;transition:background .1s;user-select:none}
 .nav-item:hover{background:var(--gl)}
-/* RAUL active state — full E5F4FF bg, blue text, no left bar */
 .nav-item.active{background:var(--hi);color:var(--rp);font-weight:500}
-/* RAUL chevron for expandable sections */
 .nav-chev{margin-left:auto;color:var(--gd);display:flex;align-items:center;transition:transform .2s}
 .nav-chev.up{transform:rotate(180deg)}
-/* RAUL sub-nav items — indented, no icon */
 .nav-sub{padding-left:44px;height:38px;font-size:14px;font-weight:400;color:var(--rp-black);display:flex;align-items:center;cursor:pointer;transition:background .1s}
 .nav-sub:hover{background:var(--gl)}
 .nav-sub.active{color:var(--rp);font-weight:500}
-/* Bottom user */
 .sn-bot{margin-top:auto;border-top:1px solid var(--gll);padding:12px}
 .sn-user{display:flex;align-items:center;gap:10px;padding:6px}
 .sidenav.col .sn-user span{display:none}
 .uav{width:32px;height:32px;min-width:32px;border-radius:50%;background:var(--rp);color:#fff;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center}
 .main{flex:1;overflow-y:auto;transition:padding-right .25s}
 .main.aio{padding-right:380px}
-/* RAUL Page Header Strip */
+/* RAUL Page Header */
 .ph-strip{background:var(--gl);border-bottom:1px solid var(--gll);padding:24px 40px;display:flex;align-items:flex-end;justify-content:space-between}
 .ph-eyebrow{display:flex;gap:5px;align-items:center;margin-bottom:8px}
 .ph-dot{height:8px;border-radius:4px;display:inline-block}
@@ -77,96 +66,90 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .ph-title{font-size:20px;font-weight:700;color:var(--rp-black);line-height:26px}
 .ph-sub{font-size:14px;color:var(--rp-black);opacity:0.75;margin-top:3px;line-height:18px}
 .page-body{padding:24px 40px}
-/* RAUL Filter Bar — floating-label select style */
+/* RAUL Filter Bar */
 .fbar{background:#fff;border-bottom:1px solid var(--gll);padding:12px 40px;display:flex;align-items:flex-end;gap:12px;flex-wrap:wrap;position:sticky;top:0;z-index:10;box-shadow:0 1px 3px rgba(0,0,0,.04)}
-/* Search input */
 .fsearch-wrap{position:relative;flex-shrink:0}
-.fsearch{height:40px;width:220px;border:1px solid var(--gm);border-radius:2px;padding:0 12px 0 34px;font-size:14px;font-family:var(--font);outline:none;color:var(--rp-black);background:#fff}
+.fsearch{height:40px;width:165px;border:1px solid var(--gm);border-radius:2px;padding:0 12px 0 34px;font-size:14px;font-family:var(--font);outline:none;color:var(--rp-black);background:#fff}
 .fsearch:focus{border-color:var(--rp)}
 .fsearch::placeholder{color:var(--gm)}
 .fsearch-ic{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gm);pointer-events:none}
-/* Floating-label select */
 .fsel-wrap{position:relative;flex-shrink:0}
 .fsel-lbl{position:absolute;top:-9px;left:8px;background:#fff;padding:0 4px;font-size:12px;font-weight:500;color:var(--rp-black);z-index:1;white-space:nowrap;line-height:18px}
 .fsel{height:40px;border:1px solid var(--gm);border-radius:2px;padding:0 28px 0 10px;font-size:14px;font-family:var(--font);outline:none;color:var(--rp-black);background:#fff;appearance:none;cursor:pointer;width:100%}
 .fsel:focus{border-color:var(--rp)}
 .fsel-arrow{position:absolute;right:8px;top:50%;transform:translateY(-50%);pointer-events:none;color:var(--gd)}
-/* Period tabs within filter bar */
-.fperiod{display:flex;border:1px solid var(--gm);border-radius:2px;overflow:hidden;flex-shrink:0;height:40px}
-.fperiod-tab{padding:0 12px;font-size:13px;font-weight:400;color:var(--rp-black);cursor:pointer;display:flex;align-items:center;border-right:1px solid var(--gm);background:#fff;transition:all .1s;user-select:none;white-space:nowrap}
-.fperiod-tab:last-child{border-right:none}
-.fperiod-tab:hover:not(.on){background:var(--gl)}
-.fperiod-tab.on{background:var(--rp);color:#fff;font-weight:500}
-/* High Risk toggle */
-.ftog{display:flex;align-items:center;gap:8px;cursor:pointer;font-size:13px;color:var(--rp-black);padding:0 12px;height:40px;border:1px solid var(--gm);border-radius:2px;white-space:nowrap;user-select:none;transition:all .1s;flex-shrink:0}
-.ftog:hover{border-color:var(--rp)}
-.ftog.on{border-color:var(--rp);color:var(--rp)}
-.tpill{width:28px;height:16px;border-radius:8px;background:var(--gm);position:relative;transition:background .15s;flex-shrink:0}
-.tpill.on{background:var(--rp)}.tpill::after{content:'';position:absolute;width:12px;height:12px;border-radius:50%;background:#fff;top:2px;left:2px;transition:transform .15s}.tpill.on::after{transform:translateX(12px)}
-/* Filter action buttons */
 .fbtn{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 14px;border:1px solid var(--gm);border-radius:2px;background:#fff;font-size:13px;font-weight:500;color:var(--rp-black);font-family:var(--font);cursor:pointer;white-space:nowrap;transition:all .1s;flex-shrink:0}
 .fbtn:hover{border-color:var(--rp);color:var(--rp)}
-/* RAUL Primary CTA — green button */
 .fbtn-cta{display:inline-flex;align-items:center;gap:6px;height:40px;padding:0 16px;border:none;border-radius:var(--br);background:var(--green);font-size:13px;font-weight:600;color:#fff;font-family:var(--font);cursor:pointer;white-space:nowrap;transition:all .1s;flex-shrink:0}
 .fbtn-cta:hover{background:#0e7030}
-/* RAUL SideNav section label */
 .sn-sect{padding:16px 16px 6px;font-size:11px;font-weight:600;color:var(--gd);text-transform:uppercase;letter-spacing:.5px}
 .sn-divider{height:1px;background:var(--gll);margin:8px 16px}
-.kgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:12px;margin-bottom:0}
-/* RAUL KPI Card — white, #EBEDEE border, 4px radius, DSCard shadow, orange corner */
-.kcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:24px 22px 20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+/* KPI Cards - Taller with sparklines */
+.kgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:0}
+.kcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .kcard::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
-.k-lbl{font-size:12px;font-weight:500;color:var(--rp-black);margin-bottom:10px;line-height:18px;text-transform:none;letter-spacing:0}
+.k-lbl{font-size:12px;font-weight:500;color:var(--rp-black);margin-bottom:6px;line-height:18px}
 .k-val{font-size:36px;font-weight:700;color:var(--rp-black);line-height:40px}
 .k-sub{font-size:14px;font-weight:400;color:var(--rp-black);opacity:0.8;margin-top:6px;line-height:18px}
-.k-delta{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:500;margin-top:10px;padding:2px 6px;border-radius:2px}
+.k-delta{display:inline-flex;align-items:center;gap:3px;font-size:12px;font-weight:500;margin-top:8px;padding:2px 6px;border-radius:2px}
 .k-delta.up{background:var(--gbg);color:var(--green)}.k-delta.dn{background:var(--rbg);color:var(--red)}.k-delta.neu{background:var(--gll);color:var(--rp-black)}
-.li-row{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:0}
-.li-card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:20px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
+/* Lumina AI Search Bar — inline */
+.lumina-search{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:14px 16px 14px 16px;box-shadow:var(--shadow);margin-bottom:0}
+.lumina-search-bar{display:flex;align-items:center;gap:12px;background:var(--gl);border:1px solid var(--gll);border-radius:4px;padding:10px 16px;cursor:text}
+.lumina-search-bar input{flex:1;border:none;outline:none;background:transparent;font-size:14px;color:var(--rp-black);font-family:var(--font)}
+.lumina-search-bar input::placeholder{color:var(--gd)}
+.lumina-prompts{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.lumina-prompt{padding:8px 14px;border:1px solid var(--gll);border-radius:4px;font-size:12px;color:var(--rp-black);cursor:pointer;transition:all .15s;background:#fff;white-space:nowrap}
+.lumina-prompt:hover{border-color:var(--rp);color:var(--rp);background:var(--hi)}
+/* Insight cards */
+.li-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:0}
+.li-card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:17px;position:relative;overflow:hidden;box-shadow:var(--shadow)}
 .li-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
 .li-card.al::before{background:var(--red)}.li-card.rc::before{background:var(--orange)}.li-card.en::before{background:var(--pur)}.li-card.tr::before{background:var(--green)}
 .li-card::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
-.li-type{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;display:flex;align-items:center;gap:4px}
+.li-type{font-size:12px;font-weight:500;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px;display:flex;align-items:center;gap:4px}
 .li-type.al{color:var(--red)}.li-type.rc{color:var(--orange)}.li-type.en{color:var(--pur)}.li-type.tr{color:var(--green)}
-.li-ttl{font-size:14px;font-weight:700;color:var(--rp-black);margin-bottom:6px;line-height:1.4}
-.li-det{font-size:14px;font-weight:400;color:var(--rp-black);opacity:0.8;line-height:18px;margin-bottom:12px}
+.li-ttl{font-size:14px;font-weight:400;color:var(--rp-black);line-height:18px;margin-bottom:10px}
 .li-cta{font-size:14px;font-weight:500;color:var(--rp);cursor:pointer;display:flex;align-items:center;gap:3px}
 .li-cta:hover{text-decoration:underline}
+/* Signal widget */
+.signal-widget{background:#fff;border:1px solid var(--gll);border-radius:14px;box-shadow:0px 4px 6px rgba(32,39,55,0.12);padding:28px;position:relative;overflow:hidden}
+.signal-score{font-size:72px;font-weight:400;color:var(--rp-black);line-height:1;font-family:var(--font)}
+.signal-trend-badge{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:32px;font-size:12px;font-weight:500}
+.signal-narrative{font-size:12px;color:var(--rp-black);line-height:19px;margin-top:16px}
+.signal-narrative ul{margin-left:16px;margin-top:4px}
+.signal-narrative li{margin-bottom:2px}
+.signal-narrative a{color:var(--rp);text-decoration:none;font-weight:500}
+.signal-narrative a:hover{text-decoration:underline}
+/* Section headers */
 .sh{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;margin-top:28px}
 .sh-t{font-size:16px;font-weight:700;color:var(--rp-black);line-height:20px;display:flex;align-items:center;gap:8px}
 .sh-l{font-size:14px;color:var(--rp);cursor:pointer;font-weight:500}.sh-l:hover{text-decoration:underline}
 .sh-badge{font-size:12px;font-weight:500;padding:2px 8px;border-radius:2px;background:var(--rbg);color:var(--red)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
-.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
-.g4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:12px}
-.g12{display:grid;grid-template-columns:1fr 2fr;gap:12px;margin-bottom:12px}
+/* Card */
 .card{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:24px;box-shadow:var(--shadow);position:relative;overflow:hidden}
 .card::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
 .ct{font-size:16px;font-weight:700;color:var(--rp-black);line-height:20px;margin-bottom:12px;display:flex;align-items:center;justify-content:space-between;gap:8px}
 .ct-sub{font-size:14px;font-weight:400;color:var(--rp-black);opacity:0.8;margin-top:4px;line-height:18px}
-.ct-link{font-size:12px;font-weight:500;color:var(--rp);cursor:pointer;text-transform:none;letter-spacing:0}.ct-link:hover{text-decoration:underline}
-.sigcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:20px;box-shadow:var(--shadow);position:relative;overflow:hidden}
-.sigcard::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
-.sig-v{font-size:36px;font-weight:700;line-height:40px}
-.sig-tgt{font-size:14px;font-weight:400;color:var(--rp-black);opacity:0.8;margin-top:6px}
-.sig-st{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:500;padding:2px 8px;border-radius:2px;margin-top:10px}
-.sig-st.ok{background:var(--gbg);color:var(--green)}.sig-st.bad{background:var(--rbg);color:var(--red)}.sig-st.warn{background:var(--ybg);color:var(--orange)}
-.sig-cta{font-size:14px;font-weight:500;color:var(--rp);cursor:pointer;margin-top:12px;display:flex;align-items:center;gap:3px}
-.sig-cta:hover{text-decoration:underline}
+.ct-link{font-size:12px;font-weight:500;color:var(--rp);cursor:pointer}.ct-link:hover{text-decoration:underline}
+/* Grid layouts */
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:16px}
+.g12{display:grid;grid-template-columns:1fr 2fr;gap:16px;margin-bottom:16px}
+/* Table */
 .dt{width:100%;border-collapse:collapse}
-.dt th{font-size:12px;font-weight:500;color:var(--rp-black);letter-spacing:0;padding:0 16px;height:37px;text-align:left;border-bottom:1px solid var(--gll);background:var(--gl);white-space:nowrap;vertical-align:middle}
+.dt th{font-size:12px;font-weight:500;color:var(--rp-black);padding:0 16px;height:37px;text-align:left;border-bottom:1px solid var(--gll);background:var(--gl);white-space:nowrap;vertical-align:middle}
 .dt th.r{text-align:right}
 .dt td{padding:0 16px;height:38px;border-bottom:1px solid var(--gll);font-size:12px;color:var(--rp-black);vertical-align:middle}
 .dt td.r{text-align:right}.dt tr:hover td{background:var(--gl)}.dt tr:last-child td{border-bottom:none}
 .dt td.vlink{color:var(--rp);font-weight:500;cursor:pointer}.dt td.vlink:hover{text-decoration:underline}
-/* RAUL DSBadge exact colors */
+/* Badges */
 .ds-badge{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:3px 9px;border-radius:4px;white-space:nowrap}
 .ds-badge.compliant{background:#E8F4FC;color:#3d94c0;border:1px solid #b8dcf0}
 .ds-badge.non-compliant{background:#FBE9EA;color:#d01a1f;border:1px solid #f5c6c7}
 .ds-badge.under-review{background:#FEF0E6;color:#f06000;border:1px solid #fbd5b5}
 .ds-badge.preferred{background:#EAF5EE;color:#118837;border:1px solid #b7dfc4}
 .ds-badge.non-preferred{background:var(--gll);color:var(--gd);border:1px solid #d4d8db}
-/* Circle violation badge */
 .viol-circle{display:inline-flex;align-items:center;justify-content:center;width:22px;height:22px;border-radius:50%;font-size:11px;font-weight:700;flex-shrink:0}
 .viol-circle.cr{background:#d01a1f;color:#fff}
 .viol-circle.wa{background:#f06000;color:#fff}
@@ -188,15 +171,13 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .prog-f{height:100%;border-radius:3px;transition:width .4s}
 .bnr{border-left:3px solid;border-radius:var(--br);padding:9px 12px;font-size:12px;display:flex;align-items:center;gap:10px;margin-bottom:12px}
 .bnr.r{background:var(--rbg);border-left-color:var(--red)}.bnr.y{background:var(--ybg);border-left-color:var(--yel)}.bnr.b{background:var(--hi);border-left-color:var(--rp)}.bnr.g{background:var(--gbg);border-left-color:var(--green)}
+/* Investigation cards */
 .ccase{background:#fff;border:1px solid var(--gll);border-left:3px solid;border-radius:var(--br);padding:14px;margin-bottom:10px;cursor:pointer;transition:box-shadow .15s}
 .ccase:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
 .ccase.cr{border-left-color:var(--red)}.ccase.wa{border-left-color:var(--yel)}
-.prev{background:#fff;border:1px solid var(--gll);border-radius:var(--br);padding:16px}
-.prev-kpis{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}
-.prev-v{font-size:17px;font-weight:700;color:var(--rp-black)}
-.prev-l{font-size:10px;color:var(--gd);margin-top:1px}
-.prev-cta{font-size:11px;font-weight:600;color:var(--rp);cursor:pointer;display:flex;align-items:center;gap:3px;margin-top:8px;justify-content:flex-end}
-.prev-cta:hover{text-decoration:underline}
+.fc{display:inline-flex;align-items:center;padding:4px 12px;border:1px solid var(--gm);border-radius:2px;font-size:12px;font-weight:500;color:var(--rp-black);cursor:pointer;user-select:none;transition:all .1s;background:#fff}
+.fc:hover{border-color:var(--rp);color:var(--rp)}.fc.on{background:var(--rp);color:#fff;border-color:var(--rp)}
+/* Lumina Panel */
 .lp{position:fixed;top:56px;right:0;bottom:0;width:380px;background:#fff;border-left:1px solid var(--gll);display:flex;flex-direction:column;z-index:90;transform:translateX(100%);transition:transform .25s cubic-bezier(.4,0,.2,1);box-shadow:-4px 0 20px rgba(0,0,0,.08)}
 .lp.open{transform:translateX(0)}
 .lp-hdr{display:flex;align-items:center;gap:10px;padding:12px 14px;border-bottom:1px solid var(--gll);background:linear-gradient(135deg,#6366F1,#8B5CF6)}
@@ -227,9 +208,21 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 ::-webkit-scrollbar{width:5px;height:5px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--gm);border-radius:3px}
 .panim{animation:fu .2s ease}@keyframes fu{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
 .fw6{font-weight:600}.fs11{font-size:11px}.fs12{font-size:12px}
-/* Filter chip (Investigations quick filter) */
-.fc{display:inline-flex;align-items:center;padding:4px 12px;border:1px solid var(--gm);border-radius:2px;font-size:12px;font-weight:500;color:var(--rp-black);cursor:pointer;user-select:none;transition:all .1s;background:#fff}
-.fc:hover{border-color:var(--rp);color:var(--rp)}.fc.on{background:var(--rp);color:#fff;border-color:var(--rp)}
+/* Sparkle icon for Lumina */
+.sparkle-icon{display:inline-flex;align-items:center;justify-content:center}
+/* Signal card icons row */
+.sig-icons{position:absolute;top:28px;right:28px;display:flex;gap:6px;align-items:center}
+.sig-icon-btn{width:18px;height:18px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--gd);opacity:0.6}
+.sig-icon-btn:hover{opacity:1}
+/* Radar chart */
+.radar-wrap{display:flex;align-items:center;justify-content:center;padding:8px 0}
+/* Deep dive entry cards */
+.ddcard{background:#fff;border:1px solid var(--gll);border-radius:4px;padding:20px;box-shadow:var(--shadow);cursor:pointer;transition:box-shadow .15s;position:relative;overflow:hidden}
+.ddcard:hover{box-shadow:0 2px 12px rgba(0,0,0,.1)}
+.ddcard::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
+/* Compliance score indicator ring */
+.score-ring{position:relative;display:inline-flex;align-items:center;justify-content:center}
+.score-ring-val{position:absolute;font-size:16px;font-weight:700;color:var(--rp-black)}
 </style>
 </head>
 <body>
@@ -237,20 +230,18 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 <script type="text/babel">
 const {useState,useEffect,useRef} = React;
 
+/* ── DATA ────────────────────────────────────────────────────── */
 const KPI_DATA = [
-  {id:'ts',label:'Total Spend',val:'$10.5M',sub:'1,247 properties · YTD',delta:'+7.1% vs LY',dir:'neu',accent:'b'},
-  {id:'cs',label:'Compliant Spend',val:'$8.6M',sub:'82% compliance rate',delta:'+4pts QoQ',dir:'up',accent:'g'},
-  {id:'ms',label:'Maverick Spend',val:'$1.2M',sub:'11.4% of total spend',delta:'-1.7pts QoQ',dir:'up',accent:'r'},
-  {id:'ps',label:'Potential Savings',val:'$320K',sub:'Vendor consolidation + preferred',delta:'Identified',dir:'neu',accent:'y'},
-  {id:'sr',label:'Spend at Risk',val:'18%',sub:'$1.89M · 148 properties',delta:'-3pts vs Q3',dir:'up',accent:'y'},
-  {id:'ncp',label:'Non-Compliant Properties',val:'148',sub:'of 1,247 total · 11.9%',delta:'-12 vs Q3',dir:'up',accent:'y'},
+  {id:'ts',label:'Total Spend',val:'$26.6M',sub:'Across 82 properties',delta:'+4.2% vs last quarter',dir:'up',sparkData:[18,19,20,21,22,24,25,26.6]},
+  {id:'cs',label:'Compliant Spend',val:'$18.6M',sub:'70% of total spend',delta:'+2.1% vs last quarter',dir:'up',sparkData:[14,14.5,15,15.8,16.2,17,17.8,18.6]},
+  {id:'ms',label:'Maverick Spend',val:'$6.2M',sub:'23% of total spend',delta:'-2.8% vs last quarter',dir:'up',sparkData:[8.2,7.8,7.5,7.2,6.9,6.6,6.4,6.2]},
+  {id:'ps',label:'Potential Savings',val:'$1.4M',sub:'If all spend compliant',delta:'+8.6% vs last quarter',dir:'up',sparkData:[0.8,0.9,1.0,1.1,1.1,1.2,1.3,1.4]},
 ];
 
 const INSIGHTS = [
-  {type:'al',label:'Alert',icon:'⚠',title:'HVAC maverick spend spiked 34% MTD',detail:'$280K across 12 Texas properties used non-preferred vendors. Creates $42K excess cost vs preferred vendor pricing at current run rate.',cta:'View HVAC vendors',page:'vendors'},
-  {type:'rc',label:'Recommendation',icon:'💡',title:'Consolidate 8 FL landscaping vendors to 2 preferred',detail:'Estimated $89K annual savings (22% reduction). ProGreen and GreenBridge cover 100% of FL property types with existing contracts.',cta:'View consolidation plan',page:'vendors'},
-  {type:'en',label:'Enforcement',icon:'🛡',title:'Approval bypass detected in Colorado — 11 incidents / 30 days',detail:'3 properties bypassed PO-first workflow for $62K in spend. Pattern suggests systematic non-compliance or deliberate workaround.',cta:'Open investigation',page:'investigations'},
-  {type:'tr',label:'Trend',icon:'📈',title:'Portfolio compliance improved +4pts to 82% QoQ',detail:'Primary driver: Texas Class A properties adopted online invoicing (+18%). Georgia at 78% is highest region. 3 regions still below target.',cta:'View trend details',page:'compliance'},
+  {type:'al',label:'Alert',title:'HVAC maverick spend increased 18% in Southeast region — recurring pattern detected across 4 properties.',cta:'Review Category',page:'compliance'},
+  {type:'rc',label:'Recommendation',title:'Lumina recommends consolidating 3 non-compliant plumbing vendors into the existing preferred agreement with National Plumbing Co.',cta:'View Details',page:'vendors'},
+  {type:'en',label:'Enforcement',title:'12 purchase orders were redirected to preferred vendors this week, saving an estimated $18,400 in maverick spend.',cta:'View Actions',page:'process'},
 ];
 
 const SIGNALS = [
@@ -261,43 +252,39 @@ const SIGNALS = [
 ];
 
 const CATEGORIES = [
-  {name:'HVAC',comp:1400000,mav:700000,total:2100000,rate:67,trend:'dn',status:'r'},
-  {name:'Plumbing',comp:1602000,mav:198000,total:1800000,rate:89,trend:'up',status:'g'},
-  {name:'Landscaping',comp:603000,mav:297000,total:900000,rate:67,trend:'fl',status:'y'},
-  {name:'Electrical',comp:651000,mav:49000,total:700000,rate:93,trend:'up',status:'g'},
-  {name:'Cleaning',comp:350000,mav:150000,total:500000,rate:70,trend:'dn',status:'y'},
-  {name:'General M&R',comp:852000,mav:348000,total:1200000,rate:71,trend:'fl',status:'y'},
-  {name:'Roofing',comp:552000,mav:48000,total:600000,rate:92,trend:'up',status:'g'},
-  {name:'Security',comp:380000,mav:20000,total:400000,rate:95,trend:'up',status:'g'},
+  {name:'HVAC',comp:2800000,mav:1400000,total:4200000,rate:67,trend:'dn',status:'r'},
+  {name:'Plumbing',comp:2300000,mav:600000,total:2900000,rate:79,trend:'up',status:'y'},
+  {name:'Electrical',comp:1900000,mav:400000,total:2300000,rate:83,trend:'up',status:'g'},
+  {name:'Landscaping',comp:1400000,mav:300000,total:1700000,rate:82,trend:'fl',status:'g'},
+  {name:'Painting',comp:1400000,mav:500000,total:1900000,rate:74,trend:'dn',status:'y'},
+  {name:'Appliances',comp:1200000,mav:200000,total:1400000,rate:86,trend:'up',status:'g'},
+  {name:'Flooring',comp:900000,mav:300000,total:1200000,rate:75,trend:'fl',status:'y'},
+  {name:'Roofing',comp:800000,mav:200000,total:1000000,rate:80,trend:'up',status:'g'},
 ];
 
 const MAV_VENDORS = [
-  {name:'Apex Maintenance Grp',region:'TX',cat:'M&R',spend:180000,viol:4,status:'preferred',issue:'Split invoices'},
-  {name:'Southwest Electrical',region:'TX/FL',cat:'Electrical',spend:68000,viol:3,status:'non-cred',issue:'Lapsed COI'},
-  {name:'GreenScape Landscaping',region:'FL',cat:'Landscaping',spend:45000,viol:2,status:'preferred',issue:'No PO issued'},
-  {name:'Capitol Builders LLC',region:'TX',cat:'Construction',spend:28500,viol:2,status:'unauth',issue:'Unauthorized'},
-  {name:'Martinez Consulting',region:'Portfolio',cat:'Prof Svcs',spend:22000,viol:1,status:'non-pref',issue:'Non-preferred'},
+  {name:'QuickFix HVAC Services',contact:'J. Thompson',prop:'Sunset Ridge Apts',cat:'HVAC',spend:18400,viol:7,status:'non-compliant'},
+  {name:'Allied Plumbing Co',contact:'R. Patel',prop:'Lakeview Commons',cat:'Plumbing',spend:9200,viol:4,status:'non-compliant'},
+  {name:'GreenScape Outdoor',contact:'S. Kim',prop:'Multiple (3)',cat:'Landscaping',spend:24300,viol:6,status:'under-review'},
+  {name:'SparkRight Electric',contact:'M. Garcia',prop:'Harbor Point Towers',cat:'Electrical',spend:6800,viol:2,status:'compliant'},
+  {name:'CleanPro Janitorial',contact:'A. Davis',prop:'Meadowbrook Village',cat:'Cleaning',spend:3100,viol:1,status:'compliant'},
 ];
 
 const REGIONS_DATA = [
-  {name:'Colorado',spend:900000,mavPct:28,score:61,props:124,viol:4},
-  {name:'Florida',spend:2400000,mavPct:18,score:68,props:312,viol:7},
-  {name:'Texas',spend:3800000,mavPct:12,score:72,props:487,viol:8},
-  {name:'Georgia',spend:1500000,mavPct:8,score:78,props:198,viol:4},
-  {name:'Others (34)',spend:1900000,mavPct:14,score:74,props:126,viol:0},
+  {name:'Southeast',spend:4200000,mavPct:32,props:18},
+  {name:'Southwest',spend:3800000,mavPct:28,props:14},
+  {name:'Midwest',spend:3100000,mavPct:21,props:22},
+  {name:'Northeast',spend:2600000,mavPct:18,props:16},
+  {name:'West Coast',spend:2400000,mavPct:15,props:12},
 ];
 
 const PROPS_DATA = [
-  {name:'Pegasus Canyon',region:'CO',score:54,mavPct:38,viol:5},
-  {name:'Pegasus Peaks',region:'CO',score:65,mavPct:28,viol:4},
-  {name:'Pegasus Bay',region:'FL',score:62,mavPct:24,viol:4},
-  {name:'Pegasus Ridge',region:'TX',score:69,mavPct:22,viol:4},
-  {name:'Pegasus Park',region:'TX',score:73,mavPct:18,viol:3},
-  {name:'Pegasus Shores',region:'FL',score:73,mavPct:17,viol:3},
-  {name:'Pegasus Grove',region:'FL',score:70,mavPct:19,viol:3},
-  {name:'Pegasus Heights',region:'TX',score:71,mavPct:20,viol:3},
-  {name:'Pegasus Meadows',region:'TX',score:84,mavPct:8,viol:2},
-  {name:'Pegasus Summit',region:'GA',score:86,mavPct:6,viol:1},
+  {name:'Sunset Ridge Apts',status:'non-compliant',totalSpend:188000,mavSpend:71000,compliance:62},
+  {name:'Lakeview Commons',status:'under-review',totalSpend:142000,mavSpend:37000,compliance:74},
+  {name:'Harbor Point Towers',status:'compliant',totalSpend:198000,mavSpend:24000,compliance:88},
+  {name:'Meadowbrook Village',status:'compliant',totalSpend:124000,mavSpend:11000,compliance:91},
+  {name:'Oak Park Residences',status:'compliant',totalSpend:156000,mavSpend:23000,compliance:85},
+  {name:'Riverside Landing',status:'under-review',totalSpend:134000,mavSpend:28000,compliance:79},
 ];
 
 const CASES = [
@@ -331,13 +318,13 @@ const VENDOR_DATA = {
 };
 
 const LUMINA_RESP = {
-  maverick:{text:'HVAC maverick spend is up 34% MoM, driven by 12 Texas properties sourcing outside preferred vendors. Top offenders: Apex Maintenance ($180K, split invoice pattern), Southwest Electrical ($68K, lapsed COI), one-time unvetted vendors ($32K). Preferred vendor AirTech HVAC has capacity to cover all impacted properties.',rows:[{l:'HVAC Compliance Rate',v:'67% (vs 82% avg)',t:'r'},{l:'Excess Cost vs Preferred',v:'$42K',t:'r'},{l:'Impacted Properties',v:'12 (Texas)',t:'w'}]},
-  vendors:{text:'Top 5 non-compliant vendors account for $201K in maverick spend. Southwest Electrical is highest risk: COI expired 45 days ago with active work at 7 properties. Capitol Builders LLC has zero vetting on file. Recommend immediate suspension of both vendors pending compliance documentation.',rows:[{l:'Southwest Electrical',v:'$68K — Lapsed COI',t:'r'},{l:'Capitol Builders LLC',v:'$28.5K — Unauthorized',t:'r'},{l:'Martinez Consulting',v:'$22K — Non-preferred',t:'w'}]},
-  offline:{text:'Colorado has the highest offline leakage at 38%, well above the 20% target. Primary driver: 3 provisioned vendors (GreenScape, ProClean, SafeGuard) still transacting offline despite platform onboarding. Estimated missed savings: $88K annually if shifted online.',rows:[{l:'Colorado Offline Rate',v:'38% (target: 20%)',t:'r'},{l:'Provisioned-But-Offline',v:'$314K spend',t:'w'},{l:'Missed Savings Estimate',v:'$88K per year',t:'w'}]},
-  default:{text:'Portfolio compliance is at 82% YTD, up 4pts vs last quarter. Key risks: 8 critical violations ($202K exposure), HVAC at 67% compliance (portfolio laggard), offline leakage at 29.8% vs 20% target (1,622 of 5,451 orders offline). Only 74 of 261 vendors are online (28.4%). PO-WTN compliance is strong at 95%. Where would you like to investigate?',rows:[{l:'Portfolio Compliance',v:'82% (+4pts QoQ)',t:'g'},{l:'PO-WTN Compliance',v:'95% — above target',t:'g'},{l:'Offline Orders',v:'1,622/5,451 (29.8%)',t:'r'},{l:'Vendor Online Rate',v:'74/261 (28.4%)',t:'r'}]},
+  maverick:{text:'HVAC maverick spend is up 34% MoM, driven by 12 Texas properties sourcing outside preferred vendors. Top offenders: Apex Maintenance ($180K, split invoice pattern), Southwest Electrical ($68K, lapsed COI). Preferred vendor AirTech HVAC has capacity to cover all impacted properties.',rows:[{l:'HVAC Compliance Rate',v:'67% (vs 82% avg)',t:'r'},{l:'Excess Cost vs Preferred',v:'$42K',t:'r'},{l:'Impacted Properties',v:'12 (Texas)',t:'w'}]},
+  vendors:{text:'Top 5 non-compliant vendors account for $201K in maverick spend. Southwest Electrical is highest risk: COI expired 45 days ago with active work at 7 properties. Capitol Builders LLC has zero vetting on file.',rows:[{l:'Southwest Electrical',v:'$68K — Lapsed COI',t:'r'},{l:'Capitol Builders LLC',v:'$28.5K — Unauthorized',t:'r'},{l:'Martinez Consulting',v:'$22K — Non-preferred',t:'w'}]},
+  offline:{text:'Colorado has the highest offline leakage at 38%. Primary driver: 3 provisioned vendors still transacting offline despite platform onboarding. Estimated missed savings: $88K annually if shifted online.',rows:[{l:'Colorado Offline Rate',v:'38% (target: 20%)',t:'r'},{l:'Provisioned-But-Offline',v:'$314K spend',t:'w'},{l:'Missed Savings Estimate',v:'$88K per year',t:'w'}]},
+  default:{text:'Portfolio compliance is at 70% YTD. Key risks: HVAC at 67% compliance (portfolio laggard), offline leakage at 29.8% vs 20% target. Only 74 of 261 vendors are online (28.4%). PO-WTN compliance is strong at 95%. Where would you like to investigate?',rows:[{l:'Portfolio Compliance',v:'70% (+2pts QoQ)',t:'g'},{l:'PO-WTN Compliance',v:'95% — above target',t:'g'},{l:'Offline Orders',v:'1,622/5,451 (29.8%)',t:'r'},{l:'Vendor Online Rate',v:'74/261 (28.4%)',t:'r'}]},
 };
 
-/* ── ICON ─────────────────────────────────────────────────────── */
+/* ── ICONS ────────────────────────────────────────────────────── */
 const SVG_PATHS = {
   shield:'M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z',
   alert:'M12 9v4 M12 17h.01',
@@ -360,6 +347,9 @@ const SVG_PATHS = {
   cart:'M6 2L3 6v14a2 2 002 2h14a2 2 002-2V6l-3-4z M3 6h18',
   help:'M9.09 9a3 3 015.83 1c0 2-3 3-3 3 M12 17h.01',
   logout:'M9 21H5a2 2 01-2-2V5a2 2 012-2h4 M16 17l5-5-5-5 M21 12H9',
+  info:'M12 16v-4 M12 8h.01',
+  arrowRight:'M5 12h14 M12 5l7 7-7 7',
+  trendUp:'M23 6l-9.5 9.5-5-5L1 18',
 };
 const Icon = ({n,s=16,c='currentColor'}) => {
   const d = SVG_PATHS[n]||'';
@@ -370,22 +360,30 @@ const Icon = ({n,s=16,c='currentColor'}) => {
   );
 };
 
+/* Sparkle SVG for Lumina branding */
+const SparkleIcon = ({s=20,c='#6366F1'}) => (
+  <svg width={s} height={s} viewBox="0 0 24 24" fill={c}>
+    <path d="M12 0L14.59 8.41L23 11L14.59 13.59L12 22L9.41 13.59L1 11L9.41 8.41L12 0Z"/>
+  </svg>
+);
+
 /* ── CHARTS ───────────────────────────────────────────────────── */
-const DonutChart = ({segs,size=130,thick=22}) => {
+const DonutChart = ({segs,size=130,thick=22,center}) => {
   const cx=size/2,cy=size/2,r=size/2-thick/2;
   const toXY=(deg)=>{const rad=(deg-90)*Math.PI/180;return{x:cx+r*Math.cos(rad),y:cy+r*Math.sin(rad)};};
   let start=0;
   const arcs=segs.map(seg=>{const sw=(seg.pct/100)*359.99;const s=toXY(start);const e=toXY(start+sw);const d=`M ${s.x} ${s.y} A ${r} ${r} 0 ${sw>180?1:0} 1 ${e.x} ${e.y}`;start+=sw;return {...seg,d};});
-  const cx2=cx,cy2=cy;
   return (
     <svg width={size} height={size}>
-      <circle cx={cx2} cy={cy2} r={r} fill="none" stroke="var(--gll)" strokeWidth={thick}/>
+      <circle cx={cx} cy={cy} r={r} fill="none" stroke="var(--gll)" strokeWidth={thick}/>
       {arcs.map((a,i)=><path key={i} d={a.d} fill="none" stroke={a.color} strokeWidth={thick} strokeLinecap="butt"/>)}
+      {center&&<text x={cx} y={cy-6} textAnchor="middle" fontSize={20} fontWeight={700} fill="var(--rp-black)">{center.val}</text>}
+      {center&&<text x={cx} y={cy+10} textAnchor="middle" fontSize={10} fill="var(--gd)">{center.label}</text>}
     </svg>
   );
 };
 
-const LineChart = ({series,lbls,w=340,h=110,colors=['var(--ch3)','var(--ch4)'],showDots=true}) => {
+const LineChart = ({series,lbls,w=340,h=110,colors=['var(--ch3)','var(--ch4)'],showDots=true,showArea=false}) => {
   const all=series.flat();
   const mn=Math.min(...all)-3,mx=Math.max(...all)+3,rng=mx-mn||1;
   const pl={t:8,r:8,b:22,l:30};
@@ -398,6 +396,7 @@ const LineChart = ({series,lbls,w=340,h=110,colors=['var(--ch3)','var(--ch4)'],s
       {[0,25,50,75,100].map(v=>{const y=py(v);return (y>=pl.t&&y<=pl.t+ch)?<line key={v} x1={pl.l} y1={y} x2={pl.l+cw} y2={y} stroke="var(--gll)" strokeWidth={1}/>:null;})}
       {series.map((s,i)=>(
         <g key={i}>
+          {showArea&&i===0&&<path d={`${mkPath(s)} L ${px(0,s.length-1,s.length)} ${pl.t+ch} L ${pl.l} ${pl.t+ch} Z`} fill={colors[i]} opacity={0.08}/>}
           <path d={mkPath(s)} fill="none" stroke={colors[i]||'var(--ch3)'} strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"/>
           {showDots&&s.map((v,j)=><circle key={j} cx={px(v,j,s.length)} cy={py(v)} r={2.5} fill={colors[i]||'var(--ch3)'}/>)}
         </g>
@@ -407,11 +406,23 @@ const LineChart = ({series,lbls,w=340,h=110,colors=['var(--ch3)','var(--ch4)'],s
   );
 };
 
-const Spark = ({data,color='var(--ch3)',h=18}) => {
+const Spark = ({data,color='var(--ch3)',h=18,w}) => {
   const mn=Math.min(...data),mx=Math.max(...data),rng=mx-mn||1;
+  const totalW = w || data.length*8;
   return (
-    <svg width={data.length*6} height={h}>
-      {data.map((v,i)=>{const bh=Math.max(2,((v-mn)/rng)*(h-2)+2);return <rect key={i} x={i*6} y={h-bh} width={5} height={bh} rx={1} fill={color} opacity={0.75}/>;} )}
+    <svg width={totalW} height={h}>
+      {data.map((v,i)=>{const bh=Math.max(2,((v-mn)/rng)*(h-2)+2);return <rect key={i} x={i*(totalW/data.length)} y={h-bh} width={totalW/data.length-1} height={bh} rx={1} fill={color} opacity={0.7}/>;} )}
+    </svg>
+  );
+};
+
+const SparkLine = ({data,color='var(--ch3)',h=40,w=120}) => {
+  const mn=Math.min(...data),mx=Math.max(...data),rng=mx-mn||1;
+  const pts = data.map((v,i)=>`${(i/(data.length-1))*w},${h-((v-mn)/rng)*h}`).join(' ');
+  return (
+    <svg width={w} height={h} style={{overflow:'visible'}}>
+      <polyline points={pts} fill="none" stroke={color} strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"/>
+      <circle cx={(data.length-1)/(data.length-1)*w} cy={h-((data[data.length-1]-mn)/rng)*h} r={3} fill={color}/>
     </svg>
   );
 };
@@ -439,55 +450,81 @@ const StackBar = ({a,total,colorA='var(--ch3)',colorB='var(--gll)',h=10}) => (
   </div>
 );
 
+/* Radar / Spider Chart for Signal Breakdown */
+const RadarChart = ({dims,size=220}) => {
+  const cx=size/2,cy=size/2,r=size/2-30;
+  const n=dims.length;
+  const angle=(i)=>(i*2*Math.PI/n)-Math.PI/2;
+  const pt=(i,pct)=>({x:cx+r*(pct/100)*Math.cos(angle(i)),y:cy+r*(pct/100)*Math.sin(angle(i))});
+  const gridLevels=[25,50,75,100];
+  return (
+    <svg width={size} height={size}>
+      {/* Grid lines */}
+      {gridLevels.map(lv=>(
+        <polygon key={lv} points={dims.map((_,i)=>{const p=pt(i,lv);return `${p.x},${p.y}`;}).join(' ')} fill="none" stroke="var(--gll)" strokeWidth={1}/>
+      ))}
+      {/* Axes */}
+      {dims.map((_,i)=>{const p=pt(i,100);return <line key={i} x1={cx} y1={cy} x2={p.x} y2={p.y} stroke="var(--gll)" strokeWidth={1}/>;
+      })}
+      {/* Data polygon */}
+      <polygon points={dims.map((d,i)=>{const p=pt(i,d.value);return `${p.x},${p.y}`;}).join(' ')} fill="var(--ch3)" fillOpacity={0.15} stroke="var(--ch3)" strokeWidth={2}/>
+      {/* Data points */}
+      {dims.map((d,i)=>{const p=pt(i,d.value);return <circle key={i} cx={p.x} cy={p.y} r={3} fill="var(--ch3)"/>;
+      })}
+      {/* Labels */}
+      {dims.map((d,i)=>{
+        const p=pt(i,115);
+        const align=p.x<cx-10?'end':p.x>cx+10?'start':'middle';
+        return <text key={i} x={p.x} y={p.y} textAnchor={align} fontSize={10} fill="var(--rp-black)" dominantBaseline="middle">{d.label}</text>;
+      })}
+      {/* Center score */}
+      <text x={cx} y={cy-4} textAnchor="middle" fontSize={14} fontWeight={700} fill="var(--rp-black)">70%</text>
+      <text x={cx} y={cy+10} textAnchor="middle" fontSize={8} fill="var(--gd)">Overall</text>
+    </svg>
+  );
+};
+
 /* ── UI PRIMITIVES ────────────────────────────────────────────── */
-/* RAUL Card overflow menu (3-dot vertical) */
 const CardOverflow = () => (
-  <div style={{position:'absolute',top:24,right:24,cursor:'pointer',color:'var(--gd)',display:'flex',flexDirection:'column',gap:2,padding:4}}>
+  <div style={{position:'absolute',top:20,right:20,cursor:'pointer',color:'var(--gd)',display:'flex',flexDirection:'column',gap:2,padding:4}}>
     <div style={{width:3,height:3,borderRadius:'50%',background:'var(--gd)'}}/>
     <div style={{width:3,height:3,borderRadius:'50%',background:'var(--gd)'}}/>
     <div style={{width:3,height:3,borderRadius:'50%',background:'var(--gd)'}}/>
   </div>
 );
 
-const KPICard = ({label,val,sub,delta,dir}) => (
+/* KPI Card with sparkline — matches Figma KPI component */
+const KPICard = ({label,val,sub,delta,dir,sparkData}) => (
   <div className="kcard">
     <CardOverflow/>
     <div className="k-lbl">{label}</div>
-    <div className="k-val">{val}</div>
-    <div className="k-sub">{sub}</div>
-    <div className={`k-delta ${dir}`}>{dir==='up'?'▲':dir==='dn'?'▼':'→'} {delta}</div>
+    <div style={{display:'flex',alignItems:'flex-end',justifyContent:'space-between',gap:12}}>
+      <div>
+        <div className="k-val">{val}</div>
+        <div className="k-sub">{sub}</div>
+        <div className={`k-delta ${dir}`}>{dir==='up'?'▲':dir==='dn'?'▼':'→'} {delta}</div>
+      </div>
+      {sparkData&&<div style={{flexShrink:0,opacity:0.6}}><SparkLine data={sparkData} color="var(--ch3)" h={48} w={80}/></div>}
+    </div>
   </div>
 );
 
 const InsightCard = ({ins,onPage}) => (
   <div className={`li-card ${ins.type}`}>
-    <div className={`li-type ${ins.type}`}>{ins.icon} {ins.label}</div>
+    <div className={`li-type ${ins.type}`}>
+      <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} strokeLinecap="round">
+        {ins.type==='al'&&<><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></>}
+        {ins.type==='rc'&&<><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></>}
+        {ins.type==='en'&&<><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></>}
+      </svg>
+      {ins.label}
+    </div>
     <div className="li-ttl">{ins.title}</div>
-    <div className="li-det">{ins.detail}</div>
-    <div className="li-cta" onClick={()=>onPage(ins.page)}>{ins.cta} →</div>
+    <div className="li-cta" onClick={()=>onPage(ins.page)}>{ins.cta} <Icon n="arrowRight" s={14}/></div>
   </div>
 );
 
-const SignalCard = ({sig,onPage}) => {
-  const ok=sig.inverse?sig.val<=sig.target:sig.val>=sig.target;
-  const near=sig.inverse?sig.val<=sig.target+5:sig.val>=sig.target-5;
-  const cls=ok?'ok':near?'warn':'bad';
-  const lbl=ok?'Above target':near?'Near target':'Below target';
-  const sc=ok?'var(--ch3)':near?'var(--ch2)':'var(--ch4)';
-  return (
-    <div className="sigcard">
-      <CardOverflow/>
-      <div style={{fontSize:12,fontWeight:500,color:'var(--rp-black)',marginBottom:10,lineHeight:'18px'}}>{sig.label}</div>
-      <div className="sig-v" style={{color:sc}}>{sig.val}{sig.unit}</div>
-      <div className="sig-tgt">Target: {sig.target}{sig.unit} · {sig.delta} pts MTD</div>
-      <div className={`sig-st ${cls}`}>{lbl}</div>
-      <div style={{marginTop:12}}><Spark data={sig.trend} color={sc} h={22}/></div>
-      <div className="sig-cta" onClick={()=>onPage(sig.page)}>View details →</div>
-    </div>
-  );
-};
-
-const FSelect = ({label,width=130,children}) => (
+const FSelect = ({label,width=96,children}) => (
   <div className="fsel-wrap" style={{width}}>
     <span className="fsel-lbl">{label}</span>
     <select className="fsel">{children}</select>
@@ -495,245 +532,323 @@ const FSelect = ({label,width=130,children}) => (
   </div>
 );
 
-const FilterBar = ({period,onPeriod,riskOnly,onRisk}) => (
+const FilterBar = ({}) => (
   <div className="fbar">
-    {/* Search */}
     <div className="fsearch-wrap">
       <svg className="fsearch-ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input className="fsearch" placeholder="Search properties, vendors..."/>
+      <input className="fsearch" placeholder="Search..."/>
     </div>
-    {/* Period segmented control */}
-    <div className="fperiod">
-      {['MTD','QTD','YTD','Custom'].map(p=>(
-        <span key={p} className={`fperiod-tab ${period===p?'on':''}`} onClick={()=>onPeriod(p)}>{p}</span>
-      ))}
-    </div>
-    {/* Floating-label selects */}
-    <FSelect label="Region" width={120}>
-      <option>All Regions</option><option>Texas</option><option>Florida</option><option>Georgia</option><option>Colorado</option>
-    </FSelect>
-    <FSelect label="Property" width={130}>
-      <option>All Properties</option><option>Pegasus Meadows</option><option>Pegasus Heights</option><option>Pegasus Ridge</option>
-    </FSelect>
-    <FSelect label="Category" width={120}>
-      <option>All Categories</option><option>HVAC</option><option>Plumbing</option><option>Landscaping</option><option>Electrical</option>
-    </FSelect>
-    <FSelect label="Vendor Status" width={130}>
-      <option>All Vendors</option><option>Preferred</option><option>Non-preferred</option><option>Credentialed</option>
-    </FSelect>
-    <FSelect label="Invoice Channel" width={135}>
-      <option>All Channels</option><option>Online</option><option>Offline / Paper</option>
-    </FSelect>
-    {/* High Risk toggle */}
-    <div className={`ftog ${riskOnly?'on':''}`} onClick={()=>onRisk(!riskOnly)}>
-      <div className={`tpill ${riskOnly?'on':''}`}/>
-      High Risk Only
-    </div>
-    {/* Actions */}
+    <FSelect label="Region" width={96}><option>All</option><option>Southeast</option><option>Southwest</option><option>Midwest</option><option>Northeast</option></FSelect>
+    <FSelect label="Property" width={96}><option>All</option><option>Sunset Ridge</option><option>Lakeview</option></FSelect>
+    <FSelect label="Category" width={96}><option>All</option><option>HVAC</option><option>Plumbing</option></FSelect>
+    <FSelect label="Vendor" width={96}><option>All</option><option>Preferred</option></FSelect>
+    <FSelect label="Period" width={96}><option>YTD</option><option>QTD</option><option>MTD</option></FSelect>
     <button className="fbtn" style={{marginLeft:'auto'}}>
       <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 3H2l8 9.46V19l4 2v-8.54L22 3z"/></svg>
       Filter
     </button>
-    <button className="fbtn">Reset</button>
-    <button className="fbtn-cta">Apply Filters</button>
+    <button className="fbtn-cta">Apply</button>
   </div>
 );
 
-/* ── PAGE 1: SPEND COMPLIANCE ─────────────────────────────────── */
+/* ── PAGE 1: SPEND COMPLIANCE — STORY-DRIVEN UX ─────────────── */
 const SpendCompliance = ({onPage}) => {
-  const [period,setPeriod] = useState('YTD');
-  const [riskOnly,setRiskOnly] = useState(false);
   const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
-  const slbl = (s)=>s==='g'?'Good':s==='r'?'At Risk':'Watch';
-  const donutSegs = [{pct:82,color:'var(--ch3)',label:'Compliant'},{pct:11.4,color:'var(--ch4)',label:'Maverick'},{pct:6.6,color:'var(--ch1)',label:'Unclassified'}];
-  const trendSeries = [[74,75,76,77,77,78,79,80,81,81,82,82],[18,17,16,16,15,15,14,14,13,13,12,11]];
-  const trendLbls = ['J','F','M','A','M','J','J','A','S','O','N','D'];
+  const slbl = (s)=>s==='g'?'Compliant':s==='r'?'Non-Compliant':'Needs Review';
+  const donutSegs = [{pct:70,color:'var(--ch3)',label:'Compliant Spend'},{pct:23,color:'var(--ch4)',label:'Maverick Spend'},{pct:7,color:'var(--ch1)',label:'Unclassified (N/A)'}];
+  const trendSeries = [[58,60,62,64,66,68]];
+  const trendLbls = ['Jan','Feb','Mar','Apr','May','Jun'];
+  const radarDims = [
+    {label:'Demographic & Social',value:70},
+    {label:'Housing & Market',value:55},
+    {label:'Economic & Workforce',value:65},
+    {label:'Construction & Permit',value:80},
+  ];
+  /* For spend compliance, map radar to compliance dimensions */
+  const compRadarDims = [
+    {label:'Invoice Compliance',value:77},
+    {label:'Vendor Credentialing',value:55},
+    {label:'PO-WTN Adherence',value:95},
+    {label:'Online Adoption',value:28},
+    {label:'Spend Allocation',value:70},
+    {label:'Contract Coverage',value:82},
+  ];
+
   return (
     <div className="panim">
-      {/* RAUL Page Header Strip */}
+      {/* RAUL Page Header */}
       <div className="ph-strip">
         <div>
           <div className="ph-eyebrow"><span className="ph-dot or"/><span className="ph-dot gr"/></div>
           <div className="ph-title">Spend Compliance</div>
-          <div className="ph-sub">AI-powered visibility into compliant spend, process adherence, vendor behavior, and savings opportunities</div>
-        </div>
-        <div style={{display:'flex',gap:8,alignItems:'center'}}>
-          <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
-          <button className="btn bp sm"><Icon n="bell" s={13}/> Configure Alert</button>
+          <div className="ph-sub">Portfolio-wide spend compliance overview for procurement, finance, and operations leadership</div>
         </div>
       </div>
-      <FilterBar period={period} onPeriod={setPeriod} riskOnly={riskOnly} onRisk={setRiskOnly}/>
-      <div style={{padding:'24px 40px 0'}}>
-        <div className="kgrid">{KPI_DATA.map(k=><KPICard key={k.id} {...k}/>)}</div>
-      </div>
-      <div style={{padding:'0 40px'}}>
-        <div className="sh">
-          <div className="sh-t"><span style={{background:'linear-gradient(135deg,#6366F1,#8B5CF6)',WebkitBackgroundClip:'text',WebkitTextFillColor:'transparent'}}>✦ Lumina</span> AI Insights</div>
-          <div className="sh-l">Configure</div>
-        </div>
-        <div className="li-row">{INSIGHTS.map((ins,i)=><InsightCard key={i} ins={ins} onPage={onPage}/>)}</div>
 
-      <div className="sh"><div className="sh-t">Spend Health</div><div className="sh-l">Full report</div></div>
-      <div className="g3">
-        <div className="card">
-          <CardOverflow/>
-          <div className="ct">Spend Compliance Breakdown</div>
-          <div style={{display:'flex',alignItems:'center',gap:14}}>
-            <DonutChart segs={donutSegs} size={120} thick={20}/>
-            <div style={{flex:1}}>
-              {donutSegs.map((s,i)=>(
-                <div key={i} style={{display:'flex',alignItems:'center',gap:8,marginBottom:8}}>
-                  <div style={{width:10,height:10,borderRadius:2,background:s.color,flexShrink:0}}/>
-                  <div style={{flex:1,fontSize:12,color:'var(--rp-black)',opacity:0.7}}>{s.label}</div>
-                  <div style={{fontSize:12,fontWeight:600}}>{s.pct}%</div>
+      {/* Filter Bar */}
+      <FilterBar/>
+
+      <div style={{padding:'24px 40px 40px'}}>
+        {/* ─── SECTION 1: KPIs — "Here's your portfolio health" ─── */}
+        <div className="kgrid">
+          {KPI_DATA.map(k=><KPICard key={k.id} {...k}/>)}
+        </div>
+
+        {/* ─── SECTION 2: Lumina AI Search — "Ask me anything" ─── */}
+        <div style={{marginTop:24}}>
+          <div className="lumina-search">
+            <div className="lumina-search-bar">
+              <SparkleIcon s={20} c="#6366F1"/>
+              <input placeholder="What spend questions can I help with?"/>
+              <button className="fbtn-cta" style={{height:32,padding:'0 16px',fontSize:12,borderRadius:4}}>
+                <SparkleIcon s={14} c="#fff"/> Get Insights
+              </button>
+            </div>
+            <div className="lumina-prompts">
+              <div className="lumina-prompt">Create report for Q3</div>
+              <div className="lumina-prompt">Consolidate plumbing vendors across Midwest</div>
+              <div className="lumina-prompt">Repeat policy violations at Harbor Point Towers</div>
+              <div className="lumina-prompt">Online invoice ado..</div>
+            </div>
+          </div>
+        </div>
+
+        {/* ─── SECTION 3: Lumina Insights — "What needs attention" ─── */}
+        <div style={{marginTop:16}}>
+          <div className="li-row">
+            {INSIGHTS.map((ins,i)=><InsightCard key={i} ins={ins} onPage={onPage}/>)}
+          </div>
+        </div>
+
+        {/* ─── SECTION 4: Compliance Signal + Radar — "Your compliance health score" ─── */}
+        <div style={{marginTop:24}}>
+          <div className="g2" style={{marginBottom:0}}>
+            {/* Signal Score Widget — Like Market Signal in Lumina Ascent */}
+            <div className="signal-widget">
+              <div className="sig-icons">
+                <div className="sig-icon-btn"><Icon n="info" s={16}/></div>
+                <div className="sig-icon-btn"><CardOverflow/></div>
+              </div>
+              <div style={{fontSize:12,fontWeight:700,color:'var(--rp-black)',marginBottom:16,lineHeight:'18px'}}>
+                Portfolio Compliance Signal
+              </div>
+              <div style={{display:'flex',alignItems:'flex-start',gap:20}}>
+                <div>
+                  <div style={{display:'flex',alignItems:'center',gap:8}}>
+                    <div className="signal-score">70</div>
+                    <div className="signal-trend-badge" style={{background:'var(--gbg)',color:'var(--green)'}}>
+                      <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}><path d="M18 15l-6-6-6 6"/></svg>
+                    </div>
+                  </div>
                 </div>
-              ))}
-              <div style={{borderTop:'1px solid var(--gll)',paddingTop:8,marginTop:2}}>
-                <div style={{fontSize:10,color:'var(--gd)'}}>Total Portfolio</div>
-                <div style={{fontSize:15,fontWeight:700}}>$10.5M YTD</div>
+                {/* Mini sparkline chart */}
+                <div style={{flex:1,paddingTop:8}}>
+                  <LineChart
+                    series={[[64,65,66,67,67,68,68,69,69,69,70,70],[72,72,72,72,72,72,72,72,72,72,72,72]]}
+                    lbls={['01','02','03','04','05','06','07','08','09','10','11','12']}
+                    w={320} h={80}
+                    colors={['var(--ch3)','var(--gm)']}
+                    showDots={false}
+                    showArea={true}
+                  />
+                  <div style={{display:'flex',gap:16,fontSize:10,color:'var(--gd)',marginTop:4,justifyContent:'flex-end'}}>
+                    <span style={{display:'flex',alignItems:'center',gap:4}}>
+                      <div style={{width:12,height:2,background:'var(--gm)',borderRadius:1}}/> US Comparison
+                    </span>
+                  </div>
+                </div>
+              </div>
+              {/* Lumina-Powered Insights narrative */}
+              <div style={{marginTop:20,borderTop:'1px solid var(--gll)',paddingTop:16}}>
+                <div style={{display:'flex',alignItems:'center',gap:6,marginBottom:10}}>
+                  <SparkleIcon s={16} c="#6366F1"/>
+                  <span style={{fontSize:12,fontWeight:700,color:'var(--rp-black)'}}>Lumina-Powered Insights</span>
+                  <div style={{width:14,height:14,display:'flex',alignItems:'center',justifyContent:'center',color:'var(--gd)'}}><Icon n="info" s={12}/></div>
+                </div>
+                <div className="signal-narrative">
+                  <p>The Compliance Score for your portfolio is <strong>70</strong>, which is currently below the portfolio target of 72.</p>
+                  <p>Key contributing factors include:</p>
+                  <ul>
+                    <li>HVAC category at <strong>67% compliance</strong> — the lowest across all categories, driven by 4 Southeast properties using non-preferred vendors</li>
+                    <li>Online vendor adoption at <strong>28.4%</strong> (74 of 261 vendors) continues to limit visibility and savings capture</li>
+                  </ul>
+                  <p>The consolidation of 3 plumbing vendors into National Plumbing Co's preferred agreement, combined with HVAC vendor remediation, would project the score to <strong>76 by next quarter</strong>. PO-WTN compliance at 95% remains a strength. <a href="#">Learn More</a></p>
+                </div>
+              </div>
+            </div>
+
+            {/* Signal Breakdown — Radar Chart */}
+            <div className="signal-widget">
+              <div className="sig-icons">
+                <div className="sig-icon-btn"><Icon n="info" s={16}/></div>
+                <div className="sig-icon-btn"><CardOverflow/></div>
+              </div>
+              <div style={{fontSize:12,fontWeight:700,color:'var(--rp-black)',marginBottom:8,lineHeight:'18px'}}>
+                Signal Breakdown
+              </div>
+              <div className="radar-wrap">
+                <RadarChart dims={compRadarDims} size={280}/>
               </div>
             </div>
           </div>
         </div>
-        <div className="card">
-          <CardOverflow/>
-          <div className="ct">
-            Compliance Rate Trend — 12 months
-            <div style={{display:'flex',gap:10,fontSize:12,fontWeight:400,textTransform:'none',letterSpacing:0}}>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Compliant</span>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch4)',borderRadius:2}}/> Maverick</span>
+
+        {/* ─── SECTION 5: Spend Breakdown Charts ─── */}
+        <div style={{marginTop:24}}>
+          <div className="g2" style={{marginBottom:0}}>
+            <div className="card">
+              <CardOverflow/>
+              <div className="ct">Total Spend Compliance Breakdown</div>
+              <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Compliant, maverick, and unclassified spend as share of total</div>
+              <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:20}}>
+                <DonutChart segs={donutSegs} size={160} thick={26} center={{val:'$26.6M',label:'Total Spend'}}/>
+              </div>
+              <div style={{display:'flex',justifyContent:'center',gap:20,marginTop:16}}>
+                {donutSegs.map((s,i)=>(
+                  <div key={i} style={{display:'flex',alignItems:'center',gap:6}}>
+                    <div style={{width:8,height:8,borderRadius:'50%',background:s.color}}/>
+                    <span style={{fontSize:12,color:'var(--rp-black)',opacity:0.7}}>{s.label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+            <div className="card">
+              <CardOverflow/>
+              <div className="ct">Spend Compliance Trend</div>
+              <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Monthly compliant vs maverick spend %</div>
+              <LineChart
+                series={[[58,60,62,63,65,68],[32,30,28,27,26,24]]}
+                lbls={['Jan','Feb','Mar','Apr','May','Jun']}
+                w={400} h={160}
+                colors={['var(--ch3)','var(--ch4)']}
+                showArea={true}
+              />
+              <div style={{display:'flex',justifyContent:'center',gap:20,marginTop:10}}>
+                <span style={{display:'flex',alignItems:'center',gap:4,fontSize:12}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:'var(--ch3)'}}/> Compliant %
+                </span>
+                <span style={{display:'flex',alignItems:'center',gap:4,fontSize:12}}>
+                  <div style={{width:8,height:8,borderRadius:'50%',background:'var(--ch4)'}}/> Maverick %
+                </span>
+              </div>
             </div>
           </div>
-          <LineChart series={trendSeries} lbls={trendLbls} w={310} h={108} colors={['var(--ch3)','var(--ch4)']}/>
         </div>
-        <div className="card">
-          <CardOverflow/>
-          <div className="ct">Compliance Rate by Category</div>
-          <HBar lw={85} bh={10} gap={9} max={100} data={[...CATEGORIES].sort((a,b)=>a.rate-b.rate).map(c=>({label:c.name,value:c.rate,color:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)',disp:`${c.rate}%`}))}/>
-        </div>
-      </div>
 
-      <div className="sh"><div className="sh-t">Compliance Performance Signals <span className="sh-badge">2 below target</span></div><div className="sh-l" onClick={()=>onPage('process')}>View process details →</div></div>
-      <div className="g4">{SIGNALS.map(sig=><SignalCard key={sig.id} sig={sig} onPage={onPage}/>)}</div>
-
-      <div className="sh"><div className="sh-t">Category &amp; Vendor Risk</div><div className="sh-l">View all</div></div>
-      <div className="g2">
-        <div className="card" style={{padding:0}}>
-          <div style={{padding:'20px 20px 12px'}} className="ct">Category Compliance</div>
+        {/* ─── SECTION 6: Category & Vendor Deep Dive ─── */}
+        <div className="sh"><div className="sh-t">Spend Compliance Category Overview</div><div className="sh-l">View all categories →</div></div>
+        <div className="card" style={{padding:0,overflow:'hidden',marginBottom:0}}>
+          <div style={{padding:'20px 24px 10px'}}>
+            <div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Click a category to view vendor details and Lumina interventions</div>
+          </div>
           <table className="dt">
-            <thead><tr><th>Category</th><th className="r">Compliant</th><th className="r">Maverick</th><th className="r">Rate</th><th style={{textAlign:'center'}}>Trend</th><th>Status</th></tr></thead>
+            <thead><tr><th>Category</th><th className="r">Compliant Spend</th><th className="r">Maverick Spend</th><th style={{width:140}}>Compliance Rate</th><th>Status</th></tr></thead>
             <tbody>
               {CATEGORIES.map((c,i)=>(
                 <tr key={i}>
-                  <td style={{fontWeight:500,color:'var(--rp-black)'}}>{c.name}</td>
+                  <td className="vlink">{c.name}</td>
                   <td className="r">{fmtM(c.comp)}</td>
-                  <td className="r" style={{color:'var(--red)',fontWeight:600}}>{fmtM(c.mav)}</td>
-                  <td className="r" style={{fontWeight:700,color:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)'}}>{c.rate}%</td>
-                  <td style={{textAlign:'center'}}><span style={{color:c.trend==='up'?'var(--ch3)':c.trend==='dn'?'var(--ch4)':'var(--gd)',fontSize:13}}>{c.trend==='up'?'▲':c.trend==='dn'?'▼':'→'}</span></td>
+                  <td className="r" style={{color:c.rate<75?'var(--red)':'var(--rp-black)',fontWeight:c.rate<75?600:400}}>{fmtM(c.mav)}</td>
+                  <td>
+                    <div style={{display:'flex',alignItems:'center',gap:8}}>
+                      <div style={{flex:1,height:6,background:'var(--gll)',borderRadius:3,overflow:'hidden'}}>
+                        <div style={{width:`${c.rate}%`,height:'100%',background:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)',borderRadius:3}}/>
+                      </div>
+                      <span style={{fontSize:12,fontWeight:600,width:30}}>{c.rate}%</span>
+                    </div>
+                  </td>
                   <td><span className={`ds-badge ${c.status==='g'?'compliant':c.status==='r'?'non-compliant':'under-review'}`}>{slbl(c.status)}</span></td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-        <div className="card" style={{padding:0}}>
-          <div style={{padding:'20px 20px 12px'}} className="ct">Top Maverick Vendors <span className="ct-link" onClick={()=>onPage('vendors')}>View vendor network →</span></div>
+
+        {/* ─── SECTION 7: Maverick Vendors ─── */}
+        <div className="sh">
+          <div className="sh-t">Maverick Spend by Top Vendor <span className="sh-badge">2 Non-Compliant</span></div>
+        </div>
+        <div className="card" style={{padding:0,overflow:'hidden',marginBottom:0}}>
+          <div style={{padding:'20px 24px 10px'}}>
+            <div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Vendors with the highest non-compliant purchase order volume</div>
+          </div>
           <table className="dt">
-            <thead><tr><th>Vendor</th><th>Region</th><th>Category</th><th className="r">Mav. Spend</th><th style={{textAlign:'center'}}>Violations</th><th>Status</th></tr></thead>
+            <thead><tr><th>Vendor</th><th>Property</th><th>Category</th><th className="r">Maverick Amount</th><th style={{textAlign:'center'}}>Violations</th><th>Status</th></tr></thead>
             <tbody>
               {MAV_VENDORS.map((v,i)=>(
                 <tr key={i}>
-                  <td className="vlink">{v.name}</td>
-                  <td style={{color:'var(--rp-black)',opacity:0.7}}>{v.region}</td>
-                  <td style={{color:'var(--rp-black)',opacity:0.7}}>{v.cat}</td>
-                  <td className="r fw6" style={{color:'var(--red)'}}>{fmtM(v.spend)}</td>
-                  <td style={{textAlign:'center'}}><span className={`viol-circle ${v.viol>=3?'cr':v.viol>=2?'wa':'lo'}`}>{v.viol}</span></td>
-                  <td><span className={`ds-badge ${v.status==='preferred'?'preferred':v.status==='unauth'?'non-compliant':v.status==='non-pref'?'non-preferred':'under-review'}`}>{v.issue}</span></td>
+                  <td>
+                    <div><span className="vlink">{v.name}</span></div>
+                    <div style={{fontSize:11,color:'var(--rp-black)',opacity:0.6,marginTop:1}}>{v.contact}</div>
+                  </td>
+                  <td>{v.prop}</td>
+                  <td>{v.cat}</td>
+                  <td className="r fw6">${v.spend.toLocaleString()}</td>
+                  <td style={{textAlign:'center'}}>
+                    <span className={`viol-circle ${v.viol>=5?'cr':v.viol>=3?'wa':'lo'}`}>{v.viol}</span>
+                  </td>
+                  <td><span className={`ds-badge ${v.status}`}>{v.status==='non-compliant'?'Non-Compliant':v.status==='under-review'?'Under Review':'Compliant'}</span></td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
-      </div>
 
-      <div className="sh"><div className="sh-t">Regional &amp; Property Hotspots</div><div className="sh-l">View all regions</div></div>
-      <div className="g2">
-        <div className="card">
-          <CardOverflow/>
-          <div className="ct">Regional Maverick Spend — Ranked</div>
-          <HBar lw={100} bh={12} gap={10} max={40} data={[...REGIONS_DATA].sort((a,b)=>b.mavPct-a.mavPct).map(r=>({label:r.name,value:r.mavPct,color:r.mavPct>25?'var(--ch5)':r.mavPct>15?'var(--ch4)':'var(--ch1)',disp:`${r.mavPct}%`}))}/>
-          <div style={{marginTop:10,display:'flex',gap:12,fontSize:12,color:' var(--gd)'}}>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'var(--ch5)'}}/> High (over 25%)</span>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'var(--ch4)'}}/> Watch (15-25%)</span>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'var(--ch1)'}}/> Good (under 15%)</span>
-          </div>
-        </div>
-        <div className="card">
-          <CardOverflow/>
-          <div className="ct">Property Compliance — Bottom 10</div>
-          {PROPS_DATA.map((p,i)=>(
-            <div key={i} style={{marginBottom:10}}>
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:3}}>
-                <div style={{display:'flex',alignItems:'center',gap:8}}>
-                  <span style={{fontSize:12,fontWeight:500}}>{p.name}</span>
-                  <span style={{fontSize:10,color:'var(--gd)'}}>{p.region}</span>
+        {/* ─── SECTION 8: Regional & Property ─── */}
+        <div className="sh"><div className="sh-t">Regional &amp; Property Hotspots</div></div>
+        <div className="g2">
+          <div className="card">
+            <CardOverflow/>
+            <div className="ct">Regional Maverick Spend</div>
+            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Sorted by maverick spend percentage</div>
+            {REGIONS_DATA.map((r,i)=>(
+              <div key={i} style={{marginBottom:12}}>
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
+                  <div style={{display:'flex',alignItems:'center',gap:6}}>
+                    <span style={{fontSize:12,fontWeight:500}}>{r.name}</span>
+                    {r.mavPct>=25&&<span style={{fontSize:10,color:'var(--red)'}}>⚠</span>}
+                  </div>
+                  <div style={{display:'flex',alignItems:'center',gap:8}}>
+                    <span style={{fontSize:11,color:'var(--gd)'}}>{r.props} properties</span>
+                    <span style={{fontSize:12,fontWeight:700}}>{r.mavPct}%</span>
+                  </div>
                 </div>
-                <div style={{display:'flex',alignItems:'center',gap:8}}>
-                  {p.viol>0&&<span className="tag r">{p.viol}</span>}
-                  <span style={{fontSize:12,fontWeight:700,color:p.score>=80?'var(--ch3)':p.score>=65?'var(--ch2)':'var(--ch4)'}}>{p.score}</span>
+                <div className="prog">
+                  <div className="prog-f" style={{width:`${r.mavPct}%`,background:r.mavPct>=25?'var(--red)':r.mavPct>=20?'var(--orange)':'var(--ch3)'}}/>
                 </div>
               </div>
-              <div className="prog"><div className="prog-f" style={{width:`${p.score}%`,background:p.score>=80?'var(--ch3)':p.score>=65?'var(--ch2)':'var(--ch4)'}}/></div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div className="sh"><div className="sh-t">Deep Dive Domains</div></div>
-      <div className="g3" style={{marginBottom:24}}>
-        <div className="prev">
-          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="layers" s={15} c="var(--rp)"/><div style={{fontSize:13,fontWeight:600}}>Process Compliance</div></div>
-          <div style={{fontSize:11,color:'var(--gd)',marginBottom:8}}>ROG · PO-WTN · Vendor invoice adherence</div>
-          <div className="prev-kpis">
-            <div><div className="prev-v" style={{color:'var(--yel)'}}>77%</div><div className="prev-l">ROG Rate</div></div>
-            <div><div className="prev-v" style={{color:'var(--green)'}}>95%</div><div className="prev-l">PO-WTN Rate</div></div>
-            <div><div className="prev-v" style={{color:'var(--red)'}}>68%</div><div className="prev-l">Vendor Invoice</div></div>
+            ))}
           </div>
-          <Spark data={[70,71,72,74,75,77]} color="var(--ch3)" h={22}/>
-          <div className="prev-cta" onClick={()=>onPage('process')}>View Process Compliance →</div>
-        </div>
-        <div className="prev">
-          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="link" s={15} c="var(--yel)"/><div style={{fontSize:13,fontWeight:600}}>Offline Leakage</div></div>
-          <div style={{fontSize:11,color:'var(--gd)',marginBottom:8}}>Provisioned · Unprovisioned · Missed savings</div>
-          <div className="prev-kpis">
-            <div><div className="prev-v" style={{color:'var(--red)'}}>29.8%</div><div className="prev-l">Offline Rate</div></div>
-            <div><div className="prev-v">$3.15M</div><div className="prev-l">Offline Spend</div></div>
-            <div><div className="prev-v" style={{color:'var(--yel)'}}>$473K</div><div className="prev-l">Missed Savings</div></div>
+          <div className="card">
+            <CardOverflow/>
+            <div className="ct">Property Spend Compliance <span className="ct-link">View All Properties →</span></div>
+            {PROPS_DATA.map((p,i)=>(
+              <div key={i} style={{marginBottom:14}}>
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
+                  <div style={{display:'flex',alignItems:'center',gap:8}}>
+                    <span style={{fontSize:12,fontWeight:500}}>{p.name}</span>
+                    <span className={`ds-badge ${p.status}`}>{p.status==='non-compliant'?'Non-Compliant':p.status==='compliant'?'Compliant':'Needs Review'}</span>
+                  </div>
+                </div>
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
+                  <span style={{fontSize:11,color:'var(--gd)'}}>Total: {fmtM(p.totalSpend)} | Maverick: {fmtM(p.mavSpend)}</span>
+                  <span style={{fontSize:12,fontWeight:600}}>{p.compliance}% compliant</span>
+                </div>
+                <div className="prog">
+                  <div className="prog-f" style={{width:`${p.compliance}%`,background:p.compliance>=85?'var(--ch3)':p.compliance>=70?'var(--ch2)':'var(--red)'}}/>
+                </div>
+              </div>
+            ))}
           </div>
-          <Spark data={[34,33,32,31,30,30]} color="var(--ch4)" h={22}/>
-          <div className="prev-cta" onClick={()=>onPage('offline')}>View Offline Leakage →</div>
-        </div>
-        <div className="prev">
-          <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:4}}><Icon n="building" s={15} c="var(--green)"/><div style={{fontSize:13,fontWeight:600}}>Vendor Network</div></div>
-          <div style={{fontSize:11,color:'var(--gd)',marginBottom:8}}>Online · Offline · Credentialing status</div>
-          <div className="prev-kpis">
-            <div><div className="prev-v" style={{color:'var(--yel)'}}>28.4%</div><div className="prev-l">Online (74/261)</div></div>
-            <div><div className="prev-v">54.8%</div><div className="prev-l">Credentialed</div></div>
-            <div><div className="prev-v" style={{color:'var(--yel)'}}>18</div><div className="prev-l">Pending</div></div>
-          </div>
-          <Spark data={[60,63,66,68,71,74]} color="var(--ch2)" h={22}/>
-          <div className="prev-cta" onClick={()=>onPage('vendors')}>View Vendor Network →</div>
         </div>
       </div>
     </div>
-  </div>
   );
 };
 
-/* ── PAGE 2: PROCESS COMPLIANCE ───────────────────────────────── */
+/* ── PAGE 2: PROCESS COMPLIANCE ─────────────────────────────── */
 const ProcessCompliance = () => {
   const [tab,setTab] = useState('rog');
-  const [period,setPeriod] = useState('QTD');
   const d = PROCESS_DATA;
   return (
     <div className="panim">
@@ -745,10 +860,10 @@ const ProcessCompliance = () => {
         </div>
         <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
       </div>
-      <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <FilterBar/>
       <div className="page-body">
-      <div className="bnr y"><Icon n="alert" s={14} c="var(--yel)"/><span>ROG and Vendor Invoice compliance below target. <strong>PO-WTN at 95%</strong> — above target. <strong>800 invoices</strong> tracked this period (620 compliant).</span></div>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:10,marginBottom:16}}>
+      <div className="bnr y"><Icon n="alert" s={14} c="var(--yel)"/><span>ROG and Vendor Invoice compliance below target. <strong>PO-WTN at 95%</strong> — above target. <strong>800 invoices</strong> tracked this period.</span></div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(3,1fr)',gap:12,marginBottom:16}}>
         {[{id:'rog',l:'ROG Compliance',v:77,tgt:80,sub:'800 invoices · 620 compliant'},{id:'po',l:'PO-WTN Compliance',v:95,tgt:80,sub:'Exceeds 80% target'},{id:'vi',l:'Vendor Invoice Compliance',v:68,tgt:75,sub:'Target: 75%'}].map(m=>(
           <div key={m.id} className="kcard">
             <div className="k-lbl">{m.l}</div>
@@ -819,7 +934,7 @@ const ProcessCompliance = () => {
               <div><div style={{fontSize:36,fontWeight:700,color:'var(--ch3)',lineHeight:'40px'}}>{d.vi.countRate}%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>By invoice count</div></div>
               <div><div style={{fontSize:36,fontWeight:700,color:'var(--ch4)',lineHeight:'40px'}}>{d.vi.spendRate}%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>By spend value</div></div>
             </div>
-            <div style={{fontSize:12,color:'var(--rp-black)',opacity:0.7,lineHeight:1.6}}>Higher spend-based rate indicates large vendors are more compliant than smaller, frequent vendors. Focus remediation on high-frequency, low-value non-compliant invoices.</div>
+            <div style={{fontSize:12,color:'var(--rp-black)',opacity:0.7,lineHeight:1.6}}>Higher spend-based rate indicates large vendors are more compliant. Focus remediation on high-frequency, low-value non-compliant invoices.</div>
           </div>
           <div className="card">
             <div className="ct">Improvement Opportunities</div>
@@ -834,14 +949,13 @@ const ProcessCompliance = () => {
           </div>
         </div>
       )}
-      </div>{/* /page-body */}
+      </div>
     </div>
   );
 };
 
 /* ── PAGE 3: OFFLINE LEAKAGE ──────────────────────────────────── */
 const OfflineLeakage = () => {
-  const [period,setPeriod] = useState('YTD');
   const d = OFFLINE_DATA;
   const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
   return (
@@ -854,14 +968,14 @@ const OfflineLeakage = () => {
         </div>
         <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
       </div>
-      <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <FilterBar/>
       <div className="page-body">
-      <div className="bnr y"><Icon n="alert" s={14} c="var(--yel)"/><span>Offline leakage at <strong>29.8%</strong> — 9.8pts above 20% target. <strong>1,622 of 5,451 orders</strong> transacting offline. Estimated <strong>$473K in missed platform savings</strong> this year.</span></div>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:10,marginBottom:16}}>
-        <div className="kcard"><div className="k-lbl">Offline Rate</div><div className="k-val" style={{color:'var(--red)'}}>29.8%</div><div className="k-sub">Target: 20% · Gap: 9.8pts</div><div className="k-delta dn">▼ Above target</div></div>
-        <div className="kcard"><div className="k-lbl">Offline Orders</div><div className="k-val">1,622</div><div className="k-sub">of 5,451 total orders YTD</div><div className="k-delta neu">→ Tracking</div></div>
-        <div className="kcard"><div className="k-lbl">Missed Savings</div><div className="k-val" style={{color:'var(--yel)'}}>$473K</div><div className="k-sub">15% offline rebate opp.</div><div className="k-delta neu">→ Opportunity</div></div>
-        <div className="kcard"><div className="k-lbl">Provisioned Still Offline</div><div className="k-val">4</div><div className="k-sub">vendors · $354K spend</div><div className="k-delta dn">▼ Action needed</div></div>
+      <div className="bnr y"><Icon n="alert" s={14} c="var(--yel)"/><span>Offline leakage at <strong>29.8%</strong> — 9.8pts above 20% target. <strong>1,622 of 5,451 orders</strong> transacting offline.</span></div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
+        <div className="kcard"><div className="k-lbl">Offline Rate</div><div className="k-val" style={{color:'var(--red)'}}>29.8%</div><div className="k-sub">Target: 20%</div><div className="k-delta dn">▼ Above target</div></div>
+        <div className="kcard"><div className="k-lbl">Offline Orders</div><div className="k-val">1,622</div><div className="k-sub">of 5,451 total orders YTD</div></div>
+        <div className="kcard"><div className="k-lbl">Missed Savings</div><div className="k-val" style={{color:'var(--yel)'}}>$473K</div><div className="k-sub">15% offline rebate opp.</div></div>
+        <div className="kcard"><div className="k-lbl">Provisioned Still Offline</div><div className="k-val">4</div><div className="k-sub">vendors · $354K spend</div></div>
       </div>
       <div className="g2">
         <div className="card">
@@ -877,16 +991,8 @@ const OfflineLeakage = () => {
           <div style={{display:'flex',alignItems:'center',gap:20,marginBottom:16}}>
             <div style={{textAlign:'center'}}><div style={{fontSize:36,fontWeight:700,color:'var(--ch4)',lineHeight:'40px'}}>29.8%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginTop:4}}>Current offline</div></div>
             <div style={{flex:1}}>
-              <div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8,marginBottom:6}}>vs 20% target</div>
               <StackBar a={20} total={35} colorA="var(--ch2)" colorB="var(--hi)" h={14}/>
               <div style={{display:'flex',justifyContent:'space-between',marginTop:4}}><span style={{fontSize:12,color:'var(--ch3)',fontWeight:500}}>Target 20%</span><span style={{fontSize:12,color:'var(--ch4)',fontWeight:500}}>Current 29.8%</span></div>
-            </div>
-          </div>
-          <div style={{borderTop:'1px solid var(--gll)',paddingTop:12}}>
-            <div style={{fontSize:12,fontWeight:600,marginBottom:8}}>Impact if Target Met</div>
-            <div style={{display:'flex',gap:16}}>
-              <div><div style={{fontSize:16,fontWeight:700,color:'var(--ch3)'}}>$473K</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Savings recovered</div></div>
-              <div><div style={{fontSize:16,fontWeight:700,color:'var(--ch4)'}}>9.8pts</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Compliance boost</div></div>
             </div>
           </div>
         </div>
@@ -902,7 +1008,7 @@ const OfflineLeakage = () => {
           </tbody>
         </table>
       </div>
-      <div className="sh"><div className="sh-t">Unprovisioned Vendors — Missed Savings</div><div className="sh-l">Start onboarding</div></div>
+      <div className="sh"><div className="sh-t">Unprovisioned Vendors — Missed Savings</div></div>
       <div className="card" style={{padding:0,overflow:'hidden'}}>
         <table className="dt">
           <thead><tr><th>Vendor</th><th className="r">YTD Spend</th><th className="r">Properties</th><th>Savings if Onboarded</th><th>Action</th></tr></thead>
@@ -913,14 +1019,13 @@ const OfflineLeakage = () => {
           </tbody>
         </table>
       </div>
-      </div>{/* /page-body */}
+      </div>
     </div>
   );
 };
 
-/* ── PAGE 4: VENDOR NETWORK ───────────────────────────────────── */
+/* ── PAGE 4: VENDOR NETWORK ──────────────────────────────────── */
 const VendorNetwork = () => {
-  const [period,setPeriod] = useState('YTD');
   const d = VENDOR_DATA;
   const fmtM = (v)=>v>=1000000?`$${(v/1000000).toFixed(1)}M`:`$${(v/1000).toFixed(0)}K`;
   return (
@@ -929,18 +1034,18 @@ const VendorNetwork = () => {
         <div>
           <div className="ph-eyebrow"><span className="ph-dot or"/><span className="ph-dot gr"/></div>
           <div className="ph-title">Vendor Network</div>
-          <div className="ph-sub">Online vs offline vendor mix, channel breakdown, credentialing status, and non-compliant vendor tracking</div>
+          <div className="ph-sub">Online vs offline vendor mix, credentialing status, and non-compliant vendor tracking</div>
         </div>
         <div style={{display:'flex',gap:8}}>
           <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
           <button className="btn bp sm"><Icon n="plus" s={13}/> Onboard Vendor</button>
         </div>
       </div>
-      <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <FilterBar/>
       <div className="page-body">
-      <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:10,marginBottom:16}}>
-        <div className="kcard"><div className="k-lbl">Total Vendors</div><div className="k-val">261</div><div className="k-sub">Active in portfolio</div><div className="k-delta neu">+5 this quarter</div></div>
-        <div className="kcard"><div className="k-lbl">Online Vendors</div><div className="k-val">74</div><div className="k-sub">28.4% of vendor base</div><div className="k-delta up">▲ +6 this quarter</div></div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:12,marginBottom:16}}>
+        <div className="kcard"><div className="k-lbl">Total Vendors</div><div className="k-val">261</div><div className="k-sub">Active in portfolio</div></div>
+        <div className="kcard"><div className="k-lbl">Online Vendors</div><div className="k-val">74</div><div className="k-sub">28.4% of vendor base</div><div className="k-delta up">▲ +6 QoQ</div></div>
         <div className="kcard"><div className="k-lbl">Offline Vendors</div><div className="k-val">187</div><div className="k-sub">71.6% — above target</div><div className="k-delta dn">▼ Action needed</div></div>
         <div className="kcard"><div className="k-lbl">Credentialed</div><div className="k-val">143</div><div className="k-sub">54.8% credentialed</div><div className="k-delta up">▲ +2pts QoQ</div></div>
         <div className="kcard"><div className="k-lbl">Non-Credentialed</div><div className="k-val">111</div><div className="k-sub">42.5% · requires action</div><div className="k-delta dn">▼ Review needed</div></div>
@@ -955,34 +1060,17 @@ const VendorNetwork = () => {
                 <span style={{fontSize:12,fontWeight:600}}>{ch.pct}% · {fmtM(ch.spend)}</span>
               </div>
               <StackBar a={ch.pct} total={100} colorA={i===0?'var(--ch3)':'var(--ch4)'} colorB="var(--gll)" h={10}/>
-              <div style={{fontSize:11,color:'var(--gd)',marginTop:3}}>{ch.cnt} vendors · {i===0?'28.4% online mix':'71.6% still offline'}</div>
+              <div style={{fontSize:11,color:'var(--gd)',marginTop:3}}>{ch.cnt} vendors</div>
             </div>
           ))}
         </div>
         <div className="card">
-          <div className="ct">Online Vendor Growth
-            <div style={{display:'flex',gap:10,fontSize:12,fontWeight:400,textTransform:'none',letterSpacing:0}}>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Online</span>
-              <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch1)',borderRadius:2}}/> Total</span>
-            </div>
-          </div>
+          <div className="ct">Online Vendor Growth</div>
           <LineChart series={[d.growth.on,d.growth.tot]} lbls={d.growth.lbls} w={290} h={110} colors={['var(--ch3)','var(--ch1)']}/>
-          <div style={{display:'flex',gap:16,marginTop:10}}>
-            <div><div style={{fontSize:16,fontWeight:700,color:'var(--ch3)'}}>+14</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>New online vendors (6 months)</div></div>
-            <div><div style={{fontSize:16,fontWeight:700,color:'var(--ch4)'}}>28.4%</div><div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Online mix (up from 24%)</div></div>
+          <div style={{display:'flex',gap:14,marginTop:8,fontSize:12}}>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Online</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch1)',borderRadius:2}}/> Total</span>
           </div>
-        </div>
-      </div>
-      <div className="sh"><div className="sh-t">Credentialing Status</div></div>
-      <div className="card">
-        <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12}}>
-          {[{l:'Fully Credentialed',v:143,c:'g',sub:'COI + W-9 + Approved · 54.8%'},{l:'Partially Credentialed',v:7,c:'y',sub:'Missing 1 document'},{l:'Pending Review',v:18,c:'b',sub:'Submitted, under review'},{l:'Not Credentialed',v:93,c:'r',sub:'No compliance docs · 35.6%'}].map((m,i)=>(
-            <div key={i} className="kcard" style={{padding:14}}>
-              <div style={{fontSize:22,fontWeight:700}}>{m.v}</div>
-              <div style={{fontSize:12,fontWeight:600,marginTop:2}}>{m.l}</div>
-              <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>{m.sub}</div>
-            </div>
-          ))}
         </div>
       </div>
       <div className="sh"><div className="sh-t">Top Non-Compliant Vendors <span className="sh-badge">Requires action</span></div></div>
@@ -994,7 +1082,7 @@ const VendorNetwork = () => {
               <tr key={i}>
                 <td className="vlink">{v.n}</td>
                 <td className="r fw6" style={{color:'var(--red)'}}>{fmtM(v.s)}</td>
-                <td>{v.issues.map((iss,j)=><span key={j} className="ds-badge non-compliant" style={{marginRight:4,marginBottom:2,display:'inline-flex'}}>{iss}</span>)}</td>
+                <td>{v.issues.map((iss,j)=><span key={j} className="ds-badge non-compliant" style={{marginRight:4,display:'inline-flex'}}>{iss}</span>)}</td>
                 <td><span className={`rpill ${v.risk}`}>{v.risk==='h'?'High':'Medium'}</span></td>
                 <td><div style={{display:'flex',gap:6}}><button className="btn bs xs">Review</button>{v.risk==='h'&&<button className="btn bd xs">Suspend</button>}</div></td>
               </tr>
@@ -1002,16 +1090,15 @@ const VendorNetwork = () => {
           </tbody>
         </table>
       </div>
-      </div>{/* /page-body */}
+      </div>
     </div>
   );
 };
 
-/* ── PAGE 5: INVESTIGATIONS ───────────────────────────────────── */
+/* ── PAGE 5: INVESTIGATIONS ──────────────────────────────────── */
 const Investigations = () => {
   const [filter,setFilter] = useState('all');
   const [sel,setSel] = useState(null);
-  const [period,setPeriod] = useState('QTD');
   const fmtM = (v)=>v>=1000?`$${(v/1000).toFixed(1)}K`:`$${v}`;
   const filtered = filter==='all'?CASES:CASES.filter(c=>c.pri===filter);
   return (
@@ -1027,7 +1114,7 @@ const Investigations = () => {
           <button className="btn bp sm"><Icon n="plus" s={13}/> New Case</button>
         </div>
       </div>
-      <FilterBar period={period} onPeriod={setPeriod} riskOnly={false} onRisk={()=>{}}/>
+      <FilterBar/>
       <div className="page-body">
       <div style={{background:'var(--rbg)',border:'1px solid var(--red)',borderRadius:'var(--br)',padding:'10px 14px',marginBottom:14,display:'flex',alignItems:'center',gap:10,opacity:0.9}}>
         <Icon n="alert" s={16} c="var(--red)"/>
@@ -1096,14 +1183,14 @@ const Investigations = () => {
           )}
         </div>
       </div>
-      </div>{/* /page-body */}
+      </div>
     </div>
   );
 };
 
 /* ── LUMINA PANEL ─────────────────────────────────────────────── */
 const LuminaPanel = ({open,onClose}) => {
-  const initMsg = {type:'ai',text:'Hello Akila. Portfolio at 82% compliance — up 4pts this quarter. ROG at 77% (below 80% target), PO-WTN strong at 95%. 1,622 of 5,451 orders offline (29.8% vs 20% target). Only 74 of 261 vendors are online — this is a key area to address. 4 critical cases open. How can I help?',time:'Now',rows:[{l:'Portfolio Score',v:'82% (+4pts QoQ)',t:'g'},{l:'PO-WTN Compliance',v:'95% — above target',t:'g'},{l:'Offline Orders',v:'29.8% (target: 20%)',t:'r'},{l:'Online Vendors',v:'74 of 261 (28.4%)',t:'r'}]};
+  const initMsg = {type:'ai',text:'Hi! I am Lumina, your AI spend assistant. I have been monitoring your procurement data and have a few insights ready. Off-contract spend is trending up this quarter. I can walk you through the details whenever you are ready.\n\nHow can I help you today?',time:'Now',rows:[{l:'Portfolio Score',v:'70% (+2pts QoQ)',t:'g'},{l:'PO-WTN Compliance',v:'95% — above target',t:'g'},{l:'Offline Orders',v:'29.8% (target: 20%)',t:'r'},{l:'Online Vendors',v:'74 of 261 (28.4%)',t:'r'}]};
   const [msgs,setMsgs] = useState([initMsg]);
   const [inp,setInp] = useState('');
   const [typing,setTyping] = useState(false);
@@ -1111,11 +1198,11 @@ const LuminaPanel = ({open,onClose}) => {
 
   useEffect(()=>{endRef.current?.scrollIntoView({behavior:'smooth'})},[msgs,typing]);
 
-  const CHIPS = ['Why is maverick spend rising?','Show non-compliant vendors','Where are offline leaks highest?','What is my biggest risk?','Show budget overrun properties'];
+  const CHIPS = ['Why has off-contract spend increased this quarter?','Show me the top 5 non-compliant vendors','What if we raise the emergency purchase threshold to $700?','Generate a contract compliance report for Q1'];
 
   const getResp = (q) => {
     const ql = q.toLowerCase();
-    if (ql.includes('maverick')||ql.includes('rising')||ql.includes('hvac')) return LUMINA_RESP.maverick;
+    if (ql.includes('maverick')||ql.includes('rising')||ql.includes('hvac')||ql.includes('off-contract')||ql.includes('spend')) return LUMINA_RESP.maverick;
     if (ql.includes('vendor')||ql.includes('non-compliant')||ql.includes('coi')) return LUMINA_RESP.vendors;
     if (ql.includes('offline')||ql.includes('leak')) return LUMINA_RESP.offline;
     return LUMINA_RESP.default;
@@ -1142,7 +1229,7 @@ const LuminaPanel = ({open,onClose}) => {
         <div className="lp-ic">
           <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={1.5} strokeLinecap="round" strokeLinejoin="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
         </div>
-        <div><div className="lp-t">Lumina AI</div><div className="lp-s">Spend Compliance Intelligence</div></div>
+        <div><div className="lp-t">Lumina AI</div><div className="lp-s">AI Spending Analyst</div></div>
         <div className="lp-cl" onClick={onClose}>
           <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M18 6L6 18M6 6l12 12"/></svg>
         </div>
@@ -1172,7 +1259,7 @@ const LuminaPanel = ({open,onClose}) => {
       </div>
       <div className="lp-chips">{CHIPS.map((c,i)=><div key={i} className="lchip" onClick={()=>send(c)}>{c}</div>)}</div>
       <div className="lp-inp">
-        <input className="linput" placeholder="Ask about compliance, vendors, spend..." value={inp} onChange={e=>setInp(e.target.value)} onKeyDown={e=>e.key==='Enter'&&send()}/>
+        <input className="linput" placeholder="Ask Lumina anything..." value={inp} onChange={e=>setInp(e.target.value)} onKeyDown={e=>e.key==='Enter'&&send()}/>
         <button className="lsend" onClick={()=>send()}>
           <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round"><path d="M22 2L11 13M22 2L15 22 11 13 2 9l20-7z"/></svg>
         </button>
@@ -1181,24 +1268,21 @@ const LuminaPanel = ({open,onClose}) => {
   );
 };
 
-/* ── OMNIBAR — RAUL OmnibarHeader ────────────────────────────── */
+/* ── OMNIBAR ──────────────────────────────────────────────────── */
 const Omnibar = ({aiOpen,onAI,onMenu}) => (
   <div className="omnibar">
     <div className="ob-ham" onClick={onMenu}>
       <svg width={18} height={18} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M3 12h18M3 6h18M3 18h18"/></svg>
     </div>
-    {/* RAUL 3-dot logo */}
     <div className="ob-dots"><span/><span/><span/></div>
     <div className="ob-brand">
       <div className="ob-brand-name">OPSBUYER</div>
-      <div className="ob-brand-ctx">Pegasus Properties | Spend Compliance</div>
+      <div className="ob-brand-ctx">Acme Management Co | Meadow Bay</div>
     </div>
-    {/* RAUL centered search */}
     <div className="ob-search">
       <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.4)" strokeWidth={2} strokeLinecap="round"><circle cx={11} cy={11} r={8}/><path d="M21 21l-4.35-4.35"/></svg>
       <input placeholder="Search"/>
     </div>
-    {/* RAUL right icon group */}
     <div className="ob-acts">
       {[['cart',false],['grid',false],['bell',true],['help',false]].map(([ic,dot],i)=>(
         <button key={i} className="ob-ib">
@@ -1207,13 +1291,12 @@ const Omnibar = ({aiOpen,onAI,onMenu}) => (
         </button>
       ))}
     </div>
-    {/* RAUL user name + role + avatar */}
     <div className="ob-user">
       <div className="ob-user-info">
-        <div className="ob-user-name">Akila V.</div>
-        <div className="ob-user-role">VP Procurement</div>
+        <div className="ob-user-name">John Smith</div>
+        <div className="ob-user-role">Leasing Agent</div>
       </div>
-      <div className="ob-av">AV</div>
+      <div className="ob-av">JS</div>
     </div>
     <button className={`lumina-btn ${aiOpen?'active':''}`} onClick={onAI}>
       <svg width={13} height={13} viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth={2} strokeLinecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
@@ -1222,48 +1305,70 @@ const Omnibar = ({aiOpen,onAI,onMenu}) => (
   </div>
 );
 
-/* ── SIDENAV — RAUL OmnibarLeftNavigation ────────────────────── */
+/* ── SIDENAV ──────────────────────────────────────────────────── */
 const SideNav = ({page,onPage,col}) => {
   const [expanded,setExpanded] = useState({compliance:true});
   const sections = [
-    {id:'compliance',icon:'shield',label:'Spend Compliance',expandable:true,
-      subs:[
-        {id:'process',label:'Process Compliance'},
-        {id:'offline',label:'Offline Leakage'},
-        {id:'vendors',label:'Vendor Network'},
-      ]},
-    {id:'investigations',icon:'eye',label:'Investigations'},
+    {id:'today',icon:'building',label:'Today'},
+    {id:'spendai',icon:'zap',label:'Spend AI',expandable:false},
   ];
-  const ops = [
-    {id:'pos',icon:'file',label:'Purchase Orders'},
+  const compSection = {id:'compliance',icon:'shield',label:'Spend Compliance',expandable:true,
+    subs:[
+      {id:'compliance',label:'Spend Overview'},
+      {id:'process',label:'Category & Vendor'},
+      {id:'offline',label:'Regional & Property'},
+      {id:'vendors',label:'Contract Compliance'},
+    ]};
+  const otherItems = [
+    {id:'vendormgmt',icon:'user',label:'Vendor Compliance'},
+    {id:'propcompliance',icon:'building',label:'Property Compliance'},
+    {id:'policies',icon:'file',label:'Procurement Policies'},
+  ];
+  const bottomItems = [
+    {id:'storefront',icon:'cart',label:'Storefront'},
+    {id:'orders',icon:'file',label:'Orders'},
     {id:'invoices',icon:'layers',label:'Invoices'},
-    {id:'vendormgmt',icon:'user',label:'Vendor Management'},
+    {id:'approvals',icon:'check',label:'Approvals'},
+    {id:'vendorsnav',icon:'user',label:'Vendors'},
+    {id:'setup',icon:'grid',label:'Setup'},
+    {id:'payments',icon:'link',label:'Payments'},
+    {id:'report',icon:'file',label:'Report'},
+    {id:'helpnav',icon:'help',label:'Help'},
   ];
   const toggleExpand = (id) => setExpanded(e=>({...e,[id]:!e[id]}));
+  const isActive = (id) => page===id || (id==='compliance' && ['compliance','process','offline','vendors'].includes(page));
   return (
     <div className={`sidenav ${col?'col':''}`}>
       {sections.map(item=>(
-        <React.Fragment key={item.id}>
-          <div className={`nav-item ${page===item.id?'active':''}`}
-            onClick={()=>{if(item.expandable){toggleExpand(item.id)}onPage(item.id)}}>
-            <Icon n={item.icon} s={16} c={page===item.id?'var(--rp)':'var(--rp-black)'}/>
-            <span>{item.label}</span>
-            {item.expandable&&(
-              <span className={`nav-chev ${expanded[item.id]?'up':''}`}>
-                <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M6 9l6 6 6-6"/></svg>
-              </span>
-            )}
+        <div key={item.id} className={`nav-item ${page===item.id?'active':''}`} onClick={()=>onPage(item.id)}>
+          <Icon n={item.icon} s={16} c={page===item.id?'var(--rp)':'var(--rp-black)'}/>
+          <span>{item.label}</span>
+        </div>
+      ))}
+      {/* Spend Compliance expandable section */}
+      <React.Fragment>
+        <div className={`nav-item ${isActive('compliance')?'active':''}`}
+          onClick={()=>{toggleExpand('compliance');onPage('compliance')}}>
+          <Icon n="shield" s={16} c={isActive('compliance')?'var(--rp)':'var(--rp-black)'}/>
+          <span>{compSection.label}</span>
+          <span className={`nav-chev ${expanded.compliance?'up':''}`}>
+            <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}><path d="M6 9l6 6 6-6"/></svg>
+          </span>
+        </div>
+        {expanded.compliance&&compSection.subs.map(sub=>(
+          <div key={sub.id} className={`nav-sub ${page===sub.id?'active':''}`} onClick={()=>onPage(sub.id)}>
+            {sub.label}
           </div>
-          {item.expandable&&expanded[item.id]&&item.subs&&item.subs.map(sub=>(
-            <div key={sub.id} className={`nav-sub ${page===sub.id?'active':''}`} onClick={()=>onPage(sub.id)}>
-              {sub.label}
-            </div>
-          ))}
-        </React.Fragment>
+        ))}
+      </React.Fragment>
+      {otherItems.map(item=>(
+        <div key={item.id} className={`nav-item ${page===item.id?'active':''}`} onClick={()=>onPage(item.id)}>
+          <Icon n={item.icon} s={16} c={page===item.id?'var(--rp)':'var(--rp-black)'}/>
+          <span>{item.label}</span>
+        </div>
       ))}
       <div className="sn-divider"/>
-      <div className="sn-sect">Operations</div>
-      {ops.map(item=>(
+      {bottomItems.map(item=>(
         <div key={item.id} className={`nav-item ${page===item.id?'active':''}`} onClick={()=>onPage(item.id)}>
           <Icon n={item.icon} s={16} c={page===item.id?'var(--rp)':'var(--rp-black)'}/>
           <span>{item.label}</span>
@@ -1271,10 +1376,10 @@ const SideNav = ({page,onPage,col}) => {
       ))}
       <div className="sn-bot">
         <div className="sn-user">
-          <div className="uav">AV</div>
+          <div className="uav">JS</div>
           <div>
-            <div style={{fontSize:12,fontWeight:500}}>Akila Viswanathan</div>
-            <div style={{fontSize:10,color:'var(--gd)'}}>VP Procurement</div>
+            <div style={{fontSize:12,fontWeight:500}}>John Smith</div>
+            <div style={{fontSize:10,color:'var(--gd)'}}>Leasing Agent</div>
           </div>
         </div>
       </div>
