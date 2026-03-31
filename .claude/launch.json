@@ -2,16 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "spend-agent (Python)",
+      "name": "spend-agent",
       "runtimeExecutable": "python3",
-      "runtimeArgs": ["-m", "http.server", "3456", "--directory", "/Users/Akila.viswanathan/Documents/Claude/spend-agent"],
+      "runtimeArgs": ["-m", "http.server", "3456"],
       "port": 3456
-    },
-    {
-      "name": "spend-agent (Ruby WEBrick)",
-      "runtimeExecutable": "ruby",
-      "runtimeArgs": ["-run", "-e", "httpd", "--", "--port=3457", "/Users/Akila.viswanathan/Documents/Claude/spend-agent"],
-      "port": 3457
     }
   ]
 }
