@@ -214,11 +214,25 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .ddcard::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
 .score-ring{position:relative;display:inline-flex;align-items:center;justify-content:center}
 .score-ring-val{position:absolute;font-size:16px;font-weight:700;color:var(--rp-black)}
-/* Score Ticker Bar */
-.score-ticker{background:var(--rp-black);border-radius:14px;padding:16px 24px;display:flex;justify-content:space-around;align-items:center;overflow:hidden;margin-top:24px}
-.score-ticker-item{text-align:center;position:relative}
-.score-ticker-val{font-size:18px;font-weight:400;color:#d6d9e1;line-height:normal}
-.score-ticker-lbl{font-size:10px;color:#d6d9e1;opacity:0.7;margin-top:4px;line-height:normal;max-width:100px}
+/* Score Badge Row */
+.score-badges{display:flex;align-items:center;justify-content:space-around;padding:20px 0;margin-top:24px}
+.score-badge-item{display:flex;flex-direction:column;align-items:center;gap:6px}
+.score-badge-ring{position:relative;display:inline-flex;align-items:center;justify-content:center}
+.score-badge-val{position:absolute;font-size:18px;font-weight:700;color:var(--rp-black)}
+.score-badge-lbl{font-size:11px;color:var(--gd);text-align:center;max-width:80px;line-height:14px}
+/* Lumina Insights Banner */
+.lumina-banner{background:linear-gradient(135deg,#118837 0%,#0e7030 100%);border-radius:4px;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.lumina-banner-left{display:flex;align-items:center;gap:10px}
+.lumina-banner-title{color:#fff;font-size:14px;font-weight:700;display:flex;align-items:center;gap:8px}
+.lumina-banner-live{background:var(--red);color:#fff;font-size:10px;font-weight:600;padding:2px 8px;border-radius:10px;text-transform:uppercase;letter-spacing:.5px}
+.lumina-banner-right{display:flex;align-items:center;gap:8px}
+.lumina-banner-btn{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.3);border-radius:4px;padding:6px 14px;font-size:12px;font-weight:500;cursor:pointer;font-family:var(--font);display:flex;align-items:center;gap:6px;transition:all .15s}
+.lumina-banner-btn:hover{background:rgba(255,255,255,.3)}
+.lumina-banner-btn.primary{background:rgba(255,255,255,.95);color:#118837;border-color:transparent;font-weight:600}
+/* Compliance Index Card */
+.comp-index{background:var(--rp-black);border-radius:10px;padding:16px 20px;display:flex;flex-direction:column;align-items:center;gap:4px;min-width:140px}
+.comp-index-title{font-size:10px;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px}
+.comp-index-val{font-size:28px;font-weight:700;color:#fff}
 </style>
 </head>
 <body>
@@ -578,14 +592,32 @@ const SpendCompliance = ({onPage, activeTab='portfolio'}) => {
           </div>
 
           {/* Quick question chips */}
-          <div style={{marginTop:14,display:'flex',gap:10,flexWrap:'wrap'}}>
+          <div style={{marginTop:14,display:'flex',gap:10,flexWrap:'wrap',alignItems:'center'}}>
+            <span style={{fontSize:13,color:'var(--gd)',whiteSpace:'nowrap'}}>What spend questions can I help with?</span>
             {['Invoice report for Q3','Consolidating vendors across the Midwest','Repeat policy violations at Harbor Point','What if we raised the emergency threshold to $700?'].map((q,i) => (
               <div key={i} className="lumina-prompt">{q}</div>
             ))}
           </div>
 
-          {/* Lumina Insights — contextual alerts */}
+          {/* Lumina Insights — branded banner + cards */}
           <div style={{marginTop:16}}>
+            <div className="lumina-banner">
+              <div className="lumina-banner-left">
+                <SparkleIcon s={18} c="#fff"/>
+                <div className="lumina-banner-title">
+                  Lumina Insights
+                  <span className="lumina-banner-live">Live</span>
+                </div>
+              </div>
+              <div className="lumina-banner-right">
+                <button className="lumina-banner-btn primary">
+                  <SparkleIcon s={12} c="#118837"/> Ask Lumina
+                </button>
+                <button className="lumina-banner-btn">
+                  <Icon n="eye" s={12} c="#fff"/> View All Insights
+                </button>
+              </div>
+            </div>
             <div className="li-row">
               {INSIGHTS.map((ins,i) => <InsightCard key={i} ins={ins} onPage={switchTab}/>)}
             </div>
@@ -703,14 +735,38 @@ const SpendCompliance = ({onPage, activeTab='portfolio'}) => {
             </div>
           </div>
 
-          {/* Score Ticker Bar */}
-          <div className="score-ticker">
-            {tickerItems.map((t,i) => (
-              <div key={i} className="score-ticker-item">
-                <div className="score-ticker-val">{t.val}</div>
-                <div className="score-ticker-lbl">{t.label}</div>
-              </div>
-            ))}
+          {/* Score Badges — Compliance Dimension Scores */}
+          <div className="score-badges">
+            {[
+              {val:77,label:'ROG Compliance',color:'var(--ch3)'},
+              {val:95,label:'PO-WTN',color:'var(--ch3)'},
+              {val:68,label:'Vendor Invoice',color:'var(--ch4)'},
+              {val:30,label:'Offline Rate',color:'var(--ch4)'},
+              {val:28,label:'Online Adoption',color:'var(--ch4)'},
+            ].map((s,i) => {
+              const sz=64, th=5, r=(sz/2)-th/2;
+              const circ=2*Math.PI*r;
+              const pct = s.val > 50 ? s.val : (100 - s.val);
+              const offset = circ - (pct/100)*circ;
+              return (
+                <div key={i} className="score-badge-item">
+                  <div className="score-badge-ring">
+                    <svg width={sz} height={sz}>
+                      <circle cx={sz/2} cy={sz/2} r={r} fill="none" stroke="var(--gll)" strokeWidth={th}/>
+                      <circle cx={sz/2} cy={sz/2} r={r} fill="none" stroke={s.color} strokeWidth={th}
+                        strokeDasharray={circ} strokeDashoffset={offset}
+                        strokeLinecap="round" transform={`rotate(-90 ${sz/2} ${sz/2})`}/>
+                    </svg>
+                    <div className="score-badge-val">{s.val}</div>
+                  </div>
+                  <div className="score-badge-lbl">{s.label}</div>
+                </div>
+              );
+            })}
+            <div className="comp-index">
+              <div className="comp-index-title">Compliance Index</div>
+              <div className="comp-index-val">70</div>
+            </div>
           </div>
 
           {/* ═══ CORRELATED: Category & Vendor ═══ */}
@@ -718,34 +774,48 @@ const SpendCompliance = ({onPage, activeTab='portfolio'}) => {
             <div className="sh-t">Category & Vendor Compliance</div>
             <div className="sh-l" onClick={() => switchTab('catvendor')}>View Details →</div>
           </div>
-          <div className="card" style={{padding:0,overflow:'hidden',marginBottom:16}}>
+          <div className="card" style={{padding:0,overflow:'hidden',marginBottom:0}}>
             <div style={{padding:'20px 24px 10px'}}>
-              <div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Categories with their highest-risk vendors — click to investigate</div>
+              <div style={{fontSize:14,color:'var(--rp-black)',opacity:0.8}}>Click a category to view vendor details and Lumina interventions</div>
             </div>
             <table className="dt">
-              <thead><tr><th>Category</th><th className="r">Compliance</th><th>Top Risk Vendor</th><th className="r">Maverick $</th><th>Status</th></tr></thead>
+              <thead><tr><th>Category</th><th className="r">Compliant Spend</th><th className="r">Maverick Spend</th><th style={{width:140}}>Compliance Rate</th><th>Top Risk Vendor</th><th>Status</th></tr></thead>
               <tbody>
-                {CATEGORIES.slice(0,5).map((c,i) => {
+                {CATEGORIES.slice(0,6).map((c,i) => {
                   const vendor = MAV_VENDORS.find(v => v.cat === c.name);
                   return (
                     <tr key={i}>
                       <td className="vlink">{c.name}</td>
-                      <td className="r">
-                        <div style={{display:'flex',alignItems:'center',justifyContent:'flex-end',gap:8}}>
-                          <div style={{width:60,height:6,background:'var(--gll)',borderRadius:3,overflow:'hidden'}}>
+                      <td className="r">{fmtM(c.comp)}</td>
+                      <td className="r" style={{color:c.rate<75?'var(--red)':'var(--rp-black)',fontWeight:c.rate<75?600:400}}>{fmtM(c.mav)}</td>
+                      <td>
+                        <div style={{display:'flex',alignItems:'center',gap:8}}>
+                          <div style={{flex:1,height:6,background:'var(--gll)',borderRadius:3,overflow:'hidden'}}>
                             <div style={{width:`${c.rate}%`,height:'100%',background:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)',borderRadius:3}}/>
                           </div>
                           <span style={{fontSize:12,fontWeight:600,width:30}}>{c.rate}%</span>
                         </div>
                       </td>
-                      <td>{vendor ? <span className="vlink">{vendor.name}</span> : <span style={{color:'var(--gd)'}}>—</span>}</td>
-                      <td className="r fw6">{vendor ? `$${vendor.spend.toLocaleString()}` : '—'}</td>
+                      <td>
+                        {vendor ? (
+                          <div>
+                            <span className="vlink">{vendor.name}</span>
+                            <div style={{fontSize:10,color:'var(--gd)',marginTop:1}}>{vendor.viol} violations · ${vendor.spend.toLocaleString()}</div>
+                          </div>
+                        ) : <span style={{color:'var(--gd)',fontSize:11}}>No flagged vendors</span>}
+                      </td>
                       <td><span className={`ds-badge ${c.status==='g'?'compliant':c.status==='r'?'non-compliant':'under-review'}`}>{slbl(c.status)}</span></td>
                     </tr>
                   );
                 })}
               </tbody>
             </table>
+          </div>
+          {/* Lumina micro-insight for category */}
+          <div style={{display:'flex',alignItems:'center',gap:8,padding:'10px 0',fontSize:12,color:'var(--rp-black)'}}>
+            <SparkleIcon s={14} c="#6366F1"/>
+            <span style={{opacity:0.7}}>Lumina recommends consolidating 3 HVAC vendors into AirTech HVAC's preferred agreement — projected savings: <strong style={{color:'var(--green)'}}>$42K/yr</strong></span>
+            <span className="ct-link" style={{marginLeft:'auto'}} onClick={() => switchTab('catvendor')}>View Plan →</span>
           </div>
 
           {/* ═══ CORRELATED: Regional & Property ═══ */}
@@ -797,6 +867,12 @@ const SpendCompliance = ({onPage, activeTab='portfolio'}) => {
                 </div>
               ))}
             </div>
+          </div>
+          {/* Lumina micro-insight for regional */}
+          <div style={{display:'flex',alignItems:'center',gap:8,padding:'10px 0 0',fontSize:12,color:'var(--rp-black)'}}>
+            <SparkleIcon s={14} c="#6366F1"/>
+            <span style={{opacity:0.7}}>Southeast offline rate at 38% is the portfolio's worst. Shifting 3 provisioned vendors online would recover <strong style={{color:'var(--green)'}}>$88K/yr</strong> in missed savings.</span>
+            <span className="ct-link" style={{marginLeft:'auto'}} onClick={() => switchTab('regprop')}>Investigate →</span>
           </div>
         </div>
       )}
