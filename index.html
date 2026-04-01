@@ -195,7 +195,7 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .lchip{padding:5px 9px;border-radius:12px;font-size:11px;background:var(--gl);border:1px solid var(--gll);cursor:pointer;color:var(--gd);transition:all .1s}
 .lchip:hover{background:var(--hi);border-color:var(--rp);color:var(--rp)}
 .lp-inp{padding:9px 12px;border-top:1px solid var(--gll);display:flex;gap:7px}
-.linput{flex:1;border:1px solid var(--gll);border-radius:15px;padding:6px 12px;font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s}
+.linput{flex:1;border:1px solid var(--gll);border-radius:12px;padding:6px 12px;font-size:12px;font-family:var(--font);outline:none;transition:border-color .15s}
 .linput:focus{border-color:var(--rp)}
 .lsend{width:30px;height:30px;background:var(--rp);color:#fff;border:none;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .tdots{display:flex;gap:4px;padding:5px 2px}
@@ -516,7 +516,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
   ];
 
   return (
-    <div style={{padding:'24px 40px 60px'}}>
+    <div className="page-body">
       {/* ═══ 1. KPI SUMMARY ROW ═══ */}
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:16,marginBottom:0}}>
         {KPI_DATA.map(k => <KPICard key={k.id} {...k}/>)}
@@ -964,7 +964,7 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
 
   if (detailName) {
     return (
-      <div style={{padding:'24px 40px 60px'}}>
+      <div className="page-body">
         <div className="breadcrumb">
           <a onClick={()=>onNavigate('compliance')}>Portfolio</a>
           <span>›</span>
@@ -988,7 +988,7 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
           ].map((m,i) => (
             <div key={i} className="kcard" style={{cursor:'default'}}>
               <div className="k-lbl">{m.l}</div>
-              <div className="k-val" style={{fontSize:28}}>{m.v}</div>
+              <div className="k-val" >{m.v}</div>
               <div className="k-sub">{m.sub}</div>
             </div>
           ))}
@@ -1040,7 +1040,7 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
 
   // List view
   return (
-    <div style={{padding:'24px 40px 60px'}}>
+    <div className="page-body">
       {/* AI Summary */}
       <div className="li-card rc" style={{marginBottom:16}}>
         <div className="li-type rc"><SparkleIcon s={12} c="var(--orange)"/> Lumina Recommendation</div>
@@ -1057,7 +1057,7 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
         ].map((m,i) => (
           <div key={i} className="kcard" style={{cursor:'default'}}>
             <div className="k-lbl">{m.l}</div>
-            <div className="k-val" style={{fontSize:28}}>{m.v}</div>
+            <div className="k-val" >{m.v}</div>
             <div className="k-sub">{m.sub}</div>
             <div className={`k-delta ${m.dir}`}>{m.delta}</div>
           </div>
@@ -1120,8 +1120,8 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
                 <td className="r" style={{color:c.rate<75?'var(--red)':'inherit'}}>{fmtM(c.mav)}</td>
                 <td>
                   <div style={{display:'flex',alignItems:'center',gap:8}}>
-                    <div style={{flex:1,height:6,background:'var(--gll)',borderRadius:3,overflow:'hidden'}}>
-                      <div style={{width:`${c.rate}%`,height:'100%',background:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)',borderRadius:3}}/>
+                    <div className="prog" style={{flex:1}}>
+                      <div className="prog-f" style={{width:`${c.rate}%`,background:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)'}}/>
                     </div>
                     <span style={{fontSize:12,fontWeight:600,width:30}}>{c.rate}%</span>
                   </div>
@@ -1166,7 +1166,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
     const region = REGIONS_DATA.find(r=>r.name===detailName) || REGIONS_DATA[0];
     const regionProps = PROPS_DATA.filter(p=>p.region===region.name);
     return (
-      <div style={{padding:'24px 40px 60px'}}>
+      <div className="page-body">
         <div className="breadcrumb">
           <a onClick={()=>onNavigate('compliance')}>Portfolio</a><span>›</span>
           <a onClick={()=>onNavigate('regprop')}>Regional & Property</a><span>›</span>
@@ -1185,7 +1185,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
           ].map((m,i) => (
             <div key={i} className="kcard" style={{cursor:'default'}}>
               <div className="k-lbl">{m.l}</div>
-              <div className="k-val" style={{fontSize:28}}>{m.v}</div>
+              <div className="k-val" >{m.v}</div>
             </div>
           ))}
         </div>
@@ -1203,8 +1203,8 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
                       <td className="r">{fmtM(p.mavSpend)}</td>
                       <td>
                         <div style={{display:'flex',alignItems:'center',gap:8}}>
-                          <div style={{flex:1,height:6,background:'var(--gll)',borderRadius:3,overflow:'hidden'}}>
-                            <div style={{width:`${p.compliance}%`,height:'100%',background:p.compliance>=85?'var(--ch3)':p.compliance>=70?'var(--ch2)':'var(--red)',borderRadius:3}}/>
+                          <div className="prog" style={{flex:1}}>
+                            <div className="prog-f" style={{width:`${p.compliance}%`,background:p.compliance>=85?'var(--ch3)':p.compliance>=70?'var(--ch2)':'var(--red)'}}/>
                           </div>
                           <span style={{fontSize:12,fontWeight:600,width:30}}>{p.compliance}%</span>
                         </div>
@@ -1226,7 +1226,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
   if (detailType === 'property' && detailName) {
     const prop = PROPS_DATA.find(p=>p.name===detailName) || PROPS_DATA[0];
     return (
-      <div style={{padding:'24px 40px 60px'}}>
+      <div className="page-body">
         <div className="breadcrumb">
           <a onClick={()=>onNavigate('compliance')}>Portfolio</a><span>›</span>
           <a onClick={()=>onNavigate('regprop')}>Regional & Property</a><span>›</span>
@@ -1245,7 +1245,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
           ].map((m,i) => (
             <div key={i} className="kcard" style={{cursor:'default'}}>
               <div className="k-lbl">{m.l}</div>
-              <div className="k-val" style={{fontSize:28}}>{m.v}</div>
+              <div className="k-val" >{m.v}</div>
             </div>
           ))}
         </div>
@@ -1268,7 +1268,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
 
   // List view
   return (
-    <div style={{padding:'24px 40px 60px'}}>
+    <div className="page-body">
       <div className="li-card al" style={{marginBottom:16}}>
         <div className="li-type al"><SparkleIcon s={12} c="var(--red)"/> Alert</div>
         <div className="li-ttl">Southeast region maverick spend increased 18% this quarter. Sunset Ridge Apts accounts for 38% of the region's non-compliant spend — primarily driven by QuickFix HVAC Services operating without a preferred vendor agreement.</div>
@@ -1283,7 +1283,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
         ].map((m,i) => (
           <div key={i} className="kcard" style={{cursor:'default'}}>
             <div className="k-lbl">{m.l}</div>
-            <div className="k-val" style={{fontSize:28}}>{m.v}</div>
+            <div className="k-val" >{m.v}</div>
             <div className="k-sub">{m.sub}</div>
             {m.delta && <div className={`k-delta ${m.dir}`}>{m.delta}</div>}
           </div>
@@ -1392,7 +1392,7 @@ const Investigations = () => {
               <div style={{display:'flex',gap:10,fontSize:11,color:'var(--gd)',marginBottom:12}}>
                 <span>{sel.prop}</span><span>·</span><span style={{color:'var(--red)',fontWeight:600}}>{fmtM(sel.amt)}</span>
               </div>
-              <div style={{background:'var(--gl)',border:'1px solid var(--gll)',borderRadius:2,padding:12,marginBottom:14}}>
+              <div style={{background:'var(--gl)',border:'1px solid var(--gll)',borderRadius:'var(--br)',padding:16,marginBottom:14}}>
                 <div style={{fontSize:10,fontWeight:600,color:'var(--gd)',marginBottom:4}}>AI INVESTIGATION SUMMARY</div>
                 <div style={{fontSize:12,color:'var(--rp-black)',lineHeight:1.6}}>{sel.desc}</div>
               </div>
@@ -1412,7 +1412,7 @@ const Investigations = () => {
               </div>
             </div>
           ):(
-            <div style={{background:'#fff',border:'1px solid var(--gll)',borderRadius:2,padding:32,textAlign:'center',color:'var(--gd)'}}>
+            <div style={{background:'#fff',border:'1px solid var(--gll)',borderRadius:'var(--br)',padding:32,textAlign:'center',color:'var(--gd)'}}>
               <Icon n="eye" s={32} c="var(--gll)"/>
               <div style={{marginTop:8,fontSize:12}}>Select a case to view details</div>
             </div>
