@@ -262,7 +262,7 @@ const KPI_DATA = [
 
 /* ── INVOICE & VENDOR COMPLIANCE (from OPSBUYER widgets) ──── */
 const INVOICE_COMPLIANCE = {
-  rog:{total:800,compliant:620,nonCompliant:180,rate:77,target:80,label:'ROG Compliance',desc:'Receipt of Goods within 3 days of invoice'},
+  rog:{total:800,compliant:620,nonCompliant:180,rate:77,target:80,label:'Goods Receipt Turnaround',desc:'Invoice received and processed within 3 business days'},
   poWtn:{total:800,compliant:760,nonCompliant:40,rate:95,target:80,label:'PO-WTN Compliance',desc:'Purchase Order created before invoice'},
   vendor:{total:19268,compliant:14440,pending:103,nonCompliant:4726,compSpend:35144430,pendSpend:43060,nonCompSpend:3800830,riskPct:30,label:'Vendor Invoice Compliance',desc:'Vendor compliance status across all invoices'}
 };
@@ -274,20 +274,20 @@ const VENDOR_NETWORK = {
     {type:'eInvoice',compliant:54,nonCompliant:8,pending:3,notEnrolled:12,total:77},
     {type:'Offline',compliant:80,nonCompliant:32,pending:15,notEnrolled:38,total:165}
   ],
-  platformFeePerInvoice:12,avgInvoicesPerVendor:42
+  avgInvoicesPerVendor:42
 };
 
 const OFFLINE_LEAKAGE = {
   offlineCatOrders:277,offlineCatSpend:109000,
   offlineVendorInv:1084,offlineVendorSpend:1709000,
   totalOrders:5451,offlineOrders:1622,offlineRate:29.8,target:20,
-  missedSavings:473000,platformFeeImpact:312000,manualProcessCost:89000
+  missedSavings:473000,vendorPricingGap:312000,manualProcessCost:89000
 };
 
 const INSIGHTS = [
-  {type:'al',label:'Alert',title:'187 of 261 vendors are transacting offline — avoiding eInvoice platform fees. This creates $473K in missed rebate savings for your portfolio and $312K in lost platform revenue.',cta:'View Offline Vendors'},
-  {type:'rc',label:'Recommendation',title:'ROG compliance at 77% (below 80% target) is the root enabler. When goods receipt is delayed, vendors learn to bypass the system with offline invoices. Fixing ROG closes the loop.',cta:'View Process Recovery Plan'},
-  {type:'op',label:'Opportunity',title:'3 credentialed vendors are still sending offline invoices despite being onboarded. Converting them alone saves $88K/yr in rebates and eliminates $12K in manual processing costs.',cta:'View Quick Wins'},
+  {type:'al',label:'Alert',title:'187 of 261 vendors are transacting offline. Your portfolio is missing $473K in rebate savings and paying $89K extra for manual invoice processing — $562K in avoidable costs.',cta:'View Offline Vendors'},
+  {type:'rc',label:'Recommendation',title:'Goods receipt delays (77% on-time vs 80% target) are causing vendors to send invoices offline instead of through the system. Tightening receipt turnaround would shift vendors back online — unlocking rebates.',cta:'View Process Improvement Plan'},
+  {type:'op',label:'Opportunity',title:'3 vendors are already set up for eInvoice but still sending paper invoices. Activating them saves $88K/yr in rebates and eliminates $12K in manual processing — zero setup cost.',cta:'View Quick Wins'},
 ];
 
 const CATEGORIES = [
@@ -344,10 +344,10 @@ const CASES = [
 ];
 
 const LUMINA_RESP = {
-  maverick:{text:'The root cause chain: ROG compliance is at 77% (below 80% target) — 180 invoices had delayed goods receipt. This signals to vendors that the system isn\'t enforced, so they bypass it with offline invoices. HVAC is the worst category at 67%, with QuickFix HVAC alone sending $145K offline. Fix ROG → vendors can\'t bypass → offline leakage drops → savings recovered.',rows:[{l:'ROG Compliance',v:'77% — below 80% target',t:'r'},{l:'Offline Vendor Rate',v:'187/261 (71.6%)',t:'r'},{l:'Annual Leakage',v:'$874K total impact',t:'r'},{l:'Quick Win',v:'3 vendors = $88K (1-2 wks)',t:'g'}]},
-  vendors:{text:'187 of 261 vendors are offline — they receive orders through the platform but send paper invoices to avoid the $12/invoice platform fee. 3 vendors are already credentialed but still offline — activating eInvoice for them costs nothing and recovers $88K/yr immediately. The other 184 need onboarding, starting with QuickFix HVAC ($145K offline).',rows:[{l:'Credentialed But Offline',v:'3 vendors — $88K quick win',t:'w'},{l:'QuickFix HVAC',v:'$145K offline — 12 exceptions',t:'r'},{l:'Platform Fee Impact',v:'$312K/yr lost revenue',t:'r'},{l:'Manual Processing',v:'$89K/yr PMC cost',t:'w'}]},
-  offline:{text:'Offline leakage is costing three ways: (1) PMCs miss $473K in rebate savings because offline orders don\'t qualify, (2) RealPage loses $312K in platform fees vendors are avoiding, (3) PMCs pay $89K for RealPage to manually process paper invoices. Total: $874K/yr. Southeast is worst at 38% offline rate. Fixing ROG compliance is the lever — it forces vendors back onto the platform.',rows:[{l:'Missed PMC Rebates',v:'$473K/yr',t:'r'},{l:'Lost Platform Fees',v:'$312K/yr',t:'r'},{l:'Manual Processing',v:'$89K/yr',t:'w'},{l:'Total Leakage',v:'$874K/yr recoverable',t:'r'}]},
-  default:{text:'Your portfolio is losing $874K/yr to offline leakage. Here\'s the chain: ROG compliance at 77% (below 80% target) → vendors learn to bypass → 187 of 261 vendors send offline invoices → PMCs miss $473K in rebates + RealPage loses $312K in platform fees + $89K in manual processing costs. The fix: enforce ROG → activate eInvoice → recover savings. Quick win: 3 credentialed-but-offline vendors = $88K in 1-2 weeks.',rows:[{l:'Portfolio Compliance',v:'70% (+2pts QoQ)',t:'g'},{l:'ROG Compliance',v:'77% — root cause',t:'r'},{l:'Offline Vendors',v:'187/261 (71.6%)',t:'r'},{l:'Total Leakage',v:'$874K/yr recoverable',t:'r'}]},
+  maverick:{text:'Goods receipt turnaround is at 77% (below 80% target) — 180 invoices weren\'t processed on time. When receipts are delayed, vendors default to sending paper invoices, which means your portfolio misses volume rebates. HVAC is the worst category at 67%, with QuickFix HVAC alone at $145K in offline spend. Tightening receipt discipline shifts vendors back online and unlocks rebates.',rows:[{l:'Receipt Turnaround',v:'77% — below 80% target',t:'r'},{l:'Offline Vendor Rate',v:'187/261 (71.6%)',t:'r'},{l:'Avoidable Costs',v:'$874K/yr total',t:'r'},{l:'Quick Win',v:'3 vendors = $88K (1-2 wks)',t:'g'}]},
+  vendors:{text:'187 of 261 vendors are sending paper invoices instead of using eInvoice. This means your portfolio can\'t capture volume rebates ($473K/yr missed), can\'t track spend in real-time, and pays $89K/yr for manual invoice handling. 3 vendors are already set up for eInvoice but aren\'t using it — activating them costs nothing and unlocks $88K/yr immediately.',rows:[{l:'Already Set Up',v:'3 vendors — $88K quick win',t:'w'},{l:'QuickFix HVAC',v:'$145K offline — 12 exceptions',t:'r'},{l:'Pricing Gap',v:'$312K/yr non-preferred rates',t:'r'},{l:'Manual Processing',v:'$89K/yr avoidable cost',t:'w'}]},
+  offline:{text:'Offline invoicing is costing your portfolio three ways: (1) $473K/yr in missed volume rebates — offline orders don\'t qualify for preferred pricing tiers, (2) $312K/yr in vendor pricing gaps — non-preferred vendors charge more than preferred alternatives, (3) $89K/yr in manual invoice processing fees. Total avoidable cost: $874K/yr. Southeast is worst at 38% offline rate.',rows:[{l:'Missed Rebates',v:'$473K/yr',t:'r'},{l:'Vendor Pricing Gap',v:'$312K/yr',t:'r'},{l:'Manual Processing',v:'$89K/yr',t:'w'},{l:'Total Avoidable',v:'$874K/yr recoverable',t:'r'}]},
+  default:{text:'Your portfolio has $874K in avoidable costs from offline vendor activity. The pattern: when goods receipts are delayed (77% on-time vs 80% target), vendors default to paper invoices. This means you miss $473K in volume rebates, pay $312K more than preferred rates, and spend $89K on manual processing. Quick win: 3 vendors are already set up for eInvoice — just activate them for $88K/yr in immediate savings.',rows:[{l:'Portfolio Compliance',v:'70% (+2pts QoQ)',t:'g'},{l:'Receipt Turnaround',v:'77% — needs improvement',t:'r'},{l:'Offline Vendors',v:'187/261 (71.6%)',t:'r'},{l:'Avoidable Costs',v:'$874K/yr recoverable',t:'r'}]},
 };
 
 /* ── ICONS ────────────────────────────────────────────────────── */
@@ -564,7 +564,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
           </button>
           {/* Prompt chips row */}
           <div style={{width:'100%',display:'flex',gap:16,flexWrap:'wrap'}}>
-            {['Which vendors are offline despite being credentialed?','Show me the cost of offline leakage by region','What if we enforce eInvoice for top 10 offline vendors?','Why is ROG compliance below target?'].map((q,i) => (
+            {['Which vendors are offline despite being credentialed?','Show me the cost of offline leakage by region','What if we enforce eInvoice for top 10 offline vendors?','Why is goods receipt turnaround below target?'].map((q,i) => (
               <div key={i} className="lumina-prompt">{q}</div>
             ))}
           </div>
@@ -683,7 +683,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         {/* Story connector: why this matters */}
         <div style={{display:'flex',alignItems:'center',gap:8,padding:'12px 16px',fontSize:12,color:'var(--rp-black)',background:'linear-gradient(94.21deg, rgba(116,255,222,0.06) 1.71%, rgba(0,194,255,0.06) 98.32%)',borderRadius:'0 0 8px 8px',marginTop:0}}>
           <SparkleIcon s={14} c="#217E7E"/>
-          <span style={{opacity:0.85}}>ROG at <strong>77%</strong> (below 80% target) means 180 invoices weren't received on time — vendors learn to bypass the system, sending <strong>offline invoices to avoid platform fees</strong>. This is the root of your offline leakage.</span>
+          <span style={{opacity:0.85}}>Goods receipt turnaround at <strong>77%</strong> (below 80% target) means 180 invoices weren't processed on time. When receipts are delayed, vendors default to paper invoices — and <strong>offline orders don't qualify for volume rebates or preferred pricing</strong>. This is the root of your spend leakage.</span>
         </div>
       </div>
 
@@ -728,14 +728,14 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
               </div>
             </div>
             <div style={{fontSize:11,color:'var(--gd)',marginBottom:12}}>+{VENDOR_NETWORK.newCred} newly credentialed vs Q3 2023</div>
-            {/* Platform fee impact callout */}
-            <div style={{background:'var(--rbg)',border:'1px solid rgba(208,26,31,0.15)',borderRadius:'var(--br)',padding:'10px 12px'}}>
+            {/* Cost impact callout */}
+            <div style={{background:'var(--ybg)',border:'1px solid rgba(240,96,0,0.15)',borderRadius:'var(--br)',padding:'10px 12px'}}>
               <div style={{display:'flex',alignItems:'center',gap:6}}>
-                <Icon n="alert" s={14} c="var(--red)"/>
-                <span style={{fontSize:12,fontWeight:600,color:'var(--red)'}}>Revenue Impact</span>
+                <Icon n="alert" s={14} c="var(--orange)"/>
+                <span style={{fontSize:12,fontWeight:600,color:'var(--orange)'}}>Your Cost Impact</span>
               </div>
               <div style={{fontSize:11,color:'var(--rp-black)',marginTop:4,lineHeight:'16px'}}>
-                {VENDOR_NETWORK.offline} offline vendors × avg {VENDOR_NETWORK.avgInvoicesPerVendor} invoices × ${VENDOR_NETWORK.platformFeePerInvoice} platform fee = <strong style={{color:'var(--red)'}}>${(VENDOR_NETWORK.offline * VENDOR_NETWORK.avgInvoicesPerVendor * VENDOR_NETWORK.platformFeePerInvoice / 1000).toFixed(0)}K</strong> in lost platform revenue annually
+                Offline vendors don't qualify for volume rebates or preferred pricing. Your portfolio is paying <strong style={{color:'var(--orange)'}}>$473K more</strong> annually than if these vendors were transacting through the system. Plus <strong style={{color:'var(--orange)'}}>$89K</strong> in manual invoice processing fees.
               </div>
             </div>
           </div>
@@ -744,7 +744,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
           <div className="card">
             <CardOverflow/>
             <div className="ct">Credentialing Breakdown by Type</div>
-            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Credentialed vendors pay platform fees and give PMCs visibility</div>
+            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Credentialed vendors qualify for preferred pricing and give full spend visibility</div>
             <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:20,marginBottom:16}}>
               <DonutChart segs={[{pct:VENDOR_NETWORK.credRate,color:'var(--ch3)',label:'Credentialed'},{pct:100-VENDOR_NETWORK.credRate,color:'var(--gll)',label:'Not Credentialed'}]} size={120} thick={20} center={{val:`${VENDOR_NETWORK.credRate}%`,label:'Credentialed'}}/>
             </div>
@@ -774,7 +774,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         {/* Story connector */}
         <div style={{display:'flex',alignItems:'center',gap:8,padding:'12px 16px',fontSize:12,color:'var(--rp-black)',background:'linear-gradient(94.21deg, rgba(116,255,222,0.06) 1.71%, rgba(0,194,255,0.06) 98.32%)',borderRadius:'0 0 8px 8px'}}>
           <SparkleIcon s={14} c="#217E7E"/>
-          <span style={{opacity:0.85}}>Only <strong>28.4%</strong> of vendors are online. Offline vendors receive orders through the platform but send paper invoices to avoid the <strong>${VENDOR_NETWORK.platformFeePerInvoice}/invoice platform fee</strong>. PMCs then pay RealPage <strong>$89K/yr</strong> for manual invoice processing — a cost that disappears with eInvoice.</span>
+          <span style={{opacity:0.85}}>Only <strong>28.4%</strong> of vendors are online. Offline vendors send paper invoices instead of using eInvoice — which means your portfolio misses volume rebates, can't track spend in real-time, and pays <strong>$89K/yr</strong> for manual invoice processing. Shifting online eliminates all three.</span>
         </div>
       </div>
 
@@ -793,9 +793,9 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
           {[
             {v:OFFLINE_LEAKAGE.offlineOrders.toLocaleString(),l:'Offline Orders',s:`of ${OFFLINE_LEAKAGE.totalOrders.toLocaleString()} total`,c:'var(--orange)',pct:OFFLINE_LEAKAGE.offlineRate},
             {v:`${OFFLINE_LEAKAGE.offlineRate}%`,l:'Offline Rate',s:`Target: ${OFFLINE_LEAKAGE.target}%`,c:'var(--red)',pct:OFFLINE_LEAKAGE.offlineRate},
-            {v:`$${(OFFLINE_LEAKAGE.missedSavings/1000).toFixed(0)}K`,l:'Missed PMC Savings',s:'Rebates lost to offline',c:'var(--red)',pct:60},
-            {v:`$${(OFFLINE_LEAKAGE.platformFeeImpact/1000).toFixed(0)}K`,l:'Lost Platform Revenue',s:'eInvoice fees not captured',c:'var(--red)',pct:45},
-            {v:`$${(OFFLINE_LEAKAGE.manualProcessCost/1000).toFixed(0)}K`,l:'Manual Processing Cost',s:'PMC pays for offline handling',c:'var(--orange)',pct:35},
+            {v:`$${(OFFLINE_LEAKAGE.missedSavings/1000).toFixed(0)}K`,l:'Missed Rebate Savings',s:'Not captured due to offline',c:'var(--red)',pct:60},
+            {v:`$${(OFFLINE_LEAKAGE.vendorPricingGap/1000).toFixed(0)}K`,l:'Vendor Pricing Gap',s:'Non-preferred vs preferred rates',c:'var(--orange)',pct:45},
+            {v:`$${(OFFLINE_LEAKAGE.manualProcessCost/1000).toFixed(0)}K`,l:'Manual Processing Cost',s:'Paper invoice handling fees',c:'var(--orange)',pct:35},
           ].map((b,i) => (
             <div key={i} className="bridge-card">
               <div className="bridge-val" style={{color:b.c}}>{b.v}</div>
@@ -847,7 +847,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         {/* Story connector */}
         <div style={{display:'flex',alignItems:'center',gap:8,padding:'12px 16px',fontSize:12,color:'var(--rp-black)',background:'linear-gradient(94.21deg, rgba(116,255,222,0.06) 1.71%, rgba(0,194,255,0.06) 98.32%)',borderRadius:'0 0 8px 8px'}}>
           <SparkleIcon s={14} c="#217E7E"/>
-          <span style={{opacity:0.85}}>Total leakage cost: <strong style={{color:'var(--red)'}}>${((OFFLINE_LEAKAGE.missedSavings+OFFLINE_LEAKAGE.platformFeeImpact+OFFLINE_LEAKAGE.manualProcessCost)/1000).toFixed(0)}K/yr</strong> — ${(OFFLINE_LEAKAGE.missedSavings/1000).toFixed(0)}K in missed PMC rebates + ${(OFFLINE_LEAKAGE.platformFeeImpact/1000).toFixed(0)}K in platform fees + ${(OFFLINE_LEAKAGE.manualProcessCost/1000).toFixed(0)}K in manual processing. Enforcing eInvoice eliminates all three.</span>
+          <span style={{opacity:0.85}}>Total avoidable cost: <strong style={{color:'var(--red)'}}>${((OFFLINE_LEAKAGE.missedSavings+OFFLINE_LEAKAGE.vendorPricingGap+OFFLINE_LEAKAGE.manualProcessCost)/1000).toFixed(0)}K/yr</strong> — ${(OFFLINE_LEAKAGE.missedSavings/1000).toFixed(0)}K in missed rebates + ${(OFFLINE_LEAKAGE.vendorPricingGap/1000).toFixed(0)}K in vendor pricing gaps + ${(OFFLINE_LEAKAGE.manualProcessCost/1000).toFixed(0)}K in manual processing. Moving vendors online eliminates all three.</span>
         </div>
       </div>
 
@@ -874,11 +874,11 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
             </div>
             <div style={{marginTop:16,display:'flex',flexDirection:'column',gap:8}}>
               {[
-                {l:'eInvoice shift (187 offline → online)',v:'$420K',pct:48,c:'var(--ch1)'},
-                {l:'Vendor consolidation (non-preferred → preferred)',v:'$312K',pct:36,c:'var(--ch2)'},
-                {l:'Manual processing elimination',v:'$89K',pct:10,c:'var(--ch3)'},
-                {l:'PO-WTN gap recovery (40 invoices)',v:'$42K',pct:5,c:'var(--green)'},
-                {l:'Credentialing rebate capture',v:'$11K',pct:1,c:'rgba(255,255,255,.3)'},
+                {l:'Preferred vendor rebates (shift offline → online)',v:'$420K',pct:48,c:'var(--ch1)'},
+                {l:'Preferred pricing vs non-preferred rates',v:'$312K',pct:36,c:'var(--ch2)'},
+                {l:'Eliminate manual invoice processing',v:'$89K',pct:10,c:'var(--ch3)'},
+                {l:'Process compliance gap recovery',v:'$42K',pct:5,c:'var(--green)'},
+                {l:'Volume discount capture',v:'$11K',pct:1,c:'rgba(255,255,255,.3)'},
               ].map((s,i) => (
                 <div key={i}>
                   <div style={{display:'flex',justifyContent:'space-between',fontSize:11,color:'rgba(255,255,255,.8)',marginBottom:3}}>
@@ -894,7 +894,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
             <div style={{marginTop:16,padding:'10px 14px',background:'rgba(255,255,255,.08)',borderRadius:4,display:'flex',alignItems:'center',gap:8}}>
               <SparkleIcon s={14} c="var(--ch1)"/>
               <span style={{fontSize:12,color:'rgba(255,255,255,.8)'}}>
-                <strong style={{color:'var(--ch1)'}}>48%</strong> of savings come from shifting offline vendors to eInvoice — PMCs save on rebates, RealPage recovers platform revenue. Win-win.
+                <strong style={{color:'var(--ch1)'}}>48%</strong> of savings come from shifting offline vendors to eInvoice — unlocking volume rebates and preferred pricing that only apply to online transactions.
               </span>
             </div>
           </div>
@@ -908,9 +908,9 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
             </div>
             <div className="ct-sub" style={{marginTop:-8,marginBottom:12}}>Highest-impact actions ranked by ROI</div>
             {[
-              {icon:'link',color:'var(--green)',bg:'var(--gbg)',title:'Onboard 3 provisioned-but-offline vendors',val:'$88K/yr',desc:'Already credentialed — just need eInvoice activation',time:'1-2 weeks'},
+              {icon:'link',color:'var(--green)',bg:'var(--gbg)',title:'Activate eInvoice for 3 ready vendors',val:'$88K/yr',desc:'Already set up in the system — just need activation',time:'1-2 weeks'},
               {icon:'user',color:'var(--rp)',bg:'var(--hi)',title:'Consolidate 5 non-preferred HVAC vendors',val:'$420K/yr',desc:'Move to AirTech preferred agreement with volume discounts',time:'4-6 weeks'},
-              {icon:'shield',color:'var(--orange)',bg:'var(--ybg)',title:'Fix ROG compliance gap',val:'$42K',desc:'Route 180 non-compliant invoices through proper receipt workflow',time:'2-3 weeks'},
+              {icon:'shield',color:'var(--orange)',bg:'var(--ybg)',title:'Improve goods receipt turnaround',val:'$42K',desc:'Get 180 delayed invoices processed within 3-day window',time:'2-3 weeks'},
               {icon:'file',color:'var(--pur)',bg:'var(--pbg)',title:'Eliminate manual invoice processing',val:'$89K/yr',desc:'Switch 277 offline catalog orders to platform ordering',time:'6-8 weeks'},
             ].map((opp,i) => (
               <div key={i} className="opp-item">
@@ -1021,7 +1021,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                 <td className="r">${e.avgInv.toLocaleString()}</td>
                 <td style={{textAlign:'center'}}><span className={`viol-circle ${e.exceptions>=10?'cr':e.exceptions>=5?'wa':'lo'}`}>{e.exceptions}</span></td>
                 <td><span className={`tag ${e.cred==='Credentialed'?'g':e.cred==='Pending'?'y':'r'}`}>{e.cred}</span></td>
-                <td style={{fontSize:11,color:'var(--gd)'}}>{e.cred==='Non-credentialed'?'Avoiding platform fee':e.cred==='Lapsed COI'?'COI expired, reverted offline':'Bypassing preferred agreement'}</td>
+                <td style={{fontSize:11,color:'var(--gd)'}}>{e.cred==='Non-credentialed'?'Not set up for eInvoice':e.cred==='Lapsed COI'?'COI expired, reverted to paper':'Using non-preferred process'}</td>
                 <td><div style={{display:'flex',gap:6}}><button className="btn bp xs">Onboard</button></div></td>
               </tr>
             ))}
@@ -1030,7 +1030,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
       </div>
       <div style={{display:'flex',alignItems:'center',gap:8,padding:'10px 0',fontSize:12,color:'var(--rp-black)'}}>
         <SparkleIcon s={14} c="#6366F1"/>
-        <span style={{opacity:0.7}}>These {EXCEPTIONS.length} vendors account for <strong>${EXCEPTIONS.reduce((s,e)=>s+e.offlineSpend,0).toLocaleString()}</strong> in offline spend. Onboarding them to eInvoice would recover <strong style={{color:'var(--green)'}}>~$94K/yr</strong> in platform fees and <strong style={{color:'var(--green)'}}>~$38K/yr</strong> in PMC rebates.</span>
+        <span style={{opacity:0.7}}>These {EXCEPTIONS.length} vendors account for <strong>${EXCEPTIONS.reduce((s,e)=>s+e.offlineSpend,0).toLocaleString()}</strong> in offline spend. Moving them to eInvoice unlocks <strong style={{color:'var(--green)'}}>~$132K/yr</strong> in volume rebates and preferred pricing your portfolio is currently missing.</span>
       </div>
 
       {/* ═══ 8. GEOGRAPHIC + PROPERTY PREVIEW ═══ */}
@@ -1130,10 +1130,10 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
               <div className="signal-narrative" style={{fontFamily:"'Lato',sans-serif",fontSize:12,lineHeight:'150%',color:'var(--rp-black)'}}>
                 <p>Portfolio compliance is <strong>70%</strong>, up 2pts from Q3 but still below the 72% target. The leakage chain:</p>
                 <ul style={{marginLeft:16,marginTop:4}}>
-                  <li><strong>ROG at 77%</strong> (below 80% target) — 180 delayed goods receipts signal to vendors they can bypass the system</li>
-                  <li><strong>187 of 261 vendors offline</strong> — avoiding ${VENDOR_NETWORK.platformFeePerInvoice}/invoice platform fees by sending paper invoices</li>
-                  <li><strong>$874K leaking annually</strong> — $473K in missed PMC rebates + $312K in platform revenue + $89K in manual processing</li>
-                  <li><strong>Fix ROG → enforce eInvoice → recover savings</strong> — process compliance is the lever that unlocks everything</li>
+                  <li><strong>Goods receipt at 77%</strong> (below 80% target) — 180 delayed receipts cause vendors to default to paper invoices</li>
+                  <li><strong>187 of 261 vendors offline</strong> — sending paper invoices instead of eInvoice, missing volume rebates and preferred pricing</li>
+                  <li><strong>$874K in avoidable costs</strong> — $473K missed rebates + $312K vendor pricing gaps + $89K manual processing</li>
+                  <li><strong>Fix receipt turnaround → shift vendors online → recover savings</strong> — process discipline is the lever that unlocks everything</li>
                 </ul>
               </div>
               <div style={{borderTop:'1px solid #E9EAEB',marginTop:10,paddingTop:10}}>
@@ -1143,7 +1143,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                     <div style={{fontFamily:"'Lato',sans-serif",fontSize:12,color:'#707689',marginTop:2}}>Estimated Time: 2 Weeks</div>
                   </div>
                 </div>
-                <p style={{fontFamily:"'Lato',sans-serif",fontSize:12,lineHeight:'150%',color:'var(--rp-black)',marginTop:6}}>Activate eInvoice for 3 credentialed-but-offline vendors (already onboarded — zero setup cost). Recovers <strong>$88K/yr</strong> in PMC rebates and <strong>$18K/yr</strong> in platform fees. Then consolidate 5 non-preferred vendors into preferred agreements for an additional <strong>$420K/yr</strong>.</p>
+                <p style={{fontFamily:"'Lato',sans-serif",fontSize:12,lineHeight:'150%',color:'var(--rp-black)',marginTop:6}}>Activate eInvoice for 3 vendors already set up in the system (zero setup cost). Unlocks <strong>$88K/yr</strong> in volume rebates your portfolio is currently missing. Then consolidate 5 non-preferred vendors into preferred agreements for an additional <strong>$420K/yr</strong> in better pricing.</p>
               </div>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:12}}>
                 <span style={{fontFamily:"'Lato',sans-serif",fontWeight:700,fontSize:16,color:'#3D7F8D',cursor:'pointer'}}>View Details</span>
@@ -1166,11 +1166,11 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                 <span style={{display:'flex',alignItems:'center',gap:6}}><Icon n="target" s={16} c="var(--rp)"/> Next Best Actions</span>
               </div>
               {[
-                {action:'Activate eInvoice for 3 credentialed-but-offline vendors — zero setup, immediate savings',impact:'$88K/yr PMC rebates + $18K platform fees',urgency:'h'},
-                {action:'Fix ROG compliance: enforce 3-day goods receipt for 180 non-compliant invoices',impact:'Closes vendor bypass loop',urgency:'h'},
-                {action:'Onboard QuickFix HVAC to eInvoice — largest single offline vendor at $145K',impact:'$145K offline → online',urgency:'h'},
-                {action:'Consolidate 5 non-preferred HVAC vendors into AirTech agreement',impact:'$420K/yr vendor savings',urgency:'m'},
-                {action:'Eliminate manual invoice processing for 277 offline catalog orders',impact:'$89K/yr processing cost',urgency:'m'},
+                {action:'Activate eInvoice for 3 vendors already in the system — zero setup, immediate rebates',impact:'$88K/yr in unlocked rebates',urgency:'h'},
+                {action:'Tighten goods receipt turnaround to hit 80% target (currently 77%)',impact:'Shifts vendors back online',urgency:'h'},
+                {action:'Move QuickFix HVAC online — your largest offline vendor at $145K',impact:'$145K spend now trackable',urgency:'h'},
+                {action:'Consolidate 5 non-preferred HVAC vendors into AirTech preferred pricing',impact:'$420K/yr better rates',urgency:'m'},
+                {action:'Switch 277 offline catalog orders to online ordering',impact:'$89K/yr processing savings',urgency:'m'},
               ].map((a,i) => (
                 <div key={i} className="aq-item">
                   <div className="aq-num">{i+1}</div>
@@ -1284,7 +1284,7 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
       {/* Process KPIs */}
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
         {[
-          {l:'ROG Compliance',v:'77%',sub:'Target: 80% · 620/800',delta:'▼ Below target',dir:'dn'},
+          {l:'Goods Receipt Turnaround',v:'77%',sub:'Target: 80% · 620/800',delta:'▼ Below target',dir:'dn'},
           {l:'PO-WTN Compliance',v:'95%',sub:'760/800 · Exceeds target',delta:'▲ Above target',dir:'up'},
           {l:'Vendor Invoice Compliance',v:'68%',sub:'Target: 75%',delta:'▼ Below target',dir:'dn'},
           {l:'Vendor Credentialing',v:'54.8%',sub:'143 of 261',delta:'▲ +2pts QoQ',dir:'up'},
@@ -1660,13 +1660,13 @@ const Investigations = () => {
 
 /* ── LUMINA PANEL ─────────────────────────────────────────────── */
 const LuminaPanel = ({open,onClose}) => {
-  const initMsg = {type:'ai',text:'Hi! I\'m Lumina, your AI spend analyst. I\'ve identified a significant leakage pattern: 187 of your 261 vendors are transacting offline to avoid platform fees — costing your portfolio $874K annually.\n\nThe root cause? ROG compliance at 77% (below target) is telling vendors the system isn\'t enforced. Quick win: 3 credentialed vendors are offline despite being onboarded — activating eInvoice for them saves $88K immediately.\n\nWhat would you like to investigate?',time:'Now',rows:[{l:'Total Annual Leakage',v:'$874K recoverable',t:'r'},{l:'ROG Compliance',v:'77% — root cause',t:'r'},{l:'Offline Vendors',v:'187/261 (71.6%)',t:'r'},{l:'Quick Win Available',v:'3 vendors = $88K',t:'g'}]};
+  const initMsg = {type:'ai',text:'Hi! I\'m Lumina, your AI spend analyst. I\'ve found $874K in avoidable costs in your portfolio. 187 of 261 vendors are sending paper invoices instead of using eInvoice — which means you\'re missing volume rebates, paying higher vendor rates, and covering manual processing fees.\n\nQuick win: 3 vendors are already set up for eInvoice but aren\'t using it. Activating them saves $88K/yr with zero setup.\n\nWhat would you like to investigate?',time:'Now',rows:[{l:'Avoidable Costs',v:'$874K/yr recoverable',t:'r'},{l:'Receipt Turnaround',v:'77% — needs improvement',t:'r'},{l:'Offline Vendors',v:'187/261 (71.6%)',t:'r'},{l:'Quick Win Available',v:'3 vendors = $88K',t:'g'}]};
   const [msgs,setMsgs] = useState([initMsg]);
   const [inp,setInp] = useState('');
   const [typing,setTyping] = useState(false);
   const endRef = useRef(null);
   useEffect(()=>{endRef.current?.scrollIntoView({behavior:'smooth'})},[msgs,typing]);
-  const CHIPS = ['Why are vendors going offline?','Show me the $874K leakage breakdown','Which 3 vendors are the quick win?','How does fixing ROG stop offline leakage?'];
+  const CHIPS = ['Why are vendors sending paper invoices?','Show me the $874K cost breakdown','Which 3 vendors are the quick win?','How do we shift vendors back online?'];
   const getResp = (q) => {
     const ql = q.toLowerCase();
     if (ql.includes('maverick')||ql.includes('hvac')||ql.includes('off-contract')||ql.includes('spend')) return LUMINA_RESP.maverick;
