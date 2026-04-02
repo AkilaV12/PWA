@@ -254,17 +254,40 @@ const {useState,useEffect,useRef} = React;
 
 /* ── DATA ────────────────────────────────────────────────────── */
 const KPI_DATA = [
-  {id:'ts',label:'Total Spend (YTD)',val:'$26.6M',sub:'Across 82 properties · 5 regions',delta:'+4.2% vs prior period',dir:'up'},
-  {id:'cs',label:'Compliant Spend',val:'$18.6M',sub:'70% of total spend',delta:'+2.1% vs Q3',dir:'up'},
-  {id:'ms',label:'Maverick Spend',val:'$6.2M',sub:'23% of total · 18 vendors driving 62%',delta:'-$340K vs Q3',dir:'up'},
-  {id:'ps',label:'Recoverable Savings',val:'$1.4M',sub:'From vendor consolidation & online shift',delta:'+$180K identified this month',dir:'up'},
+  {id:'ts',label:'Total Spend (YTD)',val:'$26.6M',sub:'19,268 invoices · 82 properties · 5 regions',delta:'+4.2% vs prior period',dir:'up'},
+  {id:'cs',label:'Compliant Spend',val:'$18.6M',sub:'70% of total · 14,440 compliant invoices',delta:'+2.1% vs Q3',dir:'up'},
+  {id:'ms',label:'Maverick Spend',val:'$6.2M',sub:'23% of total · 4,726 non-compliant invoices',delta:'-$340K vs Q3',dir:'up'},
+  {id:'ps',label:'Recoverable Savings',val:'$1.4M',sub:'eInvoice shift + vendor consolidation',delta:'+$180K identified this month',dir:'up'},
 ];
 
+/* ── INVOICE & VENDOR COMPLIANCE (from OPSBUYER widgets) ──── */
+const INVOICE_COMPLIANCE = {
+  rog:{total:800,compliant:620,nonCompliant:180,rate:77,target:80,label:'ROG Compliance',desc:'Receipt of Goods within 3 days of invoice'},
+  poWtn:{total:800,compliant:760,nonCompliant:40,rate:95,target:80,label:'PO-WTN Compliance',desc:'Purchase Order created before invoice'},
+  vendor:{total:19268,compliant:14440,pending:103,nonCompliant:4726,compSpend:35144430,pendSpend:43060,nonCompSpend:3800830,riskPct:30,label:'Vendor Invoice Compliance',desc:'Vendor compliance status across all invoices'}
+};
+
+const VENDOR_NETWORK = {
+  total:261,online:74,offline:187,credentialed:143,credRate:54.8,newCred:32,
+  byType:[
+    {type:'Catalog',compliant:9,nonCompliant:3,pending:2,notEnrolled:5,total:19},
+    {type:'eInvoice',compliant:54,nonCompliant:8,pending:3,notEnrolled:12,total:77},
+    {type:'Offline',compliant:80,nonCompliant:32,pending:15,notEnrolled:38,total:165}
+  ],
+  platformFeePerInvoice:12,avgInvoicesPerVendor:42
+};
+
+const OFFLINE_LEAKAGE = {
+  offlineCatOrders:277,offlineCatSpend:109000,
+  offlineVendorInv:1084,offlineVendorSpend:1709000,
+  totalOrders:5451,offlineOrders:1622,offlineRate:29.8,target:20,
+  missedSavings:473000,platformFeeImpact:312000,manualProcessCost:89000
+};
+
 const INSIGHTS = [
-  {type:'al',label:'Alert',title:'HVAC maverick spend rising across 7 Southeast properties — QuickFix HVAC operating without preferred agreement. Exposure: $18.4K this month alone.',cta:'Review HVAC Risk'},
-  {type:'rc',label:'Recommendation',title:'Consolidating 3 non-compliant plumbing vendors into National Plumbing Co preferred contract would improve category compliance from 79% to 91%.',cta:'View Consolidation Plan'},
-  {type:'op',label:'Opportunity',title:'Moving top 5 non-preferred vendors to preferred channels could recover $420K annually. Online shift of 3 provisioned-but-offline vendors adds $88K.',cta:'View Savings Breakdown'},
-  {type:'en',label:'Enforcement',title:'12 POs redirected to preferred vendors this week. 3 vendor COI renewals auto-triggered. Estimated weekly savings: $18,400.',cta:'View Actions Taken'},
+  {type:'al',label:'Alert',title:'187 of 261 vendors are transacting offline — avoiding eInvoice platform fees. This creates $473K in missed rebate savings for your portfolio and $312K in lost platform revenue.',cta:'View Offline Vendors'},
+  {type:'rc',label:'Recommendation',title:'ROG compliance at 77% (below 80% target) is the root enabler. When goods receipt is delayed, vendors learn to bypass the system with offline invoices. Fixing ROG closes the loop.',cta:'View Process Recovery Plan'},
+  {type:'op',label:'Opportunity',title:'3 credentialed vendors are still sending offline invoices despite being onboarded. Converting them alone saves $88K/yr in rebates and eliminates $12K in manual processing costs.',cta:'View Quick Wins'},
 ];
 
 const CATEGORIES = [
@@ -321,10 +344,10 @@ const CASES = [
 ];
 
 const LUMINA_RESP = {
-  maverick:{text:'HVAC maverick spend is up 34% MoM, driven by 12 Texas properties sourcing outside preferred vendors. Top offenders: Apex Maintenance ($180K, split invoice pattern), Southwest Electrical ($68K, lapsed COI). Preferred vendor AirTech HVAC has capacity for all impacted properties.',rows:[{l:'HVAC Compliance Rate',v:'67% (vs 82% avg)',t:'r'},{l:'Excess Cost vs Preferred',v:'$42K',t:'r'},{l:'Impacted Properties',v:'12 (Texas)',t:'w'}]},
-  vendors:{text:'Top 5 non-compliant vendors account for $201K in maverick spend. Southwest Electrical is highest risk: COI expired 45 days ago with active work at 7 properties. Capitol Builders LLC has zero vetting on file.',rows:[{l:'Southwest Electrical',v:'$68K — Lapsed COI',t:'r'},{l:'Capitol Builders LLC',v:'$28.5K — Unauthorized',t:'r'},{l:'Martinez Consulting',v:'$22K — Non-preferred',t:'w'}]},
-  offline:{text:'Southeast has the highest offline leakage at 38%. Primary driver: 3 provisioned vendors still transacting offline despite platform onboarding. Estimated missed savings: $88K annually if shifted online.',rows:[{l:'Southeast Offline Rate',v:'38% (target: 20%)',t:'r'},{l:'Provisioned-But-Offline',v:'$314K spend',t:'w'},{l:'Missed Savings Estimate',v:'$88K per year',t:'w'}]},
-  default:{text:'Portfolio compliance is at 70% YTD. Key risks: HVAC at 67% compliance (lowest category), offline leakage at 29.8% vs 20% target. Only 74 of 261 vendors are online (28.4%). PO-WTN compliance is strong at 95%. Where would you like to investigate?',rows:[{l:'Portfolio Compliance',v:'70% (+2pts QoQ)',t:'g'},{l:'PO-WTN Compliance',v:'95% — above target',t:'g'},{l:'Offline Orders',v:'1,622/5,451 (29.8%)',t:'r'},{l:'Vendor Online Rate',v:'74/261 (28.4%)',t:'r'}]},
+  maverick:{text:'The root cause chain: ROG compliance is at 77% (below 80% target) — 180 invoices had delayed goods receipt. This signals to vendors that the system isn\'t enforced, so they bypass it with offline invoices. HVAC is the worst category at 67%, with QuickFix HVAC alone sending $145K offline. Fix ROG → vendors can\'t bypass → offline leakage drops → savings recovered.',rows:[{l:'ROG Compliance',v:'77% — below 80% target',t:'r'},{l:'Offline Vendor Rate',v:'187/261 (71.6%)',t:'r'},{l:'Annual Leakage',v:'$874K total impact',t:'r'},{l:'Quick Win',v:'3 vendors = $88K (1-2 wks)',t:'g'}]},
+  vendors:{text:'187 of 261 vendors are offline — they receive orders through the platform but send paper invoices to avoid the $12/invoice platform fee. 3 vendors are already credentialed but still offline — activating eInvoice for them costs nothing and recovers $88K/yr immediately. The other 184 need onboarding, starting with QuickFix HVAC ($145K offline).',rows:[{l:'Credentialed But Offline',v:'3 vendors — $88K quick win',t:'w'},{l:'QuickFix HVAC',v:'$145K offline — 12 exceptions',t:'r'},{l:'Platform Fee Impact',v:'$312K/yr lost revenue',t:'r'},{l:'Manual Processing',v:'$89K/yr PMC cost',t:'w'}]},
+  offline:{text:'Offline leakage is costing three ways: (1) PMCs miss $473K in rebate savings because offline orders don\'t qualify, (2) RealPage loses $312K in platform fees vendors are avoiding, (3) PMCs pay $89K for RealPage to manually process paper invoices. Total: $874K/yr. Southeast is worst at 38% offline rate. Fixing ROG compliance is the lever — it forces vendors back onto the platform.',rows:[{l:'Missed PMC Rebates',v:'$473K/yr',t:'r'},{l:'Lost Platform Fees',v:'$312K/yr',t:'r'},{l:'Manual Processing',v:'$89K/yr',t:'w'},{l:'Total Leakage',v:'$874K/yr recoverable',t:'r'}]},
+  default:{text:'Your portfolio is losing $874K/yr to offline leakage. Here\'s the chain: ROG compliance at 77% (below 80% target) → vendors learn to bypass → 187 of 261 vendors send offline invoices → PMCs miss $473K in rebates + RealPage loses $312K in platform fees + $89K in manual processing costs. The fix: enforce ROG → activate eInvoice → recover savings. Quick win: 3 credentialed-but-offline vendors = $88K in 1-2 weeks.',rows:[{l:'Portfolio Compliance',v:'70% (+2pts QoQ)',t:'g'},{l:'ROG Compliance',v:'77% — root cause',t:'r'},{l:'Offline Vendors',v:'187/261 (71.6%)',t:'r'},{l:'Total Leakage',v:'$874K/yr recoverable',t:'r'}]},
 };
 
 /* ── ICONS ────────────────────────────────────────────────────── */
@@ -541,7 +564,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
           </button>
           {/* Prompt chips row */}
           <div style={{width:'100%',display:'flex',gap:16,flexWrap:'wrap'}}>
-            {['Create report for Q3','Consolidate plumbing vendors across Midwest','Repeat policy violations at Harbor Point Towers','What if we raise the emergency threshold to $700?'].map((q,i) => (
+            {['Which vendors are offline despite being credentialed?','Show me the cost of offline leakage by region','What if we enforce eInvoice for top 10 offline vendors?','Why is ROG compliance below target?'].map((q,i) => (
               <div key={i} className="lumina-prompt">{q}</div>
             ))}
           </div>
@@ -567,98 +590,328 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         </div>
       </div>
 
-      {/* ═══ 3. CORE ANALYTICS: Donut + Trend ═══ */}
+      {/* ═══ 3. ROOT CAUSE: Invoice & Process Compliance ═══ */}
+      {/* Story connector: "Here's WHY you're losing money" */}
       <div style={{marginTop:24}}>
+        <div className="sh" style={{marginTop:0}}>
+          <div className="sh-t">
+            <Icon n="shield" s={18} c="var(--rp)"/> Invoice & Process Compliance
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12,color:'var(--gd)'}}>
+            <span>Q4 2025</span>
+            <span style={{padding:'2px 6px',background:'var(--hi)',borderRadius:4,color:'var(--rp)',fontWeight:600,fontSize:11}}>ROOT CAUSE</span>
+          </div>
+        </div>
+        <div className="g3" style={{marginBottom:0}}>
+          {/* ROG Compliance */}
+          <div className="card" style={{borderTop:`3px solid ${INVOICE_COMPLIANCE.rog.rate>=INVOICE_COMPLIANCE.rog.target?'var(--green)':'var(--red)'}`}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:12}}>
+              <div>
+                <div className="ct" style={{marginBottom:4}}>{INVOICE_COMPLIANCE.rog.label}</div>
+                <div style={{fontSize:11,color:'var(--gd)',lineHeight:'16px'}}>{INVOICE_COMPLIANCE.rog.desc}</div>
+              </div>
+              <span className={`ds-badge ${INVOICE_COMPLIANCE.rog.rate>=INVOICE_COMPLIANCE.rog.target?'compliant':'non-compliant'}`}>
+                {INVOICE_COMPLIANCE.rog.rate>=INVOICE_COMPLIANCE.rog.target?'On Target':'Below Target'}
+              </span>
+            </div>
+            <div style={{display:'flex',alignItems:'flex-end',gap:12,marginBottom:12}}>
+              <div className="k-val">{INVOICE_COMPLIANCE.rog.rate}%</div>
+              <div style={{fontSize:12,color:'var(--gd)',paddingBottom:6}}>Target: {INVOICE_COMPLIANCE.rog.target}%</div>
+            </div>
+            <div className="prog" style={{marginBottom:8}}>
+              <div className="prog-f" style={{width:`${INVOICE_COMPLIANCE.rog.rate}%`,background:INVOICE_COMPLIANCE.rog.rate>=INVOICE_COMPLIANCE.rog.target?'var(--green)':'var(--red)'}}/>
+            </div>
+            <div style={{display:'flex',justifyContent:'space-between',fontSize:11,color:'var(--gd)'}}>
+              <span><strong style={{color:'var(--green)'}}>{INVOICE_COMPLIANCE.rog.compliant}</strong> compliant</span>
+              <span><strong style={{color:'var(--red)'}}>{INVOICE_COMPLIANCE.rog.nonCompliant}</strong> non-compliant</span>
+              <span>{INVOICE_COMPLIANCE.rog.total} total</span>
+            </div>
+          </div>
+          {/* PO-WTN Compliance */}
+          <div className="card" style={{borderTop:`3px solid ${INVOICE_COMPLIANCE.poWtn.rate>=INVOICE_COMPLIANCE.poWtn.target?'var(--green)':'var(--red)'}`}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:12}}>
+              <div>
+                <div className="ct" style={{marginBottom:4}}>{INVOICE_COMPLIANCE.poWtn.label}</div>
+                <div style={{fontSize:11,color:'var(--gd)',lineHeight:'16px'}}>{INVOICE_COMPLIANCE.poWtn.desc}</div>
+              </div>
+              <span className={`ds-badge ${INVOICE_COMPLIANCE.poWtn.rate>=INVOICE_COMPLIANCE.poWtn.target?'compliant':'non-compliant'}`}>
+                {INVOICE_COMPLIANCE.poWtn.rate>=INVOICE_COMPLIANCE.poWtn.target?'On Target':'Below Target'}
+              </span>
+            </div>
+            <div style={{display:'flex',alignItems:'flex-end',gap:12,marginBottom:12}}>
+              <div className="k-val">{INVOICE_COMPLIANCE.poWtn.rate}%</div>
+              <div style={{fontSize:12,color:'var(--gd)',paddingBottom:6}}>Target: {INVOICE_COMPLIANCE.poWtn.target}%</div>
+            </div>
+            <div className="prog" style={{marginBottom:8}}>
+              <div className="prog-f" style={{width:`${INVOICE_COMPLIANCE.poWtn.rate}%`,background:'var(--green)'}}/>
+            </div>
+            <div style={{display:'flex',justifyContent:'space-between',fontSize:11,color:'var(--gd)'}}>
+              <span><strong style={{color:'var(--green)'}}>{INVOICE_COMPLIANCE.poWtn.compliant}</strong> compliant</span>
+              <span><strong style={{color:'var(--red)'}}>{INVOICE_COMPLIANCE.poWtn.nonCompliant}</strong> non-compliant</span>
+              <span>{INVOICE_COMPLIANCE.poWtn.total} total</span>
+            </div>
+          </div>
+          {/* Vendor Invoice Compliance */}
+          <div className="card" style={{borderTop:'3px solid var(--orange)'}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:12}}>
+              <div>
+                <div className="ct" style={{marginBottom:4}}>{INVOICE_COMPLIANCE.vendor.label}</div>
+                <div style={{fontSize:11,color:'var(--gd)',lineHeight:'16px'}}>{INVOICE_COMPLIANCE.vendor.desc}</div>
+              </div>
+              <span className="ds-badge under-review">{INVOICE_COMPLIANCE.vendor.riskPct}% Risk</span>
+            </div>
+            <div style={{display:'flex',alignItems:'flex-end',gap:12,marginBottom:12}}>
+              <div className="k-val">{INVOICE_COMPLIANCE.vendor.total.toLocaleString()}</div>
+              <div style={{fontSize:12,color:'var(--gd)',paddingBottom:6}}>total invoices</div>
+            </div>
+            <div style={{display:'flex',flexDirection:'column',gap:6}}>
+              {[
+                {l:'Compliant',v:INVOICE_COMPLIANCE.vendor.compliant.toLocaleString(),s:`$${(INVOICE_COMPLIANCE.vendor.compSpend/1000000).toFixed(1)}M`,c:'var(--green)',pct:75},
+                {l:'Pending',v:INVOICE_COMPLIANCE.vendor.pending.toLocaleString(),s:`$${(INVOICE_COMPLIANCE.vendor.pendSpend/1000).toFixed(0)}K`,c:'var(--orange)',pct:1},
+                {l:'Non-Compliant',v:INVOICE_COMPLIANCE.vendor.nonCompliant.toLocaleString(),s:`$${(INVOICE_COMPLIANCE.vendor.nonCompSpend/1000000).toFixed(1)}M`,c:'var(--red)',pct:24},
+              ].map((r,i) => (
+                <div key={i} style={{display:'flex',alignItems:'center',gap:8}}>
+                  <div style={{width:8,height:8,borderRadius:2,background:r.c,flexShrink:0}}/>
+                  <span style={{fontSize:11,flex:1}}>{r.l}</span>
+                  <span style={{fontSize:11,fontWeight:600,width:50,textAlign:'right'}}>{r.v}</span>
+                  <span style={{fontSize:11,color:'var(--gd)',width:50,textAlign:'right'}}>{r.s}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        {/* Story connector: why this matters */}
+        <div style={{display:'flex',alignItems:'center',gap:8,padding:'12px 16px',fontSize:12,color:'var(--rp-black)',background:'linear-gradient(94.21deg, rgba(116,255,222,0.06) 1.71%, rgba(0,194,255,0.06) 98.32%)',borderRadius:'0 0 8px 8px',marginTop:0}}>
+          <SparkleIcon s={14} c="#217E7E"/>
+          <span style={{opacity:0.85}}>ROG at <strong>77%</strong> (below 80% target) means 180 invoices weren't received on time — vendors learn to bypass the system, sending <strong>offline invoices to avoid platform fees</strong>. This is the root of your offline leakage.</span>
+        </div>
+      </div>
+
+      {/* ═══ 4. VENDOR NETWORK & CREDENTIALING — The Leakage Pipeline ═══ */}
+      <div style={{marginTop:24}}>
+        <div className="sh" style={{marginTop:0}}>
+          <div className="sh-t">
+            <Icon n="user" s={18} c="var(--rp)"/> Vendor Network & Credentialing
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12,color:'var(--gd)'}}>
+            <span>Q4 2025</span>
+            <span style={{padding:'2px 6px',background:'var(--ybg)',borderRadius:4,color:'var(--orange)',fontWeight:600,fontSize:11}}>LEAKAGE SOURCE</span>
+          </div>
+        </div>
+        <div className="g2" style={{marginBottom:0}}>
+          {/* Online vs Offline breakdown */}
+          <div className="card">
+            <CardOverflow/>
+            <div className="ct">Vendor Channel Distribution</div>
+            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Online vendors use eInvoice; offline vendors bypass the platform</div>
+            {/* Big numbers row */}
+            <div style={{display:'flex',gap:0,marginBottom:16}}>
+              {[
+                {v:VENDOR_NETWORK.total,l:'Total',c:'var(--rp-black)'},
+                {v:VENDOR_NETWORK.online,l:'Online',c:'var(--green)'},
+                {v:VENDOR_NETWORK.offline,l:'Offline',c:'var(--red)'},
+                {v:VENDOR_NETWORK.credentialed,l:'Credentialed',c:'var(--ch3)'},
+              ].map((n,i) => (
+                <div key={i} style={{flex:1,textAlign:'center',padding:'8px 0',borderRight:i<3?'1px solid var(--gll)':'none'}}>
+                  <div style={{fontSize:11,color:'var(--gd)',marginBottom:4}}>{n.l}</div>
+                  <div style={{fontSize:24,fontWeight:700,color:n.c}}>{n.v}</div>
+                </div>
+              ))}
+            </div>
+            {/* Online vs Offline bar */}
+            <div style={{display:'flex',height:28,borderRadius:4,overflow:'hidden',marginBottom:8}}>
+              <div style={{width:`${(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100).toFixed(0)}%`,background:'var(--green)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:600,color:'#fff'}}>
+                {(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100).toFixed(0)}% Online
+              </div>
+              <div style={{flex:1,background:'var(--red)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:600,color:'#fff'}}>
+                {(VENDOR_NETWORK.offline/VENDOR_NETWORK.total*100).toFixed(0)}% Offline
+              </div>
+            </div>
+            <div style={{fontSize:11,color:'var(--gd)',marginBottom:12}}>+{VENDOR_NETWORK.newCred} newly credentialed vs Q3 2023</div>
+            {/* Platform fee impact callout */}
+            <div style={{background:'var(--rbg)',border:'1px solid rgba(208,26,31,0.15)',borderRadius:'var(--br)',padding:'10px 12px'}}>
+              <div style={{display:'flex',alignItems:'center',gap:6}}>
+                <Icon n="alert" s={14} c="var(--red)"/>
+                <span style={{fontSize:12,fontWeight:600,color:'var(--red)'}}>Revenue Impact</span>
+              </div>
+              <div style={{fontSize:11,color:'var(--rp-black)',marginTop:4,lineHeight:'16px'}}>
+                {VENDOR_NETWORK.offline} offline vendors × avg {VENDOR_NETWORK.avgInvoicesPerVendor} invoices × ${VENDOR_NETWORK.platformFeePerInvoice} platform fee = <strong style={{color:'var(--red)'}}>${(VENDOR_NETWORK.offline * VENDOR_NETWORK.avgInvoicesPerVendor * VENDOR_NETWORK.platformFeePerInvoice / 1000).toFixed(0)}K</strong> in lost platform revenue annually
+              </div>
+            </div>
+          </div>
+
+          {/* Credentialing breakdown */}
+          <div className="card">
+            <CardOverflow/>
+            <div className="ct">Credentialing Breakdown by Type</div>
+            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Credentialed vendors pay platform fees and give PMCs visibility</div>
+            <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:20,marginBottom:16}}>
+              <DonutChart segs={[{pct:VENDOR_NETWORK.credRate,color:'var(--ch3)',label:'Credentialed'},{pct:100-VENDOR_NETWORK.credRate,color:'var(--gll)',label:'Not Credentialed'}]} size={120} thick={20} center={{val:`${VENDOR_NETWORK.credRate}%`,label:'Credentialed'}}/>
+            </div>
+            <table className="dt" style={{fontSize:11}}>
+              <thead><tr><th>Type</th><th className="r">Compliant</th><th className="r">Non-Comp</th><th className="r">Pending</th><th className="r">Total</th></tr></thead>
+              <tbody>
+                {VENDOR_NETWORK.byType.map((t,i) => (
+                  <tr key={i}>
+                    <td style={{fontWeight:500}}><div style={{display:'flex',alignItems:'center',gap:6}}><div style={{width:8,height:8,borderRadius:2,background:i===0?'var(--pur)':i===1?'var(--rp)':'var(--red)'}}/> {t.type}</div></td>
+                    <td className="r" style={{color:'var(--green)'}}>{t.compliant}</td>
+                    <td className="r" style={{color:'var(--red)'}}>{t.nonCompliant}</td>
+                    <td className="r" style={{color:'var(--orange)'}}>{t.pending}</td>
+                    <td className="r" style={{fontWeight:600}}>{t.total}</td>
+                  </tr>
+                ))}
+                <tr style={{fontWeight:600}}>
+                  <td>Total</td>
+                  <td className="r">{VENDOR_NETWORK.byType.reduce((s,t)=>s+t.compliant,0)}</td>
+                  <td className="r">{VENDOR_NETWORK.byType.reduce((s,t)=>s+t.nonCompliant,0)}</td>
+                  <td className="r">{VENDOR_NETWORK.byType.reduce((s,t)=>s+t.pending,0)}</td>
+                  <td className="r">{VENDOR_NETWORK.total}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        {/* Story connector */}
+        <div style={{display:'flex',alignItems:'center',gap:8,padding:'12px 16px',fontSize:12,color:'var(--rp-black)',background:'linear-gradient(94.21deg, rgba(116,255,222,0.06) 1.71%, rgba(0,194,255,0.06) 98.32%)',borderRadius:'0 0 8px 8px'}}>
+          <SparkleIcon s={14} c="#217E7E"/>
+          <span style={{opacity:0.85}}>Only <strong>28.4%</strong> of vendors are online. Offline vendors receive orders through the platform but send paper invoices to avoid the <strong>${VENDOR_NETWORK.platformFeePerInvoice}/invoice platform fee</strong>. PMCs then pay RealPage <strong>$89K/yr</strong> for manual invoice processing — a cost that disappears with eInvoice.</span>
+        </div>
+      </div>
+
+      {/* ═══ 5. OFFLINE LEAKAGE — The Financial Impact ═══ */}
+      <div style={{marginTop:24}}>
+        <div className="sh" style={{marginTop:0}}>
+          <div className="sh-t">
+            <Icon n="alert" s={18} c="var(--orange)"/> Exceptions & Offline Leakage
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12,color:'var(--gd)'}}>
+            <span style={{padding:'2px 6px',background:'var(--rbg)',borderRadius:4,color:'var(--red)',fontWeight:600,fontSize:11}}>FINANCIAL IMPACT</span>
+          </div>
+        </div>
+        {/* Impact KPIs */}
+        <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:12,marginBottom:16}}>
+          {[
+            {v:OFFLINE_LEAKAGE.offlineOrders.toLocaleString(),l:'Offline Orders',s:`of ${OFFLINE_LEAKAGE.totalOrders.toLocaleString()} total`,c:'var(--orange)',pct:OFFLINE_LEAKAGE.offlineRate},
+            {v:`${OFFLINE_LEAKAGE.offlineRate}%`,l:'Offline Rate',s:`Target: ${OFFLINE_LEAKAGE.target}%`,c:'var(--red)',pct:OFFLINE_LEAKAGE.offlineRate},
+            {v:`$${(OFFLINE_LEAKAGE.missedSavings/1000).toFixed(0)}K`,l:'Missed PMC Savings',s:'Rebates lost to offline',c:'var(--red)',pct:60},
+            {v:`$${(OFFLINE_LEAKAGE.platformFeeImpact/1000).toFixed(0)}K`,l:'Lost Platform Revenue',s:'eInvoice fees not captured',c:'var(--red)',pct:45},
+            {v:`$${(OFFLINE_LEAKAGE.manualProcessCost/1000).toFixed(0)}K`,l:'Manual Processing Cost',s:'PMC pays for offline handling',c:'var(--orange)',pct:35},
+          ].map((b,i) => (
+            <div key={i} className="bridge-card">
+              <div className="bridge-val" style={{color:b.c}}>{b.v}</div>
+              <div className="bridge-lbl">{b.l}</div>
+              <div style={{marginTop:6}}><div className="prog"><div className="prog-f" style={{width:`${b.pct}%`,background:b.c}}/></div></div>
+              <div className="bridge-sub" style={{color:'var(--gd)'}}>{b.s}</div>
+            </div>
+          ))}
+        </div>
+        {/* Offline breakdown cards */}
         <div className="g2" style={{marginBottom:0}}>
           <div className="card">
             <CardOverflow/>
-            <div className="ct">Spend Compliance Breakdown</div>
-            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Compliant, maverick, and unclassified spend as share of total</div>
-            <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:20}}>
-              <DonutChart segs={donutSegs} size={170} thick={28} center={{val:'$26.6M',label:'Total Spend'}}/>
-              <div style={{display:'flex',flexDirection:'column',gap:12}}>
-                {[{c:'var(--ch3)',l:'Compliant',v:'$18.6M',p:'70%'},{c:'var(--ch4)',l:'Maverick',v:'$6.2M',p:'23%'},{c:'var(--ch1)',l:'Unclassified',v:'$1.8M',p:'7%'}].map((s,i) => (
-                  <div key={i} style={{display:'flex',alignItems:'center',gap:8}}>
-                    <div style={{width:10,height:10,borderRadius:2,background:s.c}}/>
-                    <div>
-                      <div style={{fontSize:12,fontWeight:500}}>{s.l} · {s.p}</div>
-                      <div style={{fontSize:11,color:'var(--gd)'}}>{s.v}</div>
-                    </div>
-                  </div>
-                ))}
+            <div className="ct">Offline Catalog Orders</div>
+            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Catalog vendor orders placed outside the system (phone, email)</div>
+            <div style={{display:'flex',gap:20,marginBottom:12}}>
+              <div>
+                <div style={{fontSize:11,color:'var(--gd)'}}>Offline Invoices</div>
+                <div style={{fontSize:28,fontWeight:700,color:'var(--rp-black)'}}>{OFFLINE_LEAKAGE.offlineCatOrders}</div>
               </div>
+              <div>
+                <div style={{fontSize:11,color:'var(--gd)'}}>Offline Spend</div>
+                <div style={{fontSize:28,fontWeight:700,color:'var(--orange)'}}>${(OFFLINE_LEAKAGE.offlineCatSpend/1000).toFixed(0)}K</div>
+              </div>
+            </div>
+            <div style={{background:'var(--ybg)',borderRadius:'var(--br)',padding:'8px 12px',fontSize:11,lineHeight:'16px'}}>
+              <strong>Benchmark:</strong> Q2 Avg % Offline Target is 20%. Current: {OFFLINE_LEAKAGE.offlineRate}% — <strong style={{color:'var(--red)'}}>{(OFFLINE_LEAKAGE.offlineRate - OFFLINE_LEAKAGE.target).toFixed(1)}pts above target</strong>
             </div>
           </div>
           <div className="card">
             <CardOverflow/>
-            <div className="ct">Spend Compliance Trend</div>
+            <div className="ct">Compliance Trend</div>
             <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Monthly compliant vs maverick spend %</div>
             <LineChart
               series={[[62,64,65,66,68,69,70],[28,27,26,25,24,23,23],[72,72,72,72,72,72,72]]}
               lbls={['Jul','Aug','Sep','Oct','Nov','Dec','Jan']}
-              w={400} h={150}
+              w={400} h={130}
               colors={['var(--ch3)','var(--ch4)','var(--gm)']}
               showArea={true}
               dashed={[false,false,true]}
             />
             <div style={{display:'flex',justifyContent:'center',gap:16,marginTop:10}}>
-              <span style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}>
-                <div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Compliant %
-              </span>
-              <span style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}>
-                <div style={{width:10,height:3,background:'var(--ch4)',borderRadius:2}}/> Maverick %
-              </span>
-              <span style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}>
-                <div style={{width:10,height:2,background:'var(--gm)',borderRadius:2,borderTop:'1px dashed var(--gd)'}}/> Target (72%)
-              </span>
+              <span style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}><div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Compliant %</span>
+              <span style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}><div style={{width:10,height:3,background:'var(--ch4)',borderRadius:2}}/> Maverick %</span>
+              <span style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}><div style={{width:10,height:2,background:'var(--gm)',borderRadius:2,borderTop:'1px dashed var(--gd)'}}/> Target (72%)</span>
             </div>
           </div>
         </div>
+        {/* Story connector */}
+        <div style={{display:'flex',alignItems:'center',gap:8,padding:'12px 16px',fontSize:12,color:'var(--rp-black)',background:'linear-gradient(94.21deg, rgba(116,255,222,0.06) 1.71%, rgba(0,194,255,0.06) 98.32%)',borderRadius:'0 0 8px 8px'}}>
+          <SparkleIcon s={14} c="#217E7E"/>
+          <span style={{opacity:0.85}}>Total leakage cost: <strong style={{color:'var(--red)'}}>${((OFFLINE_LEAKAGE.missedSavings+OFFLINE_LEAKAGE.platformFeeImpact+OFFLINE_LEAKAGE.manualProcessCost)/1000).toFixed(0)}K/yr</strong> — ${(OFFLINE_LEAKAGE.missedSavings/1000).toFixed(0)}K in missed PMC rebates + ${(OFFLINE_LEAKAGE.platformFeeImpact/1000).toFixed(0)}K in platform fees + ${(OFFLINE_LEAKAGE.manualProcessCost/1000).toFixed(0)}K in manual processing. Enforcing eInvoice eliminates all three.</span>
+        </div>
       </div>
 
-      {/* ═══ 4. PREDICTIVE + AI OPPORTUNITY ═══ */}
+      {/* ═══ 6. RECOVERY OPPORTUNITY — The Path Forward ═══ */}
       <div style={{marginTop:24}}>
+        <div className="sh" style={{marginTop:0}}>
+          <div className="sh-t">
+            <SparkleIcon s={18} c="#6366F1"/> Recovery Opportunity
+          </div>
+          <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12,color:'var(--gd)'}}>
+            <span style={{padding:'2px 6px',background:'var(--gbg)',borderRadius:4,color:'var(--green)',fontWeight:600,fontSize:11}}>SAVINGS PLAN</span>
+          </div>
+        </div>
         <div className="g2" style={{marginBottom:0}}>
-          {/* Maverick Spend Forecast */}
+          {/* Savings Waterfall */}
           <div className="forecast-card">
             <CardOverflow/>
-            <div style={{fontSize:12,fontWeight:600,color:'rgba(255,255,255,.6)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:12}}>Maverick Spend Forecast</div>
+            <div style={{fontSize:12,fontWeight:600,color:'rgba(255,255,255,.6)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:12}}>If You Act: Projected Annual Recovery</div>
             <div style={{display:'flex',alignItems:'flex-end',gap:16}}>
               <div>
-                <div style={{fontSize:36,fontWeight:700,lineHeight:1}}>$5.8M</div>
-                <div style={{fontSize:12,color:'rgba(255,255,255,.6)',marginTop:4}}>Projected Q2 if no intervention</div>
+                <div style={{fontSize:36,fontWeight:700,lineHeight:1}}>$874K</div>
+                <div style={{fontSize:12,color:'rgba(255,255,255,.6)',marginTop:4}}>Total recoverable value</div>
               </div>
-              <div style={{flex:1}}>
-                <LineChart
-                  series={[[6.8,6.6,6.4,6.2,6.0,5.8],[6.8,6.6,6.4,6.2,5.4,4.8]]}
-                  lbls={['Aug','Sep','Oct','Nov','Dec','Jan']}
-                  w={240} h={80}
-                  colors={['rgba(255,255,255,.4)','var(--ch1)']}
-                  showDots={false}
-                  dashed={[true,false]}
-                />
-              </div>
+            </div>
+            <div style={{marginTop:16,display:'flex',flexDirection:'column',gap:8}}>
+              {[
+                {l:'eInvoice shift (187 offline → online)',v:'$420K',pct:48,c:'var(--ch1)'},
+                {l:'Vendor consolidation (non-preferred → preferred)',v:'$312K',pct:36,c:'var(--ch2)'},
+                {l:'Manual processing elimination',v:'$89K',pct:10,c:'var(--ch3)'},
+                {l:'PO-WTN gap recovery (40 invoices)',v:'$42K',pct:5,c:'var(--green)'},
+                {l:'Credentialing rebate capture',v:'$11K',pct:1,c:'rgba(255,255,255,.3)'},
+              ].map((s,i) => (
+                <div key={i}>
+                  <div style={{display:'flex',justifyContent:'space-between',fontSize:11,color:'rgba(255,255,255,.8)',marginBottom:3}}>
+                    <span>{s.l}</span>
+                    <span style={{fontWeight:600,color:'#fff'}}>{s.v}</span>
+                  </div>
+                  <div style={{height:4,background:'rgba(255,255,255,.1)',borderRadius:9999}}>
+                    <div style={{width:`${s.pct}%`,height:'100%',background:s.c,borderRadius:9999}}/>
+                  </div>
+                </div>
+              ))}
             </div>
             <div style={{marginTop:16,padding:'10px 14px',background:'rgba(255,255,255,.08)',borderRadius:4,display:'flex',alignItems:'center',gap:8}}>
               <SparkleIcon s={14} c="var(--ch1)"/>
               <span style={{fontSize:12,color:'rgba(255,255,255,.8)'}}>
-                If top 3 recommendations are executed, maverick spend drops to <strong style={{color:'var(--ch1)'}}>$4.8M</strong> — saving <strong style={{color:'var(--ch1)'}}>$1.4M</strong>
+                <strong style={{color:'var(--ch1)'}}>48%</strong> of savings come from shifting offline vendors to eInvoice — PMCs save on rebates, RealPage recovers platform revenue. Win-win.
               </span>
             </div>
           </div>
 
-          {/* Lumina Opportunities */}
+          {/* Quick Wins */}
           <div className="card">
             <CardOverflow/>
             <div className="ct">
-              <span style={{display:'flex',alignItems:'center',gap:6}}><SparkleIcon s={16} c="#6366F1"/> Lumina-Powered Opportunities</span>
+              <span style={{display:'flex',alignItems:'center',gap:6}}><SparkleIcon s={16} c="#6366F1"/> Quick Win Opportunities</span>
               <span style={{fontSize:20,fontWeight:700,color:'var(--green)'}}>$508K</span>
             </div>
-            <div className="ct-sub" style={{marginTop:-8,marginBottom:12}}>Total recoverable savings identified</div>
+            <div className="ct-sub" style={{marginTop:-8,marginBottom:12}}>Highest-impact actions ranked by ROI</div>
             {[
-              {icon:'user',color:'var(--rp)',bg:'var(--hi)',title:'Vendor Consolidation',val:'$420K/yr',desc:'Move top 5 non-preferred vendors to preferred channels'},
-              {icon:'link',color:'var(--green)',bg:'var(--gbg)',title:'Online Shift Savings',val:'$88K/yr',desc:'Shift 3 provisioned-but-offline vendors to platform ordering'},
-              {icon:'shield',color:'var(--orange)',bg:'var(--ybg)',title:'PO-WTN Gap Recovery',val:'$42K',desc:'Route 40 non-PO invoices through proper channels'},
+              {icon:'link',color:'var(--green)',bg:'var(--gbg)',title:'Onboard 3 provisioned-but-offline vendors',val:'$88K/yr',desc:'Already credentialed — just need eInvoice activation',time:'1-2 weeks'},
+              {icon:'user',color:'var(--rp)',bg:'var(--hi)',title:'Consolidate 5 non-preferred HVAC vendors',val:'$420K/yr',desc:'Move to AirTech preferred agreement with volume discounts',time:'4-6 weeks'},
+              {icon:'shield',color:'var(--orange)',bg:'var(--ybg)',title:'Fix ROG compliance gap',val:'$42K',desc:'Route 180 non-compliant invoices through proper receipt workflow',time:'2-3 weeks'},
+              {icon:'file',color:'var(--pur)',bg:'var(--pbg)',title:'Eliminate manual invoice processing',val:'$89K/yr',desc:'Switch 277 offline catalog orders to platform ordering',time:'6-8 weeks'},
             ].map((opp,i) => (
               <div key={i} className="opp-item">
                 <div className="opp-icon" style={{background:opp.bg}}>
@@ -670,36 +923,12 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                     <span style={{fontSize:13,fontWeight:700,color:'var(--green)'}}>{opp.val}</span>
                   </div>
                   <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>{opp.desc}</div>
+                  <div style={{fontSize:10,color:'var(--rp)',marginTop:2}}>Est. timeline: {opp.time}</div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-      </div>
-
-      {/* ═══ 5. KPI BRIDGE — Process Health Signals ═══ */}
-      <div className="sh" style={{marginTop:28}}>
-        <div className="sh-t">Process Compliance Signals</div>
-        <div className="sh-l">View Details</div>
-      </div>
-      <div className="bridge-grid">
-        {[
-          {val:'620',lbl:'PO Compliant Invoices',sub:'of 800 total',color:'var(--ch3)',pct:77},
-          {val:'760',lbl:'PO-WTN Compliant',sub:'of 800 total',color:'var(--green)',pct:95},
-          {val:'540',lbl:'Vendor Compliant',sub:'of 800 total',color:'var(--ch3)',pct:68},
-          {val:'180',lbl:'Non-Compliant Invoices',sub:'22.5% of total',color:'var(--red)',pct:23},
-          {val:'1,622',lbl:'Offline Orders',sub:'29.8% — target: 20%',color:'var(--orange)',pct:30},
-          {val:'54.8%',lbl:'Credentialed Coverage',sub:'143 of 261 vendors',color:'var(--ch4)',pct:55},
-        ].map((b,i) => (
-          <div key={i} className="bridge-card">
-            <div className="bridge-val">{b.val}</div>
-            <div className="bridge-lbl">{b.lbl}</div>
-            <div style={{marginTop:8}}>
-              <div className="prog"><div className="prog-f" style={{width:`${b.pct}%`,background:b.color}}/></div>
-            </div>
-            <div className="bridge-sub" style={{color:b.pct>=80?'var(--green)':b.pct>=50?'var(--gd)':'var(--orange)'}}>{b.sub}</div>
-          </div>
-        ))}
       </div>
 
       {/* ═══ 6. RANKED INTELLIGENCE TABLE — Category / Vendor Toggle ═══ */}
@@ -771,14 +1000,17 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         <span className="ct-link" style={{marginLeft:'auto'}} onClick={()=>onNavigate('catvendor')}>View Plan →</span>
       </div>
 
-      {/* ═══ 7. EXCEPTIONS / OFFLINE LEAKAGE ═══ */}
+      {/* ═══ 7. TOP OFFLINE VENDORS — Action Required ═══ */}
       <div className="sh">
-        <div className="sh-t">Exceptions & Offline Leakage <span className="sh-badge">5 flagged</span></div>
-        <div className="sh-l">Export CSV</div>
+        <div className="sh-t">Top Offline Vendors <span className="sh-badge">{EXCEPTIONS.length} vendors bypassing eInvoice</span></div>
+        <div style={{display:'flex',gap:8}}>
+          <button className="fbtn"><Icon n="export" s={13}/> CSV</button>
+          <button className="fbtn"><Icon n="file" s={13}/> PDF</button>
+        </div>
       </div>
       <div className="card" style={{padding:0,overflow:'hidden',marginBottom:0}}>
         <table className="dt">
-          <thead><tr><th>Vendor</th><th>Category</th><th>Region</th><th className="r">Offline Spend</th><th className="r">Avg Invoice</th><th style={{textAlign:'center'}}>Exceptions</th><th>Credentialing</th><th>Action</th></tr></thead>
+          <thead><tr><th>Vendor</th><th>Category</th><th>Region</th><th className="r">Offline Spend</th><th className="r">Avg Invoice</th><th style={{textAlign:'center'}}>Exceptions</th><th>Credentialing</th><th>Why Offline?</th><th>Action</th></tr></thead>
           <tbody>
             {EXCEPTIONS.map((e,i) => (
               <tr key={i}>
@@ -789,7 +1021,8 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                 <td className="r">${e.avgInv.toLocaleString()}</td>
                 <td style={{textAlign:'center'}}><span className={`viol-circle ${e.exceptions>=10?'cr':e.exceptions>=5?'wa':'lo'}`}>{e.exceptions}</span></td>
                 <td><span className={`tag ${e.cred==='Credentialed'?'g':e.cred==='Pending'?'y':'r'}`}>{e.cred}</span></td>
-                <td><div style={{display:'flex',gap:6}}><button className="btn bs xs">Review</button><button className="btn bp xs">Act</button></div></td>
+                <td style={{fontSize:11,color:'var(--gd)'}}>{e.cred==='Non-credentialed'?'Avoiding platform fee':e.cred==='Lapsed COI'?'COI expired, reverted offline':'Bypassing preferred agreement'}</td>
+                <td><div style={{display:'flex',gap:6}}><button className="btn bp xs">Onboard</button></div></td>
               </tr>
             ))}
           </tbody>
@@ -797,7 +1030,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
       </div>
       <div style={{display:'flex',alignItems:'center',gap:8,padding:'10px 0',fontSize:12,color:'var(--rp-black)'}}>
         <SparkleIcon s={14} c="#6366F1"/>
-        <span style={{opacity:0.7}}>Offline leakage increased 14% MoM in Southeast. QuickFix HVAC alone accounts for $145K in offline transactions with 12 exceptions.</span>
+        <span style={{opacity:0.7}}>These {EXCEPTIONS.length} vendors account for <strong>${EXCEPTIONS.reduce((s,e)=>s+e.offlineSpend,0).toLocaleString()}</strong> in offline spend. Onboarding them to eInvoice would recover <strong style={{color:'var(--green)'}}>~$94K/yr</strong> in platform fees and <strong style={{color:'var(--green)'}}>~$38K/yr</strong> in PMC rebates.</span>
       </div>
 
       {/* ═══ 8. GEOGRAPHIC + PROPERTY PREVIEW ═══ */}
@@ -895,11 +1128,12 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                 <span style={{fontFamily:"'Lato',sans-serif",fontWeight:900,fontSize:16,lineHeight:'112.5%',color:'var(--rp-black)'}}>Portfolio Signal</span>
               </div>
               <div className="signal-narrative" style={{fontFamily:"'Lato',sans-serif",fontSize:12,lineHeight:'150%',color:'var(--rp-black)'}}>
-                <p>Portfolio compliance is <strong>70%</strong>, up 2pts from Q3 but still below the 72% target. Three drivers are holding the score back:</p>
+                <p>Portfolio compliance is <strong>70%</strong>, up 2pts from Q3 but still below the 72% target. The leakage chain:</p>
                 <ul style={{marginLeft:16,marginTop:4}}>
-                  <li><strong>HVAC at 67%</strong> — lowest category, driven by 4 Southeast properties using non-preferred vendors</li>
-                  <li><strong>Online adoption at 28.4%</strong> (74/261 vendors) — limits visibility and savings capture</li>
-                  <li><strong>Vendor credentialing at 54.8%</strong> — 118 vendors lack current COI or W-9 documentation</li>
+                  <li><strong>ROG at 77%</strong> (below 80% target) — 180 delayed goods receipts signal to vendors they can bypass the system</li>
+                  <li><strong>187 of 261 vendors offline</strong> — avoiding ${VENDOR_NETWORK.platformFeePerInvoice}/invoice platform fees by sending paper invoices</li>
+                  <li><strong>$874K leaking annually</strong> — $473K in missed PMC rebates + $312K in platform revenue + $89K in manual processing</li>
+                  <li><strong>Fix ROG → enforce eInvoice → recover savings</strong> — process compliance is the lever that unlocks everything</li>
                 </ul>
               </div>
               <div style={{borderTop:'1px solid #E9EAEB',marginTop:10,paddingTop:10}}>
@@ -909,7 +1143,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                     <div style={{fontFamily:"'Lato',sans-serif",fontSize:12,color:'#707689',marginTop:2}}>Estimated Time: 2 Weeks</div>
                   </div>
                 </div>
-                <p style={{fontFamily:"'Lato',sans-serif",fontSize:12,lineHeight:'150%',color:'var(--rp-black)',marginTop:6}}>Consolidate 3 HVAC vendors into AirTech preferred agreement to improve category from 67% to 82%. Projected annual savings: <strong>$42K</strong>.</p>
+                <p style={{fontFamily:"'Lato',sans-serif",fontSize:12,lineHeight:'150%',color:'var(--rp-black)',marginTop:6}}>Activate eInvoice for 3 credentialed-but-offline vendors (already onboarded — zero setup cost). Recovers <strong>$88K/yr</strong> in PMC rebates and <strong>$18K/yr</strong> in platform fees. Then consolidate 5 non-preferred vendors into preferred agreements for an additional <strong>$420K/yr</strong>.</p>
               </div>
               <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:12}}>
                 <span style={{fontFamily:"'Lato',sans-serif",fontWeight:700,fontSize:16,color:'#3D7F8D',cursor:'pointer'}}>View Details</span>
@@ -932,11 +1166,11 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                 <span style={{display:'flex',alignItems:'center',gap:6}}><Icon n="target" s={16} c="var(--rp)"/> Next Best Actions</span>
               </div>
               {[
-                {action:'Consolidate 3 HVAC vendors into AirTech preferred agreement',impact:'$42K savings',urgency:'h'},
-                {action:'Send activation reminders to 3 provisioned-but-offline vendors',impact:'$88K savings',urgency:'h'},
-                {action:'Renew lapsed COI for Southwest Electrical across 7 properties',impact:'$68K exposure',urgency:'h'},
-                {action:'Review split invoice pattern at Pegasus Meadows — $45.2K flagged',impact:'Fraud risk',urgency:'m'},
-                {action:'Onboard 3 unprovisioned vendors to capture $20K in rebates',impact:'$20K savings',urgency:'l'},
+                {action:'Activate eInvoice for 3 credentialed-but-offline vendors — zero setup, immediate savings',impact:'$88K/yr PMC rebates + $18K platform fees',urgency:'h'},
+                {action:'Fix ROG compliance: enforce 3-day goods receipt for 180 non-compliant invoices',impact:'Closes vendor bypass loop',urgency:'h'},
+                {action:'Onboard QuickFix HVAC to eInvoice — largest single offline vendor at $145K',impact:'$145K offline → online',urgency:'h'},
+                {action:'Consolidate 5 non-preferred HVAC vendors into AirTech agreement',impact:'$420K/yr vendor savings',urgency:'m'},
+                {action:'Eliminate manual invoice processing for 277 offline catalog orders',impact:'$89K/yr processing cost',urgency:'m'},
               ].map((a,i) => (
                 <div key={i} className="aq-item">
                   <div className="aq-num">{i+1}</div>
@@ -1426,13 +1660,13 @@ const Investigations = () => {
 
 /* ── LUMINA PANEL ─────────────────────────────────────────────── */
 const LuminaPanel = ({open,onClose}) => {
-  const initMsg = {type:'ai',text:'Hi! I am Lumina, your AI spend assistant. I have been monitoring your procurement data and have insights ready. Off-contract spend is trending up this quarter — I can walk you through the details.\n\nHow can I help you today?',time:'Now',rows:[{l:'Portfolio Score',v:'70% (+2pts QoQ)',t:'g'},{l:'PO-WTN Compliance',v:'95% — above target',t:'g'},{l:'Offline Orders',v:'29.8% (target: 20%)',t:'r'},{l:'Online Vendors',v:'74 of 261 (28.4%)',t:'r'}]};
+  const initMsg = {type:'ai',text:'Hi! I\'m Lumina, your AI spend analyst. I\'ve identified a significant leakage pattern: 187 of your 261 vendors are transacting offline to avoid platform fees — costing your portfolio $874K annually.\n\nThe root cause? ROG compliance at 77% (below target) is telling vendors the system isn\'t enforced. Quick win: 3 credentialed vendors are offline despite being onboarded — activating eInvoice for them saves $88K immediately.\n\nWhat would you like to investigate?',time:'Now',rows:[{l:'Total Annual Leakage',v:'$874K recoverable',t:'r'},{l:'ROG Compliance',v:'77% — root cause',t:'r'},{l:'Offline Vendors',v:'187/261 (71.6%)',t:'r'},{l:'Quick Win Available',v:'3 vendors = $88K',t:'g'}]};
   const [msgs,setMsgs] = useState([initMsg]);
   const [inp,setInp] = useState('');
   const [typing,setTyping] = useState(false);
   const endRef = useRef(null);
   useEffect(()=>{endRef.current?.scrollIntoView({behavior:'smooth'})},[msgs,typing]);
-  const CHIPS = ['Why has off-contract spend increased?','Show top 5 non-compliant vendors','What if we raise emergency threshold to $700?','Generate compliance report for Q1'];
+  const CHIPS = ['Why are vendors going offline?','Show me the $874K leakage breakdown','Which 3 vendors are the quick win?','How does fixing ROG stop offline leakage?'];
   const getResp = (q) => {
     const ql = q.toLowerCase();
     if (ql.includes('maverick')||ql.includes('hvac')||ql.includes('off-contract')||ql.includes('spend')) return LUMINA_RESP.maverick;
