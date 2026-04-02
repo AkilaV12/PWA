@@ -590,497 +590,263 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         </div>
       </div>
 
-      {/* ═══ 3. ROOT CAUSE: Invoice & Process Compliance ═══ */}
-      {/* Story connector: "Here's WHY you're losing money" */}
+      {/* ═══ 3. THE STORY — Cause → Effect → Cost (ONE card, no scroll needed) ═══ */}
+      <div style={{marginTop:20}}>
+        <div className="signal-widget" style={{padding:0,overflow:'hidden'}}>
+          {/* Header bar */}
+          <div style={{background:'linear-gradient(135deg,var(--rp-black) 0%,#2d3a52 100%)',padding:'20px 32px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+            <div>
+              <div style={{fontSize:12,fontWeight:600,color:'rgba(255,255,255,.5)',textTransform:'uppercase',letterSpacing:'.5px'}}>Your Portfolio Is Paying</div>
+              <div style={{fontSize:42,fontWeight:700,color:'#fff',lineHeight:1.1,marginTop:4}}>$874K<span style={{fontSize:16,fontWeight:400,color:'rgba(255,255,255,.6)',marginLeft:8}}>/yr more than it should</span></div>
+            </div>
+            <div style={{textAlign:'right'}}>
+              <div style={{fontSize:11,color:'rgba(255,255,255,.5)'}}>Quick win available</div>
+              <div style={{fontSize:20,fontWeight:700,color:'var(--ch1)',marginTop:2}}>$88K</div>
+              <div style={{fontSize:11,color:'var(--ch1)'}}>in 1-2 weeks</div>
+            </div>
+          </div>
+
+          {/* Cause → Effect → Cost flow */}
+          <div style={{padding:'24px 32px'}}>
+            <div style={{display:'grid',gridTemplateColumns:'1fr auto 1fr auto 1fr',gap:0,alignItems:'center',marginBottom:24}}>
+              {/* CAUSE */}
+              <div style={{background:'var(--gl)',borderRadius:8,padding:16,textAlign:'center',border:'1px solid var(--gll)'}}>
+                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:6}}>Process Gap</div>
+                <div style={{fontSize:32,fontWeight:700,color:'var(--red)',lineHeight:1}}>{INVOICE_COMPLIANCE.rog.rate}%</div>
+                <div style={{fontSize:12,color:'var(--rp-black)',marginTop:4}}>Goods receipt</div>
+                <div style={{fontSize:11,color:'var(--gd)'}}>Target: {INVOICE_COMPLIANCE.rog.target}%</div>
+                <div className="prog" style={{marginTop:8}}><div className="prog-f" style={{width:`${INVOICE_COMPLIANCE.rog.rate}%`,background:'var(--red)'}}/></div>
+                <div style={{fontSize:10,color:'var(--gd)',marginTop:4}}>{INVOICE_COMPLIANCE.rog.nonCompliant} invoices delayed</div>
+              </div>
+              {/* Arrow */}
+              <div style={{padding:'0 12px',display:'flex',flexDirection:'column',alignItems:'center',gap:2}}>
+                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="var(--gm)" strokeWidth={2}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div style={{fontSize:9,color:'var(--gd)',textAlign:'center',maxWidth:60}}>Vendors default to paper</div>
+              </div>
+              {/* EFFECT */}
+              <div style={{background:'var(--gl)',borderRadius:8,padding:16,textAlign:'center',border:'1px solid var(--gll)'}}>
+                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:6}}>Vendor Behavior</div>
+                <div style={{display:'flex',justifyContent:'center',alignItems:'flex-end',gap:4}}>
+                  <div style={{fontSize:32,fontWeight:700,color:'var(--orange)',lineHeight:1}}>{VENDOR_NETWORK.offline}</div>
+                  <div style={{fontSize:14,color:'var(--gd)',paddingBottom:4}}>/ {VENDOR_NETWORK.total}</div>
+                </div>
+                <div style={{fontSize:12,color:'var(--rp-black)',marginTop:4}}>Vendors offline</div>
+                <div style={{display:'flex',height:20,borderRadius:4,overflow:'hidden',marginTop:8}}>
+                  <div style={{width:`${(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100).toFixed(0)}%`,background:'var(--green)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:9,fontWeight:600,color:'#fff'}}>{VENDOR_NETWORK.online}</div>
+                  <div style={{flex:1,background:'var(--orange)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:9,fontWeight:600,color:'#fff'}}>{VENDOR_NETWORK.offline}</div>
+                </div>
+                <div style={{fontSize:10,color:'var(--gd)',marginTop:4}}>Only {(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100).toFixed(0)}% using eInvoice</div>
+              </div>
+              {/* Arrow */}
+              <div style={{padding:'0 12px',display:'flex',flexDirection:'column',alignItems:'center',gap:2}}>
+                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="var(--gm)" strokeWidth={2}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div style={{fontSize:9,color:'var(--gd)',textAlign:'center',maxWidth:60}}>You miss savings</div>
+              </div>
+              {/* COST */}
+              <div style={{background:'var(--rbg)',borderRadius:8,padding:16,textAlign:'center',border:'1px solid rgba(208,26,31,0.15)'}}>
+                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:6}}>Your Avoidable Cost</div>
+                <div style={{fontSize:32,fontWeight:700,color:'var(--red)',lineHeight:1}}>$874K</div>
+                <div style={{fontSize:12,color:'var(--rp-black)',marginTop:4}}>per year</div>
+                <div style={{display:'flex',flexDirection:'column',gap:3,marginTop:8,textAlign:'left'}}>
+                  {[{l:'Missed rebates',v:'$473K',pct:54},{l:'Pricing gap',v:'$312K',pct:36},{l:'Processing',v:'$89K',pct:10}].map((c,i) => (
+                    <div key={i} style={{display:'flex',alignItems:'center',gap:6,fontSize:10}}>
+                      <div style={{flex:1}}><div style={{height:3,background:'rgba(208,26,31,0.15)',borderRadius:9999}}><div style={{width:`${c.pct}%`,height:'100%',background:'var(--red)',borderRadius:9999}}/></div></div>
+                      <span style={{color:'var(--gd)',width:70,whiteSpace:'nowrap'}}>{c.l}</span>
+                      <span style={{fontWeight:600,color:'var(--red)',width:40,textAlign:'right'}}>{c.v}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Trend + process health side by side */}
+            <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:16}}>
+              <div>
+                <div style={{fontSize:13,fontWeight:700,color:'var(--rp-black)',marginBottom:8}}>Compliance Trend</div>
+                <LineChart
+                  series={[[62,64,65,66,68,69,70],[28,27,26,25,24,23,23],[72,72,72,72,72,72,72]]}
+                  lbls={['Jul','Aug','Sep','Oct','Nov','Dec','Jan']}
+                  w={380} h={100}
+                  colors={['var(--ch3)','var(--ch4)','var(--gm)']}
+                  showArea={true}
+                  dashed={[false,false,true]}
+                />
+                <div style={{display:'flex',justifyContent:'center',gap:14,marginTop:6}}>
+                  <span style={{display:'flex',alignItems:'center',gap:4,fontSize:10}}><div style={{width:8,height:3,background:'var(--ch3)',borderRadius:2}}/> Compliant</span>
+                  <span style={{display:'flex',alignItems:'center',gap:4,fontSize:10}}><div style={{width:8,height:3,background:'var(--ch4)',borderRadius:2}}/> Maverick</span>
+                  <span style={{display:'flex',alignItems:'center',gap:4,fontSize:10}}><div style={{width:8,height:2,background:'var(--gm)',borderRadius:2}}/> Target</span>
+                </div>
+              </div>
+              <div>
+                <div style={{fontSize:13,fontWeight:700,color:'var(--rp-black)',marginBottom:8}}>Process Health</div>
+                <div style={{display:'grid',gridTemplateColumns:'1fr 1fr',gap:8}}>
+                  {[
+                    {l:'Goods Receipt',v:`${INVOICE_COMPLIANCE.rog.rate}%`,t:INVOICE_COMPLIANCE.rog.target,ok:INVOICE_COMPLIANCE.rog.rate>=INVOICE_COMPLIANCE.rog.target},
+                    {l:'PO-WTN',v:`${INVOICE_COMPLIANCE.poWtn.rate}%`,t:INVOICE_COMPLIANCE.poWtn.target,ok:INVOICE_COMPLIANCE.poWtn.rate>=INVOICE_COMPLIANCE.poWtn.target},
+                    {l:'Offline Rate',v:`${OFFLINE_LEAKAGE.offlineRate}%`,t:OFFLINE_LEAKAGE.target,ok:OFFLINE_LEAKAGE.offlineRate<=OFFLINE_LEAKAGE.target},
+                    {l:'Credentialed',v:`${VENDOR_NETWORK.credRate}%`,t:70,ok:VENDOR_NETWORK.credRate>=70},
+                  ].map((m,i) => (
+                    <div key={i} style={{background:'var(--gl)',borderRadius:6,padding:'10px 12px',border:'1px solid var(--gll)'}}>
+                      <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                        <span style={{fontSize:11,color:'var(--gd)'}}>{m.l}</span>
+                        <span style={{fontSize:10,color:m.ok?'var(--green)':'var(--red)'}}>{m.ok?'✓':'✗'} {m.t}% target</span>
+                      </div>
+                      <div style={{fontSize:20,fontWeight:700,color:m.ok?'var(--green)':'var(--red)',marginTop:2}}>{m.v}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ 4. YOUR 3-STEP RECOVERY PLAN ═══ */}
       <div style={{marginTop:24}}>
         <div className="sh" style={{marginTop:0}}>
-          <div className="sh-t">
-            <Icon n="shield" s={18} c="var(--rp)"/> Invoice & Process Compliance
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12,color:'var(--gd)'}}>
-            <span>Q4 2025</span>
-            <span style={{padding:'2px 6px',background:'var(--hi)',borderRadius:4,color:'var(--rp)',fontWeight:600,fontSize:11}}>ROOT CAUSE</span>
-          </div>
+          <div className="sh-t"><SparkleIcon s={18} c="#6366F1"/> Your Recovery Plan</div>
+          <div style={{fontSize:14,fontWeight:700,color:'var(--green)'}}>$874K recoverable</div>
         </div>
         <div className="g3" style={{marginBottom:0}}>
-          {/* ROG Compliance */}
-          <div className="card" style={{borderTop:`3px solid ${INVOICE_COMPLIANCE.rog.rate>=INVOICE_COMPLIANCE.rog.target?'var(--green)':'var(--red)'}`}}>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:12}}>
-              <div>
-                <div className="ct" style={{marginBottom:4}}>{INVOICE_COMPLIANCE.rog.label}</div>
-                <div style={{fontSize:11,color:'var(--gd)',lineHeight:'16px'}}>{INVOICE_COMPLIANCE.rog.desc}</div>
-              </div>
-              <span className={`ds-badge ${INVOICE_COMPLIANCE.rog.rate>=INVOICE_COMPLIANCE.rog.target?'compliant':'non-compliant'}`}>
-                {INVOICE_COMPLIANCE.rog.rate>=INVOICE_COMPLIANCE.rog.target?'On Target':'Below Target'}
-              </span>
-            </div>
-            <div style={{display:'flex',alignItems:'flex-end',gap:12,marginBottom:12}}>
-              <div className="k-val">{INVOICE_COMPLIANCE.rog.rate}%</div>
-              <div style={{fontSize:12,color:'var(--gd)',paddingBottom:6}}>Target: {INVOICE_COMPLIANCE.rog.target}%</div>
-            </div>
-            <div className="prog" style={{marginBottom:8}}>
-              <div className="prog-f" style={{width:`${INVOICE_COMPLIANCE.rog.rate}%`,background:INVOICE_COMPLIANCE.rog.rate>=INVOICE_COMPLIANCE.rog.target?'var(--green)':'var(--red)'}}/>
-            </div>
-            <div style={{display:'flex',justifyContent:'space-between',fontSize:11,color:'var(--gd)'}}>
-              <span><strong style={{color:'var(--green)'}}>{INVOICE_COMPLIANCE.rog.compliant}</strong> compliant</span>
-              <span><strong style={{color:'var(--red)'}}>{INVOICE_COMPLIANCE.rog.nonCompliant}</strong> non-compliant</span>
-              <span>{INVOICE_COMPLIANCE.rog.total} total</span>
-            </div>
-          </div>
-          {/* PO-WTN Compliance */}
-          <div className="card" style={{borderTop:`3px solid ${INVOICE_COMPLIANCE.poWtn.rate>=INVOICE_COMPLIANCE.poWtn.target?'var(--green)':'var(--red)'}`}}>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:12}}>
-              <div>
-                <div className="ct" style={{marginBottom:4}}>{INVOICE_COMPLIANCE.poWtn.label}</div>
-                <div style={{fontSize:11,color:'var(--gd)',lineHeight:'16px'}}>{INVOICE_COMPLIANCE.poWtn.desc}</div>
-              </div>
-              <span className={`ds-badge ${INVOICE_COMPLIANCE.poWtn.rate>=INVOICE_COMPLIANCE.poWtn.target?'compliant':'non-compliant'}`}>
-                {INVOICE_COMPLIANCE.poWtn.rate>=INVOICE_COMPLIANCE.poWtn.target?'On Target':'Below Target'}
-              </span>
-            </div>
-            <div style={{display:'flex',alignItems:'flex-end',gap:12,marginBottom:12}}>
-              <div className="k-val">{INVOICE_COMPLIANCE.poWtn.rate}%</div>
-              <div style={{fontSize:12,color:'var(--gd)',paddingBottom:6}}>Target: {INVOICE_COMPLIANCE.poWtn.target}%</div>
-            </div>
-            <div className="prog" style={{marginBottom:8}}>
-              <div className="prog-f" style={{width:`${INVOICE_COMPLIANCE.poWtn.rate}%`,background:'var(--green)'}}/>
-            </div>
-            <div style={{display:'flex',justifyContent:'space-between',fontSize:11,color:'var(--gd)'}}>
-              <span><strong style={{color:'var(--green)'}}>{INVOICE_COMPLIANCE.poWtn.compliant}</strong> compliant</span>
-              <span><strong style={{color:'var(--red)'}}>{INVOICE_COMPLIANCE.poWtn.nonCompliant}</strong> non-compliant</span>
-              <span>{INVOICE_COMPLIANCE.poWtn.total} total</span>
-            </div>
-          </div>
-          {/* Vendor Invoice Compliance */}
-          <div className="card" style={{borderTop:'3px solid var(--orange)'}}>
-            <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:12}}>
-              <div>
-                <div className="ct" style={{marginBottom:4}}>{INVOICE_COMPLIANCE.vendor.label}</div>
-                <div style={{fontSize:11,color:'var(--gd)',lineHeight:'16px'}}>{INVOICE_COMPLIANCE.vendor.desc}</div>
-              </div>
-              <span className="ds-badge under-review">{INVOICE_COMPLIANCE.vendor.riskPct}% Risk</span>
-            </div>
-            <div style={{display:'flex',alignItems:'flex-end',gap:12,marginBottom:12}}>
-              <div className="k-val">{INVOICE_COMPLIANCE.vendor.total.toLocaleString()}</div>
-              <div style={{fontSize:12,color:'var(--gd)',paddingBottom:6}}>total invoices</div>
-            </div>
-            <div style={{display:'flex',flexDirection:'column',gap:6}}>
-              {[
-                {l:'Compliant',v:INVOICE_COMPLIANCE.vendor.compliant.toLocaleString(),s:`$${(INVOICE_COMPLIANCE.vendor.compSpend/1000000).toFixed(1)}M`,c:'var(--green)',pct:75},
-                {l:'Pending',v:INVOICE_COMPLIANCE.vendor.pending.toLocaleString(),s:`$${(INVOICE_COMPLIANCE.vendor.pendSpend/1000).toFixed(0)}K`,c:'var(--orange)',pct:1},
-                {l:'Non-Compliant',v:INVOICE_COMPLIANCE.vendor.nonCompliant.toLocaleString(),s:`$${(INVOICE_COMPLIANCE.vendor.nonCompSpend/1000000).toFixed(1)}M`,c:'var(--red)',pct:24},
-              ].map((r,i) => (
-                <div key={i} style={{display:'flex',alignItems:'center',gap:8}}>
-                  <div style={{width:8,height:8,borderRadius:2,background:r.c,flexShrink:0}}/>
-                  <span style={{fontSize:11,flex:1}}>{r.l}</span>
-                  <span style={{fontSize:11,fontWeight:600,width:50,textAlign:'right'}}>{r.v}</span>
-                  <span style={{fontSize:11,color:'var(--gd)',width:50,textAlign:'right'}}>{r.s}</span>
+          {[
+            {step:1,title:'Activate 3 Ready Vendors',val:'$88K/yr',time:'1-2 weeks',desc:'These vendors are already set up for eInvoice but still sending paper. Zero setup cost — just flip the switch.',urgency:'h',icon:'zap',pct:10},
+            {step:2,title:'Consolidate to Preferred Pricing',val:'$420K/yr',time:'4-6 weeks',desc:'Move 5 non-preferred HVAC vendors to AirTech\'s preferred agreement. Volume discounts + rebate eligibility.',urgency:'m',icon:'user',pct:48},
+            {step:3,title:'Fix Receipt Turnaround',val:'Unlocks all',time:'2-3 weeks',desc:'Get goods receipt to 80% target. This closes the loop — vendors can\'t bypass, and future savings are automatic.',urgency:'h',icon:'shield',pct:100},
+          ].map((s,i) => (
+            <div key={i} className="card" style={{padding:0,overflow:'hidden',display:'flex',flexDirection:'column'}}>
+              <div style={{background:i===0?'var(--green)':i===1?'var(--rp)':'var(--orange)',padding:'12px 20px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+                <div style={{display:'flex',alignItems:'center',gap:8}}>
+                  <div style={{width:24,height:24,borderRadius:'50%',background:'rgba(255,255,255,.2)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,color:'#fff'}}>{s.step}</div>
+                  <span style={{fontSize:13,fontWeight:700,color:'#fff'}}>{s.title}</span>
                 </div>
-              ))}
+                <span className={`rpill ${s.urgency}`} style={{background:'rgba(255,255,255,.2)',color:'#fff'}}>{s.time}</span>
+              </div>
+              <div style={{padding:'16px 20px',flex:1,display:'flex',flexDirection:'column'}}>
+                <div style={{fontSize:24,fontWeight:700,color:i===0?'var(--green)':i===1?'var(--rp)':'var(--orange)',marginBottom:8}}>{s.val}</div>
+                <div style={{fontSize:12,color:'var(--gd)',lineHeight:'18px',flex:1}}>{s.desc}</div>
+                <button className={`btn ${i===0?'bp':'bs'} sm`} style={{marginTop:12,width:'100%',justifyContent:'center'}}>
+                  {i===0?'Activate Now →':i===1?'View Plan →':'Set Up →'}
+                </button>
+              </div>
             </div>
-          </div>
+          ))}
         </div>
-        {/* Story connector: why this matters */}
-        <div style={{display:'flex',alignItems:'center',gap:8,padding:'12px 16px',fontSize:12,color:'var(--rp-black)',background:'linear-gradient(94.21deg, rgba(116,255,222,0.06) 1.71%, rgba(0,194,255,0.06) 98.32%)',borderRadius:'0 0 8px 8px',marginTop:0}}>
-          <SparkleIcon s={14} c="#217E7E"/>
-          <span style={{opacity:0.85}}>Goods receipt turnaround at <strong>77%</strong> (below 80% target) means 180 invoices weren't processed on time. When receipts are delayed, vendors default to paper invoices — and <strong>offline orders don't qualify for volume rebates or preferred pricing</strong>. This is the root of your spend leakage.</span>
+        {/* Progress bar */}
+        <div style={{marginTop:12,display:'flex',alignItems:'center',gap:12}}>
+          <div className="prog" style={{flex:1,height:8}}>
+            <div className="prog-f" style={{width:'0%',background:'var(--green)',transition:'width 1s'}}/>
+          </div>
+          <span style={{fontSize:12,color:'var(--gd)',whiteSpace:'nowrap'}}>0 of 3 steps actioned</span>
         </div>
       </div>
 
-      {/* ═══ 4. VENDOR NETWORK & CREDENTIALING — The Leakage Pipeline ═══ */}
+      {/* ═══ 5. DRILL-DOWN ZONE — Tabbed detail area (reduces scroll) ═══ */}
       <div style={{marginTop:24}}>
-        <div className="sh" style={{marginTop:0}}>
-          <div className="sh-t">
-            <Icon n="user" s={18} c="var(--rp)"/> Vendor Network & Credentialing
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12,color:'var(--gd)'}}>
-            <span>Q4 2025</span>
-            <span style={{padding:'2px 6px',background:'var(--ybg)',borderRadius:4,color:'var(--orange)',fontWeight:600,fontSize:11}}>LEAKAGE SOURCE</span>
+        <div className="tabs" style={{marginBottom:0}}>
+          {[['category','Category'],['vendor','Vendor'],['region','Region'],['offline','Offline Vendors']].map(([id,lbl]) => (
+            <div key={id} className={`tab ${tableView===id?'on':''}`} onClick={()=>setTableView(id)}>{lbl}</div>
+          ))}
+          <div style={{marginLeft:'auto',display:'flex',gap:8,alignItems:'center'}}>
+            <button className="fbtn" style={{height:32,fontSize:11}}><Icon n="export" s={12}/> CSV</button>
           </div>
         </div>
-        <div className="g2" style={{marginBottom:0}}>
-          {/* Online vs Offline breakdown */}
-          <div className="card">
-            <CardOverflow/>
-            <div className="ct">Vendor Channel Distribution</div>
-            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Online vendors use eInvoice; offline vendors bypass the platform</div>
-            {/* Big numbers row */}
-            <div style={{display:'flex',gap:0,marginBottom:16}}>
-              {[
-                {v:VENDOR_NETWORK.total,l:'Total',c:'var(--rp-black)'},
-                {v:VENDOR_NETWORK.online,l:'Online',c:'var(--green)'},
-                {v:VENDOR_NETWORK.offline,l:'Offline',c:'var(--red)'},
-                {v:VENDOR_NETWORK.credentialed,l:'Credentialed',c:'var(--ch3)'},
-              ].map((n,i) => (
-                <div key={i} style={{flex:1,textAlign:'center',padding:'8px 0',borderRight:i<3?'1px solid var(--gll)':'none'}}>
-                  <div style={{fontSize:11,color:'var(--gd)',marginBottom:4}}>{n.l}</div>
-                  <div style={{fontSize:24,fontWeight:700,color:n.c}}>{n.v}</div>
-                </div>
-              ))}
-            </div>
-            {/* Online vs Offline bar */}
-            <div style={{display:'flex',height:28,borderRadius:4,overflow:'hidden',marginBottom:8}}>
-              <div style={{width:`${(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100).toFixed(0)}%`,background:'var(--green)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:600,color:'#fff'}}>
-                {(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100).toFixed(0)}% Online
-              </div>
-              <div style={{flex:1,background:'var(--red)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:11,fontWeight:600,color:'#fff'}}>
-                {(VENDOR_NETWORK.offline/VENDOR_NETWORK.total*100).toFixed(0)}% Offline
-              </div>
-            </div>
-            <div style={{fontSize:11,color:'var(--gd)',marginBottom:12}}>+{VENDOR_NETWORK.newCred} newly credentialed vs Q3 2023</div>
-            {/* Cost impact callout */}
-            <div style={{background:'var(--ybg)',border:'1px solid rgba(240,96,0,0.15)',borderRadius:'var(--br)',padding:'10px 12px'}}>
-              <div style={{display:'flex',alignItems:'center',gap:6}}>
-                <Icon n="alert" s={14} c="var(--orange)"/>
-                <span style={{fontSize:12,fontWeight:600,color:'var(--orange)'}}>Your Cost Impact</span>
-              </div>
-              <div style={{fontSize:11,color:'var(--rp-black)',marginTop:4,lineHeight:'16px'}}>
-                Offline vendors don't qualify for volume rebates or preferred pricing. Your portfolio is paying <strong style={{color:'var(--orange)'}}>$473K more</strong> annually than if these vendors were transacting through the system. Plus <strong style={{color:'var(--orange)'}}>$89K</strong> in manual invoice processing fees.
-              </div>
-            </div>
-          </div>
-
-          {/* Credentialing breakdown */}
-          <div className="card">
-            <CardOverflow/>
-            <div className="ct">Credentialing Breakdown by Type</div>
-            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Credentialed vendors qualify for preferred pricing and give full spend visibility</div>
-            <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:20,marginBottom:16}}>
-              <DonutChart segs={[{pct:VENDOR_NETWORK.credRate,color:'var(--ch3)',label:'Credentialed'},{pct:100-VENDOR_NETWORK.credRate,color:'var(--gll)',label:'Not Credentialed'}]} size={120} thick={20} center={{val:`${VENDOR_NETWORK.credRate}%`,label:'Credentialed'}}/>
-            </div>
-            <table className="dt" style={{fontSize:11}}>
-              <thead><tr><th>Type</th><th className="r">Compliant</th><th className="r">Non-Comp</th><th className="r">Pending</th><th className="r">Total</th></tr></thead>
+        <div className="card" style={{padding:0,overflow:'hidden',borderRadius:'0 0 4px 4px',borderTop:'none',marginBottom:0}}>
+          {tableView === 'category' && (
+            <table className="dt">
+              <thead><tr><th>Category</th><th className="r">Total Spend</th><th className="r">Maverick</th><th style={{width:120}}>Compliance</th><th>Trend</th><th>Status</th><th>Action</th></tr></thead>
               <tbody>
-                {VENDOR_NETWORK.byType.map((t,i) => (
+                {CATEGORIES.slice(0,6).map((c,i) => (
                   <tr key={i}>
-                    <td style={{fontWeight:500}}><div style={{display:'flex',alignItems:'center',gap:6}}><div style={{width:8,height:8,borderRadius:2,background:i===0?'var(--pur)':i===1?'var(--rp)':'var(--red)'}}/> {t.type}</div></td>
-                    <td className="r" style={{color:'var(--green)'}}>{t.compliant}</td>
-                    <td className="r" style={{color:'var(--red)'}}>{t.nonCompliant}</td>
-                    <td className="r" style={{color:'var(--orange)'}}>{t.pending}</td>
-                    <td className="r" style={{fontWeight:600}}>{t.total}</td>
+                    <td className="vlink" onClick={()=>onNavigate('catDetail',c.name)}>{c.name}</td>
+                    <td className="r">{fmtM(c.total)}</td>
+                    <td className="r" style={{color:c.rate<75?'var(--red)':'inherit',fontWeight:c.rate<75?600:400}}>{fmtM(c.mav)}</td>
+                    <td>
+                      <div style={{display:'flex',alignItems:'center',gap:6}}>
+                        <div className="prog" style={{flex:1}}><div className="prog-f" style={{width:`${c.rate}%`,background:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)'}}/></div>
+                        <span style={{fontSize:12,fontWeight:600,width:28}}>{c.rate}%</span>
+                      </div>
+                    </td>
+                    <td><MiniSparkLine data={c.trend} color={c.trend[5]>c.trend[0]?'var(--green)':'var(--red)'} w={50} h={18}/></td>
+                    <td><span className={`ds-badge ${c.status==='g'?'compliant':c.status==='r'?'non-compliant':'under-review'}`}>{slbl(c.status)}</span></td>
+                    <td><span className="ct-link" onClick={()=>onNavigate('catDetail',c.name)}>View →</span></td>
                   </tr>
                 ))}
-                <tr style={{fontWeight:600}}>
-                  <td>Total</td>
-                  <td className="r">{VENDOR_NETWORK.byType.reduce((s,t)=>s+t.compliant,0)}</td>
-                  <td className="r">{VENDOR_NETWORK.byType.reduce((s,t)=>s+t.nonCompliant,0)}</td>
-                  <td className="r">{VENDOR_NETWORK.byType.reduce((s,t)=>s+t.pending,0)}</td>
-                  <td className="r">{VENDOR_NETWORK.total}</td>
-                </tr>
               </tbody>
             </table>
-          </div>
-        </div>
-        {/* Story connector */}
-        <div style={{display:'flex',alignItems:'center',gap:8,padding:'12px 16px',fontSize:12,color:'var(--rp-black)',background:'linear-gradient(94.21deg, rgba(116,255,222,0.06) 1.71%, rgba(0,194,255,0.06) 98.32%)',borderRadius:'0 0 8px 8px'}}>
-          <SparkleIcon s={14} c="#217E7E"/>
-          <span style={{opacity:0.85}}>Only <strong>28.4%</strong> of vendors are online. Offline vendors send paper invoices instead of using eInvoice — which means your portfolio misses volume rebates, can't track spend in real-time, and pays <strong>$89K/yr</strong> for manual invoice processing. Shifting online eliminates all three.</span>
-        </div>
-      </div>
-
-      {/* ═══ 5. OFFLINE LEAKAGE — The Financial Impact ═══ */}
-      <div style={{marginTop:24}}>
-        <div className="sh" style={{marginTop:0}}>
-          <div className="sh-t">
-            <Icon n="alert" s={18} c="var(--orange)"/> Exceptions & Offline Leakage
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12,color:'var(--gd)'}}>
-            <span style={{padding:'2px 6px',background:'var(--rbg)',borderRadius:4,color:'var(--red)',fontWeight:600,fontSize:11}}>FINANCIAL IMPACT</span>
-          </div>
-        </div>
-        {/* Impact KPIs */}
-        <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:12,marginBottom:16}}>
-          {[
-            {v:OFFLINE_LEAKAGE.offlineOrders.toLocaleString(),l:'Offline Orders',s:`of ${OFFLINE_LEAKAGE.totalOrders.toLocaleString()} total`,c:'var(--orange)',pct:OFFLINE_LEAKAGE.offlineRate},
-            {v:`${OFFLINE_LEAKAGE.offlineRate}%`,l:'Offline Rate',s:`Target: ${OFFLINE_LEAKAGE.target}%`,c:'var(--red)',pct:OFFLINE_LEAKAGE.offlineRate},
-            {v:`$${(OFFLINE_LEAKAGE.missedSavings/1000).toFixed(0)}K`,l:'Missed Rebate Savings',s:'Not captured due to offline',c:'var(--red)',pct:60},
-            {v:`$${(OFFLINE_LEAKAGE.vendorPricingGap/1000).toFixed(0)}K`,l:'Vendor Pricing Gap',s:'Non-preferred vs preferred rates',c:'var(--orange)',pct:45},
-            {v:`$${(OFFLINE_LEAKAGE.manualProcessCost/1000).toFixed(0)}K`,l:'Manual Processing Cost',s:'Paper invoice handling fees',c:'var(--orange)',pct:35},
-          ].map((b,i) => (
-            <div key={i} className="bridge-card">
-              <div className="bridge-val" style={{color:b.c}}>{b.v}</div>
-              <div className="bridge-lbl">{b.l}</div>
-              <div style={{marginTop:6}}><div className="prog"><div className="prog-f" style={{width:`${b.pct}%`,background:b.c}}/></div></div>
-              <div className="bridge-sub" style={{color:'var(--gd)'}}>{b.s}</div>
-            </div>
-          ))}
-        </div>
-        {/* Offline breakdown cards */}
-        <div className="g2" style={{marginBottom:0}}>
-          <div className="card">
-            <CardOverflow/>
-            <div className="ct">Offline Catalog Orders</div>
-            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Catalog vendor orders placed outside the system (phone, email)</div>
-            <div style={{display:'flex',gap:20,marginBottom:12}}>
-              <div>
-                <div style={{fontSize:11,color:'var(--gd)'}}>Offline Invoices</div>
-                <div style={{fontSize:28,fontWeight:700,color:'var(--rp-black)'}}>{OFFLINE_LEAKAGE.offlineCatOrders}</div>
-              </div>
-              <div>
-                <div style={{fontSize:11,color:'var(--gd)'}}>Offline Spend</div>
-                <div style={{fontSize:28,fontWeight:700,color:'var(--orange)'}}>${(OFFLINE_LEAKAGE.offlineCatSpend/1000).toFixed(0)}K</div>
-              </div>
-            </div>
-            <div style={{background:'var(--ybg)',borderRadius:'var(--br)',padding:'8px 12px',fontSize:11,lineHeight:'16px'}}>
-              <strong>Benchmark:</strong> Q2 Avg % Offline Target is 20%. Current: {OFFLINE_LEAKAGE.offlineRate}% — <strong style={{color:'var(--red)'}}>{(OFFLINE_LEAKAGE.offlineRate - OFFLINE_LEAKAGE.target).toFixed(1)}pts above target</strong>
-            </div>
-          </div>
-          <div className="card">
-            <CardOverflow/>
-            <div className="ct">Compliance Trend</div>
-            <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Monthly compliant vs maverick spend %</div>
-            <LineChart
-              series={[[62,64,65,66,68,69,70],[28,27,26,25,24,23,23],[72,72,72,72,72,72,72]]}
-              lbls={['Jul','Aug','Sep','Oct','Nov','Dec','Jan']}
-              w={400} h={130}
-              colors={['var(--ch3)','var(--ch4)','var(--gm)']}
-              showArea={true}
-              dashed={[false,false,true]}
-            />
-            <div style={{display:'flex',justifyContent:'center',gap:16,marginTop:10}}>
-              <span style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}><div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Compliant %</span>
-              <span style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}><div style={{width:10,height:3,background:'var(--ch4)',borderRadius:2}}/> Maverick %</span>
-              <span style={{display:'flex',alignItems:'center',gap:4,fontSize:11}}><div style={{width:10,height:2,background:'var(--gm)',borderRadius:2,borderTop:'1px dashed var(--gd)'}}/> Target (72%)</span>
-            </div>
-          </div>
-        </div>
-        {/* Story connector */}
-        <div style={{display:'flex',alignItems:'center',gap:8,padding:'12px 16px',fontSize:12,color:'var(--rp-black)',background:'linear-gradient(94.21deg, rgba(116,255,222,0.06) 1.71%, rgba(0,194,255,0.06) 98.32%)',borderRadius:'0 0 8px 8px'}}>
-          <SparkleIcon s={14} c="#217E7E"/>
-          <span style={{opacity:0.85}}>Total avoidable cost: <strong style={{color:'var(--red)'}}>${((OFFLINE_LEAKAGE.missedSavings+OFFLINE_LEAKAGE.vendorPricingGap+OFFLINE_LEAKAGE.manualProcessCost)/1000).toFixed(0)}K/yr</strong> — ${(OFFLINE_LEAKAGE.missedSavings/1000).toFixed(0)}K in missed rebates + ${(OFFLINE_LEAKAGE.vendorPricingGap/1000).toFixed(0)}K in vendor pricing gaps + ${(OFFLINE_LEAKAGE.manualProcessCost/1000).toFixed(0)}K in manual processing. Moving vendors online eliminates all three.</span>
-        </div>
-      </div>
-
-      {/* ═══ 6. RECOVERY OPPORTUNITY — The Path Forward ═══ */}
-      <div style={{marginTop:24}}>
-        <div className="sh" style={{marginTop:0}}>
-          <div className="sh-t">
-            <SparkleIcon s={18} c="#6366F1"/> Recovery Opportunity
-          </div>
-          <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12,color:'var(--gd)'}}>
-            <span style={{padding:'2px 6px',background:'var(--gbg)',borderRadius:4,color:'var(--green)',fontWeight:600,fontSize:11}}>SAVINGS PLAN</span>
-          </div>
-        </div>
-        <div className="g2" style={{marginBottom:0}}>
-          {/* Savings Waterfall */}
-          <div className="forecast-card">
-            <CardOverflow/>
-            <div style={{fontSize:12,fontWeight:600,color:'rgba(255,255,255,.6)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:12}}>If You Act: Projected Annual Recovery</div>
-            <div style={{display:'flex',alignItems:'flex-end',gap:16}}>
-              <div>
-                <div style={{fontSize:36,fontWeight:700,lineHeight:1}}>$874K</div>
-                <div style={{fontSize:12,color:'rgba(255,255,255,.6)',marginTop:4}}>Total recoverable value</div>
-              </div>
-            </div>
-            <div style={{marginTop:16,display:'flex',flexDirection:'column',gap:8}}>
-              {[
-                {l:'Preferred vendor rebates (shift offline → online)',v:'$420K',pct:48,c:'var(--ch1)'},
-                {l:'Preferred pricing vs non-preferred rates',v:'$312K',pct:36,c:'var(--ch2)'},
-                {l:'Eliminate manual invoice processing',v:'$89K',pct:10,c:'var(--ch3)'},
-                {l:'Process compliance gap recovery',v:'$42K',pct:5,c:'var(--green)'},
-                {l:'Volume discount capture',v:'$11K',pct:1,c:'rgba(255,255,255,.3)'},
-              ].map((s,i) => (
-                <div key={i}>
-                  <div style={{display:'flex',justifyContent:'space-between',fontSize:11,color:'rgba(255,255,255,.8)',marginBottom:3}}>
-                    <span>{s.l}</span>
-                    <span style={{fontWeight:600,color:'#fff'}}>{s.v}</span>
-                  </div>
-                  <div style={{height:4,background:'rgba(255,255,255,.1)',borderRadius:9999}}>
-                    <div style={{width:`${s.pct}%`,height:'100%',background:s.c,borderRadius:9999}}/>
-                  </div>
-                </div>
-              ))}
-            </div>
-            <div style={{marginTop:16,padding:'10px 14px',background:'rgba(255,255,255,.08)',borderRadius:4,display:'flex',alignItems:'center',gap:8}}>
-              <SparkleIcon s={14} c="var(--ch1)"/>
-              <span style={{fontSize:12,color:'rgba(255,255,255,.8)'}}>
-                <strong style={{color:'var(--ch1)'}}>48%</strong> of savings come from shifting offline vendors to eInvoice — unlocking volume rebates and preferred pricing that only apply to online transactions.
-              </span>
-            </div>
-          </div>
-
-          {/* Quick Wins */}
-          <div className="card">
-            <CardOverflow/>
-            <div className="ct">
-              <span style={{display:'flex',alignItems:'center',gap:6}}><SparkleIcon s={16} c="#6366F1"/> Quick Win Opportunities</span>
-              <span style={{fontSize:20,fontWeight:700,color:'var(--green)'}}>$508K</span>
-            </div>
-            <div className="ct-sub" style={{marginTop:-8,marginBottom:12}}>Highest-impact actions ranked by ROI</div>
-            {[
-              {icon:'link',color:'var(--green)',bg:'var(--gbg)',title:'Activate eInvoice for 3 ready vendors',val:'$88K/yr',desc:'Already set up in the system — just need activation',time:'1-2 weeks'},
-              {icon:'user',color:'var(--rp)',bg:'var(--hi)',title:'Consolidate 5 non-preferred HVAC vendors',val:'$420K/yr',desc:'Move to AirTech preferred agreement with volume discounts',time:'4-6 weeks'},
-              {icon:'shield',color:'var(--orange)',bg:'var(--ybg)',title:'Improve goods receipt turnaround',val:'$42K',desc:'Get 180 delayed invoices processed within 3-day window',time:'2-3 weeks'},
-              {icon:'file',color:'var(--pur)',bg:'var(--pbg)',title:'Eliminate manual invoice processing',val:'$89K/yr',desc:'Switch 277 offline catalog orders to platform ordering',time:'6-8 weeks'},
-            ].map((opp,i) => (
-              <div key={i} className="opp-item">
-                <div className="opp-icon" style={{background:opp.bg}}>
-                  <Icon n={opp.icon} s={16} c={opp.color}/>
-                </div>
-                <div style={{flex:1}}>
-                  <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                    <span style={{fontSize:13,fontWeight:600}}>{opp.title}</span>
-                    <span style={{fontSize:13,fontWeight:700,color:'var(--green)'}}>{opp.val}</span>
-                  </div>
-                  <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>{opp.desc}</div>
-                  <div style={{fontSize:10,color:'var(--rp)',marginTop:2}}>Est. timeline: {opp.time}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ═══ 6. RANKED INTELLIGENCE TABLE — Category / Vendor Toggle ═══ */}
-      <div className="sh" style={{marginTop:12}}>
-        <div className="sh-t">
-          Spend Compliance by
-          <div className="seg-ctrl" style={{marginLeft:8}}>
-            <button className={`seg-btn ${tableView==='category'?'on':''}`} onClick={()=>setTableView('category')}>Category</button>
-            <button className={`seg-btn ${tableView==='vendor'?'on':''}`} onClick={()=>setTableView('vendor')}>Vendor</button>
-          </div>
-        </div>
-        <div className="sh-l" onClick={()=>onNavigate('catvendor')}>View All →</div>
-      </div>
-      <div className="card" style={{padding:0,overflow:'hidden',marginBottom:0}}>
-        {tableView === 'category' ? (
-          <table className="dt">
-            <thead><tr><th>Category</th><th className="r">Total Spend</th><th className="r">Maverick Spend</th><th style={{width:130}}>Compliance</th><th>Trend</th><th>Properties</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody>
-              {CATEGORIES.slice(0,6).map((c,i) => (
-                <tr key={i}>
-                  <td className="vlink" onClick={()=>onNavigate('catDetail',c.name)}>{c.name}</td>
-                  <td className="r">{fmtM(c.total)}</td>
-                  <td className="r" style={{color:c.rate<75?'var(--red)':'inherit',fontWeight:c.rate<75?600:400}}>{fmtM(c.mav)}</td>
-                  <td>
-                    <div style={{display:'flex',alignItems:'center',gap:8}}>
-                      <div style={{flex:1,height:6,background:'var(--gll)',borderRadius:3,overflow:'hidden'}}>
-                        <div style={{width:`${c.rate}%`,height:'100%',background:c.rate>=85?'var(--ch3)':c.rate>=70?'var(--ch2)':'var(--ch4)',borderRadius:3}}/>
+          )}
+          {tableView === 'vendor' && (
+            <table className="dt">
+              <thead><tr><th>Vendor</th><th>Category</th><th className="r">Maverick Spend</th><th style={{textAlign:'center'}}>Violations</th><th>Credentialing</th><th>Risk</th><th>Status</th></tr></thead>
+              <tbody>
+                {MAV_VENDORS.map((v,i) => (
+                  <tr key={i}>
+                    <td><div><span className="vlink">{v.name}</span></div><div style={{fontSize:10,color:'var(--gd)',marginTop:1}}>{v.contact}</div></td>
+                    <td>{v.cat}</td>
+                    <td className="r fw6">${v.spend.toLocaleString()}</td>
+                    <td style={{textAlign:'center'}}><span className={`viol-circle ${v.viol>=5?'cr':v.viol>=3?'wa':'lo'}`}>{v.viol}</span></td>
+                    <td><span className={`tag ${v.cred==='Credentialed'?'g':v.cred==='Pending'?'y':'r'}`}>{v.cred}</span></td>
+                    <td><span className={`rpill ${v.risk}`}>{v.risk==='h'?'High':v.risk==='m'?'Medium':'Low'}</span></td>
+                    <td><span className={`ds-badge ${v.status}`}>{v.status==='non-compliant'?'Non-Compliant':v.status==='under-review'?'Under Review':'Compliant'}</span></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+          {tableView === 'region' && (
+            <div style={{padding:20}}>
+              <div className="g2" style={{marginBottom:0}}>
+                <div>
+                  <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>Regional Maverick Spend</div>
+                  {REGIONS_DATA.map((r,i) => (
+                    <div key={i} style={{marginBottom:10,cursor:'pointer'}} onClick={()=>onNavigate('regDetail',r.name)}>
+                      <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}>
+                        <div style={{display:'flex',alignItems:'center',gap:6}}>
+                          <span style={{fontSize:12,fontWeight:500,color:'var(--rp)'}}>{r.name}</span>
+                          {r.mavPct>=25 && <span className="rpill h">High</span>}
+                        </div>
+                        <span style={{fontSize:12,fontWeight:700}}>{r.mavPct}%</span>
                       </div>
-                      <span style={{fontSize:12,fontWeight:600,width:30}}>{c.rate}%</span>
+                      <div className="prog"><div className="prog-f" style={{width:`${r.mavPct}%`,background:r.mavPct>=25?'var(--red)':r.mavPct>=20?'var(--orange)':'var(--ch3)'}}/></div>
                     </div>
-                  </td>
-                  <td><MiniSparkLine data={c.trend} color={c.trend[5]>c.trend[0]?'var(--green)':'var(--red)'} w={50} h={18}/></td>
-                  <td style={{textAlign:'center'}}>{c.props}</td>
-                  <td><span className={`ds-badge ${c.status==='g'?'compliant':c.status==='r'?'non-compliant':'under-review'}`}>{slbl(c.status)}</span></td>
-                  <td><span className="ct-link" onClick={()=>onNavigate('catDetail',c.name)}>View →</span></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        ) : (
-          <table className="dt">
-            <thead><tr><th>Vendor</th><th>Category</th><th className="r">Maverick Spend</th><th style={{textAlign:'center'}}>Violations</th><th>Credentialing</th><th>Risk</th><th>Status</th><th>Action</th></tr></thead>
-            <tbody>
-              {MAV_VENDORS.map((v,i) => (
-                <tr key={i}>
-                  <td>
-                    <div><span className="vlink">{v.name}</span></div>
-                    <div style={{fontSize:10,color:'var(--gd)',marginTop:1}}>{v.contact}</div>
-                  </td>
-                  <td>{v.cat}</td>
-                  <td className="r fw6">${v.spend.toLocaleString()}</td>
-                  <td style={{textAlign:'center'}}>
-                    <span className={`viol-circle ${v.viol>=5?'cr':v.viol>=3?'wa':'lo'}`}>{v.viol}</span>
-                  </td>
-                  <td><span className={`tag ${v.cred==='Credentialed'?'g':v.cred==='Pending'?'y':'r'}`}>{v.cred}</span></td>
-                  <td><span className={`rpill ${v.risk}`}>{v.risk==='h'?'High':v.risk==='m'?'Medium':'Low'}</span></td>
-                  <td><span className={`ds-badge ${v.status}`}>{v.status==='non-compliant'?'Non-Compliant':v.status==='under-review'?'Under Review':'Compliant'}</span></td>
-                  <td><span className="ct-link">Review →</span></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </div>
-      {/* Lumina micro-insight */}
-      <div style={{display:'flex',alignItems:'center',gap:8,padding:'10px 0',fontSize:12,color:'var(--rp-black)'}}>
-        <SparkleIcon s={14} c="#6366F1"/>
-        <span style={{opacity:0.7}}>18 vendors account for 62% of non-compliant spend. Consolidating top 3 HVAC vendors into AirTech's preferred agreement saves <strong style={{color:'var(--green)'}}>$42K/yr</strong></span>
-        <span className="ct-link" style={{marginLeft:'auto'}} onClick={()=>onNavigate('catvendor')}>View Plan →</span>
-      </div>
-
-      {/* ═══ 7. TOP OFFLINE VENDORS — Action Required ═══ */}
-      <div className="sh">
-        <div className="sh-t">Top Offline Vendors <span className="sh-badge">{EXCEPTIONS.length} vendors bypassing eInvoice</span></div>
-        <div style={{display:'flex',gap:8}}>
-          <button className="fbtn"><Icon n="export" s={13}/> CSV</button>
-          <button className="fbtn"><Icon n="file" s={13}/> PDF</button>
-        </div>
-      </div>
-      <div className="card" style={{padding:0,overflow:'hidden',marginBottom:0}}>
-        <table className="dt">
-          <thead><tr><th>Vendor</th><th>Category</th><th>Region</th><th className="r">Offline Spend</th><th className="r">Avg Invoice</th><th style={{textAlign:'center'}}>Exceptions</th><th>Credentialing</th><th>Why Offline?</th><th>Action</th></tr></thead>
-          <tbody>
-            {EXCEPTIONS.map((e,i) => (
-              <tr key={i}>
-                <td className="vlink">{e.vendor}</td>
-                <td>{e.cat}</td>
-                <td>{e.region}</td>
-                <td className="r fw6" style={{color:'var(--orange)'}}>{fmtM(e.offlineSpend)}</td>
-                <td className="r">${e.avgInv.toLocaleString()}</td>
-                <td style={{textAlign:'center'}}><span className={`viol-circle ${e.exceptions>=10?'cr':e.exceptions>=5?'wa':'lo'}`}>{e.exceptions}</span></td>
-                <td><span className={`tag ${e.cred==='Credentialed'?'g':e.cred==='Pending'?'y':'r'}`}>{e.cred}</span></td>
-                <td style={{fontSize:11,color:'var(--gd)'}}>{e.cred==='Non-credentialed'?'Not set up for eInvoice':e.cred==='Lapsed COI'?'COI expired, reverted to paper':'Using non-preferred process'}</td>
-                <td><div style={{display:'flex',gap:6}}><button className="btn bp xs">Onboard</button></div></td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-      <div style={{display:'flex',alignItems:'center',gap:8,padding:'10px 0',fontSize:12,color:'var(--rp-black)'}}>
-        <SparkleIcon s={14} c="#6366F1"/>
-        <span style={{opacity:0.7}}>These {EXCEPTIONS.length} vendors account for <strong>${EXCEPTIONS.reduce((s,e)=>s+e.offlineSpend,0).toLocaleString()}</strong> in offline spend. Moving them to eInvoice unlocks <strong style={{color:'var(--green)'}}>~$132K/yr</strong> in volume rebates and preferred pricing your portfolio is currently missing.</span>
-      </div>
-
-      {/* ═══ 8. GEOGRAPHIC + PROPERTY PREVIEW ═══ */}
-      <div className="sh">
-        <div className="sh-t">Regional & Property Risk</div>
-        <div className="sh-l" onClick={()=>onNavigate('regprop')}>View Details →</div>
-      </div>
-      <div className="g2" style={{marginBottom:0}}>
-        <div className="card">
-          <CardOverflow/>
-          <div className="ct">Regional Risk Snapshot</div>
-          <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Sorted by maverick spend percentage</div>
-          {REGIONS_DATA.map((r,i) => (
-            <div key={i} style={{marginBottom:12,cursor:'pointer'}} onClick={()=>onNavigate('regDetail',r.name)}>
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
-                <div style={{display:'flex',alignItems:'center',gap:6}}>
-                  <span style={{fontSize:12,fontWeight:500,color:'var(--rp)'}}>{r.name}</span>
-                  {r.mavPct>=25 && <span className="rpill h">High</span>}
+                  ))}
                 </div>
-                <div style={{display:'flex',alignItems:'center',gap:8}}>
-                  <span style={{fontSize:11,color:'var(--gd)'}}>{r.props} props · {r.topCat}</span>
-                  <span style={{fontSize:12,fontWeight:700}}>{r.mavPct}%</span>
+                <div>
+                  <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>Property Compliance</div>
+                  {PROPS_DATA.map((p,i) => (
+                    <div key={i} style={{marginBottom:10,cursor:'pointer'}} onClick={()=>onNavigate('propDetail',p.name)}>
+                      <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}>
+                        <span style={{fontSize:12,fontWeight:500,color:'var(--rp)'}}>{p.name}</span>
+                        <span className={`ds-badge ${p.status}`} style={{fontSize:10}}>{p.status==='non-compliant'?'Non-Comp':p.status==='compliant'?'OK':'Review'}</span>
+                      </div>
+                      <div style={{display:'flex',alignItems:'center',gap:6}}>
+                        <div className="prog" style={{flex:1}}><div className="prog-f" style={{width:`${p.compliance}%`,background:p.compliance>=85?'var(--ch3)':p.compliance>=70?'var(--ch2)':'var(--red)'}}/></div>
+                        <span style={{fontSize:11,fontWeight:600,width:28}}>{p.compliance}%</span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-              <div className="prog">
-                <div className="prog-f" style={{width:`${r.mavPct}%`,background:r.mavPct>=25?'var(--red)':r.mavPct>=20?'var(--orange)':'var(--ch3)'}}/>
               </div>
             </div>
-          ))}
-        </div>
-        <div className="card">
-          <CardOverflow/>
-          <div className="ct">Property Spend Compliance <span className="ct-link" onClick={()=>onNavigate('regprop')}>View All →</span></div>
-          {PROPS_DATA.map((p,i) => (
-            <div key={i} style={{marginBottom:14,cursor:'pointer'}} onClick={()=>onNavigate('propDetail',p.name)}>
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
-                <div style={{display:'flex',alignItems:'center',gap:8}}>
-                  <span style={{fontSize:12,fontWeight:500,color:'var(--rp)'}}>{p.name}</span>
-                  <span className={`ds-badge ${p.status}`}>{p.status==='non-compliant'?'Non-Compliant':p.status==='compliant'?'Compliant':'Needs Review'}</span>
-                </div>
-              </div>
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
-                <span style={{fontSize:11,color:'var(--gd)'}}>Total: {fmtM(p.totalSpend)} | Maverick: {fmtM(p.mavSpend)}</span>
-                <span style={{fontSize:12,fontWeight:600}}>{p.compliance}%</span>
-              </div>
-              <div className="prog">
-                <div className="prog-f" style={{width:`${p.compliance}%`,background:p.compliance>=85?'var(--ch3)':p.compliance>=70?'var(--ch2)':'var(--red)'}}/>
-              </div>
-            </div>
-          ))}
+          )}
+          {tableView === 'offline' && (
+            <table className="dt">
+              <thead><tr><th>Vendor</th><th>Category</th><th>Region</th><th className="r">Offline Spend</th><th style={{textAlign:'center'}}>Exceptions</th><th>Status</th><th>Why Offline?</th><th>Action</th></tr></thead>
+              <tbody>
+                {EXCEPTIONS.map((e,i) => (
+                  <tr key={i}>
+                    <td className="vlink">{e.vendor}</td>
+                    <td>{e.cat}</td>
+                    <td>{e.region}</td>
+                    <td className="r fw6" style={{color:'var(--orange)'}}>{fmtM(e.offlineSpend)}</td>
+                    <td style={{textAlign:'center'}}><span className={`viol-circle ${e.exceptions>=10?'cr':e.exceptions>=5?'wa':'lo'}`}>{e.exceptions}</span></td>
+                    <td><span className={`tag ${e.cred==='Credentialed'?'g':e.cred==='Pending'?'y':'r'}`}>{e.cred}</span></td>
+                    <td style={{fontSize:11,color:'var(--gd)'}}>{e.cred==='Non-credentialed'?'Not set up for eInvoice':e.cred==='Lapsed COI'?'COI expired, reverted to paper':'Using non-preferred process'}</td>
+                    <td><button className="btn bp xs">Onboard</button></td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </div>
 
