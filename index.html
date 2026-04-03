@@ -280,14 +280,13 @@ const VENDOR_NETWORK = {
 const OFFLINE_LEAKAGE = {
   offlineCatOrders:277,offlineCatSpend:109000,
   offlineVendorInv:1084,offlineVendorSpend:1709000,
-  totalOrders:5451,offlineOrders:1622,offlineRate:29.8,target:20,
-  missedSavings:473000,vendorPricingGap:312000,manualProcessCost:89000
+  totalOrders:5451,offlineOrders:1622,offlineRate:29.8,target:20
 };
 
 const INSIGHTS = [
-  {type:'al',label:'Alert',title:'187 of 261 vendors are transacting offline. Your portfolio is missing $473K in rebate savings and paying $89K extra for manual invoice processing — $562K in avoidable costs.',cta:'View Offline Vendors'},
-  {type:'rc',label:'Recommendation',title:'Goods receipt delays (77% on-time vs 80% target) are causing vendors to send invoices offline instead of through the system. Tightening receipt turnaround would shift vendors back online — unlocking rebates.',cta:'View Process Improvement Plan'},
-  {type:'op',label:'Opportunity',title:'3 vendors are already set up for eInvoice but still sending paper invoices. Activating them saves $88K/yr in rebates and eliminates $12K in manual processing — zero setup cost.',cta:'View Quick Wins'},
+  {type:'al',label:'Alert',title:'187 of 261 vendors are transacting offline — 29.8% of orders bypass your system. Moving these online improves spend visibility and unlocks preferred pricing tiers.',cta:'View Offline Vendors'},
+  {type:'rc',label:'Recommendation',title:'Goods receipt turnaround at 77% (target: 80%). Improving this by 3 points brings 180 invoices back into compliant processing and strengthens vendor adoption of eInvoice.',cta:'View Process Metrics'},
+  {type:'op',label:'Opportunity',title:'$1.4M in recoverable savings identified through eInvoice adoption and vendor consolidation. 3 vendors are already set up for eInvoice — activation takes 1-2 weeks, zero setup cost.',cta:'View Quick Wins'},
 ];
 
 const CATEGORIES = [
@@ -344,10 +343,10 @@ const CASES = [
 ];
 
 const LUMINA_RESP = {
-  maverick:{text:'Goods receipt turnaround is at 77% (below 80% target) — 180 invoices weren\'t processed on time. When receipts are delayed, vendors default to sending paper invoices, which means your portfolio misses volume rebates. HVAC is the worst category at 67%, with QuickFix HVAC alone at $145K in offline spend. Tightening receipt discipline shifts vendors back online and unlocks rebates.',rows:[{l:'Receipt Turnaround',v:'77% — below 80% target',t:'r'},{l:'Offline Vendor Rate',v:'187/261 (71.6%)',t:'r'},{l:'Avoidable Costs',v:'$874K/yr total',t:'r'},{l:'Quick Win',v:'3 vendors = $88K (1-2 wks)',t:'g'}]},
-  vendors:{text:'187 of 261 vendors are sending paper invoices instead of using eInvoice. This means your portfolio can\'t capture volume rebates ($473K/yr missed), can\'t track spend in real-time, and pays $89K/yr for manual invoice handling. 3 vendors are already set up for eInvoice but aren\'t using it — activating them costs nothing and unlocks $88K/yr immediately.',rows:[{l:'Already Set Up',v:'3 vendors — $88K quick win',t:'w'},{l:'QuickFix HVAC',v:'$145K offline — 12 exceptions',t:'r'},{l:'Pricing Gap',v:'$312K/yr non-preferred rates',t:'r'},{l:'Manual Processing',v:'$89K/yr avoidable cost',t:'w'}]},
-  offline:{text:'Offline invoicing is costing your portfolio three ways: (1) $473K/yr in missed volume rebates — offline orders don\'t qualify for preferred pricing tiers, (2) $312K/yr in vendor pricing gaps — non-preferred vendors charge more than preferred alternatives, (3) $89K/yr in manual invoice processing fees. Total avoidable cost: $874K/yr. Southeast is worst at 38% offline rate.',rows:[{l:'Missed Rebates',v:'$473K/yr',t:'r'},{l:'Vendor Pricing Gap',v:'$312K/yr',t:'r'},{l:'Manual Processing',v:'$89K/yr',t:'w'},{l:'Total Avoidable',v:'$874K/yr recoverable',t:'r'}]},
-  default:{text:'Your portfolio has $874K in avoidable costs from offline vendor activity. The pattern: when goods receipts are delayed (77% on-time vs 80% target), vendors default to paper invoices. This means you miss $473K in volume rebates, pay $312K more than preferred rates, and spend $89K on manual processing. Quick win: 3 vendors are already set up for eInvoice — just activate them for $88K/yr in immediate savings.',rows:[{l:'Portfolio Compliance',v:'70% (+2pts QoQ)',t:'g'},{l:'Receipt Turnaround',v:'77% — needs improvement',t:'r'},{l:'Offline Vendors',v:'187/261 (71.6%)',t:'r'},{l:'Avoidable Costs',v:'$874K/yr recoverable',t:'r'}]},
+  maverick:{text:'$6.2M in maverick spend across your portfolio — 23% of total. HVAC is the biggest opportunity at 67% compliance ($1.4M in off-contract spend). Goods receipt turnaround at 77% (target: 80%) is slowing vendor adoption of eInvoice. Improving receipt processing brings vendors online and qualifies more spend for preferred pricing.',rows:[{l:'Maverick Spend',v:'$6.2M (23% of total)',t:'r'},{l:'Recoverable Savings',v:'$1.4M identified',t:'g'},{l:'Worst Category',v:'HVAC — 67% compliance',t:'r'},{l:'Quick Win',v:'3 vendors ready to activate',t:'g'}]},
+  vendors:{text:'74 of 261 vendors are transacting online through eInvoice — there\'s significant room to grow. Bringing more vendors online improves spend visibility, enables preferred pricing, and streamlines invoice processing. 3 vendors are already set up for eInvoice but haven\'t been activated yet — zero setup cost to bring them online.',rows:[{l:'Online Vendors',v:'74 of 261 (28.4%)',t:'r'},{l:'Credentialed',v:'143 of 261 (54.8%)',t:'w'},{l:'Ready to Activate',v:'3 vendors — no setup needed',t:'g'},{l:'Offline Invoices',v:'1,084 invoices off-system',t:'r'}]},
+  offline:{text:'29.8% of orders are processed offline — target is 20%. Offline orders mean less spend visibility, no preferred pricing qualification, and manual processing overhead. Southeast is highest at 38%. Bringing offline rate to target would shift ~500 orders online, improving compliance and enabling better vendor pricing across 82 properties.',rows:[{l:'Offline Rate',v:'29.8% (target: 20%)',t:'r'},{l:'Offline Orders',v:'1,622 of 5,451',t:'r'},{l:'Worst Region',v:'Southeast — 38% offline',t:'r'},{l:'Improvement Goal',v:'Reduce to 20% = +500 orders online',t:'g'}]},
+  default:{text:'Your portfolio has $1.4M in recoverable savings through improved spend compliance. Currently at 70% compliance (up 2pts from Q3). Key levers: bring goods receipt to 80% target (now 77%), shift more vendors online (74 of 261 today), and improve credentialing coverage (54.8%). 3 vendors are already set up for eInvoice — activating them is your fastest win.',rows:[{l:'Portfolio Compliance',v:'70% (+2pts QoQ)',t:'g'},{l:'Recoverable Savings',v:'$1.4M identified',t:'g'},{l:'Online Adoption',v:'74/261 vendors (28.4%)',t:'r'},{l:'Receipt Turnaround',v:'77% — target 80%',t:'r'}]},
 };
 
 /* ── ICONS ────────────────────────────────────────────────────── */
@@ -564,7 +563,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
           </button>
           {/* Prompt chips row */}
           <div style={{width:'100%',display:'flex',gap:16,flexWrap:'wrap'}}>
-            {['Which vendors are offline despite being credentialed?','Show me the cost of offline leakage by region','What if we enforce eInvoice for top 10 offline vendors?','Why is goods receipt turnaround below target?'].map((q,i) => (
+            {['Which vendors are credentialed but still offline?','Show me offline order rate by region','What happens if we activate the 3 ready vendors?','How do we close the goods receipt gap?'].map((q,i) => (
               <div key={i} className="lumina-prompt">{q}</div>
             ))}
           </div>
@@ -596,13 +595,13 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
           {/* Header bar */}
           <div style={{background:'linear-gradient(135deg,var(--rp-black) 0%,#2d3a52 100%)',padding:'20px 32px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
             <div>
-              <div style={{fontSize:12,fontWeight:600,color:'rgba(255,255,255,.5)',textTransform:'uppercase',letterSpacing:'.5px'}}>Your Portfolio Is Paying</div>
-              <div style={{fontSize:42,fontWeight:700,color:'#fff',lineHeight:1.1,marginTop:4}}>$874K<span style={{fontSize:16,fontWeight:400,color:'rgba(255,255,255,.6)',marginLeft:8}}>/yr more than it should</span></div>
+              <div style={{fontSize:12,fontWeight:600,color:'rgba(255,255,255,.5)',textTransform:'uppercase',letterSpacing:'.5px'}}>Savings Within Reach</div>
+              <div style={{fontSize:42,fontWeight:700,color:'#fff',lineHeight:1.1,marginTop:4}}>$1.4M<span style={{fontSize:16,fontWeight:400,color:'rgba(255,255,255,.6)',marginLeft:8}}>recoverable through spend optimization</span></div>
             </div>
             <div style={{textAlign:'right'}}>
               <div style={{fontSize:11,color:'rgba(255,255,255,.5)'}}>Quick win available</div>
-              <div style={{fontSize:20,fontWeight:700,color:'var(--ch1)',marginTop:2}}>$88K</div>
-              <div style={{fontSize:11,color:'var(--ch1)'}}>in 1-2 weeks</div>
+              <div style={{fontSize:20,fontWeight:700,color:'var(--ch1)',marginTop:2}}>3 vendors</div>
+              <div style={{fontSize:11,color:'var(--ch1)'}}>ready to activate</div>
             </div>
           </div>
 
@@ -640,19 +639,19 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
               {/* Arrow */}
               <div style={{padding:'0 12px',display:'flex',flexDirection:'column',alignItems:'center',gap:2}}>
                 <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="var(--gm)" strokeWidth={2}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                <div style={{fontSize:9,color:'var(--gd)',textAlign:'center',maxWidth:60}}>You miss savings</div>
+                <div style={{fontSize:9,color:'var(--gd)',textAlign:'center',maxWidth:60}}>Unlock savings</div>
               </div>
-              {/* COST */}
-              <div style={{background:'var(--rbg)',borderRadius:8,padding:16,textAlign:'center',border:'1px solid rgba(208,26,31,0.15)'}}>
-                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:6}}>Your Avoidable Cost</div>
-                <div style={{fontSize:32,fontWeight:700,color:'var(--red)',lineHeight:1}}>$874K</div>
-                <div style={{fontSize:12,color:'var(--rp-black)',marginTop:4}}>per year</div>
+              {/* OPPORTUNITY */}
+              <div style={{background:'var(--gbg)',borderRadius:8,padding:16,textAlign:'center',border:'1px solid rgba(17,136,55,0.15)'}}>
+                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:6}}>Your Opportunity</div>
+                <div style={{fontSize:32,fontWeight:700,color:'var(--green)',lineHeight:1}}>$1.4M</div>
+                <div style={{fontSize:12,color:'var(--rp-black)',marginTop:4}}>recoverable savings</div>
                 <div style={{display:'flex',flexDirection:'column',gap:3,marginTop:8,textAlign:'left'}}>
-                  {[{l:'Missed rebates',v:'$473K',pct:54},{l:'Pricing gap',v:'$312K',pct:36},{l:'Processing',v:'$89K',pct:10}].map((c,i) => (
+                  {[{l:'Off-contract spend',v:'$6.2M',pct:70},{l:'Non-compliant inv.',v:'4,726',pct:25},{l:'Offline orders',v:'29.8%',pct:30}].map((c,i) => (
                     <div key={i} style={{display:'flex',alignItems:'center',gap:6,fontSize:10}}>
-                      <div style={{flex:1}}><div style={{height:3,background:'rgba(208,26,31,0.15)',borderRadius:9999}}><div style={{width:`${c.pct}%`,height:'100%',background:'var(--red)',borderRadius:9999}}/></div></div>
-                      <span style={{color:'var(--gd)',width:70,whiteSpace:'nowrap'}}>{c.l}</span>
-                      <span style={{fontWeight:600,color:'var(--red)',width:40,textAlign:'right'}}>{c.v}</span>
+                      <div style={{flex:1}}><div style={{height:3,background:'rgba(17,136,55,0.15)',borderRadius:9999}}><div style={{width:`${c.pct}%`,height:'100%',background:'var(--green)',borderRadius:9999}}/></div></div>
+                      <span style={{color:'var(--gd)',width:85,whiteSpace:'nowrap'}}>{c.l}</span>
+                      <span style={{fontWeight:600,color:'var(--green)',width:40,textAlign:'right'}}>{c.v}</span>
                     </div>
                   ))}
                 </div>
@@ -705,13 +704,13 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
       <div style={{marginTop:24}}>
         <div className="sh" style={{marginTop:0}}>
           <div className="sh-t"><SparkleIcon s={18} c="#6366F1"/> Your Recovery Plan</div>
-          <div style={{fontSize:14,fontWeight:700,color:'var(--green)'}}>$874K recoverable</div>
+          <div style={{fontSize:14,fontWeight:700,color:'var(--green)'}}>$1.4M recoverable</div>
         </div>
         <div className="g3" style={{marginBottom:0}}>
           {[
-            {step:1,title:'Activate 3 Ready Vendors',val:'$88K/yr',time:'1-2 weeks',desc:'These vendors are already set up for eInvoice but still sending paper. Zero setup cost — just flip the switch.',urgency:'h',icon:'zap',pct:10},
-            {step:2,title:'Consolidate to Preferred Pricing',val:'$420K/yr',time:'4-6 weeks',desc:'Move 5 non-preferred HVAC vendors to AirTech\'s preferred agreement. Volume discounts + rebate eligibility.',urgency:'m',icon:'user',pct:48},
-            {step:3,title:'Fix Receipt Turnaround',val:'Unlocks all',time:'2-3 weeks',desc:'Get goods receipt to 80% target. This closes the loop — vendors can\'t bypass, and future savings are automatic.',urgency:'h',icon:'shield',pct:100},
+            {step:1,title:'Activate 3 Ready Vendors',val:'3 vendors',time:'1-2 weeks',desc:'These vendors are already set up for eInvoice but still sending paper invoices. Zero setup cost — just activate them to bring spend online.',urgency:'h',icon:'zap',pct:10},
+            {step:2,title:'Improve Goods Receipt to 80%',val:'77% → 80%',time:'2-3 weeks',desc:'Close the 3-point gap on goods receipt turnaround. Faster receipts improve vendor experience and drive eInvoice adoption across your portfolio.',urgency:'h',icon:'shield',pct:48},
+            {step:3,title:'Consolidate Non-Preferred Vendors',val:'5 vendors',time:'4-6 weeks',desc:'Move 5 non-preferred HVAC vendors into preferred agreements. Consolidation improves pricing, simplifies management, and increases compliance.',urgency:'m',icon:'user',pct:100},
           ].map((s,i) => (
             <div key={i} className="card" style={{padding:0,overflow:'hidden',display:'flex',flexDirection:'column'}}>
               <div style={{background:i===0?'var(--green)':i===1?'var(--rp)':'var(--orange)',padding:'12px 20px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
@@ -722,10 +721,10 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                 <span className={`rpill ${s.urgency}`} style={{background:'rgba(255,255,255,.2)',color:'#fff'}}>{s.time}</span>
               </div>
               <div style={{padding:'16px 20px',flex:1,display:'flex',flexDirection:'column'}}>
-                <div style={{fontSize:24,fontWeight:700,color:i===0?'var(--green)':i===1?'var(--rp)':'var(--orange)',marginBottom:8}}>{s.val}</div>
+                <div style={{fontSize:24,fontWeight:700,color:i===0?'var(--green)':i===1?'var(--orange)':'var(--rp)',marginBottom:8}}>{s.val}</div>
                 <div style={{fontSize:12,color:'var(--gd)',lineHeight:'18px',flex:1}}>{s.desc}</div>
                 <button className={`btn ${i===0?'bp':'bs'} sm`} style={{marginTop:12,width:'100%',justifyContent:'center'}}>
-                  {i===0?'Activate Now →':i===1?'View Plan →':'Set Up →'}
+                  {i===0?'Activate Now →':i===1?'View Metrics →':'View Plan →'}
                 </button>
               </div>
             </div>
@@ -850,107 +849,6 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         </div>
       </div>
 
-      {/* ═══ 9. LOWER LUMINA NARRATIVE ZONE ═══ */}
-      <div style={{marginTop:28}}>
-        <div className="g21" style={{marginBottom:0}}>
-          {/* AI Narrative Card */}
-          <div className="signal-widget">
-            <div className="sig-icons">
-              <div className="sig-icon-btn"><Icon n="info" s={16}/></div>
-              <div className="sig-icon-btn"><CardOverflow/></div>
-            </div>
-            <div style={{fontFamily:"'Lato',sans-serif",fontSize:16,fontWeight:900,color:'var(--rp-black)',marginBottom:16,lineHeight:'112.5%',display:'flex',alignItems:'center',gap:8}}>
-              <SparkleIcon s={16} c="#6366F1"/> Portfolio Compliance Signal
-            </div>
-            <div style={{display:'flex',alignItems:'flex-start',gap:20}}>
-              <div>
-                <div style={{display:'flex',alignItems:'center',gap:8}}>
-                  <div className="signal-score" style={{fontSize:64}}>70</div>
-                  <div className="signal-trend-badge" style={{background:'var(--gbg)',color:'var(--green)'}}>
-                    <svg width={12} height={12} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2.5}><path d="M18 15l-6-6-6 6"/></svg>
-                    +2pts
-                  </div>
-                </div>
-              </div>
-              <div style={{flex:1,paddingTop:8}}>
-                <LineChart
-                  series={[[64,65,66,67,67,68,68,69,69,70],[72,72,72,72,72,72,72,72,72,72]]}
-                  lbls={['Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec','Jan']}
-                  w={320} h={70}
-                  colors={['var(--ch3)','var(--gm)']}
-                  showDots={false}
-                  showArea={true}
-                  dashed={[false,true]}
-                />
-              </div>
-            </div>
-            {/* Lumina Generated Result Callout */}
-            <div style={{marginTop:16,background:'linear-gradient(94.21deg, rgba(116,255,222,0.1) 1.71%, rgba(0,194,255,0.1) 98.32%)',boxShadow:'0px 0px 16px rgba(149,222,238,0.25)',borderRadius:8,padding:'18px 24px'}}>
-              <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:8}}>
-                <svg width={22} height={25} viewBox="0 0 24 24" fill="none" style={{opacity:0.8}}>
-                  <path d="M12 0L14.59 8.41L23 11L14.59 13.59L12 22L9.41 13.59L1 11L9.41 8.41L12 0Z" fill="url(#aiGrad)"/>
-                  <defs><linearGradient id="aiGrad" x1="0" y1="0" x2="24" y2="24"><stop stopColor="#70D8C3"/><stop offset="1" stopColor="#062679"/></linearGradient></defs>
-                </svg>
-                <span style={{fontFamily:"'Lato',sans-serif",fontWeight:900,fontSize:16,lineHeight:'112.5%',color:'var(--rp-black)'}}>Portfolio Signal</span>
-              </div>
-              <div className="signal-narrative" style={{fontFamily:"'Lato',sans-serif",fontSize:12,lineHeight:'150%',color:'var(--rp-black)'}}>
-                <p>Portfolio compliance is <strong>70%</strong>, up 2pts from Q3 but still below the 72% target. The leakage chain:</p>
-                <ul style={{marginLeft:16,marginTop:4}}>
-                  <li><strong>Goods receipt at 77%</strong> (below 80% target) — 180 delayed receipts cause vendors to default to paper invoices</li>
-                  <li><strong>187 of 261 vendors offline</strong> — sending paper invoices instead of eInvoice, missing volume rebates and preferred pricing</li>
-                  <li><strong>$874K in avoidable costs</strong> — $473K missed rebates + $312K vendor pricing gaps + $89K manual processing</li>
-                  <li><strong>Fix receipt turnaround → shift vendors online → recover savings</strong> — process discipline is the lever that unlocks everything</li>
-                </ul>
-              </div>
-              <div style={{borderTop:'1px solid #E9EAEB',marginTop:10,paddingTop:10}}>
-                <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
-                  <div>
-                    <div style={{fontFamily:"'Lato',sans-serif",fontWeight:900,fontSize:14,color:'var(--rp-black)'}}>Recommendation (1 of 3)</div>
-                    <div style={{fontFamily:"'Lato',sans-serif",fontSize:12,color:'#707689',marginTop:2}}>Estimated Time: 2 Weeks</div>
-                  </div>
-                </div>
-                <p style={{fontFamily:"'Lato',sans-serif",fontSize:12,lineHeight:'150%',color:'var(--rp-black)',marginTop:6}}>Activate eInvoice for 3 vendors already set up in the system (zero setup cost). Unlocks <strong>$88K/yr</strong> in volume rebates your portfolio is currently missing. Then consolidate 5 non-preferred vendors into preferred agreements for an additional <strong>$420K/yr</strong> in better pricing.</p>
-              </div>
-              <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginTop:12}}>
-                <span style={{fontFamily:"'Lato',sans-serif",fontWeight:700,fontSize:16,color:'#3D7F8D',cursor:'pointer'}}>View Details</span>
-                <div style={{display:'flex',gap:10}}>
-                  <div style={{width:32,height:32,borderRadius:'50%',background:'#538FAA',display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>
-                    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2}><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                  </div>
-                  <div style={{width:32,height:32,borderRadius:'50%',background:'#538FAA',display:'flex',alignItems:'center',justifyContent:'center',cursor:'pointer'}}>
-                    <svg width={16} height={16} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Action Queue + Watchlist */}
-          <div style={{display:'flex',flexDirection:'column',gap:16}}>
-            <div className="card" style={{flex:1}}>
-              <div className="ct">
-                <span style={{display:'flex',alignItems:'center',gap:6}}><Icon n="target" s={16} c="var(--rp)"/> Next Best Actions</span>
-              </div>
-              {[
-                {action:'Activate eInvoice for 3 vendors already in the system — zero setup, immediate rebates',impact:'$88K/yr in unlocked rebates',urgency:'h'},
-                {action:'Tighten goods receipt turnaround to hit 80% target (currently 77%)',impact:'Shifts vendors back online',urgency:'h'},
-                {action:'Move QuickFix HVAC online — your largest offline vendor at $145K',impact:'$145K spend now trackable',urgency:'h'},
-                {action:'Consolidate 5 non-preferred HVAC vendors into AirTech preferred pricing',impact:'$420K/yr better rates',urgency:'m'},
-                {action:'Switch 277 offline catalog orders to online ordering',impact:'$89K/yr processing savings',urgency:'m'},
-              ].map((a,i) => (
-                <div key={i} className="aq-item">
-                  <div className="aq-num">{i+1}</div>
-                  <div style={{flex:1}}>
-                    <div style={{fontSize:12,lineHeight:'16px'}}>{a.action}</div>
-                    <div style={{fontSize:10,color:'var(--gd)',marginTop:2}}>{a.impact}</div>
-                  </div>
-                  <span className={`rpill ${a.urgency}`}>{a.urgency==='h'?'Urgent':a.urgency==='m'?'Medium':'Low'}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };
@@ -1278,7 +1176,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
         {[
           {l:'Offline Rate',v:'29.8%',sub:'Target: 20%',delta:'▼ Above target',dir:'dn'},
           {l:'Offline Orders',v:'1,622',sub:'of 5,451 total',delta:'',dir:'neu'},
-          {l:'Missed Savings',v:'$473K',sub:'15% offline rebate',delta:'',dir:'neu'},
+          {l:'Offline Spend',v:'$1.7M',sub:'Vendor invoices off-system',delta:'',dir:'neu'},
           {l:'Non-Compliant Properties',v:'3',sub:'of 82 · below 70%',delta:'-1 vs Q3',dir:'up'},
         ].map((m,i) => (
           <div key={i} className="kcard" style={{cursor:'default'}}>
@@ -1426,13 +1324,13 @@ const Investigations = () => {
 
 /* ── LUMINA PANEL ─────────────────────────────────────────────── */
 const LuminaPanel = ({open,onClose}) => {
-  const initMsg = {type:'ai',text:'Hi! I\'m Lumina, your AI spend analyst. I\'ve found $874K in avoidable costs in your portfolio. 187 of 261 vendors are sending paper invoices instead of using eInvoice — which means you\'re missing volume rebates, paying higher vendor rates, and covering manual processing fees.\n\nQuick win: 3 vendors are already set up for eInvoice but aren\'t using it. Activating them saves $88K/yr with zero setup.\n\nWhat would you like to investigate?',time:'Now',rows:[{l:'Avoidable Costs',v:'$874K/yr recoverable',t:'r'},{l:'Receipt Turnaround',v:'77% — needs improvement',t:'r'},{l:'Offline Vendors',v:'187/261 (71.6%)',t:'r'},{l:'Quick Win Available',v:'3 vendors = $88K',t:'g'}]};
+  const initMsg = {type:'ai',text:'Hi! I\'m Lumina, your AI spend analyst. I\'ve identified $1.4M in recoverable savings across your portfolio. You\'re at 70% spend compliance — up 2pts from Q3. Key opportunities: 187 of 261 vendors are still offline, goods receipt is at 77% (target 80%), and 23% of spend is off-contract.\n\nQuick win: 3 vendors are already set up for eInvoice — activating them brings more spend online with zero setup.\n\nWhat would you like to explore?',time:'Now',rows:[{l:'Recoverable Savings',v:'$1.4M identified',t:'g'},{l:'Compliance Rate',v:'70% (+2pts QoQ)',t:'g'},{l:'Online Vendors',v:'74/261 — room to grow',t:'r'},{l:'Quick Win',v:'3 vendors ready to activate',t:'g'}]};
   const [msgs,setMsgs] = useState([initMsg]);
   const [inp,setInp] = useState('');
   const [typing,setTyping] = useState(false);
   const endRef = useRef(null);
   useEffect(()=>{endRef.current?.scrollIntoView({behavior:'smooth'})},[msgs,typing]);
-  const CHIPS = ['Why are vendors sending paper invoices?','Show me the $874K cost breakdown','Which 3 vendors are the quick win?','How do we shift vendors back online?'];
+  const CHIPS = ['Why are vendors still offline?','What does $1.4M recoverable include?','Which 3 vendors are the quick win?','How do we improve goods receipt to 80%?'];
   const getResp = (q) => {
     const ql = q.toLowerCase();
     if (ql.includes('maverick')||ql.includes('hvac')||ql.includes('off-contract')||ql.includes('spend')) return LUMINA_RESP.maverick;
