@@ -254,10 +254,10 @@ const {useState,useEffect,useRef} = React;
 
 /* ── DATA ────────────────────────────────────────────────────── */
 const KPI_DATA = [
-  {id:'ts',label:'Total Spend (YTD)',val:'$26.6M',sub:'19,268 invoices · 82 properties · 5 regions',delta:'+4.2% vs prior period',dir:'up'},
-  {id:'cs',label:'Compliant Spend',val:'$18.6M',sub:'70% of total · 14,440 compliant invoices',delta:'+2.1% vs Q3',dir:'up'},
-  {id:'ms',label:'Maverick Spend',val:'$6.2M',sub:'23% of total · 4,726 non-compliant invoices',delta:'-$340K vs Q3',dir:'up'},
-  {id:'ps',label:'Recoverable Savings',val:'$1.4M',sub:'eInvoice shift + vendor consolidation',delta:'+$180K identified this month',dir:'up'},
+  {id:'ts',label:'Total Spend',val:'$26.6M',sub:'19,268 invoices · 82 properties',delta:'+4.2% vs prior period',dir:'up'},
+  {id:'cs',label:'Invoice Compliance',val:'70%',sub:'14,440 of 19,268 invoices compliant',delta:'+2 pts vs Q3',dir:'up'},
+  {id:'ms',label:'Online Adoption',val:'28%',sub:'74 of 261 vendors on eInvoice',delta:'+8 vendors this quarter',dir:'up'},
+  {id:'ps',label:'Goods Receipt',val:'77%',sub:'620 of 800 within 3-day target',delta:'3 pts below 80% target',dir:'dn'},
 ];
 
 /* ── INVOICE & VENDOR COMPLIANCE (from OPSBUYER widgets) ──── */
@@ -284,9 +284,9 @@ const OFFLINE_LEAKAGE = {
 };
 
 const INSIGHTS = [
-  {type:'al',label:'Alert',title:'187 of 261 vendors are transacting offline — 29.8% of orders bypass your system. Moving these online improves spend visibility and unlocks preferred pricing tiers.',cta:'View Offline Vendors'},
-  {type:'rc',label:'Recommendation',title:'Goods receipt turnaround at 77% (target: 80%). Improving this by 3 points brings 180 invoices back into compliant processing and strengthens vendor adoption of eInvoice.',cta:'View Process Metrics'},
-  {type:'op',label:'Opportunity',title:'$1.4M in recoverable savings identified through eInvoice adoption and vendor consolidation. 3 vendors are already set up for eInvoice — activation takes 1-2 weeks, zero setup cost.',cta:'View Quick Wins'},
+  {type:'al',label:'Alert',title:'187 of 261 vendors are transacting offline — 29.8% of orders bypass your system. Moving these online improves spend visibility and unlocks preferred pricing.',cta:'View Offline Vendors'},
+  {type:'rc',label:'Recommendation',title:'Goods receipt turnaround at 77% (target: 80%). Closing this 3-point gap brings 180 invoices into compliant processing and drives vendor eInvoice adoption.',cta:'View Process Metrics'},
+  {type:'op',label:'Opportunity',title:'3 vendors are already set up for eInvoice but still sending paper. Activating them takes 1-2 weeks with zero setup cost — immediate improvement to your online adoption rate.',cta:'View Quick Wins'},
 ];
 
 const CATEGORIES = [
@@ -343,10 +343,10 @@ const CASES = [
 ];
 
 const LUMINA_RESP = {
-  maverick:{text:'$6.2M in maverick spend across your portfolio — 23% of total. HVAC is the biggest opportunity at 67% compliance ($1.4M in off-contract spend). Goods receipt turnaround at 77% (target: 80%) is slowing vendor adoption of eInvoice. Improving receipt processing brings vendors online and qualifies more spend for preferred pricing.',rows:[{l:'Maverick Spend',v:'$6.2M (23% of total)',t:'r'},{l:'Recoverable Savings',v:'$1.4M identified',t:'g'},{l:'Worst Category',v:'HVAC — 67% compliance',t:'r'},{l:'Quick Win',v:'3 vendors ready to activate',t:'g'}]},
-  vendors:{text:'74 of 261 vendors are transacting online through eInvoice — there\'s significant room to grow. Bringing more vendors online improves spend visibility, enables preferred pricing, and streamlines invoice processing. 3 vendors are already set up for eInvoice but haven\'t been activated yet — zero setup cost to bring them online.',rows:[{l:'Online Vendors',v:'74 of 261 (28.4%)',t:'r'},{l:'Credentialed',v:'143 of 261 (54.8%)',t:'w'},{l:'Ready to Activate',v:'3 vendors — no setup needed',t:'g'},{l:'Offline Invoices',v:'1,084 invoices off-system',t:'r'}]},
-  offline:{text:'29.8% of orders are processed offline — target is 20%. Offline orders mean less spend visibility, no preferred pricing qualification, and manual processing overhead. Southeast is highest at 38%. Bringing offline rate to target would shift ~500 orders online, improving compliance and enabling better vendor pricing across 82 properties.',rows:[{l:'Offline Rate',v:'29.8% (target: 20%)',t:'r'},{l:'Offline Orders',v:'1,622 of 5,451',t:'r'},{l:'Worst Region',v:'Southeast — 38% offline',t:'r'},{l:'Improvement Goal',v:'Reduce to 20% = +500 orders online',t:'g'}]},
-  default:{text:'Your portfolio has $1.4M in recoverable savings through improved spend compliance. Currently at 70% compliance (up 2pts from Q3). Key levers: bring goods receipt to 80% target (now 77%), shift more vendors online (74 of 261 today), and improve credentialing coverage (54.8%). 3 vendors are already set up for eInvoice — activating them is your fastest win.',rows:[{l:'Portfolio Compliance',v:'70% (+2pts QoQ)',t:'g'},{l:'Recoverable Savings',v:'$1.4M identified',t:'g'},{l:'Online Adoption',v:'74/261 vendors (28.4%)',t:'r'},{l:'Receipt Turnaround',v:'77% — target 80%',t:'r'}]},
+  maverick:{text:'Your spend health score is 70/100. HVAC has the lowest category compliance at 67%. Goods receipt turnaround at 77% (target: 80%) is the biggest process gap — closing it improves vendor experience and drives eInvoice adoption. Only 28% of vendors are online today.',rows:[{l:'Spend Health',v:'70 / 100',t:'r'},{l:'Lowest Category',v:'HVAC — 67% compliance',t:'r'},{l:'Goods Receipt',v:'77% (target 80%)',t:'r'},{l:'Quick Win',v:'3 vendors ready to activate',t:'g'}]},
+  vendors:{text:'74 of 261 vendors are transacting online through eInvoice — 28% adoption. Bringing more vendors online improves spend visibility and enables preferred pricing. 3 vendors are already set up for eInvoice but haven\'t been activated yet — zero setup cost to bring them online.',rows:[{l:'Online Vendors',v:'74 of 261 (28%)',t:'r'},{l:'Credentialed',v:'143 of 261 (55%)',t:'w'},{l:'Ready to Activate',v:'3 vendors — no setup needed',t:'g'},{l:'Offline Invoices',v:'1,084 invoices off-system',t:'r'}]},
+  offline:{text:'29.8% of orders are processed offline — target is 20%. Offline orders mean less spend visibility and no preferred pricing qualification. Southeast is highest at 38%. Bringing offline rate to target would shift ~500 orders online, improving compliance across 82 properties.',rows:[{l:'Offline Rate',v:'29.8% (target: 20%)',t:'r'},{l:'Offline Orders',v:'1,622 of 5,451',t:'r'},{l:'Worst Region',v:'Southeast — 38% offline',t:'r'},{l:'Improvement Goal',v:'Reduce to 20% = +500 orders online',t:'g'}]},
+  default:{text:'Your spend health score is 70/100 — up 2 points from Q3. Key metrics to improve: goods receipt to 80% (now 77%), online vendor adoption to 50% (now 28%), and credentialing to 70% (now 55%). Fastest win: activate 3 vendors already set up for eInvoice.',rows:[{l:'Spend Health',v:'70/100 (+2pts QoQ)',t:'g'},{l:'Goods Receipt',v:'77% — target 80%',t:'r'},{l:'Online Adoption',v:'28% — target 50%',t:'r'},{l:'Credentialed',v:'55% — target 70%',t:'r'}]},
 };
 
 /* ── ICONS ────────────────────────────────────────────────────── */
@@ -527,7 +527,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
   const [tableView,setTableView] = useState('category');
   const fmtM = (v) => v >= 1000000 ? `$${(v/1000000).toFixed(1)}M` : `$${(v/1000).toFixed(0)}K`;
   const slbl = (s) => s === 'g' ? 'Compliant' : s === 'r' ? 'Non-Compliant' : 'Needs Review';
-  const donutSegs = [{pct:70,color:'var(--ch3)',label:'Compliant'},{pct:23,color:'var(--ch4)',label:'Maverick'},{pct:7,color:'var(--ch1)',label:'Unclassified'}];
+  const donutSegs = [{pct:70,color:'var(--ch3)',label:'Compliant'},{pct:23,color:'var(--ch4)',label:'Off-Contract'},{pct:7,color:'var(--ch1)',label:'Unclassified'}];
   const compRadarDims = [
     {label:'Invoice Compliance',value:77},
     {label:'Vendor Credentialing',value:55},
@@ -589,71 +589,104 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         </div>
       </div>
 
-      {/* ═══ 3. THE STORY — Cause → Effect → Cost (ONE card, no scroll needed) ═══ */}
+      {/* ═══ 3. SPEND HEALTH — Where you are vs where you could be ═══ */}
       <div style={{marginTop:20}}>
         <div className="signal-widget" style={{padding:0,overflow:'hidden'}}>
-          {/* Header bar */}
+          {/* Header bar — positive framing: where you're headed */}
           <div style={{background:'linear-gradient(135deg,var(--rp-black) 0%,#2d3a52 100%)',padding:'20px 32px',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
             <div>
-              <div style={{fontSize:12,fontWeight:600,color:'rgba(255,255,255,.5)',textTransform:'uppercase',letterSpacing:'.5px'}}>Savings Within Reach</div>
-              <div style={{fontSize:42,fontWeight:700,color:'#fff',lineHeight:1.1,marginTop:4}}>$1.4M<span style={{fontSize:16,fontWeight:400,color:'rgba(255,255,255,.6)',marginLeft:8}}>recoverable through spend optimization</span></div>
+              <div style={{fontSize:12,fontWeight:600,color:'rgba(255,255,255,.5)',textTransform:'uppercase',letterSpacing:'.5px'}}>Spend Health Score</div>
+              <div style={{display:'flex',alignItems:'baseline',gap:16,marginTop:4}}>
+                <div style={{fontSize:48,fontWeight:700,color:'#fff',lineHeight:1}}>70<span style={{fontSize:20,color:'rgba(255,255,255,.5)'}}>/100</span></div>
+                <div style={{display:'flex',flexDirection:'column',gap:2}}>
+                  <span style={{fontSize:13,color:'var(--ch1)',fontWeight:600}}>+2 pts this quarter</span>
+                  <span style={{fontSize:12,color:'rgba(255,255,255,.5)'}}>Target: 85 by Q2</span>
+                </div>
+              </div>
             </div>
-            <div style={{textAlign:'right'}}>
-              <div style={{fontSize:11,color:'rgba(255,255,255,.5)'}}>Quick win available</div>
-              <div style={{fontSize:20,fontWeight:700,color:'var(--ch1)',marginTop:2}}>3 vendors</div>
-              <div style={{fontSize:11,color:'var(--ch1)'}}>ready to activate</div>
+            <div style={{display:'flex',gap:20}}>
+              {[{l:'Invoice Compliance',v:'70%',t:'75%',ok:false},{l:'Online Adoption',v:'28%',t:'50%',ok:false},{l:'Goods Receipt',v:'77%',t:'80%',ok:false},{l:'PO-WTN',v:'95%',t:'80%',ok:true}].map((m,i) => (
+                <div key={i} style={{textAlign:'center',minWidth:72}}>
+                  <div style={{fontSize:10,color:'rgba(255,255,255,.45)',marginBottom:4}}>{m.l}</div>
+                  <div style={{fontSize:22,fontWeight:700,color:m.ok?'var(--ch1)':'#fff',lineHeight:1}}>{m.v}</div>
+                  <div style={{fontSize:9,color:m.ok?'var(--ch1)':'rgba(255,255,255,.4)',marginTop:2}}>target {m.t}</div>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Cause → Effect → Cost flow */}
+          {/* Where you are → What's happening → Where you could be */}
           <div style={{padding:'24px 32px'}}>
-            <div style={{display:'grid',gridTemplateColumns:'1fr auto 1fr auto 1fr',gap:0,alignItems:'center',marginBottom:24}}>
-              {/* CAUSE */}
-              <div style={{background:'var(--gl)',borderRadius:8,padding:16,textAlign:'center',border:'1px solid var(--gll)'}}>
-                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:6}}>Process Gap</div>
-                <div style={{fontSize:32,fontWeight:700,color:'var(--red)',lineHeight:1}}>{INVOICE_COMPLIANCE.rog.rate}%</div>
-                <div style={{fontSize:12,color:'var(--rp-black)',marginTop:4}}>Goods receipt</div>
-                <div style={{fontSize:11,color:'var(--gd)'}}>Target: {INVOICE_COMPLIANCE.rog.target}%</div>
-                <div className="prog" style={{marginTop:8}}><div className="prog-f" style={{width:`${INVOICE_COMPLIANCE.rog.rate}%`,background:'var(--red)'}}/></div>
-                <div style={{fontSize:10,color:'var(--gd)',marginTop:4}}>{INVOICE_COMPLIANCE.rog.nonCompliant} invoices delayed</div>
-              </div>
-              {/* Arrow */}
-              <div style={{padding:'0 12px',display:'flex',flexDirection:'column',alignItems:'center',gap:2}}>
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="var(--gm)" strokeWidth={2}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                <div style={{fontSize:9,color:'var(--gd)',textAlign:'center',maxWidth:60}}>Vendors default to paper</div>
-              </div>
-              {/* EFFECT */}
-              <div style={{background:'var(--gl)',borderRadius:8,padding:16,textAlign:'center',border:'1px solid var(--gll)'}}>
-                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:6}}>Vendor Behavior</div>
-                <div style={{display:'flex',justifyContent:'center',alignItems:'flex-end',gap:4}}>
-                  <div style={{fontSize:32,fontWeight:700,color:'var(--orange)',lineHeight:1}}>{VENDOR_NETWORK.offline}</div>
-                  <div style={{fontSize:14,color:'var(--gd)',paddingBottom:4}}>/ {VENDOR_NETWORK.total}</div>
-                </div>
-                <div style={{fontSize:12,color:'var(--rp-black)',marginTop:4}}>Vendors offline</div>
-                <div style={{display:'flex',height:20,borderRadius:4,overflow:'hidden',marginTop:8}}>
-                  <div style={{width:`${(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100).toFixed(0)}%`,background:'var(--green)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:9,fontWeight:600,color:'#fff'}}>{VENDOR_NETWORK.online}</div>
-                  <div style={{flex:1,background:'var(--orange)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:9,fontWeight:600,color:'#fff'}}>{VENDOR_NETWORK.offline}</div>
-                </div>
-                <div style={{fontSize:10,color:'var(--gd)',marginTop:4}}>Only {(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100).toFixed(0)}% using eInvoice</div>
-              </div>
-              {/* Arrow */}
-              <div style={{padding:'0 12px',display:'flex',flexDirection:'column',alignItems:'center',gap:2}}>
-                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="var(--gm)" strokeWidth={2}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                <div style={{fontSize:9,color:'var(--gd)',textAlign:'center',maxWidth:60}}>Unlock savings</div>
-              </div>
-              {/* OPPORTUNITY */}
-              <div style={{background:'var(--gbg)',borderRadius:8,padding:16,textAlign:'center',border:'1px solid rgba(17,136,55,0.15)'}}>
-                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:6}}>Your Opportunity</div>
-                <div style={{fontSize:32,fontWeight:700,color:'var(--green)',lineHeight:1}}>$1.4M</div>
-                <div style={{fontSize:12,color:'var(--rp-black)',marginTop:4}}>recoverable savings</div>
-                <div style={{display:'flex',flexDirection:'column',gap:3,marginTop:8,textAlign:'left'}}>
-                  {[{l:'Off-contract spend',v:'$6.2M',pct:70},{l:'Non-compliant inv.',v:'4,726',pct:25},{l:'Offline orders',v:'29.8%',pct:30}].map((c,i) => (
-                    <div key={i} style={{display:'flex',alignItems:'center',gap:6,fontSize:10}}>
-                      <div style={{flex:1}}><div style={{height:3,background:'rgba(17,136,55,0.15)',borderRadius:9999}}><div style={{width:`${c.pct}%`,height:'100%',background:'var(--green)',borderRadius:9999}}/></div></div>
-                      <span style={{color:'var(--gd)',width:85,whiteSpace:'nowrap'}}>{c.l}</span>
-                      <span style={{fontWeight:600,color:'var(--green)',width:40,textAlign:'right'}}>{c.v}</span>
+            <div style={{display:'grid',gridTemplateColumns:'1fr auto 1fr auto 1fr',gap:0,alignItems:'stretch',marginBottom:24}}>
+              {/* WHERE YOU ARE */}
+              <div style={{background:'var(--gl)',borderRadius:8,padding:16,border:'1px solid var(--gll)'}}>
+                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:10}}>Where You Are</div>
+                {[
+                  {l:'Goods Receipt',v:INVOICE_COMPLIANCE.rog.rate,t:INVOICE_COMPLIANCE.rog.target,unit:'%'},
+                  {l:'Online Vendors',v:Math.round(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100),t:50,unit:'%'},
+                  {l:'Credentialed',v:Math.round(VENDOR_NETWORK.credRate),t:70,unit:'%'},
+                  {l:'Offline Rate',v:OFFLINE_LEAKAGE.offlineRate,t:OFFLINE_LEAKAGE.target,unit:'%',invert:true},
+                ].map((m,i) => {
+                  const ok = m.invert ? m.v <= m.t : m.v >= m.t;
+                  return (
+                    <div key={i} style={{marginBottom:i<3?8:0}}>
+                      <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}>
+                        <span style={{fontSize:11,color:'var(--rp-black)'}}>{m.l}</span>
+                        <span style={{fontSize:11,fontWeight:600,color:ok?'var(--green)':'var(--orange)'}}>{m.v}{m.unit}</span>
+                      </div>
+                      <div className="prog"><div className="prog-f" style={{width:`${m.invert?100-m.v:m.v}%`,background:ok?'var(--green)':'var(--orange)'}}/></div>
                     </div>
-                  ))}
+                  );
+                })}
+              </div>
+              {/* Arrow */}
+              <div style={{padding:'0 12px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:2}}>
+                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="var(--gm)" strokeWidth={2}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div style={{fontSize:9,color:'var(--gd)',textAlign:'center',maxWidth:60}}>What's driving this</div>
+              </div>
+              {/* WHAT'S HAPPENING */}
+              <div style={{background:'var(--gl)',borderRadius:8,padding:16,border:'1px solid var(--gll)'}}>
+                <div style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:10}}>What's Happening</div>
+                {[
+                  {icon:'⏱',text:`${INVOICE_COMPLIANCE.rog.nonCompliant} invoices miss 3-day receipt window`,color:'var(--red)'},
+                  {icon:'📄',text:`${VENDOR_NETWORK.offline} of ${VENDOR_NETWORK.total} vendors still on paper invoices`,color:'var(--orange)'},
+                  {icon:'📋',text:`${INVOICE_COMPLIANCE.vendor.nonCompliant.toLocaleString()} invoices processed without PO`,color:'var(--orange)'},
+                  {icon:'✓',text:`PO-WTN at ${INVOICE_COMPLIANCE.poWtn.rate}% — exceeding target`,color:'var(--green)'},
+                ].map((item,i) => (
+                  <div key={i} style={{display:'flex',alignItems:'flex-start',gap:8,marginBottom:i<3?10:0}}>
+                    <span style={{fontSize:14,lineHeight:'18px',flexShrink:0}}>{item.icon}</span>
+                    <span style={{fontSize:11,color:'var(--rp-black)',lineHeight:'16px'}}>{item.text}</span>
+                  </div>
+                ))}
+              </div>
+              {/* Arrow */}
+              <div style={{padding:'0 12px',display:'flex',flexDirection:'column',alignItems:'center',justifyContent:'center',gap:2}}>
+                <svg width={24} height={24} viewBox="0 0 24 24" fill="none" stroke="var(--gm)" strokeWidth={2}><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                <div style={{fontSize:9,color:'var(--gd)',textAlign:'center',maxWidth:60}}>Where you can go</div>
+              </div>
+              {/* WHERE YOU COULD BE */}
+              <div style={{background:'var(--gbg)',borderRadius:8,padding:16,border:'1px solid rgba(17,136,55,0.15)'}}>
+                <div style={{fontSize:11,fontWeight:600,color:'var(--green)',textTransform:'uppercase',letterSpacing:'.5px',marginBottom:10}}>Where You Could Be</div>
+                {[
+                  {l:'Goods Receipt',now:INVOICE_COMPLIANCE.rog.rate,goal:INVOICE_COMPLIANCE.rog.target},
+                  {l:'Online Vendors',now:Math.round(VENDOR_NETWORK.online/VENDOR_NETWORK.total*100),goal:50},
+                  {l:'Credentialed',now:Math.round(VENDOR_NETWORK.credRate),goal:70},
+                  {l:'Offline Rate',now:OFFLINE_LEAKAGE.offlineRate,goal:OFFLINE_LEAKAGE.target,invert:true},
+                ].map((m,i) => (
+                  <div key={i} style={{marginBottom:i<3?8:0}}>
+                    <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',marginBottom:3}}>
+                      <span style={{fontSize:11,color:'var(--rp-black)'}}>{m.l}</span>
+                      <div style={{display:'flex',alignItems:'center',gap:4}}>
+                        <span style={{fontSize:11,color:'var(--gd)',textDecoration:'line-through'}}>{m.now}%</span>
+                        <span style={{fontSize:9,color:'var(--green)'}}>→</span>
+                        <span style={{fontSize:11,fontWeight:700,color:'var(--green)'}}>{m.goal}%</span>
+                      </div>
+                    </div>
+                    <div className="prog"><div className="prog-f" style={{width:`${m.invert?100-m.goal:m.goal}%`,background:'var(--green)'}}/></div>
+                  </div>
+                ))}
+                <div style={{marginTop:10,padding:'6px 10px',background:'rgba(17,136,55,0.1)',borderRadius:4,fontSize:10,color:'var(--green)',fontWeight:600,textAlign:'center'}}>
+                  Spend Health: 70 → 85
                 </div>
               </div>
             </div>
@@ -663,7 +696,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
               <div>
                 <div style={{fontSize:13,fontWeight:700,color:'var(--rp-black)',marginBottom:8}}>Compliance Trend</div>
                 <LineChart
-                  series={[[62,64,65,66,68,69,70],[28,27,26,25,24,23,23],[72,72,72,72,72,72,72]]}
+                  series={[[62,64,65,66,68,69,70],[28,27,26,25,24,23,23],[85,85,85,85,85,85,85]]}
                   lbls={['Jul','Aug','Sep','Oct','Nov','Dec','Jan']}
                   w={380} h={100}
                   colors={['var(--ch3)','var(--ch4)','var(--gm)']}
@@ -672,8 +705,8 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
                 />
                 <div style={{display:'flex',justifyContent:'center',gap:14,marginTop:6}}>
                   <span style={{display:'flex',alignItems:'center',gap:4,fontSize:10}}><div style={{width:8,height:3,background:'var(--ch3)',borderRadius:2}}/> Compliant</span>
-                  <span style={{display:'flex',alignItems:'center',gap:4,fontSize:10}}><div style={{width:8,height:3,background:'var(--ch4)',borderRadius:2}}/> Maverick</span>
-                  <span style={{display:'flex',alignItems:'center',gap:4,fontSize:10}}><div style={{width:8,height:2,background:'var(--gm)',borderRadius:2}}/> Target</span>
+                  <span style={{display:'flex',alignItems:'center',gap:4,fontSize:10}}><div style={{width:8,height:3,background:'var(--ch4)',borderRadius:2}}/> Off-Contract</span>
+                  <span style={{display:'flex',alignItems:'center',gap:4,fontSize:10}}><div style={{width:8,height:2,background:'var(--gm)',borderRadius:2}}/> Q2 Target (85%)</span>
                 </div>
               </div>
               <div>
@@ -700,28 +733,36 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         </div>
       </div>
 
-      {/* ═══ 4. YOUR 3-STEP RECOVERY PLAN ═══ */}
+      {/* ═══ 4. NEXT STEPS — What to do, in what order ═══ */}
       <div style={{marginTop:24}}>
         <div className="sh" style={{marginTop:0}}>
-          <div className="sh-t"><SparkleIcon s={18} c="#6366F1"/> Your Recovery Plan</div>
-          <div style={{fontSize:14,fontWeight:700,color:'var(--green)'}}>$1.4M recoverable</div>
+          <div className="sh-t"><SparkleIcon s={18} c="#6366F1"/> Recommended Next Steps</div>
+          <div style={{fontSize:12,color:'var(--gd)'}}>Ordered by impact and effort</div>
         </div>
         <div className="g3" style={{marginBottom:0}}>
           {[
-            {step:1,title:'Activate 3 Ready Vendors',val:'3 vendors',time:'1-2 weeks',desc:'These vendors are already set up for eInvoice but still sending paper invoices. Zero setup cost — just activate them to bring spend online.',urgency:'h',icon:'zap',pct:10},
-            {step:2,title:'Improve Goods Receipt to 80%',val:'77% → 80%',time:'2-3 weeks',desc:'Close the 3-point gap on goods receipt turnaround. Faster receipts improve vendor experience and drive eInvoice adoption across your portfolio.',urgency:'h',icon:'shield',pct:48},
-            {step:3,title:'Consolidate Non-Preferred Vendors',val:'5 vendors',time:'4-6 weeks',desc:'Move 5 non-preferred HVAC vendors into preferred agreements. Consolidation improves pricing, simplifies management, and increases compliance.',urgency:'m',icon:'user',pct:100},
+            {step:1,title:'Activate 3 Ready Vendors',metric:'Online Adoption',now:'28%',goal:'29%',time:'1-2 weeks',desc:'3 vendors are already set up for eInvoice but still sending paper. Activating them brings 3 more vendors online immediately — zero setup cost.',urgency:'Quick Win',color:'var(--green)',icon:'zap'},
+            {step:2,title:'Close Goods Receipt Gap',metric:'Goods Receipt',now:'77%',goal:'80%',time:'2-3 weeks',desc:'180 invoices miss the 3-day receipt window. Closing this gap hits target and improves vendor experience — driving more to adopt eInvoice.',urgency:'High Impact',color:'var(--rp)',icon:'shield'},
+            {step:3,title:'Consolidate HVAC Vendors',metric:'Invoice Compliance',now:'70%',goal:'75%',time:'4-6 weeks',desc:'5 non-preferred HVAC vendors drive the lowest category compliance at 67%. Moving them to preferred agreements improves compliance and pricing.',urgency:'Strategic',color:'var(--orange)',icon:'user'},
           ].map((s,i) => (
             <div key={i} className="card" style={{padding:0,overflow:'hidden',display:'flex',flexDirection:'column'}}>
-              <div style={{background:i===0?'var(--green)':i===1?'var(--rp)':'var(--orange)',padding:'12px 20px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <div style={{background:s.color,padding:'12px 20px',display:'flex',justifyContent:'space-between',alignItems:'center'}}>
                 <div style={{display:'flex',alignItems:'center',gap:8}}>
                   <div style={{width:24,height:24,borderRadius:'50%',background:'rgba(255,255,255,.2)',display:'flex',alignItems:'center',justifyContent:'center',fontSize:12,fontWeight:700,color:'#fff'}}>{s.step}</div>
                   <span style={{fontSize:13,fontWeight:700,color:'#fff'}}>{s.title}</span>
                 </div>
-                <span className={`rpill ${s.urgency}`} style={{background:'rgba(255,255,255,.2)',color:'#fff'}}>{s.time}</span>
+                <span style={{background:'rgba(255,255,255,.2)',color:'#fff',padding:'2px 8px',borderRadius:4,fontSize:10,fontWeight:600}}>{s.urgency}</span>
               </div>
               <div style={{padding:'16px 20px',flex:1,display:'flex',flexDirection:'column'}}>
-                <div style={{fontSize:24,fontWeight:700,color:i===0?'var(--green)':i===1?'var(--orange)':'var(--rp)',marginBottom:8}}>{s.val}</div>
+                <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:8}}>
+                  <span style={{fontSize:11,fontWeight:600,color:'var(--gd)',textTransform:'uppercase',letterSpacing:'.3px'}}>{s.metric}</span>
+                  <span style={{fontSize:10,color:'var(--gd)'}}>{s.time}</span>
+                </div>
+                <div style={{display:'flex',alignItems:'baseline',gap:6,marginBottom:8}}>
+                  <span style={{fontSize:22,fontWeight:700,color:s.color}}>{s.now}</span>
+                  <span style={{fontSize:12,color:'var(--gd)'}}>→</span>
+                  <span style={{fontSize:22,fontWeight:700,color:'var(--green)'}}>{s.goal}</span>
+                </div>
                 <div style={{fontSize:12,color:'var(--gd)',lineHeight:'18px',flex:1}}>{s.desc}</div>
                 <button className={`btn ${i===0?'bp':'bs'} sm`} style={{marginTop:12,width:'100%',justifyContent:'center'}}>
                   {i===0?'Activate Now →':i===1?'View Metrics →':'View Plan →'}
@@ -752,7 +793,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
         <div className="card" style={{padding:0,overflow:'hidden',borderRadius:'0 0 4px 4px',borderTop:'none',marginBottom:0}}>
           {tableView === 'category' && (
             <table className="dt">
-              <thead><tr><th>Category</th><th className="r">Total Spend</th><th className="r">Maverick</th><th style={{width:120}}>Compliance</th><th>Trend</th><th>Status</th><th>Action</th></tr></thead>
+              <thead><tr><th>Category</th><th className="r">Total Spend</th><th className="r">Off-Contract</th><th style={{width:120}}>Compliance</th><th>Trend</th><th>Status</th><th>Action</th></tr></thead>
               <tbody>
                 {CATEGORIES.slice(0,6).map((c,i) => (
                   <tr key={i}>
@@ -775,7 +816,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
           )}
           {tableView === 'vendor' && (
             <table className="dt">
-              <thead><tr><th>Vendor</th><th>Category</th><th className="r">Maverick Spend</th><th style={{textAlign:'center'}}>Violations</th><th>Credentialing</th><th>Risk</th><th>Status</th></tr></thead>
+              <thead><tr><th>Vendor</th><th>Category</th><th className="r">Off-Contract Spend</th><th style={{textAlign:'center'}}>Violations</th><th>Credentialing</th><th>Risk</th><th>Status</th></tr></thead>
               <tbody>
                 {MAV_VENDORS.map((v,i) => (
                   <tr key={i}>
@@ -795,7 +836,7 @@ const PortfolioOverview = ({onNavigate,onDrawer}) => {
             <div style={{padding:20}}>
               <div className="g2" style={{marginBottom:0}}>
                 <div>
-                  <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>Regional Maverick Spend</div>
+                  <div style={{fontSize:13,fontWeight:700,marginBottom:12}}>Off-Contract Rate by Region</div>
                   {REGIONS_DATA.map((r,i) => (
                     <div key={i} style={{marginBottom:10,cursor:'pointer'}} onClick={()=>onNavigate('regDetail',r.name)}>
                       <div style={{display:'flex',justifyContent:'space-between',marginBottom:3}}>
@@ -881,8 +922,8 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
           {[
             {l:'Total Spend',v:fmtM(cat.total),sub:'YTD'},
             {l:'Compliant Spend',v:fmtM(cat.comp),sub:`${cat.rate}% of total`},
-            {l:'Maverick Spend',v:fmtM(cat.mav),sub:`${100-cat.rate}% of total`},
-            {l:'Properties Impacted',v:String(cat.props),sub:'With maverick activity'},
+            {l:'Off-Contract Spend',v:fmtM(cat.mav),sub:`${100-cat.rate}% of total`},
+            {l:'Properties Impacted',v:String(cat.props),sub:'With off-contract activity'},
           ].map((m,i) => (
             <div key={i} className="kcard" style={{cursor:'default'}}>
               <div className="k-lbl">{m.l}</div>
@@ -901,7 +942,7 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
           <div className="card">
             <CardOverflow/>
             <div className="ct">Compliance Breakdown</div>
-            <DonutChart segs={[{pct:cat.rate,color:'var(--ch3)',label:'Compliant'},{pct:100-cat.rate,color:'var(--ch4)',label:'Maverick'}]} size={140} thick={24} center={{val:`${cat.rate}%`,label:'Compliant'}}/>
+            <DonutChart segs={[{pct:cat.rate,color:'var(--ch3)',label:'Compliant'},{pct:100-cat.rate,color:'var(--ch4)',label:'Off-Contract'}]} size={140} thick={24} center={{val:`${cat.rate}%`,label:'Compliant'}}/>
           </div>
         </div>
         {/* Related Vendors */}
@@ -910,7 +951,7 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
             <div className="sh"><div className="sh-t">Related Vendors in {cat.name}</div></div>
             <div className="card" style={{padding:0,overflow:'hidden'}}>
               <table className="dt">
-                <thead><tr><th>Vendor</th><th>Property</th><th className="r">Maverick Amount</th><th style={{textAlign:'center'}}>Violations</th><th>Status</th><th>Action</th></tr></thead>
+                <thead><tr><th>Vendor</th><th>Property</th><th className="r">Off-Contract Amount</th><th style={{textAlign:'center'}}>Violations</th><th>Status</th><th>Action</th></tr></thead>
                 <tbody>
                   {catVendors.map((v,i) => (
                     <tr key={i}>
@@ -966,7 +1007,7 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
         <div className="card">
           <CardOverflow/>
           <div className="ct">Spend Compliance by Category</div>
-          <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Compliant vs maverick spend by category</div>
+          <div className="ct-sub" style={{marginTop:-8,marginBottom:16}}>Compliant vs off-contract spend by category</div>
           <div style={{display:'flex',alignItems:'flex-end',gap:8,height:140,paddingBottom:20}}>
             {CATEGORIES.slice(0,7).map((c,i) => {
               const maxVal = Math.max(...CATEGORIES.map(x=>x.total));
@@ -1009,7 +1050,7 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
       <div className="sh"><div className="sh-t">Category Compliance Overview</div></div>
       <div className="card" style={{padding:0,overflow:'hidden',marginBottom:16}}>
         <table className="dt">
-          <thead><tr><th>Category</th><th className="r">Total Spend</th><th className="r">Maverick</th><th style={{width:130}}>Compliance</th><th>Trend</th><th>Status</th></tr></thead>
+          <thead><tr><th>Category</th><th className="r">Total Spend</th><th className="r">Off-Contract</th><th style={{width:130}}>Compliance</th><th>Trend</th><th>Status</th></tr></thead>
           <tbody>
             {CATEGORIES.map((c,i) => (
               <tr key={i}>
@@ -1032,10 +1073,10 @@ const CategoryVendorDetail = ({onNavigate,detailName}) => {
         </table>
       </div>
       {/* Vendor Table */}
-      <div className="sh"><div className="sh-t">Maverick Spend by Top Vendor <span className="sh-badge">2 Non-Compliant</span></div></div>
+      <div className="sh"><div className="sh-t">Off-Contract Spend by Top Vendor <span className="sh-badge">2 Non-Compliant</span></div></div>
       <div className="card" style={{padding:0,overflow:'hidden'}}>
         <table className="dt">
-          <thead><tr><th>Vendor</th><th>Property</th><th>Category</th><th className="r">Maverick Amount</th><th style={{textAlign:'center'}}>Violations</th><th>Credentialing</th><th>Status</th></tr></thead>
+          <thead><tr><th>Vendor</th><th>Property</th><th>Category</th><th className="r">Off-Contract Amount</th><th style={{textAlign:'center'}}>Violations</th><th>Credentialing</th><th>Status</th></tr></thead>
           <tbody>
             {MAV_VENDORS.map((v,i) => (
               <tr key={i}>
@@ -1072,13 +1113,13 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
         </div>
         <div className="li-card al" style={{marginBottom:16}}>
           <div className="li-type al"><SparkleIcon s={12} c="var(--red)"/> Lumina Alert</div>
-          <div className="li-ttl">{region.name} region has {region.mavPct}% maverick spend rate — {region.mavPct>=25?'significantly above':'near'} portfolio average. Primary driver: {region.topCat} category. Offline rate: {region.offlineRate}%.</div>
+          <div className="li-ttl">{region.name} region has {region.mavPct}% off-contract spend rate — {region.mavPct>=25?'significantly above':'near'} portfolio average. Primary driver: {region.topCat} category. Offline rate: {region.offlineRate}%.</div>
         </div>
         <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
           {[
             {l:'Region Spend',v:fmtM(region.spend)},
-            {l:'Maverick Spend',v:fmtM(region.mavSpend)},
-            {l:'Maverick Rate',v:`${region.mavPct}%`},
+            {l:'Off-Contract Spend',v:fmtM(region.mavSpend)},
+            {l:'Off-Contract Rate',v:`${region.mavPct}%`},
             {l:'Properties',v:String(region.props)},
           ].map((m,i) => (
             <div key={i} className="kcard" style={{cursor:'default'}}>
@@ -1092,7 +1133,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
             <div className="sh"><div className="sh-t">Properties in {region.name}</div></div>
             <div className="card" style={{padding:0,overflow:'hidden'}}>
               <table className="dt">
-                <thead><tr><th>Property</th><th className="r">Total Spend</th><th className="r">Maverick</th><th style={{width:130}}>Compliance</th><th>Status</th></tr></thead>
+                <thead><tr><th>Property</th><th className="r">Total Spend</th><th className="r">Off-Contract</th><th style={{width:130}}>Compliance</th><th>Status</th></tr></thead>
                 <tbody>
                   {regionProps.map((p,i) => (
                     <tr key={i}>
@@ -1137,7 +1178,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
         <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
           {[
             {l:'Total Spend',v:fmtM(prop.totalSpend)},
-            {l:'Maverick Spend',v:fmtM(prop.mavSpend)},
+            {l:'Off-Contract Spend',v:fmtM(prop.mavSpend)},
             {l:'Compliance Rate',v:`${prop.compliance}%`},
             {l:'Offline Rate',v:`${prop.offlineRate}%`},
           ].map((m,i) => (
@@ -1169,7 +1210,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
     <div className="page-body">
       <div className="li-card al" style={{marginBottom:16}}>
         <div className="li-type al"><SparkleIcon s={12} c="var(--red)"/> Alert</div>
-        <div className="li-ttl">Southeast region maverick spend increased 18% this quarter. Sunset Ridge Apts accounts for 38% of the region's non-compliant spend — primarily driven by QuickFix HVAC Services operating without a preferred vendor agreement.</div>
+        <div className="li-ttl">Southeast region off-contract spend increased 18% this quarter. Sunset Ridge Apts accounts for 38% of the region's non-compliant spend — primarily driven by QuickFix HVAC Services operating without a preferred vendor agreement.</div>
         <div className="li-cta" onClick={()=>onNavigate('regDetail','Southeast')}>Investigate Southeast Region <Icon n="arrowRight" s={14}/></div>
       </div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
@@ -1190,7 +1231,7 @@ const RegionalPropertyDetail = ({onNavigate,detailName,detailType}) => {
       <div className="g2" style={{marginBottom:16}}>
         <div className="card">
           <CardOverflow/>
-          <div className="ct">Regional Maverick Spend</div>
+          <div className="ct">Off-Contract Rate by Region</div>
           {REGIONS_DATA.map((r,i) => (
             <div key={i} style={{marginBottom:12,cursor:'pointer'}} onClick={()=>onNavigate('regDetail',r.name)}>
               <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
@@ -1324,13 +1365,13 @@ const Investigations = () => {
 
 /* ── LUMINA PANEL ─────────────────────────────────────────────── */
 const LuminaPanel = ({open,onClose}) => {
-  const initMsg = {type:'ai',text:'Hi! I\'m Lumina, your AI spend analyst. I\'ve identified $1.4M in recoverable savings across your portfolio. You\'re at 70% spend compliance — up 2pts from Q3. Key opportunities: 187 of 261 vendors are still offline, goods receipt is at 77% (target 80%), and 23% of spend is off-contract.\n\nQuick win: 3 vendors are already set up for eInvoice — activating them brings more spend online with zero setup.\n\nWhat would you like to explore?',time:'Now',rows:[{l:'Recoverable Savings',v:'$1.4M identified',t:'g'},{l:'Compliance Rate',v:'70% (+2pts QoQ)',t:'g'},{l:'Online Vendors',v:'74/261 — room to grow',t:'r'},{l:'Quick Win',v:'3 vendors ready to activate',t:'g'}]};
+  const initMsg = {type:'ai',text:'Hi! I\'m Lumina, your spend analyst. Your Spend Health Score is 70/100 — up 2 points from Q3. Here\'s what I see:\n\n• Goods receipt at 77% (target 80%) — your biggest process gap\n• Only 28% of vendors on eInvoice — 187 of 261 still on paper\n• 3 vendors already set up for eInvoice, just need activation\n\nClosing these gaps moves your score toward 85. What would you like to explore?',time:'Now',rows:[{l:'Spend Health Score',v:'70/100 (+2pts QoQ)',t:'g'},{l:'Goods Receipt',v:'77% — target 80%',t:'r'},{l:'Online Adoption',v:'28% — target 50%',t:'r'},{l:'Quick Win',v:'3 vendors ready to activate',t:'g'}]};
   const [msgs,setMsgs] = useState([initMsg]);
   const [inp,setInp] = useState('');
   const [typing,setTyping] = useState(false);
   const endRef = useRef(null);
   useEffect(()=>{endRef.current?.scrollIntoView({behavior:'smooth'})},[msgs,typing]);
-  const CHIPS = ['Why are vendors still offline?','What does $1.4M recoverable include?','Which 3 vendors are the quick win?','How do we improve goods receipt to 80%?'];
+  const CHIPS = ['Why are vendors still offline?','How do we get to 85?','Which 3 vendors are the quick win?','How do we close the goods receipt gap?'];
   const getResp = (q) => {
     const ql = q.toLowerCase();
     if (ql.includes('maverick')||ql.includes('hvac')||ql.includes('off-contract')||ql.includes('spend')) return LUMINA_RESP.maverick;
