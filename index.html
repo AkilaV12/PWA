@@ -214,6 +214,79 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 /* Forecast card */
 .forecast-card{background:linear-gradient(135deg,var(--rp-black) 0%,#2d3a52 100%);border-radius:4px;padding:24px;color:#fff;position:relative;overflow:hidden}
 .forecast-card::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--orange) transparent transparent}
+/* Hero KPI section */
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:0}
+.hero-score{background:linear-gradient(135deg,#1a2332 0%,#2d3e55 100%);border-radius:8px;padding:32px;color:#fff;position:relative;overflow:hidden;display:flex;align-items:center;gap:32px}
+.hero-ring{position:relative;flex-shrink:0}
+.hero-meta{flex:1}
+.hero-val{font-size:48px;font-weight:700;line-height:1;margin-bottom:4px}
+.hero-label{font-size:14px;opacity:0.7;margin-bottom:12px}
+.hero-narrative{font-size:13px;line-height:1.5;opacity:0.85}
+.hero-trend{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:12px;margin-bottom:12px}
+.hero-trend.up{background:rgba(17,136,55,0.2);color:#4ade80}
+.hero-trend.dn{background:rgba(208,26,31,0.2);color:#fb7185}
+.kpi-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.kpi-smart{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:20px;position:relative;overflow:hidden;cursor:pointer;transition:box-shadow .15s;border-left:3px solid var(--gll)}
+.kpi-smart:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
+.kpi-smart.status-g{border-left-color:var(--green)}
+.kpi-smart.status-o{border-left-color:var(--orange)}
+.kpi-smart.status-r{border-left-color:var(--red)}
+.kpi-smart .k-lbl{font-size:12px;font-weight:600;margin-bottom:4px}
+.kpi-smart .k-val{font-size:24px;font-weight:700;line-height:28px}
+.kpi-smart .k-spark{position:absolute;bottom:12px;right:12px;opacity:0.6}
+/* AI Intelligence Brief */
+.ai-brief{background:linear-gradient(135deg,#0f2027 0%,#203a43 50%,#2c5364 100%);border-radius:12px;padding:16px 20px;margin-top:20px;display:flex;align-items:center;gap:16px;position:relative;overflow:hidden}
+.ai-brief::before{content:'';position:absolute;top:-50%;right:-10%;width:200px;height:200px;border-radius:50%;background:rgba(33,126,126,0.15)}
+.ai-brief-left{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.ai-brief-title{color:#fff;font-size:13px;font-weight:700;display:flex;align-items:center;gap:8px}
+.ai-brief-live{background:var(--red);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;text-transform:uppercase;letter-spacing:.5px;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+.ai-brief-text{flex:1;color:rgba(255,255,255,0.85);font-size:12px;line-height:1.5}
+.ai-brief-btn{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.25);border-radius:8px;padding:8px 16px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);white-space:nowrap;transition:all .15s;flex-shrink:0}
+.ai-brief-btn:hover{background:rgba(255,255,255,0.25)}
+.ai-chips{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+.ai-chip{display:flex;align-items:center;gap:6px;padding:6px 12px;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.15);border-radius:20px;color:rgba(255,255,255,0.8);font-size:11px;cursor:pointer;transition:all .15s}
+.ai-chip:hover{background:rgba(255,255,255,0.15);color:#fff}
+.ai-chip-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+/* Process KPI Groups */
+.process-group{background:var(--gl);border:1px solid var(--gll);border-radius:8px;padding:16px}
+.process-group-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gd);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.process-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.process-kpi{background:#fff;border-radius:6px;padding:14px;text-align:center;border:1px solid var(--gll)}
+.process-kpi-val{font-size:20px;font-weight:700;color:var(--rp-black)}
+.process-kpi-lbl{font-size:10px;color:var(--gd);margin-top:3px;font-weight:500}
+.process-kpi-status{font-size:9px;font-weight:600;margin-top:4px}
+/* Action Queue */
+.aq-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.aq-card{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:16px;border-left:4px solid var(--gll);position:relative;transition:box-shadow .15s}
+.aq-card:hover{box-shadow:0 2px 8px rgba(0,0,0,.08)}
+.aq-card.urgent{border-left-color:var(--red)}
+.aq-card.warning{border-left-color:var(--orange)}
+.aq-card.opportunity{border-left-color:var(--green)}
+.aq-card-num{width:24px;height:24px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;margin-bottom:10px;color:#fff}
+.aq-card.urgent .aq-card-num{background:var(--red)}
+.aq-card.warning .aq-card-num{background:var(--orange)}
+.aq-card.opportunity .aq-card-num{background:var(--green)}
+.aq-card-title{font-size:13px;font-weight:600;color:var(--rp-black);margin-bottom:4px;line-height:1.4}
+.aq-card-desc{font-size:11px;color:var(--gd);line-height:1.4;margin-bottom:12px}
+.aq-card-cta{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:600;color:var(--rp);cursor:pointer;padding:4px 0}
+.aq-card-cta:hover{text-decoration:underline}
+/* Alert cards improved */
+.li-card-improved{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:16px;position:relative;overflow:hidden;box-shadow:var(--shadow);border-left:3px solid var(--gll)}
+.li-card-improved.al{border-left-color:var(--red)}
+.li-card-improved.rc{border-left-color:var(--orange)}
+.li-card-improved.op{border-left-color:var(--green)}
+.li-impact{font-size:14px;font-weight:700;margin:6px 0 4px}
+.li-meta{display:flex;gap:12px;font-size:10px;color:var(--gd);margin-top:8px}
+/* Contextual greeting header */
+.greeting-title{font-family:'Roboto',sans-serif;font-size:20px;font-weight:700;color:var(--rp-black);line-height:26px}
+.greeting-sub{font-size:12px;color:var(--rp-black);opacity:0.6;margin-top:3px;line-height:18px}
+.greeting-sub span{font-weight:600;color:var(--green)}
+.greeting-sub .alert-count{color:var(--orange);font-weight:600}
+/* Regional inline bars */
+.region-bar-wrap{display:flex;align-items:center;gap:8px;margin-top:4px}
+.region-bar{height:6px;border-radius:3px;flex:1;max-width:120px;background:var(--gll);overflow:hidden}
+.region-bar-fill{height:100%;border-radius:3px;transition:width .4s}
 </style>
 </head>
 <body>
@@ -483,44 +556,104 @@ const SpendOverview = ({onNavigate}) => {
 
   const donutSegs = [{pct:70,color:'var(--ch3)',label:'Compliant'},{pct:23,color:'var(--ch4)',label:'Maverick Spend'},{pct:7,color:'var(--ch1)',label:'Unclassified'}];
 
+  /* Sparkline data for supporting KPIs */
+  const sparkData = {
+    mav: [5.8, 5.9, 6.0, 6.1, 6.0, 6.2],
+    comp: [17.8, 18.0, 18.1, 18.3, 18.5, 18.6],
+    sav: [1.1, 1.2, 1.2, 1.3, 1.3, 1.4],
+    port: [80, 80, 81, 81, 82, 82],
+  };
+
+  /* Hero compliance ring SVG */
+  const ringSize = 120, ringThick = 10, ringR = (ringSize/2) - ringThick/2;
+  const ringCirc = 2 * Math.PI * ringR;
+  const ringOffset = ringCirc - (70/100) * ringCirc;
+
+  /* Insight metadata for improved alerts */
+  const insightMeta = [
+    {impact:'$180K exposure', time:'Detected 2 days ago', owner:'Unassigned'},
+    {impact:'8% pattern shift', time:'Detected 5 days ago', owner:'Unassigned'},
+    {impact:'$2.4M potential savings', time:'Detected 1 day ago', owner:'Unassigned'},
+  ];
+
   return (
     <div className="page-body">
-      {/* ═══ 1. FIVE KPI CARDS ═══ */}
-      <div className="kgrid5">
-        {KPI_DATA.map(k => (
-          <div key={k.id} className={`kcard ${k.accent==='orange'?'orange':''}`}>
-            <CardOverflow/>
-            <div className="k-lbl">{k.label}</div>
-            <div className={`k-val ${k.accent==='orange'?'orange':''}`}>{k.val}</div>
-            <div className="k-sub">{k.sub}</div>
-            {k.delta && <div className={`k-delta ${k.dir}`}>{k.dir==='up'?'▲':k.dir==='dn'?'▼':'→'} {k.delta}</div>}
+      {/* ═══ ACT 1: SIGNAL — Hero KPI Layout ═══ */}
+      <div className="hero-grid">
+        {/* LEFT: Hero Compliance Score */}
+        <div className="hero-score">
+          <div className="hero-ring">
+            <svg width={ringSize} height={ringSize}>
+              <circle cx={ringSize/2} cy={ringSize/2} r={ringR} fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth={ringThick}/>
+              <circle cx={ringSize/2} cy={ringSize/2} r={ringR} fill="none" stroke="#4ade80" strokeWidth={ringThick}
+                strokeDasharray={ringCirc} strokeDashoffset={ringOffset}
+                strokeLinecap="round" transform={`rotate(-90 ${ringSize/2} ${ringSize/2})`}
+                style={{transition:'stroke-dashoffset 1s ease'}}/>
+              <text x={ringSize/2} y={ringSize/2-6} textAnchor="middle" fontSize="28" fontWeight="700" fill="#fff">70</text>
+              <text x={ringSize/2} y={ringSize/2+12} textAnchor="middle" fontSize="11" fill="rgba(255,255,255,0.6)">/100</text>
+            </svg>
           </div>
-        ))}
-      </div>
-
-      {/* ═══ 2. LUMINA SEARCH BAR ═══ */}
-      <div style={{marginTop:20}}>
-        <div style={{background:'#FFFFFF',borderRadius:18,padding:'14px 16px',display:'flex',flexWrap:'wrap',alignContent:'flex-start',gap:'12px 16px',marginBottom:8}}>
-          <div style={{flex:'1 1 0',minWidth:300}}>
-            <div style={{background:'#FFFFFF',border:'1px solid var(--gll)',borderRadius:12,height:40,display:'flex',alignItems:'center',padding:'0 12px',gap:8}}>
-              <SparkleIcon s={16} c="#217E7E"/>
-              <span style={{fontFamily:"'Lato',sans-serif",fontSize:14,color:'#3F5063',opacity:0.8}}>What spend questions can I help with?</span>
+          <div className="hero-meta">
+            <div className="hero-label">Spend Compliance Score</div>
+            <div className="hero-trend up">&#9650; +0.5% vs last quarter</div>
+            <div className="hero-narrative">
+              Portfolio compliance at 70% with $26.6M total spend across 82 properties. HVAC remains the primary compliance drag at 67% — 3 points below benchmark.
             </div>
           </div>
-          <button style={{background:'#217E7E',color:'#fff',border:'none',borderRadius:12,padding:'8px 20px',fontSize:14,fontWeight:600,cursor:'pointer',fontFamily:'var(--font)',display:'flex',alignItems:'center',gap:8}}>
-            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth={2}><path d="M22 2L11 13M22 2l-7 20-4-9-9-4 20-7z"/></svg>
-            Get Insights
-          </button>
-          <div style={{width:'100%',display:'flex',gap:12,flexWrap:'wrap'}}>
-            {['How are spend for Q1','Controllable plumbing vendors across Midwest','Booted policy violations at Harbor Point Towers','Which on-site maintenance/gas free...'].map((q,i) => (
-              <div key={i} className="lumina-prompt" style={{background:'var(--gl)',borderRadius:8,padding:'8px 14px',fontSize:12,border:'1px solid var(--gll)'}}>{q}</div>
-            ))}
+        </div>
+        {/* RIGHT: 2x2 Supporting KPIs */}
+        <div className="kpi-mini-grid">
+          <div className="kpi-smart status-o">
+            <div className="k-lbl">Maverick Spend</div>
+            <div className="k-val" style={{color:'var(--orange)'}}>$6.2M</div>
+            <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>23% of total spend</div>
+            <div className="k-spark"><MiniSparkLine data={sparkData.mav} color="var(--orange)" w={50} h={20}/></div>
+          </div>
+          <div className="kpi-smart status-g">
+            <div className="k-lbl">Compliant Spend</div>
+            <div className="k-val">$18.6M</div>
+            <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>70% of total spend</div>
+            <div className="k-spark"><MiniSparkLine data={sparkData.comp} color="var(--green)" w={50} h={20}/></div>
+          </div>
+          <div className="kpi-smart status-g">
+            <div className="k-lbl">Potential Savings</div>
+            <div className="k-val">$1.4M</div>
+            <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>4.5% of total spend</div>
+            <div className="k-spark"><MiniSparkLine data={sparkData.sav} color="var(--green)" w={50} h={20}/></div>
+          </div>
+          <div className="kpi-smart status-g">
+            <div className="k-lbl">Portfolio</div>
+            <div className="k-val">82</div>
+            <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>across 5 regions</div>
+            <div className="k-spark"><MiniSparkLine data={sparkData.port} color="var(--ch3)" w={50} h={20}/></div>
           </div>
         </div>
       </div>
 
-      {/* ═══ 3. LUMINA ALERTS ═══ */}
-      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:16,marginBottom:12}}>
+      {/* ═══ PROACTIVE AI INTELLIGENCE BRIEF ═══ */}
+      <div className="ai-brief">
+        <div className="ai-brief-left">
+          <SparkleIcon s={20} c="#4ade80"/>
+          <div className="ai-brief-title">
+            Lumina Intelligence Brief
+            <span className="ai-brief-live">LIVE</span>
+          </div>
+        </div>
+        <div className="ai-brief-text">
+          <strong>3 items need attention.</strong> HVAC maverick spend up 18% in Southeast — $180K exposure across 12 properties. 3 vendors ready for zero-cost eInvoice activation.
+          <div className="ai-chips">
+            <div className="ai-chip"><div className="ai-chip-dot" style={{background:'var(--red)'}}/> HVAC maverick spike — 12 properties</div>
+            <div className="ai-chip"><div className="ai-chip-dot" style={{background:'var(--orange)'}}/> 3 eInvoice vendors ready</div>
+            <div className="ai-chip"><div className="ai-chip-dot" style={{background:'var(--green)'}}/> $42K consolidation opportunity</div>
+          </div>
+        </div>
+        <button className="ai-brief-btn">View Full Brief</button>
+      </div>
+
+      {/* ═══ ACT 2: ANALYSIS — Charts + Trends ═══ */}
+
+      {/* ═══ LUMINA ALERTS (Improved with urgency) ═══ */}
+      <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginTop:24,marginBottom:12}}>
         <div style={{fontSize:14,fontWeight:700,color:'var(--rp-black)',display:'flex',alignItems:'center',gap:8}}>
           <SparkleIcon s={14} c="#217E7E"/> Lumina Alerts
         </div>
@@ -528,7 +661,7 @@ const SpendOverview = ({onNavigate}) => {
       </div>
       <div className="li-row">
         {INSIGHTS.map((ins,i) => (
-          <div key={i} className="li-card">
+          <div key={i} className={`li-card-improved ${ins.type}`}>
             <div className="li-type">
               {ins.type==='al'&&<svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="var(--red)" strokeWidth={1.5}><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>}
               {ins.type==='rc'&&<svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="var(--orange)" strokeWidth={1.5}><path d="M23 6l-9.5 9.5-5-5L1 18"/></svg>}
@@ -536,65 +669,138 @@ const SpendOverview = ({onNavigate}) => {
               {ins.label}
             </div>
             <div className="li-ttl">{ins.title}</div>
-            <div className="li-cta">{ins.cta} <Icon n="arrowRight" s={14}/></div>
+            <div className="li-impact" style={{color:ins.type==='al'?'var(--red)':ins.type==='rc'?'var(--orange)':'var(--green)'}}>{insightMeta[i].impact}</div>
+            <div className="li-meta">
+              <span>{insightMeta[i].time}</span>
+              <span style={{color:'var(--gm)'}}>|</span>
+              <span>{insightMeta[i].owner}</span>
+            </div>
+            <div className="li-cta" style={{marginTop:8}}>{ins.cta} <Icon n="arrowRight" s={14}/></div>
           </div>
         ))}
       </div>
 
-      {/* ═══ 4. CHARTS — Donut + Trend ═══ */}
+      {/* ═══ CHARTS — Donut (fixed center) + Trend (with benchmark) ═══ */}
       <div className="g2" style={{marginTop:20}}>
         <div className="card">
           <CardOverflow/>
           <div className="ct">Total Spend Compliance Breakdown</div>
           <div className="ct-sub">Compliant, maverick, and unclassified spend as a share of total</div>
           <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:32,padding:'8px 0'}}>
-            <DonutChart segs={donutSegs} size={180} thick={28} center={{val:'94.5%',label:'Total Spend'}}/>
+            <DonutChart segs={donutSegs} size={180} thick={28} center={{val:'70%',label:'Compliant'}}/>
             <div style={{display:'flex',flexDirection:'column',gap:10}}>
-              <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch3)'}}/> Compliant · 70%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>$ 18.6M</span></div>
-              <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch4)'}}/> Maverick Spend · 23%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>$ 6.2M</span></div>
-              <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch1)'}}/> Unclassified · 7%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>$ 1.8M</span></div>
+              <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch3)'}}/> Compliant - 70%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>$18.6M</span></div>
+              <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch4)'}}/> Maverick Spend - 23%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>$6.2M</span></div>
+              <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch1)'}}/> Unclassified - 7%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>$1.8M</span></div>
             </div>
           </div>
         </div>
         <div className="card">
           <CardOverflow/>
           <div className="ct">Spend Compliance Trend</div>
-          <div className="ct-sub">Monthly compliant vs maverick spend %</div>
-          <LineChart
-            series={[[55,58,62,64,68,70,72],[32,30,28,26,24,23,22]]}
-            lbls={['Jan','Feb','Mar','Apr','May','Jun','Jul']}
-            w={380} h={170}
-            colors={['var(--ch3)','var(--orange)']}
-            showArea={true}
-            showDots={true}
-          />
+          <div className="ct-sub">Monthly compliant vs maverick spend % with 75% target benchmark</div>
+          <div style={{position:'relative'}}>
+            <LineChart
+              series={[[55,58,62,64,68,70,72],[32,30,28,26,24,23,22],[75,75,75,75,75,75,75]]}
+              lbls={['Jan','Feb','Mar','Apr','May','Jun','Jul']}
+              w={380} h={170}
+              colors={['var(--ch3)','var(--orange)','var(--gd)']}
+              showArea={true}
+              showDots={true}
+              dashed={[false,false,true]}
+            />
+            {/* Benchmark label */}
+            <div style={{position:'absolute',right:16,top:38,fontSize:10,color:'var(--gd)',fontWeight:600,background:'rgba(255,255,255,0.85)',padding:'1px 6px',borderRadius:3}}>75% Target</div>
+          </div>
           <div style={{display:'flex',justifyContent:'center',gap:24,marginTop:8,fontSize:11}}>
-            <span style={{color:'var(--gd)'}}>Available Drill Down</span>
             <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--ch3)',borderRadius:2}}/> Compliant %</span>
             <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--orange)',borderRadius:2}}/> Maverick %</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--gd)',borderRadius:2,borderTop:'1px dashed var(--gd)'}}/> 75% Benchmark</span>
           </div>
         </div>
       </div>
 
-      {/* ═══ 5. MINI KPI BRIDGE ROW ═══ */}
-      <div className="bridge-grid" style={{marginTop:4}}>
-        {[
-          {l:'ROG Compliant Invoices',v:'620',sub:`of ${INVOICE_COMPLIANCE.rog.total}`,sub2:`${INVOICE_COMPLIANCE.rog.rate}% vs Target ${INVOICE_COMPLIANCE.rog.target}%`,ok:false},
-          {l:'PO-WTN Compliant Invoices',v:'760',sub:`of ${INVOICE_COMPLIANCE.poWtn.total}`,sub2:`${INVOICE_COMPLIANCE.poWtn.rate}% vs Target ${INVOICE_COMPLIANCE.poWtn.target}%`,ok:true},
-          {l:'Compliant Vendor Invoices',v:'14,440',sub:'of 19,268',sub2:'75% of Total',ok:true},
-          {l:'Non-compliant Vendor Invoices',v:'4,726',sub:'of 19,268',sub2:'25% of Total',ok:false},
-          {l:'Pending Vendor Invoices',v:'102',sub:'of 1,245',sub2:'8% of Total',ok:false},
-          {l:'Total Spend',v:'$18.94M',sub:'',sub2:'70% Spend Rate',ok:true},
-        ].map((m,i) => (
-          <div key={i} className="bridge-card">
-            <div className="bridge-lbl" style={{minHeight:28}}>{m.l}</div>
-            <div className="bridge-val">{m.v}</div>
-            <div className="bridge-sub" style={{color:m.ok?'var(--green)':'var(--red)',fontWeight:500}}>{m.sub2}</div>
+      {/* ═══ GROUPED PROCESS KPIs (Miller's Law) ═══ */}
+      <div className="g2" style={{marginTop:4}}>
+        <div className="process-group">
+          <div className="process-group-title">
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="var(--gd)" strokeWidth={1.5}><path d="M14 2H6a2 2 00-2 2v16a2 2 002 2h12a2 2 002-2V8z M14 2v6h6"/></svg>
+            Invoice Processing
           </div>
-        ))}
+          <div className="process-kpis">
+            <div className="process-kpi">
+              <div className="process-kpi-val">620</div>
+              <div className="process-kpi-lbl"><span style={{display:'inline-block',width:6,height:6,borderRadius:'50%',background:'var(--red)',marginRight:4,verticalAlign:'middle'}}/>ROG Compliant</div>
+              <div className="process-kpi-status" style={{color:'var(--red)'}}>{INVOICE_COMPLIANCE.rog.rate}% vs Target {INVOICE_COMPLIANCE.rog.target}%</div>
+            </div>
+            <div className="process-kpi">
+              <div className="process-kpi-val">760</div>
+              <div className="process-kpi-lbl"><span style={{display:'inline-block',width:6,height:6,borderRadius:'50%',background:'var(--green)',marginRight:4,verticalAlign:'middle'}}/>PO-WTN</div>
+              <div className="process-kpi-status" style={{color:'var(--green)'}}>{INVOICE_COMPLIANCE.poWtn.rate}% vs Target {INVOICE_COMPLIANCE.poWtn.target}%</div>
+            </div>
+            <div className="process-kpi">
+              <div className="process-kpi-val">$18.94M</div>
+              <div className="process-kpi-lbl"><span style={{display:'inline-block',width:6,height:6,borderRadius:'50%',background:'var(--green)',marginRight:4,verticalAlign:'middle'}}/>Total Compliant Spend</div>
+              <div className="process-kpi-status" style={{color:'var(--green)'}}>70% Spend Rate</div>
+            </div>
+          </div>
+        </div>
+        <div className="process-group">
+          <div className="process-group-title">
+            <svg width={14} height={14} viewBox="0 0 24 24" fill="none" stroke="var(--gd)" strokeWidth={1.5}><path d="M20 21v-2a4 4 00-4-4H8a4 4 00-4 4v2 M12 11a4 4 100-8 0 4 4 008 0z"/></svg>
+            Vendor Compliance
+          </div>
+          <div className="process-kpis">
+            <div className="process-kpi">
+              <div className="process-kpi-val">14,440</div>
+              <div className="process-kpi-lbl"><span style={{display:'inline-block',width:6,height:6,borderRadius:'50%',background:'var(--green)',marginRight:4,verticalAlign:'middle'}}/>Compliant Invoices</div>
+              <div className="process-kpi-status" style={{color:'var(--green)'}}>75% of Total</div>
+            </div>
+            <div className="process-kpi">
+              <div className="process-kpi-val">4,726</div>
+              <div className="process-kpi-lbl"><span style={{display:'inline-block',width:6,height:6,borderRadius:'50%',background:'var(--red)',marginRight:4,verticalAlign:'middle'}}/>Non-Compliant</div>
+              <div className="process-kpi-status" style={{color:'var(--red)'}}>25% of Total</div>
+            </div>
+            <div className="process-kpi">
+              <div className="process-kpi-val">102</div>
+              <div className="process-kpi-lbl"><span style={{display:'inline-block',width:6,height:6,borderRadius:'50%',background:'var(--red)',marginRight:4,verticalAlign:'middle'}}/>Pending</div>
+              <div className="process-kpi-status" style={{color:'var(--red)'}}>8% of Total</div>
+            </div>
+          </div>
+        </div>
       </div>
 
-      {/* ═══ 6. EXCEPTIONS & OFFLINE LEAKAGES ═══ */}
+      {/* ═══ ACT 3: ACTION — Priority Actions + Exceptions + Tables ═══ */}
+
+      {/* ═══ PRIORITY ACTION QUEUE ═══ */}
+      <div style={{marginTop:24}}>
+        <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:14}}>
+          <div style={{fontSize:16,fontWeight:700,color:'var(--rp-black)',fontFamily:"'Lato',sans-serif"}}>Priority Actions</div>
+          <span style={{background:'var(--rbg)',color:'var(--red)',fontSize:11,fontWeight:600,padding:'2px 8px',borderRadius:4}}>3 actions</span>
+        </div>
+        <div className="aq-grid">
+          <div className="aq-card urgent">
+            <div className="aq-card-num">1</div>
+            <div className="aq-card-title">Review QuickFix HVAC</div>
+            <div className="aq-card-desc">$180K maverick exposure across 12 properties. Immediate review recommended.</div>
+            <div className="aq-card-cta" onClick={()=>onNavigate('catDetail','HVAC')}>Investigate <Icon n="arrowRight" s={12}/></div>
+          </div>
+          <div className="aq-card warning">
+            <div className="aq-card-num">2</div>
+            <div className="aq-card-title">Activate 3 eInvoice-ready vendors</div>
+            <div className="aq-card-desc">Zero cost, immediate compliance improvement. 3 vendors already set up.</div>
+            <div className="aq-card-cta" onClick={()=>onNavigate('vendor')}>Activate <Icon n="arrowRight" s={12}/></div>
+          </div>
+          <div className="aq-card opportunity">
+            <div className="aq-card-num">3</div>
+            <div className="aq-card-title">Consolidate Southeast HVAC vendors</div>
+            <div className="aq-card-desc">Save $42K annually by consolidating to a preferred vendor agreement.</div>
+            <div className="aq-card-cta" onClick={()=>onNavigate('category')}>View Plan <Icon n="arrowRight" s={12}/></div>
+          </div>
+        </div>
+      </div>
+
+      {/* ═══ EXCEPTIONS & OFFLINE LEAKAGES ═══ */}
       <div style={{marginTop:28}}>
         <div className="card" style={{padding:'24px 24px 16px'}}>
           <div className="ct" style={{marginBottom:2}}>Exceptions and Offline Leakages</div>
@@ -715,7 +921,7 @@ const SpendOverview = ({onNavigate}) => {
         </div>
       </div>
 
-      {/* ═══ 7. CATEGORY OVERVIEW TABLE ═══ */}
+      {/* ═══ CATEGORY OVERVIEW TABLE ═══ */}
       <div style={{marginTop:24}}>
         <div className="sh" style={{marginTop:0}}>
           <div>
@@ -728,12 +934,12 @@ const SpendOverview = ({onNavigate}) => {
           <table className="dt">
             <thead>
               <tr>
-                <th>Category <span style={{fontSize:9,color:'var(--gd)'}}>↕</span></th>
-                <th className="r">Compliant Spend <span style={{fontSize:9,color:'var(--gd)'}}>↕</span></th>
-                <th className="r">Maverick Spend <span style={{fontSize:9,color:'var(--gd)'}}>↕</span></th>
-                <th>Compliance % <span style={{fontSize:9,color:'var(--gd)'}}>↕</span></th>
-                <th className="r">Benchmark % <span style={{fontSize:9,color:'var(--gd)'}}>↕</span></th>
-                <th>Status <span style={{fontSize:9,color:'var(--gd)'}}>↕</span></th>
+                <th>Category <span style={{fontSize:9,color:'var(--gd)'}}>&#8597;</span></th>
+                <th className="r">Compliant Spend <span style={{fontSize:9,color:'var(--gd)'}}>&#8597;</span></th>
+                <th className="r">Maverick Spend <span style={{fontSize:9,color:'var(--gd)'}}>&#8597;</span></th>
+                <th>Compliance % <span style={{fontSize:9,color:'var(--gd)'}}>&#8597;</span></th>
+                <th className="r">Benchmark % <span style={{fontSize:9,color:'var(--gd)'}}>&#8597;</span></th>
+                <th>Status <span style={{fontSize:9,color:'var(--gd)'}}>&#8597;</span></th>
               </tr>
             </thead>
             <tbody>
@@ -759,7 +965,7 @@ const SpendOverview = ({onNavigate}) => {
         </div>
       </div>
 
-      {/* ═══ 8. REGIONAL + PROPERTY — 2-column ═══ */}
+      {/* ═══ REGIONAL + PROPERTY — 2-column (improved with inline bars) ═══ */}
       <div className="g2" style={{marginTop:24}}>
         <div className="card">
           <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:16}}>
@@ -776,9 +982,13 @@ const SpendOverview = ({onNavigate}) => {
                   <span style={{fontSize:13,fontWeight:600,color:'var(--rp)'}}>{r.name}</span>
                   <span style={{fontSize:11,color:'var(--gd)',marginLeft:8}}>({r.props} Properties)</span>
                 </div>
+                <span style={{fontSize:12,fontWeight:700,color:r.mavPct>=25?'var(--red)':r.mavPct>=20?'var(--orange)':'var(--green)'}}>{fmtM(r.mavSpend)}</span>
               </div>
-              <div style={{fontSize:12,color:'var(--gd)'}}>
-                {r.mavPct}% Maverick Spend
+              <div className="region-bar-wrap">
+                <span style={{fontSize:12,fontWeight:600,color:r.mavPct>=25?'var(--red)':r.mavPct>=20?'var(--orange)':'var(--green)',minWidth:32}}>{r.mavPct}%</span>
+                <div className="region-bar">
+                  <div className="region-bar-fill" style={{width:`${r.mavPct}%`,background:r.mavPct>=25?'var(--red)':r.mavPct>=20?'var(--orange)':'var(--green)'}}/>
+                </div>
               </div>
             </div>
           ))}
@@ -1448,14 +1658,20 @@ const SideNav = ({page,onPage,col}) => {
    SPEND COMPLIANCE WRAPPER — Page header + sub-navigation
    ══════════════════════════════════════════════════════════════ */
 const SpendCompliancePage = ({activeView,onNavigate,detailName}) => {
+  const getGreeting = () => {
+    const h = new Date().getHours();
+    if (h < 12) return 'Good morning';
+    if (h < 17) return 'Good afternoon';
+    return 'Good evening';
+  };
   return (
     <div className="panim">
-      {/* Page Header */}
+      {/* Page Header — Contextual Greeting */}
       <div className="ph-strip">
         <div>
           <div className="ph-eyebrow"><span className="ph-dot or"/><span className="ph-dot gr"/></div>
-          <div className="ph-title">Spend Compliance</div>
-          <div className="ph-sub">Portfolio-wide spend compliance overview for procurement, finance, and operations leadership</div>
+          <div className="greeting-title">{getGreeting()}, John</div>
+          <div className="greeting-sub">Since your last visit: <span>Compliance up 0.5%</span> &middot; <span className="alert-count">2 new alerts</span> &middot; 1 case resolved</div>
         </div>
         <div style={{display:'flex',gap:8}}>
           <button className="btn bg sm"><Icon n="export" s={13}/> Export</button>
