@@ -385,6 +385,22 @@ const MONTHLY_ORDERS = [
   {m:'Oct',offline:0.5,online:1.0},{m:'Nov',offline:0.4,online:0.8},{m:'Dec',offline:0.6,online:0.9},
 ];
 
+/* GL Group Budget Data — Budget compliance is tracked per GL Group, NOT consolidated */
+const GL_GROUPS = [
+  {gl:'5010',name:'HVAC & Mechanical',budget:3200000,actual:4200000,priorYear:3800000,properties:12,trend:[68,72,78,85,92,98,108],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5020',name:'Plumbing',budget:3100000,actual:2900000,priorYear:2700000,properties:8,trend:[42,48,55,61,68,74,81],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5030',name:'Electrical',budget:2800000,actual:2300000,priorYear:2100000,properties:5,trend:[35,40,46,52,58,65,72],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5040',name:'Landscaping & Grounds',budget:1900000,actual:1700000,priorYear:1550000,properties:6,trend:[38,44,50,56,62,70,78],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5050',name:'Painting & Decorating',budget:1600000,actual:1900000,priorYear:1400000,properties:7,trend:[45,52,60,70,80,92,105],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5060',name:'Appliances',budget:1500000,actual:1400000,priorYear:1300000,properties:3,trend:[30,36,42,50,58,66,74],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5070',name:'Flooring & Carpet',budget:1400000,actual:1200000,priorYear:1100000,properties:4,trend:[28,34,40,48,56,64,72],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5080',name:'Roofing',budget:1200000,actual:1000000,priorYear:900000,properties:2,trend:[25,32,38,46,54,62,70],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5090',name:'General Maintenance',budget:2400000,actual:2100000,priorYear:1900000,properties:14,trend:[32,38,44,52,60,68,76],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5100',name:'Pest Control',budget:600000,actual:480000,priorYear:420000,properties:18,trend:[22,28,34,42,52,62,72],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5110',name:'Janitorial & Cleaning',budget:1800000,actual:1650000,priorYear:1500000,properties:16,trend:[30,36,42,50,58,66,78],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+  {gl:'5120',name:'Security & Fire Safety',budget:900000,actual:750000,priorYear:680000,properties:10,trend:[20,26,32,40,50,60,70],months:['Jan','Feb','Mar','Apr','May','Jun','Jul']},
+];
+
 const CASES = [
   {id:'C-001',pri:'cr',type:'Split Invoice Pattern',vendor:'Apex Maintenance Group',region:'TX',prop:'Pegasus Meadows',amt:45200,age:5,status:'open',desc:'3 invoices submitted same-day, all just below $15K VP approval threshold. Total: $45,200. AI confidence: High (97%).',actions:['Escalate to VP','Hold payment','Request invoice audit']},
   {id:'C-002',pri:'cr',type:'Unauthorized Vendor',vendor:'Capitol Builders LLC',region:'TX',prop:'Pegasus Heights',amt:28500,age:3,status:'open',desc:'Engagement with non-vetted vendor for renovation work. No COI, no W-9, no approved vendor status on file.',actions:['Stop work order','Request COI and W-9','Rebid with approved vendor']},
@@ -1242,86 +1258,266 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
    BUDGET COMPLIANCE DRILLDOWN
    ══════════════════════════════════════════════════════════════ */
 const BudgetCompliance = ({onNavigate}) => {
-  const budgetData = CATEGORIES.map(c => ({
-    ...c,
-    budget: Math.round(c.total * (c.rate >= 80 ? 1.15 : c.rate >= 70 ? 1.05 : 0.95)),
-    utilization: c.rate >= 80 ? Math.round(75 + Math.random()*15) : c.rate >= 70 ? Math.round(85 + Math.random()*10) : Math.round(100 + Math.random()*15)
-  }));
+  const [selGL,setSelGL] = useState(null);
+  const [sortCol,setSortCol] = useState('variance');
+  const [sortDir,setSortDir] = useState('desc');
+
+  const overBudget = GL_GROUPS.filter(g => g.actual > g.budget);
+  const atRisk = GL_GROUPS.filter(g => {const pct=(g.actual/g.budget)*100; return pct>=85 && pct<=100;});
+
+  const sorted = [...GL_GROUPS].sort((a,b) => {
+    const va = sortCol==='variance' ? (a.actual-a.budget) : sortCol==='util' ? (a.actual/a.budget) : sortCol==='actual' ? a.actual : a.gl.localeCompare(b.gl);
+    const vb = sortCol==='variance' ? (b.actual-b.budget) : sortCol==='util' ? (b.actual/b.budget) : sortCol==='actual' ? b.actual : b.gl.localeCompare(a.gl);
+    return sortDir==='desc' ? vb-va : va-vb;
+  });
+
+  const toggleSort = (col) => {
+    if (sortCol===col) setSortDir(d=>d==='desc'?'asc':'desc');
+    else { setSortCol(col); setSortDir('desc'); }
+  };
+
+  const detail = selGL ? GL_GROUPS.find(g=>g.gl===selGL) : null;
 
   return (
     <div className="page-body panim">
-      <div className="li-card" style={{marginBottom:16,borderLeft:'3px solid var(--orange)'}}>
-        <div className="li-type"><SparkleIcon s={12} c="var(--orange)"/> Lumina Budget Alert</div>
-        <div className="li-ttl">3 categories are trending above budget allocation. HVAC is the most critical at 108% utilization with Q4 remaining. Year-end projection shows 187% if current trajectory continues. Recommend immediate spend freeze on discretionary HVAC.</div>
-        <div className="li-cta">View Budget Amendment Options <Icon n="arrowRight" s={14}/></div>
-      </div>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
-        {[
-          {l:'Total Budget',v:'$28.4M',sub:'Annual allocation'},
-          {l:'Spend to Date',v:'$26.6M',sub:'93.7% utilized'},
-          {l:'Remaining',v:'$1.8M',sub:'Q4 allocation'},
-          {l:'Over Budget',v:'3',sub:'Categories above 100%',accent:true},
-        ].map((m,i) => (
-          <div key={i} className={`kcard ${m.accent?'orange':''}`} style={{cursor:'default'}}>
-            <div className="k-lbl">{m.l}</div>
-            <div className={`k-val ${m.accent?'orange':''}`}>{m.v}</div>
-            <div className="k-sub">{m.sub}</div>
+      {/* GL Group Budget Alert */}
+      {overBudget.length > 0 && (
+        <div style={{background:'var(--rbg)',border:'1px solid rgba(208,26,31,0.3)',borderRadius:8,padding:'14px 18px',marginBottom:16,display:'flex',alignItems:'flex-start',gap:12}}>
+          <div style={{width:32,height:32,borderRadius:'50%',background:'var(--red)',display:'flex',alignItems:'center',justifyContent:'center',flexShrink:0,marginTop:2}}>
+            <Icon n="alert" s={16} c="#fff"/>
           </div>
-        ))}
+          <div style={{flex:1}}>
+            <div style={{fontSize:14,fontWeight:700,color:'var(--red)',marginBottom:4}}>{overBudget.length} GL Group{overBudget.length>1?'s':''} Over Budget</div>
+            <div style={{fontSize:12,color:'var(--rp-black)',lineHeight:1.5}}>
+              {overBudget.map((g,i) => (
+                <span key={i}>
+                  <strong>{g.gl} {g.name}</strong> at {Math.round((g.actual/g.budget)*100)}% ({fmtM(g.actual-g.budget)} over)
+                  {i<overBudget.length-1?' · ':''}
+                </span>
+              ))}
+            </div>
+            <div style={{fontSize:11,color:'var(--gd)',marginTop:4}}>Budget compliance is checked per GL Group — each GL code has its own approved annual allocation</div>
+          </div>
+        </div>
+      )}
+
+      {/* Lumina AI insight */}
+      <div className="li-card-improved rc" style={{marginBottom:16}}>
+        <div className="li-type"><SparkleIcon s={12} c="var(--orange)"/> Lumina Budget Analysis</div>
+        <div className="li-ttl">
+          GL Group <strong>5010 HVAC & Mechanical</strong> is at 131% utilization — ${fmtM(GL_GROUPS[0].actual - GL_GROUPS[0].budget)} over its ${fmtM(GL_GROUPS[0].budget)} annual allocation.
+          <strong> 5050 Painting & Decorating</strong> is also over at 119%. {atRisk.length>0 && `${atRisk.length} additional GL Groups are at risk (85-100% utilized).`}
+          Each GL Group must be reviewed independently for budget amendments.
+        </div>
+        <div className="li-cta">View GL Group Variance Report <Icon n="arrowRight" s={14}/></div>
+      </div>
+
+      {/* Summary KPIs — GL Group level, NOT consolidated */}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:20}}>
+        <div className="kcard orange" style={{cursor:'default'}}>
+          <div className="k-lbl">GL Groups Over Budget</div>
+          <div className="k-val orange">{overBudget.length}</div>
+          <div className="k-sub">of {GL_GROUPS.length} GL Groups</div>
+          <div className="k-delta dn">Requires budget amendment</div>
+        </div>
+        <div className="kcard" style={{cursor:'default',borderLeft:'3px solid var(--orange)'}}>
+          <div className="k-lbl">GL Groups At Risk</div>
+          <div className="k-val">{atRisk.length}</div>
+          <div className="k-sub">85-100% utilized</div>
+          <div className="k-delta neu">Monitor closely</div>
+        </div>
+        <div className="kcard" style={{cursor:'default',borderLeft:'3px solid var(--green)'}}>
+          <div className="k-lbl">GL Groups On Track</div>
+          <div className="k-val">{GL_GROUPS.length - overBudget.length - atRisk.length}</div>
+          <div className="k-sub">Below 85% utilized</div>
+          <div className="k-delta up">Within allocation</div>
+        </div>
+        <div className="kcard" style={{cursor:'default'}}>
+          <div className="k-lbl">Total GL Groups</div>
+          <div className="k-val">{GL_GROUPS.length}</div>
+          <div className="k-sub">Active budget codes</div>
+        </div>
+      </div>
+
+      {/* GL Group Budget Table */}
+      <div className="sh" style={{marginTop:0}}>
+        <div>
+          <div className="sh-t">GL Group Budget Compliance</div>
+          <div className="sh-sub">Each GL Group has its own approved budget — review variances individually</div>
+        </div>
+        <div style={{display:'flex',gap:8}}>
+          <button className="btn bg sm"><Icon n="export" s={12}/> Export GL Report</button>
+        </div>
       </div>
       <div className="card" style={{padding:0,overflow:'hidden',marginBottom:16}}>
         <table className="dt">
-          <thead><tr><th>Category</th><th className="r">Budget</th><th className="r">Spend to Date</th><th>Utilization</th><th className="r">Remaining</th><th>Status</th></tr></thead>
+          <thead>
+            <tr>
+              <th style={{cursor:'pointer'}} onClick={()=>toggleSort('gl')}>GL Code {sortCol==='gl'?'↕':''}</th>
+              <th>GL Group Name</th>
+              <th className="r">Annual Budget</th>
+              <th className="r" style={{cursor:'pointer'}} onClick={()=>toggleSort('actual')}>YTD Actual {sortCol==='actual'?'↕':''}</th>
+              <th style={{cursor:'pointer',width:140}} onClick={()=>toggleSort('util')}>Utilization {sortCol==='util'?'↕':''}</th>
+              <th className="r" style={{cursor:'pointer'}} onClick={()=>toggleSort('variance')}>Variance {sortCol==='variance'?'↕':''}</th>
+              <th className="r">vs Prior Year</th>
+              <th>Status</th>
+            </tr>
+          </thead>
           <tbody>
-            {budgetData.map((c,i) => {
-              const util = c.utilization;
-              const remaining = Math.max(0, c.budget - c.total);
+            {sorted.map((g,i) => {
+              const util = Math.round((g.actual/g.budget)*100);
+              const variance = g.actual - g.budget;
+              const pyChange = Math.round(((g.actual - g.priorYear)/g.priorYear)*100);
               return (
-                <tr key={i}>
-                  <td className="vlink" onClick={()=>onNavigate('catDetail',c.name)}>{c.name}</td>
-                  <td className="r">{fmtM(c.budget)}</td>
-                  <td className="r">{fmtM(c.total)}</td>
+                <tr key={i} style={{cursor:'pointer',background:selGL===g.gl?'var(--hi)':'transparent'}} onClick={()=>setSelGL(selGL===g.gl?null:g.gl)}>
+                  <td style={{fontWeight:600,fontFamily:'monospace',fontSize:12,color:'var(--rp)'}}>{g.gl}</td>
+                  <td style={{fontWeight:500}}>{g.name}</td>
+                  <td className="r">{fmtM(g.budget)}</td>
+                  <td className="r fw6">{fmtM(g.actual)}</td>
                   <td>
                     <div style={{display:'flex',alignItems:'center',gap:8}}>
-                      <div className="prog" style={{flex:1,height:8}}><div className="prog-f" style={{width:`${Math.min(util,100)}%`,background:util>100?'var(--red)':util>90?'var(--orange)':'var(--green)'}}/></div>
-                      <span style={{fontSize:12,fontWeight:600,width:36,color:util>100?'var(--red)':'inherit'}}>{util}%</span>
+                      <div className="prog" style={{flex:1,height:8}}>
+                        <div className="prog-f" style={{width:`${Math.min(util,100)}%`,background:util>100?'var(--red)':util>=85?'var(--orange)':'var(--green)'}}>
+                        </div>
+                      </div>
+                      <span style={{fontSize:12,fontWeight:600,width:36,color:util>100?'var(--red)':util>=85?'var(--orange)':'inherit'}}>{util}%</span>
                     </div>
                   </td>
-                  <td className="r" style={{color:remaining<=0?'var(--red)':'inherit',fontWeight:remaining<=0?600:400}}>{remaining>0?fmtM(remaining):'$0'}</td>
-                  <td><span className={`ds-badge ${util>100?'high-risk':util>90?'needs-review':'compliant'}`}>{util>100?'Over Budget':util>90?'At Risk':'On Track'}</span></td>
+                  <td className="r" style={{fontWeight:600,color:variance>0?'var(--red)':variance<0?'var(--green)':'inherit'}}>
+                    {variance>0?'+':''}{fmtM(Math.abs(variance))} {variance>0?'over':'under'}
+                  </td>
+                  <td className="r">
+                    <span style={{fontSize:11,color:pyChange>10?'var(--red)':pyChange>0?'var(--orange)':'var(--green)'}}>
+                      {pyChange>0?'▲':'▼'} {Math.abs(pyChange)}% YoY
+                    </span>
+                  </td>
+                  <td>
+                    <span className={`ds-badge ${util>100?'high-risk':util>=85?'needs-review':'compliant'}`}>
+                      {util>100?'Over Budget':util>=85?'At Risk':'On Track'}
+                    </span>
+                  </td>
                 </tr>
               );
             })}
           </tbody>
         </table>
       </div>
-      <div className="g2">
-        <div className="card">
-          <div className="ct">Budget Utilization Trend</div>
-          <LineChart series={[[45,52,60,68,76,84,94]]} lbls={['Jan','Feb','Mar','Apr','May','Jun','Jul']} w={340} h={140} colors={['var(--ch3)']} showArea={true}/>
+
+      {/* GL Group Detail — when a row is selected */}
+      {detail && (
+        <div className="card" style={{marginBottom:16,borderLeft:`4px solid ${(detail.actual/detail.budget)>1?'var(--red)':(detail.actual/detail.budget)>=0.85?'var(--orange)':'var(--green)'}`}}>
+          <div style={{display:'flex',justifyContent:'space-between',alignItems:'flex-start',marginBottom:16}}>
+            <div>
+              <div style={{fontSize:11,fontWeight:700,color:'var(--gd)',fontFamily:'monospace',marginBottom:2}}>GL {detail.gl}</div>
+              <div className="ct" style={{marginBottom:0}}>{detail.name}</div>
+              <div className="ct-sub" style={{marginBottom:0}}>Budget compliance detail for this GL Group</div>
+            </div>
+            <button className="btn bg xs" onClick={()=>setSelGL(null)}>Close</button>
+          </div>
+          <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
+            <div style={{background:'var(--gl)',borderRadius:6,padding:14,textAlign:'center'}}>
+              <div style={{fontSize:11,color:'var(--gd)',fontWeight:600}}>Annual Budget</div>
+              <div style={{fontSize:20,fontWeight:700}}>{fmtM(detail.budget)}</div>
+            </div>
+            <div style={{background:'var(--gl)',borderRadius:6,padding:14,textAlign:'center'}}>
+              <div style={{fontSize:11,color:'var(--gd)',fontWeight:600}}>YTD Actual</div>
+              <div style={{fontSize:20,fontWeight:700,color:detail.actual>detail.budget?'var(--red)':'inherit'}}>{fmtM(detail.actual)}</div>
+            </div>
+            <div style={{background:'var(--gl)',borderRadius:6,padding:14,textAlign:'center'}}>
+              <div style={{fontSize:11,color:'var(--gd)',fontWeight:600}}>Variance</div>
+              <div style={{fontSize:20,fontWeight:700,color:detail.actual>detail.budget?'var(--red)':'var(--green)'}}>
+                {detail.actual>detail.budget?'+':'-'}{fmtM(Math.abs(detail.actual-detail.budget))}
+              </div>
+            </div>
+            <div style={{background:'var(--gl)',borderRadius:6,padding:14,textAlign:'center'}}>
+              <div style={{fontSize:11,color:'var(--gd)',fontWeight:600}}>Properties</div>
+              <div style={{fontSize:20,fontWeight:700}}>{detail.properties}</div>
+            </div>
+          </div>
+          <div className="g2" style={{marginBottom:0}}>
+            <div>
+              <div style={{fontSize:13,fontWeight:600,marginBottom:8}}>YTD Budget Utilization Trend</div>
+              <LineChart
+                series={[detail.trend,[...Array(7)].map(()=>Math.round((100/12)*7*100)/100)]}
+                lbls={detail.months}
+                w={340} h={130}
+                colors={[detail.actual>detail.budget?'var(--red)':'var(--ch3)','var(--gd)']}
+                showArea={true}
+                dashed={[false,true]}
+                showDots={true}
+              />
+              <div style={{display:'flex',justifyContent:'center',gap:16,marginTop:6,fontSize:10}}>
+                <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:detail.actual>detail.budget?'var(--red)':'var(--ch3)',borderRadius:2}}/> Actual %</span>
+                <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:3,background:'var(--gd)',borderRadius:2,borderTop:'1px dashed var(--gd)'}}/> Expected (linear)</span>
+              </div>
+            </div>
+            <div>
+              <div style={{fontSize:13,fontWeight:600,marginBottom:8}}>Year-over-Year Comparison</div>
+              <div style={{display:'flex',alignItems:'flex-end',gap:16,height:130,padding:'0 20px'}}>
+                {[{l:'Prior Year',v:detail.priorYear,c:'var(--gll)'},{l:'Budget',v:detail.budget,c:'var(--ch3)'},{l:'YTD Actual',v:detail.actual,c:detail.actual>detail.budget?'var(--red)':'var(--green)'}].map((b,i) => {
+                  const maxV = Math.max(detail.priorYear,detail.budget,detail.actual);
+                  return (
+                    <div key={i} style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center'}}>
+                      <div style={{fontSize:11,fontWeight:600,marginBottom:4,color:b.c==='var(--gll)'?'var(--gd)':b.c}}>{fmtM(b.v)}</div>
+                      <div style={{width:'100%',height:(b.v/maxV)*90,background:b.c,borderRadius:'4px 4px 0 0',minHeight:4}}/>
+                      <div style={{fontSize:10,color:'var(--gd)',marginTop:6}}>{b.l}</div>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+          {detail.actual > detail.budget && (
+            <div style={{marginTop:16,background:'var(--rbg)',borderRadius:6,padding:'12px 16px',display:'flex',alignItems:'center',gap:10}}>
+              <SparkleIcon s={14} c="var(--red)"/>
+              <div style={{flex:1,fontSize:12,color:'var(--rp-black)'}}>
+                <strong>Action Required:</strong> GL Group {detail.gl} is {fmtM(detail.actual-detail.budget)} over its annual allocation.
+                A budget amendment must be submitted for this specific GL code. Consolidating with other GL Groups is not permitted.
+              </div>
+              <button className="btn sm" style={{background:'var(--red)',color:'#fff',border:'none',flexShrink:0}}>Request Amendment</button>
+            </div>
+          )}
         </div>
-        <div className="card">
-          <div className="ct">Budget vs Spend by Category</div>
-          <div style={{display:'flex',alignItems:'flex-end',gap:8,height:140,paddingBottom:20}}>
-            {CATEGORIES.slice(0,6).map((c,i) => {
-              const maxVal = 5000000;
-              const budgetH = (c.total*1.05/maxVal)*120;
-              const spendH = (c.total/maxVal)*120;
-              return (
-                <div key={i} style={{flex:1,display:'flex',flexDirection:'column',alignItems:'center'}}>
-                  <div style={{display:'flex',gap:2,alignItems:'flex-end'}}>
-                    <div style={{width:12,height:budgetH,background:'var(--gll)',borderRadius:'2px 2px 0 0'}}/>
-                    <div style={{width:12,height:spendH,background:spendH>budgetH?'var(--red)':'var(--ch3)',borderRadius:'2px 2px 0 0'}}/>
-                  </div>
-                  <div style={{fontSize:8,color:'var(--gd)',marginTop:4,textAlign:'center'}}>{c.name}</div>
+      )}
+
+      {/* Budget vs Actual by GL Group — visual bar comparison */}
+      <div className="sh" style={{marginTop:8}}>
+        <div className="sh-t">Budget vs Actual by GL Group</div>
+      </div>
+      <div className="card">
+        {GL_GROUPS.map((g,i) => {
+          const util = Math.round((g.actual/g.budget)*100);
+          const maxVal = Math.max(...GL_GROUPS.map(x=>Math.max(x.budget,x.actual)));
+          return (
+            <div key={i} style={{marginBottom:i<GL_GROUPS.length-1?14:0,cursor:'pointer'}} onClick={()=>setSelGL(selGL===g.gl?null:g.gl)}>
+              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
+                <div style={{display:'flex',alignItems:'center',gap:8}}>
+                  <span style={{fontSize:11,fontWeight:700,color:'var(--gd)',fontFamily:'monospace',width:32}}>{g.gl}</span>
+                  <span style={{fontSize:12,fontWeight:500}}>{g.name}</span>
                 </div>
-              );
-            })}
-          </div>
-          <div style={{display:'flex',justifyContent:'center',gap:16,marginTop:4,fontSize:10}}>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'var(--gll)'}}/> Budget</span>
-            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:2,background:'var(--ch3)'}}/> Spend</span>
-          </div>
+                <div style={{display:'flex',alignItems:'center',gap:12}}>
+                  <span style={{fontSize:11,color:'var(--gd)'}}>Budget: {fmtM(g.budget)}</span>
+                  <span style={{fontSize:11,fontWeight:600,color:util>100?'var(--red)':'inherit'}}>Actual: {fmtM(g.actual)}</span>
+                  <span className={`ds-badge ${util>100?'high-risk':util>=85?'needs-review':'compliant'}`} style={{fontSize:10,padding:'1px 6px'}}>
+                    {util}%
+                  </span>
+                </div>
+              </div>
+              <div style={{position:'relative',height:16,background:'var(--gl)',borderRadius:4,overflow:'hidden'}}>
+                <div style={{position:'absolute',top:0,left:0,height:'100%',width:`${Math.min((g.budget/maxVal)*100,100)}%`,background:'rgba(0,118,204,0.15)',borderRadius:4}}/>
+                <div style={{position:'absolute',top:0,left:0,height:'100%',width:`${Math.min((g.actual/maxVal)*100,100)}%`,background:util>100?'var(--red)':util>=85?'var(--orange)':'var(--green)',borderRadius:4,opacity:0.7}}/>
+                {/* Budget line marker */}
+                <div style={{position:'absolute',top:0,left:`${(g.budget/maxVal)*100}%`,width:2,height:'100%',background:'var(--rp-black)',opacity:0.3}}/>
+              </div>
+            </div>
+          );
+        })}
+        <div style={{display:'flex',gap:16,marginTop:14,fontSize:10,color:'var(--gd)'}}>
+          <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:10,borderRadius:2,background:'rgba(0,118,204,0.15)',border:'1px solid rgba(0,118,204,0.3)'}}/> Budget Allocation</span>
+          <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:10,borderRadius:2,background:'var(--green)',opacity:0.7}}/> On Track</span>
+          <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:10,borderRadius:2,background:'var(--orange)',opacity:0.7}}/> At Risk (85%+)</span>
+          <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:10,height:10,borderRadius:2,background:'var(--red)',opacity:0.7}}/> Over Budget</span>
+          <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:2,height:10,background:'var(--rp-black)',opacity:0.3}}/> Budget Line</span>
         </div>
       </div>
     </div>
