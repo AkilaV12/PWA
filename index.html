@@ -225,6 +225,19 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .hero-trend{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:12px;margin-bottom:12px}
 .hero-trend.up{background:rgba(17,136,55,0.2);color:#4ade80}
 .hero-trend.dn{background:rgba(208,26,31,0.2);color:#fb7185}
+.health-indexes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:0}
+.health-gauge{background:linear-gradient(135deg,#1a2332 0%,#2d3e55 100%);border-radius:8px;padding:24px 16px 16px;color:#fff;text-align:center;position:relative;overflow:hidden}
+.health-gauge-arc{margin:0 auto 8px}
+.health-gauge-val{font-size:28px;font-weight:700;line-height:1;margin-top:-8px}
+.health-gauge-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;opacity:0.6;margin-top:8px}
+.health-gauge-trend{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;margin-top:6px}
+.health-gauge-trend.up{background:rgba(17,136,55,0.25);color:#4ade80}
+.health-gauge-trend.dn{background:rgba(208,26,31,0.25);color:#fb7185}
+.health-gauge-trend.neu{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.5)}
+.health-gauge-sub{font-size:10px;opacity:0.5;margin-top:4px;line-height:1.3}
+.health-summary{display:flex;align-items:center;justify-content:center;gap:24px;padding:12px 0 0;margin-top:0}
+.health-summary-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gd)}
+.health-summary-val{font-weight:700;color:var(--rp-black);font-size:13px}
 .kpi-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .kpi-smart{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:20px;position:relative;overflow:hidden;cursor:pointer;transition:box-shadow .15s;border-left:3px solid var(--gll)}
 .kpi-smart:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
@@ -415,7 +428,7 @@ const LUMINA_RESP = {
   vendors:{text:'74 of 261 vendors are transacting online — 28% adoption. 187 vendors still process offline, accounting for 1,084 offline invoices and $1.7M in spend without visibility. 3 vendors are already set up for eInvoice but haven\'t been activated yet.',rows:[{l:'Online Vendors',v:'74 of 261 (28%)',t:'r'},{l:'Credentialed',v:'143 of 261 (55%)',t:'w'},{l:'Ready to Activate',v:'3 vendors — no cost',t:'g'},{l:'Offline Invoices',v:'1,084 off-system',t:'r'}]},
   offline:{text:'29.8% of orders are processed offline — target is 20%. Southeast is highest at 38%. Bringing offline rate to target would shift ~500 orders online, improving compliance across 82 properties and enabling preferred pricing.',rows:[{l:'Offline Rate',v:'29.8% (target: 20%)',t:'r'},{l:'Offline Orders',v:'1,622 of 5,451',t:'r'},{l:'Worst Region',v:'Southeast — 38%',t:'r'},{l:'Goal Impact',v:'+500 orders online',t:'g'}]},
   budget:{text:'3 categories are trending above budget: HVAC at 108%, Painting at 96%, and Plumbing at 92%. HVAC is the most critical — year-end projection shows 187% utilization. Recommend freezing discretionary HVAC spend and requesting a budget amendment.',rows:[{l:'Over Budget',v:'3 categories',t:'r'},{l:'Worst',v:'HVAC — 108%',t:'r'},{l:'Year-End Projection',v:'187% utilization',t:'r'},{l:'Action',v:'Freeze + amend',t:'g'}]},
-  default:{text:'Your portfolio has $26.6M in total spend across 82 properties. Compliance rate is 70% with $6.2M in maverick spend. Key opportunities: consolidate HVAC vendors (save $42K), activate 3 eInvoice-ready vendors (zero cost), and reduce Southeast offline rate from 38% to target 20%.',rows:[{l:'Compliance Rate',v:'70% ($18.6M compliant)',t:'g'},{l:'Maverick Spend',v:'$6.2M (23% of total)',t:'r'},{l:'Potential Savings',v:'$1.4M identified',t:'g'},{l:'Quick Win',v:'3 vendors ready',t:'g'}]},
+  default:{text:'Your portfolio health across 4 dimensions: Spend Channel at 70% (amber), Process at 86% (strong), Vendor at 41% (critical — only 55% credentialed, 28% online), Budget at 83% (2 GL Groups over). Vendor compliance is your biggest drag — activating 3 eInvoice-ready vendors and credentialing top offline vendors would shift this significantly.',rows:[{l:'Weakest Dimension',v:'Vendor — 41%',t:'r'},{l:'Strongest Dimension',v:'Process — 86%',t:'g'},{l:'Maverick Spend',v:'$6.2M (23% of total)',t:'r'},{l:'Quick Win',v:'3 vendors ready to activate',t:'g'}]},
 };
 
 const INSIGHTS = [
@@ -570,20 +583,44 @@ const slbl = (s) => s === 'g' ? 'Compliant' : s === 'r' ? 'High Risk' : 'Needs R
 const SpendOverview = ({onNavigate}) => {
   const [excTab,setExcTab] = useState(0);
 
-  const donutSegs = [{pct:70,color:'var(--ch3)',label:'Compliant'},{pct:23,color:'var(--ch4)',label:'Maverick Spend'},{pct:7,color:'var(--ch1)',label:'Unclassified'}];
+  /* ── Compute 4 Health Indexes from real data ── */
+  const totalComp = CATEGORIES.reduce((s,c)=>s+c.comp,0);
+  const totalSpend = CATEGORIES.reduce((s,c)=>s+c.total,0);
+  const spendHealth = Math.round(totalComp / totalSpend * 100);
+  const processHealth = Math.round((INVOICE_COMPLIANCE.rog.rate + INVOICE_COMPLIANCE.poWtn.rate) / 2);
+  const onlineRate = Math.round(VENDOR_NETWORK.online / VENDOR_NETWORK.total * 100);
+  const vendorHealth = Math.round((VENDOR_NETWORK.credRate + onlineRate) / 2);
+  const glOnTrack = GL_GROUPS.filter(g => g.actual <= g.budget).length;
+  const budgetHealth = Math.round(glOnTrack / GL_GROUPS.length * 100);
 
-  /* Sparkline data for supporting KPIs */
-  const sparkData = {
-    mav: [5.8, 5.9, 6.0, 6.1, 6.0, 6.2],
-    comp: [17.8, 18.0, 18.1, 18.3, 18.5, 18.6],
-    sav: [1.1, 1.2, 1.2, 1.3, 1.3, 1.4],
-    port: [80, 80, 81, 81, 82, 82],
+  const healthIndexes = [
+    {id:'spend', label:'Spend Channel', val:spendHealth, trend:'+1.1', dir:'up', sub:`${fmtM(totalComp)} compliant of ${fmtM(totalSpend)}`, color: spendHealth>=75?'#4ade80':spendHealth>=50?'#fbbf24':'#fb7185'},
+    {id:'process', label:'Process', val:processHealth, trend:'+2.0', dir:'up', sub:`ROG ${INVOICE_COMPLIANCE.rog.rate}% · PO-WTN ${INVOICE_COMPLIANCE.poWtn.rate}%`, color: processHealth>=75?'#4ade80':processHealth>=50?'#fbbf24':'#fb7185'},
+    {id:'vendor', label:'Vendor', val:vendorHealth, trend:'-3.2', dir:'dn', sub:`Credentialed ${Math.round(VENDOR_NETWORK.credRate)}% · Online ${onlineRate}%`, color: vendorHealth>=75?'#4ade80':vendorHealth>=50?'#fbbf24':'#fb7185'},
+    {id:'budget', label:'Budget', val:budgetHealth, trend:'+0.8', dir:'up', sub:`${glOnTrack} of ${GL_GROUPS.length} GL Groups on track`, color: budgetHealth>=75?'#4ade80':budgetHealth>=50?'#fbbf24':'#fb7185'},
+  ];
+
+  /* Semi-circle arc gauge component */
+  const ArcGauge = ({pct, color, size=80}) => {
+    const thick = 7, r = (size/2) - thick/2;
+    const halfCirc = Math.PI * r;
+    const offset = halfCirc - (pct/100) * halfCirc;
+    return (
+      <svg width={size} height={size/2+4} className="health-gauge-arc">
+        <path d={`M ${thick/2} ${size/2} A ${r} ${r} 0 0 1 ${size-thick/2} ${size/2}`}
+          fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth={thick} strokeLinecap="round"/>
+        <path d={`M ${thick/2} ${size/2} A ${r} ${r} 0 0 1 ${size-thick/2} ${size/2}`}
+          fill="none" stroke={color} strokeWidth={thick} strokeLinecap="round"
+          strokeDasharray={halfCirc} strokeDashoffset={offset}
+          style={{transition:'stroke-dashoffset 1s ease'}}/>
+      </svg>
+    );
   };
 
-  /* Hero compliance ring SVG */
-  const ringSize = 120, ringThick = 10, ringR = (ringSize/2) - ringThick/2;
-  const ringCirc = 2 * Math.PI * ringR;
-  const ringOffset = ringCirc - (70/100) * ringCirc;
+  const donutSegs = [{pct:spendHealth,color:'var(--ch3)',label:'Compliant'},{pct:Math.round((totalSpend-totalComp)/totalSpend*100),color:'var(--ch4)',label:'Maverick Spend'},{pct:Math.max(0,100-spendHealth-Math.round((totalSpend-totalComp)/totalSpend*100)),color:'var(--ch1)',label:'Unclassified'}];
+
+  const mavSpend = totalSpend - totalComp;
+  const mavPct = Math.round(mavSpend / totalSpend * 100);
 
   /* Insight metadata for improved alerts */
   const insightMeta = [
@@ -594,56 +631,25 @@ const SpendOverview = ({onNavigate}) => {
 
   return (
     <div className="page-body">
-      {/* ═══ ACT 1: SIGNAL — Hero KPI Layout ═══ */}
-      <div className="hero-grid">
-        {/* LEFT: Hero Compliance Score */}
-        <div className="hero-score">
-          <div className="hero-ring">
-            <svg width={ringSize} height={ringSize}>
-              <circle cx={ringSize/2} cy={ringSize/2} r={ringR} fill="none" stroke="rgba(255,255,255,0.15)" strokeWidth={ringThick}/>
-              <circle cx={ringSize/2} cy={ringSize/2} r={ringR} fill="none" stroke="#4ade80" strokeWidth={ringThick}
-                strokeDasharray={ringCirc} strokeDashoffset={ringOffset}
-                strokeLinecap="round" transform={`rotate(-90 ${ringSize/2} ${ringSize/2})`}
-                style={{transition:'stroke-dashoffset 1s ease'}}/>
-              <text x={ringSize/2} y={ringSize/2-6} textAnchor="middle" fontSize="28" fontWeight="700" fill="#fff">70</text>
-              <text x={ringSize/2} y={ringSize/2+12} textAnchor="middle" fontSize="11" fill="rgba(255,255,255,0.6)">/100</text>
-            </svg>
-          </div>
-          <div className="hero-meta">
-            <div className="hero-label">Spend Compliance Score</div>
-            <div className="hero-trend up">&#9650; +0.5% vs last quarter</div>
-            <div className="hero-narrative">
-              Portfolio compliance at 70% with $26.6M total spend across 82 properties. HVAC remains the primary compliance drag at 67% — 3 points below benchmark.
+      {/* ═══ ACT 1: SIGNAL — 4 Health Indexes ═══ */}
+      <div className="health-indexes">
+        {healthIndexes.map(h => (
+          <div key={h.id} className="health-gauge">
+            <ArcGauge pct={h.val} color={h.color}/>
+            <div className="health-gauge-val" style={{color:h.color}}>{h.val}%</div>
+            <div className="health-gauge-lbl">{h.label}</div>
+            <div className={`health-gauge-trend ${h.dir}`}>
+              {h.dir==='up'?'▲':h.dir==='dn'?'▼':'─'} {h.trend} pts
             </div>
+            <div className="health-gauge-sub">{h.sub}</div>
           </div>
-        </div>
-        {/* RIGHT: 2x2 Supporting KPIs */}
-        <div className="kpi-mini-grid">
-          <div className="kpi-smart status-o">
-            <div className="k-lbl">Maverick Spend</div>
-            <div className="k-val" style={{color:'var(--orange)'}}>$6.2M</div>
-            <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>23% of total spend</div>
-            <div className="k-spark"><MiniSparkLine data={sparkData.mav} color="var(--orange)" w={50} h={20}/></div>
-          </div>
-          <div className="kpi-smart status-g">
-            <div className="k-lbl">Compliant Spend</div>
-            <div className="k-val">$18.6M</div>
-            <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>70% of total spend</div>
-            <div className="k-spark"><MiniSparkLine data={sparkData.comp} color="var(--green)" w={50} h={20}/></div>
-          </div>
-          <div className="kpi-smart status-g">
-            <div className="k-lbl">Potential Savings</div>
-            <div className="k-val">$1.4M</div>
-            <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>4.5% of total spend</div>
-            <div className="k-spark"><MiniSparkLine data={sparkData.sav} color="var(--green)" w={50} h={20}/></div>
-          </div>
-          <div className="kpi-smart status-g">
-            <div className="k-lbl">Portfolio</div>
-            <div className="k-val">82</div>
-            <div style={{fontSize:11,color:'var(--gd)',marginTop:2}}>across 5 regions</div>
-            <div className="k-spark"><MiniSparkLine data={sparkData.port} color="var(--ch3)" w={50} h={20}/></div>
-          </div>
-        </div>
+        ))}
+      </div>
+      <div className="health-summary">
+        <div className="health-summary-item"><span className="health-summary-val">{fmtM(totalSpend)}</span> Total Spend</div>
+        <div className="health-summary-item"><span className="health-summary-val" style={{color:'var(--orange)'}}>{fmtM(mavSpend)}</span> Maverick</div>
+        <div className="health-summary-item"><span className="health-summary-val">$1.4M</span> Savings</div>
+        <div className="health-summary-item"><span className="health-summary-val">82</span> Properties</div>
       </div>
 
       {/* ═══ PROACTIVE AI INTELLIGENCE BRIEF ═══ */}
@@ -703,9 +709,9 @@ const SpendOverview = ({onNavigate}) => {
           <div className="ct">Total Spend Compliance Breakdown</div>
           <div className="ct-sub">Compliant, maverick, and unclassified spend as a share of total</div>
           <div style={{display:'flex',alignItems:'center',justifyContent:'center',gap:32,padding:'8px 0'}}>
-            <DonutChart segs={donutSegs} size={180} thick={28} center={{val:'70%',label:'Compliant'}}/>
+            <DonutChart segs={donutSegs} size={180} thick={28} center={{val:`${spendHealth}%`,label:'Compliant'}}/>
             <div style={{display:'flex',flexDirection:'column',gap:10}}>
-              <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch3)'}}/> Compliant - 70%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>$18.6M</span></div>
+              <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch3)'}}/> Compliant - {spendHealth}%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>{fmtM(totalComp)}</span></div>
               <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch4)'}}/> Maverick Spend - 23%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>$6.2M</span></div>
               <div style={{display:'flex',alignItems:'center',gap:6,fontSize:12}}><div style={{width:10,height:10,borderRadius:'50%',background:'var(--ch1)'}}/> Unclassified - 7%<br/><span style={{fontSize:10,color:'var(--gd)',marginLeft:16}}>$1.8M</span></div>
             </div>
@@ -757,7 +763,7 @@ const SpendOverview = ({onNavigate}) => {
             <div className="process-kpi">
               <div className="process-kpi-val">$18.94M</div>
               <div className="process-kpi-lbl"><span style={{display:'inline-block',width:6,height:6,borderRadius:'50%',background:'var(--green)',marginRight:4,verticalAlign:'middle'}}/>Total Compliant Spend</div>
-              <div className="process-kpi-status" style={{color:'var(--green)'}}>70% Spend Rate</div>
+              <div className="process-kpi-status" style={{color:'var(--green)'}}>{spendHealth}% Spend Rate</div>
             </div>
           </div>
         </div>
