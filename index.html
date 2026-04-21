@@ -90,6 +90,8 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .kcard:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
 .kcard::after{content:'';position:absolute;top:0;right:0;border-style:solid;border-width:0 17px 17px 0;border-color:transparent var(--rp) transparent transparent}
 .kcard.orange::after{border-color:transparent var(--orange) transparent transparent}
+.kcard.ai::after{border-color:transparent #217E7E transparent transparent}
+.kcard.ai .kcard-ai-badge{position:absolute;top:4px;right:4px;z-index:1}
 .k-lbl{font-size:14px;font-weight:700;color:var(--rp-black);margin-bottom:6px;line-height:18px}
 .k-val{font-size:32px;font-weight:700;color:var(--rp-black);line-height:36px}
 .k-val.orange{color:var(--orange)}
@@ -140,6 +142,24 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .ai-obs.up{color:var(--green)}
 .ai-obs.dn{color:var(--orange)}
 .ai-obs.neu{color:var(--gd)}
+/* AI Activity Feed — time-stamped detections */
+.ai-feed{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:20px;margin-top:16px;box-shadow:var(--shadow)}
+.ai-feed-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;padding-bottom:12px;border-bottom:1px solid var(--gll)}
+.ai-feed-title{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:var(--rp-black)}
+.ai-feed-live{background:#217E7E;color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:8px;text-transform:uppercase;letter-spacing:.5px}
+.ai-feed-count{font-size:12px;color:var(--gd)}
+.ai-feed-item{display:flex;align-items:flex-start;gap:12px;padding:12px 0;border-bottom:1px solid #f5f6f7}
+.ai-feed-item:last-child{border-bottom:none}
+.ai-feed-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:8px}
+.ai-feed-dot.high{background:var(--red)}
+.ai-feed-dot.med{background:var(--orange)}
+.ai-feed-dot.low{background:var(--gd)}
+.ai-feed-body{flex:1;min-width:0}
+.ai-feed-meta{display:flex;align-items:center;gap:8px;margin-bottom:4px;font-size:11px}
+.ai-feed-time{color:var(--gd);font-weight:500}
+.ai-feed-cat{background:var(--hi);color:var(--rp);padding:1px 6px;border-radius:3px;font-weight:600}
+.ai-feed-vendor{color:var(--gd);font-style:italic}
+.ai-feed-text{font-size:13px;color:var(--rp-black);line-height:1.4}
 .tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:2px}
 .tag.g{background:var(--gbg);color:var(--green)}.tag.r{background:var(--rbg);color:var(--red)}.tag.y{background:var(--ybg);color:var(--orange)}.tag.b{background:rgba(0,118,204,0.1);color:var(--rp)}.tag.gr{background:var(--gll);color:var(--rp-black)}.tag.p{background:var(--pbg);color:var(--pur)}
 .rpill{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px;text-transform:uppercase;gap:3px}
@@ -229,19 +249,6 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .hero-trend{display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:600;padding:3px 10px;border-radius:12px;margin-bottom:12px}
 .hero-trend.up{background:rgba(17,136,55,0.2);color:#4ade80}
 .hero-trend.dn{background:rgba(208,26,31,0.2);color:#fb7185}
-.health-indexes{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:0}
-.health-gauge{background:linear-gradient(135deg,#1a2332 0%,#2d3e55 100%);border-radius:8px;padding:24px 16px 16px;color:#fff;text-align:center;position:relative;overflow:hidden}
-.health-gauge-arc{margin:0 auto 8px}
-.health-gauge-val{font-size:28px;font-weight:700;line-height:1;margin-top:-8px}
-.health-gauge-lbl{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;opacity:0.6;margin-top:8px}
-.health-gauge-trend{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:600;padding:2px 8px;border-radius:10px;margin-top:6px}
-.health-gauge-trend.up{background:rgba(17,136,55,0.25);color:#4ade80}
-.health-gauge-trend.dn{background:rgba(208,26,31,0.25);color:#fb7185}
-.health-gauge-trend.neu{background:rgba(255,255,255,0.1);color:rgba(255,255,255,0.5)}
-.health-gauge-sub{font-size:10px;opacity:0.5;margin-top:4px;line-height:1.3}
-.health-summary{display:flex;align-items:center;justify-content:center;gap:24px;padding:12px 0 0;margin-top:0}
-.health-summary-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--gd)}
-.health-summary-val{font-weight:700;color:var(--rp-black);font-size:13px}
 .kpi-mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .kpi-smart{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:20px;position:relative;overflow:hidden;cursor:pointer;transition:box-shadow .15s;border-left:3px solid var(--gll)}
 .kpi-smart:hover{box-shadow:0 2px 12px rgba(0,0,0,.08)}
@@ -318,7 +325,7 @@ const KPI_DATA = [
   {id:'ts',label:'Total Spend',val:'$26.6M',sub:'19,268 invoices · 82 properties',delta:'+4.7% vs last quarter',dir:'up'},
   {id:'ms',label:'Maverick Spend',val:'$6.2M',sub:'23% of total spend',delta:'+2.4% vs last quarter',dir:'dn',accent:'orange'},
   {id:'cs',label:'Compliant Spend',val:'$18.6M',sub:'70% vs last quarter',delta:'+1.1% vs last quarter',dir:'up'},
-  {id:'ai',label:'AI Signals',val:'18',sub:'6 critical · 12 monitoring',delta:'+4 vs last quarter',dir:'up'},
+  {id:'ai',label:'AI Signals',val:'18',sub:'6 critical · 12 monitoring',delta:'+4 vs last quarter',dir:'up',accent:'ai'},
   {id:'pf',label:'Portfolio',val:'82',sub:'across 5 regions',delta:'',dir:'neu'},
 ];
 
@@ -434,6 +441,19 @@ const LUMINA_RESP = {
   budget:{text:'3 categories are trending above budget: HVAC at 108%, Painting at 96%, and Plumbing at 92%. HVAC is the most critical — year-end projection shows 187% utilization. Recommend freezing discretionary HVAC spend and requesting a budget amendment.',rows:[{l:'Over Budget',v:'3 categories',t:'r'},{l:'Worst',v:'HVAC — 108%',t:'r'},{l:'Year-End Projection',v:'187% utilization',t:'r'},{l:'Action',v:'Freeze + amend',t:'g'}]},
   default:{text:'Your portfolio health across 4 dimensions: Spend Channel at 70% (amber), Process at 86% (strong), Vendor at 41% (critical — only 55% credentialed, 28% online), Budget at 83% (2 GL Groups over). Vendor compliance is your biggest drag — activating 3 eInvoice-ready vendors and credentialing top offline vendors would shift this significantly.',rows:[{l:'Weakest Dimension',v:'Vendor — 41%',t:'r'},{l:'Strongest Dimension',v:'Process — 86%',t:'g'},{l:'Maverick Spend',v:'$6.2M (23% of total)',t:'r'},{l:'Quick Win',v:'3 vendors ready to activate',t:'g'}]},
 };
+
+/* AI Activity Feed — time-stamped AI detections per category
+   These are pure observations — what the AI has noticed, not recommendations */
+const AI_DETECTIONS = [
+  {id:'d1',time:'2h ago',cat:'HVAC',vendor:'QuickFix HVAC',text:'3 invoices processed offline this morning — $18.4K total, bypassed catalog pricing',severity:'high'},
+  {id:'d2',time:'4h ago',cat:'Painting',vendor:null,text:'Compliance rate trending down 2pts this quarter — 7 properties showing same pattern',severity:'med'},
+  {id:'d3',time:'6h ago',cat:'Plumbing',vendor:'Allied Plumbing',text:'COI expiration in 14 days — active work orders at 3 properties',severity:'med'},
+  {id:'d4',time:'1d ago',cat:'HVAC',vendor:null,text:'Southwest region HVAC spend up 8% month-over-month — 4 properties driving the increase',severity:'high'},
+  {id:'d5',time:'1d ago',cat:'Landscaping',vendor:'GreenScape Outdoor',text:'Vendor switch detected at Sunset Ridge — previously Multiple (3), now sole provider',severity:'low'},
+  {id:'d6',time:'2d ago',cat:'Electrical',vendor:'SparkRight Electric',text:'Credentialing status moved to Pending — 2 active work orders at Harbor Point',severity:'low'},
+  {id:'d7',time:'2d ago',cat:'HVAC',vendor:'QuickFix HVAC',text:'Split-invoice pattern detected — 3 invoices submitted same-day just under approval threshold',severity:'high'},
+  {id:'d8',time:'3d ago',cat:'Appliances',vendor:null,text:'Compliance rate reached quarterly high of 86% — strongest category performer',severity:'low'},
+];
 
 const INSIGHTS = [
   {type:'al',label:'Southeast HVAC Spend',title:'HVAC maverick spend is up 18% in the Southeast region — accounting for 38% of regional non-compliant activity across 12 properties this quarter.',cta:'View Category',cta2:'View Category'},
@@ -587,44 +607,17 @@ const slbl = (s) => s === 'g' ? 'Compliant' : s === 'r' ? 'High Risk' : 'Needs R
 const SpendOverview = ({onNavigate}) => {
   const [excTab,setExcTab] = useState(0);
 
-  /* ── Compute 4 Health Indexes from real data ── */
+  /* Derived totals from CATEGORIES */
   const totalComp = CATEGORIES.reduce((s,c)=>s+c.comp,0);
   const totalSpend = CATEGORIES.reduce((s,c)=>s+c.total,0);
   const spendHealth = Math.round(totalComp / totalSpend * 100);
-  const processHealth = Math.round((INVOICE_COMPLIANCE.rog.rate + INVOICE_COMPLIANCE.poWtn.rate) / 2);
-  const onlineRate = Math.round(VENDOR_NETWORK.online / VENDOR_NETWORK.total * 100);
-  const vendorHealth = Math.round((VENDOR_NETWORK.credRate + onlineRate) / 2);
-  const glOnTrack = GL_GROUPS.filter(g => g.actual <= g.budget).length;
-  const budgetHealth = Math.round(glOnTrack / GL_GROUPS.length * 100);
+  const mavPctNum = Math.round((totalSpend-totalComp)/totalSpend*100);
 
-  const healthIndexes = [
-    {id:'spend', label:'Spend Channel', val:spendHealth, trend:'+1.1', dir:'up', sub:`${fmtM(totalComp)} compliant of ${fmtM(totalSpend)}`, color: spendHealth>=75?'#4ade80':spendHealth>=50?'#fbbf24':'#fb7185'},
-    {id:'process', label:'Process', val:processHealth, trend:'+2.0', dir:'up', sub:`ROG ${INVOICE_COMPLIANCE.rog.rate}% · PO-WTN ${INVOICE_COMPLIANCE.poWtn.rate}%`, color: processHealth>=75?'#4ade80':processHealth>=50?'#fbbf24':'#fb7185'},
-    {id:'vendor', label:'Vendor', val:vendorHealth, trend:'-3.2', dir:'dn', sub:`Credentialed ${Math.round(VENDOR_NETWORK.credRate)}% · Online ${onlineRate}%`, color: vendorHealth>=75?'#4ade80':vendorHealth>=50?'#fbbf24':'#fb7185'},
-    {id:'budget', label:'Budget', val:budgetHealth, trend:'+0.8', dir:'up', sub:`${glOnTrack} of ${GL_GROUPS.length} GL Groups on track`, color: budgetHealth>=75?'#4ade80':budgetHealth>=50?'#fbbf24':'#fb7185'},
+  const donutSegs = [
+    {pct:spendHealth,color:'var(--ch3)',label:'Compliant'},
+    {pct:mavPctNum,color:'var(--ch4)',label:'Maverick Spend'},
+    {pct:Math.max(0,100-spendHealth-mavPctNum),color:'var(--ch1)',label:'Unclassified'}
   ];
-
-  /* Semi-circle arc gauge component */
-  const ArcGauge = ({pct, color, size=80}) => {
-    const thick = 7, r = (size/2) - thick/2;
-    const halfCirc = Math.PI * r;
-    const offset = halfCirc - (pct/100) * halfCirc;
-    return (
-      <svg width={size} height={size/2+4} className="health-gauge-arc">
-        <path d={`M ${thick/2} ${size/2} A ${r} ${r} 0 0 1 ${size-thick/2} ${size/2}`}
-          fill="none" stroke="rgba(255,255,255,0.12)" strokeWidth={thick} strokeLinecap="round"/>
-        <path d={`M ${thick/2} ${size/2} A ${r} ${r} 0 0 1 ${size-thick/2} ${size/2}`}
-          fill="none" stroke={color} strokeWidth={thick} strokeLinecap="round"
-          strokeDasharray={halfCirc} strokeDashoffset={offset}
-          style={{transition:'stroke-dashoffset 1s ease'}}/>
-      </svg>
-    );
-  };
-
-  const donutSegs = [{pct:spendHealth,color:'var(--ch3)',label:'Compliant'},{pct:Math.round((totalSpend-totalComp)/totalSpend*100),color:'var(--ch4)',label:'Maverick Spend'},{pct:Math.max(0,100-spendHealth-Math.round((totalSpend-totalComp)/totalSpend*100)),color:'var(--ch1)',label:'Unclassified'}];
-
-  const mavSpend = totalSpend - totalComp;
-  const mavPct = Math.round(mavSpend / totalSpend * 100);
 
   /* Insight metadata for improved alerts */
   const insightMeta = [
@@ -635,25 +628,23 @@ const SpendOverview = ({onNavigate}) => {
 
   return (
     <div className="page-body">
-      {/* ═══ ACT 1: SIGNAL — 4 Health Indexes ═══ */}
-      <div className="health-indexes">
-        {healthIndexes.map(h => (
-          <div key={h.id} className="health-gauge">
-            <ArcGauge pct={h.val} color={h.color}/>
-            <div className="health-gauge-val" style={{color:h.color}}>{h.val}%</div>
-            <div className="health-gauge-lbl">{h.label}</div>
-            <div className={`health-gauge-trend ${h.dir}`}>
-              {h.dir==='up'?'▲':h.dir==='dn'?'▼':'─'} {h.trend} pts
+      {/* ═══ KPI STRIP — 5 clean cards (Figma match) ═══ */}
+      <div className="kgrid5">
+        {KPI_DATA.map(k => (
+          <div key={k.id} className={`kcard ${k.accent==='orange'?'orange':''} ${k.accent==='ai'?'ai':''}`}>
+            <div className="k-lbl" style={{display:'flex',alignItems:'center',gap:6}}>
+              {k.accent==='ai' && <SparkleIcon s={14} c="#217E7E"/>}
+              {k.label}
             </div>
-            <div className="health-gauge-sub">{h.sub}</div>
+            {k.sub && <div className="k-sub" style={{marginTop:0,marginBottom:6}}>{k.sub}</div>}
+            <div className={`k-val ${k.accent==='orange'?'orange':''}`} style={k.accent==='ai'?{color:'#217E7E'}:{}}>{k.val}</div>
+            {k.delta && (
+              <div className={`k-delta ${k.dir}`}>
+                {k.dir==='up'?'▲':k.dir==='dn'?'▼':'─'} {k.delta}
+              </div>
+            )}
           </div>
         ))}
-      </div>
-      <div className="health-summary">
-        <div className="health-summary-item"><span className="health-summary-val">{fmtM(totalSpend)}</span> Total Spend</div>
-        <div className="health-summary-item"><span className="health-summary-val" style={{color:'var(--orange)'}}>{fmtM(mavSpend)}</span> Maverick</div>
-        <div className="health-summary-item"><span className="health-summary-val">18</span> AI Signals</div>
-        <div className="health-summary-item"><span className="health-summary-val">82</span> Properties</div>
       </div>
 
       {/* ═══ PROACTIVE AI INTELLIGENCE BRIEF ═══ */}
@@ -988,6 +979,31 @@ const SpendOverview = ({onNavigate}) => {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* ═══ AI ACTIVITY FEED — Recent AI Detections ═══ */}
+        <div className="ai-feed">
+          <div className="ai-feed-hdr">
+            <div className="ai-feed-title">
+              <SparkleIcon s={16} c="#217E7E"/>
+              Recent AI Detections
+              <span className="ai-feed-live">LIVE</span>
+            </div>
+            <div className="ai-feed-count">{AI_DETECTIONS.length} observations this week</div>
+          </div>
+          {AI_DETECTIONS.slice(0,6).map(d => (
+            <div key={d.id} className="ai-feed-item">
+              <div className={`ai-feed-dot ${d.severity}`}/>
+              <div className="ai-feed-body">
+                <div className="ai-feed-meta">
+                  <span className="ai-feed-time">{d.time}</span>
+                  <span className="ai-feed-cat">{d.cat}</span>
+                  {d.vendor && <span className="ai-feed-vendor">· {d.vendor}</span>}
+                </div>
+                <div className="ai-feed-text">{d.text}</div>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 
