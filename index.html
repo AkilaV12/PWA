@@ -160,6 +160,69 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .ai-feed-cat{background:var(--hi);color:var(--rp);padding:1px 6px;border-radius:3px;font-weight:600}
 .ai-feed-vendor{color:var(--gd);font-style:italic}
 .ai-feed-text{font-size:13px;color:var(--rp-black);line-height:1.4}
+/* Vendor scatter plot */
+.scatter-wrap{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:20px;box-shadow:var(--shadow);position:relative}
+.scatter-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:16px}
+.scatter-title{font-family:'Roboto',sans-serif;font-size:16px;font-weight:700;color:var(--rp-black);display:flex;align-items:center;gap:8px}
+.scatter-sub{font-size:12px;color:var(--gd);margin-top:2px}
+.scatter-legend{display:flex;gap:12px;flex-wrap:wrap;font-size:11px;color:var(--rp-black)}
+.scatter-legend-item{display:flex;align-items:center;gap:5px}
+.scatter-legend-dot{width:10px;height:10px;border-radius:50%}
+.scatter-svg{width:100%;height:380px;display:block;cursor:default}
+.scatter-quad{fill:var(--gl);stroke:var(--gll);stroke-width:1}
+.scatter-quad-lbl{font-size:10px;fill:var(--gd);font-weight:600;text-transform:uppercase;letter-spacing:0.4px;pointer-events:none}
+.scatter-axis{stroke:var(--gm);stroke-width:1}
+.scatter-grid{stroke:var(--gll);stroke-width:1;stroke-dasharray:2 3}
+.scatter-axis-lbl{font-size:10px;fill:var(--gd);font-family:'Roboto',sans-serif}
+.scatter-axis-title{font-size:11px;fill:var(--rp-black);font-weight:600;font-family:'Roboto',sans-serif}
+.scatter-dot{cursor:pointer;transition:transform .12s;transform-origin:center;transform-box:fill-box}
+.scatter-dot:hover{filter:drop-shadow(0 2px 4px rgba(0,0,0,.25))}
+.scatter-dot-lbl{font-size:10px;fill:var(--rp-black);font-family:'Roboto',sans-serif;pointer-events:none;font-weight:500}
+.scatter-tooltip{position:absolute;background:#202737;color:#fff;padding:10px 12px;border-radius:6px;font-size:11px;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,.2);max-width:240px;z-index:10;line-height:1.4}
+.scatter-tooltip-name{font-weight:700;font-size:12px;margin-bottom:4px;color:#fff}
+.scatter-tooltip-meta{color:rgba(255,255,255,0.7);margin-bottom:6px;font-size:10px}
+.scatter-tooltip-obs{color:rgba(255,255,255,0.9);font-style:italic;font-size:11px}
+.stage-dot-prospect{fill:#9BA3A7}
+.stage-dot-candidate{fill:#217E7E}
+.stage-dot-review{fill:#F06000}
+.stage-dot-preferred{fill:#118837}
+.stage-dot-phased{fill:#C6CCD0}
+/* Property treemap */
+.tmap-wrap{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:20px;box-shadow:var(--shadow)}
+.tmap-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:16px;gap:16px}
+.tmap-title{font-family:'Roboto',sans-serif;font-size:16px;font-weight:700;color:var(--rp-black);display:flex;align-items:center;gap:8px}
+.tmap-sub{font-size:12px;color:var(--gd);margin-top:2px}
+.tmap-legend{display:flex;gap:10px;font-size:11px;color:var(--rp-black);align-items:center}
+.tmap-legend-swatch{display:inline-block;width:14px;height:10px;border-radius:2px;margin-right:4px;vertical-align:middle}
+.tmap-grid{display:grid;grid-template-columns:repeat(12,1fr);grid-auto-rows:110px;gap:8px}
+.tmap-tile{border-radius:6px;padding:12px 14px;color:#fff;cursor:pointer;position:relative;overflow:hidden;transition:transform .12s,box-shadow .12s;display:flex;flex-direction:column;justify-content:space-between;min-height:0}
+.tmap-tile:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.15);z-index:2}
+.tmap-tile-good{background:linear-gradient(135deg,#118837 0%,#0d6d2c 100%)}
+.tmap-tile-watch{background:linear-gradient(135deg,#F06000 0%,#c44e00 100%)}
+.tmap-tile-drift{background:linear-gradient(135deg,#D01A1F 0%,#a5141a 100%)}
+.tmap-tile-name{font-size:13px;font-weight:700;line-height:1.25;letter-spacing:.1px}
+.tmap-tile-pct{font-size:24px;font-weight:800;line-height:1;margin-top:4px}
+.tmap-tile-meta{font-size:10px;opacity:0.85;margin-top:4px;display:flex;align-items:center;gap:6px}
+.tmap-tile-spend{font-size:11px;opacity:0.9;font-weight:600}
+.tmap-tile-obs{font-size:10px;opacity:0.95;font-style:italic;margin-top:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.tmap-tile-delta{position:absolute;top:10px;right:10px;font-size:10px;font-weight:700;background:rgba(255,255,255,0.2);padding:2px 6px;border-radius:3px}
+/* Vendor detail page */
+.vd-hero{background:linear-gradient(135deg,#0f2027 0%,#203a43 100%);border-radius:12px;padding:24px;color:#fff;margin-bottom:20px;position:relative;overflow:hidden}
+.vd-hero::before{content:'';position:absolute;top:-30%;right:-5%;width:200px;height:200px;border-radius:50%;background:rgba(33,126,126,0.15)}
+.vd-hero-row{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;position:relative}
+.vd-hero-name{font-size:22px;font-weight:800;margin-bottom:6px}
+.vd-hero-meta{font-size:12px;color:rgba(255,255,255,0.7);display:flex;gap:12px;flex-wrap:wrap}
+.vd-stage{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;border-radius:12px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.vd-stage-prospect{background:rgba(155,163,167,0.25);color:#d6dadd}
+.vd-stage-candidate{background:rgba(33,126,126,0.3);color:#7fd8d8}
+.vd-stage-review{background:rgba(240,96,0,0.25);color:#ffb380}
+.vd-stage-preferred{background:rgba(17,136,55,0.3);color:#7fd29e}
+.vd-stage-phased{background:rgba(198,204,208,0.2);color:#c6ccd0}
+.vd-actions{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap}
+.vd-action-btn{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);color:#fff;padding:8px 14px;border-radius:6px;font-size:12px;font-weight:600;cursor:pointer;font-family:var(--font);transition:all .15s}
+.vd-action-btn:hover{background:rgba(255,255,255,0.25)}
+.vd-action-btn.primary{background:#217E7E;border-color:#217E7E}
+.vd-action-btn.primary:hover{background:#1a6464}
 .tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:2px}
 .tag.g{background:var(--gbg);color:var(--green)}.tag.r{background:var(--rbg);color:var(--red)}.tag.y{background:var(--ybg);color:var(--orange)}.tag.b{background:rgba(0,118,204,0.1);color:var(--rp)}.tag.gr{background:var(--gll);color:var(--rp-black)}.tag.p{background:var(--pbg);color:var(--pur)}
 .rpill{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px;text-transform:uppercase;gap:3px}
@@ -361,12 +424,23 @@ const CATEGORIES = [
   {name:'Roofing',comp:800000,mav:200000,total:1000000,rate:80,trend:[77,78,79,79,80,80],props:2,topVendor:null,status:'g',benchmark:75,aiObs:{text:'Up 3pts · 2 properties tracked',dir:'up'}},
 ];
 
+/* Vendor lifecycle stages:
+   prospect = new/one-off, insufficient signal
+   candidate = high frequency + consistent spend → onboarding candidate
+   review = credentialing or pricing anomalies under active review
+   preferred = already on preferred list (shown for comparison)
+   phased = dormant, trending to zero */
 const MAV_VENDORS = [
-  {name:'QuickFix HVAC Services',contact:'J. Thompson',prop:'Sunset Ridge Apts',cat:'HVAC',spend:18400,mavTotal:180000,viol:7,status:'non-compliant',cred:'Non-credentialed',risk:'h'},
-  {name:'Allied Plumbing Co',contact:'R. Patel',prop:'Lakeview Commons',cat:'Plumbing',spend:9200,mavTotal:92000,viol:4,status:'non-compliant',cred:'Non-credentialed',risk:'h'},
-  {name:'GreenScape Outdoor',contact:'S. Kim',prop:'Multiple (3)',cat:'Landscaping',spend:24300,mavTotal:145000,viol:6,status:'under-review',cred:'Pending',risk:'m'},
-  {name:'SparkRight Electric',contact:'M. Garcia',prop:'Harbor Point Towers',cat:'Electrical',spend:6800,mavTotal:68000,viol:2,status:'compliant',cred:'Credentialed',risk:'l'},
-  {name:'CleanPro Janitorial',contact:'A. Davis',prop:'Meadowbrook Village',cat:'Cleaning',spend:3100,mavTotal:31000,viol:1,status:'compliant',cred:'Credentialed',risk:'l'},
+  {name:'QuickFix HVAC Services',contact:'J. Thompson',prop:'Sunset Ridge Apts',cat:'HVAC',spend:180000,freq:14,viol:7,stage:'candidate',cred:'Non-credentialed',firstSeen:'Sep 2024',trend:[12,14,16,18,20,22],aiObs:'Weekly cadence · spend doubled in Q1'},
+  {name:'Allied Plumbing Co',contact:'R. Patel',prop:'Lakeview Commons',cat:'Plumbing',spend:92000,freq:9,viol:4,stage:'candidate',cred:'Non-credentialed',firstSeen:'Nov 2024',trend:[6,7,8,9,9,10],aiObs:'Matches preferred plumbing rates · 3rd property this quarter'},
+  {name:'GreenScape Outdoor',contact:'S. Kim',prop:'Multiple (3)',cat:'Landscaping',spend:145000,freq:7,viol:6,stage:'review',cred:'Pending',firstSeen:'Jul 2024',trend:[8,8,7,7,6,6],aiObs:'Credentialing pending 38 days · 2 active work orders'},
+  {name:'SparkRight Electric',contact:'M. Garcia',prop:'Harbor Point Towers',cat:'Electrical',spend:68000,freq:4,viol:2,stage:'prospect',cred:'Credentialed',firstSeen:'Feb 2025',trend:[2,3,3,4,4,5],aiObs:'Steady small-ticket · under onboarding threshold'},
+  {name:'CleanPro Janitorial',contact:'A. Davis',prop:'Meadowbrook Village',cat:'Cleaning',spend:31000,freq:2,viol:1,stage:'prospect',cred:'Credentialed',firstSeen:'Mar 2025',trend:[1,1,2,2,2,2],aiObs:'Occasional · single-property engagement'},
+  {name:'Apex Maintenance Group',contact:'D. Nguyen',prop:'Pegasus Meadows',cat:'HVAC',spend:128000,freq:11,viol:5,stage:'review',cred:'Non-credentialed',firstSeen:'Aug 2024',trend:[9,10,10,11,11,12],aiObs:'Split-invoice pattern detected · 3 invoices same day'},
+  {name:'Capitol Builders LLC',contact:'L. Rivera',prop:'Pegasus Heights',cat:'Painting',spend:42000,freq:3,viol:3,stage:'review',cred:'Non-credentialed',firstSeen:'Jan 2025',trend:[2,3,3,3,3,4],aiObs:'No COI on file · active work order this week'},
+  {name:'Summit Flooring',contact:'P. Chen',prop:'Oak Park Residences',cat:'Flooring',spend:55000,freq:5,viol:2,stage:'candidate',cred:'Credentialed',firstSeen:'Oct 2024',trend:[3,4,4,5,5,6],aiObs:'Recurring · pricing matches preferred flooring contract'},
+  {name:'Blue Ridge Roofing',contact:'T. Walker',prop:'Riverside Landing',cat:'Roofing',spend:24000,freq:1,viol:0,stage:'prospect',cred:'Pending',firstSeen:'Mar 2025',trend:[0,0,1,1,1,1],aiObs:'First engagement · seasonal pattern possible'},
+  {name:'Heritage Pest Control',contact:'K. Osei',prop:'Multiple (2)',cat:'Pest Control',spend:8000,freq:1,viol:0,stage:'phased',cred:'Credentialed',firstSeen:'Jun 2024',trend:[3,2,2,1,1,1],aiObs:'Activity trending to zero · last invoice 42 days ago'},
 ];
 
 const REGIONS_DATA = [
@@ -1229,15 +1303,45 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
     );
   }
 
-  // Property list
+  // Property list — treemap grid
+  const medianCompliance = (() => {
+    const sorted = [...PROPS_DATA].map(p=>p.compliance).sort((a,b)=>a-b);
+    const mid = Math.floor(sorted.length/2);
+    return sorted.length%2===0 ? Math.round((sorted[mid-1]+sorted[mid])/2) : sorted[mid];
+  })();
+  const totalSpend = PROPS_DATA.reduce((s,p)=>s+p.totalSpend,0);
+  const propObs = {
+    'Sunset Ridge Apts':'HVAC offline rate spiking · 3 invoices bypassed catalog',
+    'Lakeview Commons':'Plumbing compliance recovering · +5pts this quarter',
+    'Harbor Point Towers':'Strongest in portfolio · all top vendors credentialed',
+    'Meadowbrook Village':'Steady · appliance spend matches preferred pricing',
+    'Oak Park Residences':'Painting cadence steady · no anomalies detected',
+    'Riverside Landing':'Landscaping vendor rotation detected · monitoring',
+  };
+  const sortedProps = [...PROPS_DATA].sort((a,b)=>a.compliance-b.compliance);
+  const spanFor = (spend) => {
+    const share = spend / totalSpend;
+    return Math.max(3, Math.min(6, Math.round(share * 12 * 2.2)));
+  };
+  const rowSpanFor = (spend) => spend > (totalSpend/PROPS_DATA.length)*1.2 ? 2 : 1;
+  const tileClass = (compliance) => {
+    if (compliance >= 85) return 'tmap-tile-good';
+    if (compliance >= 70) return 'tmap-tile-watch';
+    return 'tmap-tile-drift';
+  };
+  const belowMedian = PROPS_DATA.filter(p=>p.compliance<medianCompliance).length;
   return (
     <div className="page-body panim">
+      <div className="li-card" style={{marginBottom:16,borderLeft:'3px solid #217E7E'}}>
+        <div className="li-type"><SparkleIcon s={12} c="#217E7E"/> Lumina Observation</div>
+        <div className="li-ttl">{belowMedian} of {PROPS_DATA.length} properties sit below the portfolio median of {medianCompliance}%. Tile size reflects spend share · color reflects compliance tier. Click any tile to drill into property detail.</div>
+      </div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
         {[
-          {l:'Total Properties',v:'82',sub:'Across 5 regions'},
-          {l:'Avg Compliance',v:'80%',sub:'Portfolio average'},
-          {l:'Below Target',v:'3',sub:'Properties below 70%',accent:true},
-          {l:'Avg Offline Rate',v:'25%',sub:'Target: 20%',accent:true},
+          {l:'Total Properties',v:PROPS_DATA.length,sub:'In portfolio view'},
+          {l:'Portfolio Median',v:`${medianCompliance}%`,sub:'Compliance benchmark'},
+          {l:'Below Median',v:belowMedian,sub:'Drift candidates',accent:true},
+          {l:'Avg Offline Rate',v:`${Math.round(PROPS_DATA.reduce((s,p)=>s+p.offlineRate,0)/PROPS_DATA.length)}%`,sub:'Target: 20%',accent:true},
         ].map((m,i) => (
           <div key={i} className={`kcard ${m.accent?'orange':''}`} style={{cursor:'default'}}>
             <div className="k-lbl">{m.l}</div>
@@ -1246,34 +1350,43 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
           </div>
         ))}
       </div>
-      <div className="g2">
-        <div className="card">
-          <div className="ct">Maverick Rate by Region</div>
-          {REGIONS_DATA.map((r,i) => (
-            <div key={i} style={{marginBottom:14,cursor:'pointer'}} onClick={()=>onNavigate('regDetail',r.name)}>
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:4}}>
-                <span style={{fontSize:12,fontWeight:600,color:'var(--rp)'}}>{r.name} <span style={{color:'var(--gd)',fontWeight:400}}>({r.props} props)</span></span>
-                <span style={{fontSize:12,fontWeight:700}}>{r.mavPct}%</span>
-              </div>
-              <div className="prog" style={{height:8}}><div className="prog-f" style={{width:`${r.mavPct}%`,background:r.mavPct>=25?'var(--red)':r.mavPct>=20?'var(--orange)':'var(--ch3)'}}/></div>
-            </div>
-          ))}
+      <div className="tmap-wrap">
+        <div className="tmap-hdr">
+          <div>
+            <div className="tmap-title"><SparkleIcon s={14} c="#217E7E"/> Property Compliance Map</div>
+            <div className="tmap-sub">Tile size = spend share · tile color = compliance tier · delta = vs portfolio median</div>
+          </div>
+          <div className="tmap-legend">
+            <span><span className="tmap-legend-swatch" style={{background:'linear-gradient(135deg,#118837,#0d6d2c)'}}/>≥85% healthy</span>
+            <span><span className="tmap-legend-swatch" style={{background:'linear-gradient(135deg,#F06000,#c44e00)'}}/>70–84% watch</span>
+            <span><span className="tmap-legend-swatch" style={{background:'linear-gradient(135deg,#D01A1F,#a5141a)'}}/>&lt;70% drift</span>
+          </div>
         </div>
-        <div className="card">
-          <div className="ct">Property Compliance</div>
-          {PROPS_DATA.map((p,i) => (
-            <div key={i} style={{padding:'8px 0',borderBottom:i<PROPS_DATA.length-1?'1px solid var(--gll)':'none',cursor:'pointer'}} onClick={()=>onNavigate('propDetail',p.name)}>
-              <div style={{display:'flex',alignItems:'center',justifyContent:'space-between'}}>
-                <span style={{fontSize:12,fontWeight:600,color:'var(--rp)'}}>{p.name}</span>
-                <span className={`ds-badge ${p.status}`}>{p.status==='non-compliant'?'Non-Compliant':p.status==='compliant'?'Compliant':'Needs Review'}</span>
+        <div className="tmap-grid">
+          {sortedProps.map((p,i) => {
+            const delta = p.compliance - medianCompliance;
+            const span = spanFor(p.totalSpend);
+            const rowSpan = rowSpanFor(p.totalSpend);
+            return (
+              <div
+                key={i}
+                className={`tmap-tile ${tileClass(p.compliance)}`}
+                style={{gridColumn:`span ${span}`,gridRow:`span ${rowSpan}`}}
+                onClick={()=>onNavigate('propDetail',p.name)}
+                title={`${p.name} — ${p.compliance}% compliant`}
+              >
+                <div className="tmap-tile-delta">{delta>=0?'+':''}{delta} vs med</div>
+                <div>
+                  <div className="tmap-tile-name">{p.name}</div>
+                  <div className="tmap-tile-pct">{p.compliance}%</div>
+                </div>
+                <div>
+                  <div className="tmap-tile-spend">{fmtM(p.totalSpend)} · top: {p.topCat}</div>
+                  <div className="tmap-tile-obs">{propObs[p.name] || 'No recent AI signals'}</div>
+                </div>
               </div>
-              <div style={{display:'flex',justifyContent:'space-between',marginTop:4}}>
-                <span style={{fontSize:11,color:'var(--gd)'}}>Total: {fmtM(p.totalSpend)} | Maverick: {fmtM(p.mavSpend)}</span>
-                <span style={{fontSize:12,fontWeight:700}}>{p.compliance}%</span>
-              </div>
-              <div className="prog" style={{marginTop:4,height:6}}><div className="prog-f" style={{width:`${p.compliance}%`,background:p.compliance>=85?'var(--green)':p.compliance>=70?'var(--ch3)':'var(--red)'}}/></div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>
@@ -1553,84 +1666,291 @@ const BudgetCompliance = ({onNavigate}) => {
 /* ══════════════════════════════════════════════════════════════
    VENDOR DRILLDOWN
    ══════════════════════════════════════════════════════════════ */
-const VendorDrilldown = ({onNavigate}) => (
-  <div className="page-body panim">
-    <div className="li-card" style={{marginBottom:16,borderLeft:'3px solid var(--red)'}}>
-      <div className="li-type"><SparkleIcon s={12} c="var(--red)"/> Lumina Alert</div>
-      <div className="li-ttl">2 vendors are non-compliant with combined maverick spend of $272K. QuickFix HVAC Services has 7 violations across 12 properties. Immediate review recommended to prevent further compliance drift.</div>
-      <div className="li-cta">View Non-Compliant Vendors <Icon n="arrowRight" s={14}/></div>
-    </div>
-    <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:12,marginBottom:16}}>
-      {[
-        {l:'Total Vendors',v:'261',sub:'Active vendors'},
-        {l:'Online',v:'74',sub:'28% adoption'},
-        {l:'Offline',v:'187',sub:'72% still paper'},
-        {l:'Credentialed',v:'143',sub:'55% coverage'},
-        {l:'Non-Compliant',v:'2',sub:'Immediate attention',accent:true},
-      ].map((m,i) => (
-        <div key={i} className={`kcard ${m.accent?'orange':''}`} style={{cursor:'default'}}>
-          <div className="k-lbl">{m.l}</div>
-          <div className={`k-val ${m.accent?'orange':''}`}>{m.v}</div>
-          <div className="k-sub">{m.sub}</div>
+/* ──────────────────────────────────────────────────────────────
+   VENDOR SCATTER — Spend × Frequency behavioral map
+   X = invoices/month, Y = annualized spend
+   Dot color = lifecycle stage, click → vendor detail page
+   ────────────────────────────────────────────────────────────── */
+const VendorScatter = ({vendors,onPick}) => {
+  const [hover,setHover] = useState(null);
+  const W = 880, H = 360;
+  const PAD_L = 60, PAD_R = 24, PAD_T = 28, PAD_B = 52;
+  const plotW = W - PAD_L - PAD_R;
+  const plotH = H - PAD_T - PAD_B;
+  const maxFreq = 16;
+  const maxSpend = 200000;
+  const fx = f => PAD_L + (f / maxFreq) * plotW;
+  const fy = s => PAD_T + plotH - (s / maxSpend) * plotH;
+  const midX = fx(maxFreq / 2);
+  const midY = fy(maxSpend / 2);
+  return (
+    <div className="scatter-wrap">
+      <div className="scatter-hdr">
+        <div>
+          <div className="scatter-title"><SparkleIcon s={14} c="#217E7E"/> Vendor Behavior Map</div>
+          <div className="scatter-sub">Spend vs. invoice frequency · click a vendor for detail</div>
         </div>
-      ))}
-    </div>
-    <div className="g2" style={{marginBottom:16}}>
-      <div className="card">
-        <div className="ct">Vendor Channel Mix</div>
-        <div style={{display:'flex',justifyContent:'center',padding:'12px 0'}}>
-          <DonutChart segs={[{pct:28,color:'var(--ch3)'},{pct:72,color:'var(--orange)'}]} size={140} thick={22} center={{val:'28%',label:'Online'}}/>
-        </div>
-        <div style={{display:'flex',justifyContent:'center',gap:16,marginTop:8,fontSize:11}}>
-          <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:'50%',background:'var(--ch3)'}}/> Online (74)</span>
-          <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:'50%',background:'var(--orange)'}}/> Offline (187)</span>
+        <div className="scatter-legend">
+          <span className="scatter-legend-item"><span className="scatter-legend-dot" style={{background:'#217E7E'}}/>Onboarding candidate</span>
+          <span className="scatter-legend-item"><span className="scatter-legend-dot" style={{background:'#F06000'}}/>Under review</span>
+          <span className="scatter-legend-item"><span className="scatter-legend-dot" style={{background:'#9BA3A7'}}/>Prospect</span>
+          <span className="scatter-legend-item"><span className="scatter-legend-dot" style={{background:'#C6CCD0'}}/>Phased-out</span>
         </div>
       </div>
-      <div className="card">
-        <div className="ct">Vendor by Type</div>
-        {VENDOR_NETWORK.byType.map((t,i) => (
-          <div key={i} style={{marginBottom:14}}>
-            <div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}>
-              <span style={{fontSize:12,fontWeight:600}}>{t.type}</span>
-              <span style={{fontSize:12,fontWeight:600}}>{t.total} vendors</span>
-            </div>
-            <div style={{display:'flex',height:8,borderRadius:4,overflow:'hidden'}}>
-              <div style={{width:`${(t.compliant/t.total)*100}%`,background:'var(--green)'}}/>
-              <div style={{width:`${(t.nonCompliant/t.total)*100}%`,background:'var(--red)'}}/>
-              <div style={{width:`${(t.pending/t.total)*100}%`,background:'var(--orange)'}}/>
-              <div style={{width:`${(t.notEnrolled/t.total)*100}%`,background:'var(--gll)'}}/>
-            </div>
+      <svg className="scatter-svg" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid meet" onMouseLeave={()=>setHover(null)}>
+        {/* Quadrants */}
+        <rect className="scatter-quad" x={PAD_L} y={PAD_T} width={midX-PAD_L} height={midY-PAD_T} fill="#fff"/>
+        <rect className="scatter-quad" x={midX} y={PAD_T} width={PAD_L+plotW-midX} height={midY-PAD_T} fill="rgba(33,126,126,0.05)"/>
+        <rect className="scatter-quad" x={PAD_L} y={midY} width={midX-PAD_L} height={PAD_T+plotH-midY} fill="#fff"/>
+        <rect className="scatter-quad" x={midX} y={midY} width={PAD_L+plotW-midX} height={PAD_T+plotH-midY} fill="rgba(240,96,0,0.04)"/>
+        <text className="scatter-quad-lbl" x={midX+12} y={PAD_T+16}>Onboard candidates</text>
+        <text className="scatter-quad-lbl" x={PAD_L+12} y={PAD_T+16}>Strategic one-offs</text>
+        <text className="scatter-quad-lbl" x={midX+12} y={PAD_T+plotH-8}>Recurring small-ticket</text>
+        <text className="scatter-quad-lbl" x={PAD_L+12} y={PAD_T+plotH-8}>Ignore / phase out</text>
+        {/* Gridlines */}
+        {[0,1,2,3,4].map(i => {
+          const y = PAD_T + (i/4)*plotH;
+          return <line key={'g'+i} className="scatter-grid" x1={PAD_L} y1={y} x2={PAD_L+plotW} y2={y}/>;
+        })}
+        {/* Axes */}
+        <line className="scatter-axis" x1={PAD_L} y1={PAD_T+plotH} x2={PAD_L+plotW} y2={PAD_T+plotH}/>
+        <line className="scatter-axis" x1={PAD_L} y1={PAD_T} x2={PAD_L} y2={PAD_T+plotH}/>
+        {/* Y labels */}
+        {[0,50000,100000,150000,200000].map((v,i) => (
+          <text key={'yl'+i} className="scatter-axis-lbl" x={PAD_L-8} y={fy(v)+4} textAnchor="end">${v/1000}K</text>
+        ))}
+        {/* X labels */}
+        {[0,4,8,12,16].map((v,i) => (
+          <text key={'xl'+i} className="scatter-axis-lbl" x={fx(v)} y={PAD_T+plotH+16} textAnchor="middle">{v}</text>
+        ))}
+        {/* Axis titles */}
+        <text className="scatter-axis-title" x={PAD_L+plotW/2} y={H-14} textAnchor="middle">Invoices per month →</text>
+        <text className="scatter-axis-title" x={-PAD_T-plotH/2} y={16} textAnchor="middle" transform="rotate(-90)">↑ Annualized spend</text>
+        {/* Dots */}
+        {vendors.map((v,i) => {
+          const cx = fx(v.freq), cy = fy(v.spend);
+          const r = 8 + Math.min(6, v.viol);
+          return (
+            <g key={i} onClick={()=>onPick(v.name)} onMouseEnter={()=>setHover({v,x:cx,y:cy})}>
+              <circle className={`scatter-dot stage-dot-${v.stage}`} cx={cx} cy={cy} r={r} stroke="#fff" strokeWidth="2" opacity="0.88"/>
+              <text className="scatter-dot-lbl" x={cx+r+4} y={cy+3}>{v.name.split(' ')[0]}</text>
+            </g>
+          );
+        })}
+      </svg>
+      {hover && (
+        <div className="scatter-tooltip" style={{left:`calc(${(hover.x/W)*100}% + 20px)`,top:`calc(${(hover.y/H)*100}% + 20px)`}}>
+          <div className="scatter-tooltip-name">{hover.v.name}</div>
+          <div className="scatter-tooltip-meta">{hover.v.cat} · {hover.v.freq} invoices/mo · ${(hover.v.spend/1000).toFixed(0)}K annualized</div>
+          <div className="scatter-tooltip-obs">{hover.v.aiObs}</div>
+        </div>
+      )}
+    </div>
+  );
+};
+
+const VendorDrilldown = ({onNavigate}) => {
+  const onboardCandidates = MAV_VENDORS.filter(v=>v.stage==='candidate').length;
+  const underReview = MAV_VENDORS.filter(v=>v.stage==='review').length;
+  const totalNonPref = MAV_VENDORS.length;
+  return (
+    <div className="page-body panim">
+      <div className="li-card" style={{marginBottom:16,borderLeft:'3px solid #217E7E'}}>
+        <div className="li-type"><SparkleIcon s={12} c="#217E7E"/> Lumina Observation</div>
+        <div className="li-ttl">{onboardCandidates} non-preferred vendors show recurring weekly cadence — they fit the profile of onboarding candidates. {underReview} others have pricing or credentialing anomalies worth a closer look. All $6.2M in non-preferred spend is plotted below by behavior.</div>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:12,marginBottom:16}}>
+        {[
+          {l:'Non-Preferred Vendors',v:totalNonPref,sub:'All 100% maverick by definition'},
+          {l:'Onboarding Candidates',v:onboardCandidates,sub:'Weekly cadence + steady spend',accent:'ai'},
+          {l:'Under Review',v:underReview,sub:'Pricing or COI anomaly',accent:'orange'},
+          {l:'Credentialed',v:'143',sub:'55% of full network'},
+          {l:'Online Adoption',v:'28%',sub:'74 of 261 on-system'},
+        ].map((m,i) => (
+          <div key={i} className={`kcard ${m.accent==='orange'?'orange':''}${m.accent==='ai'?'ai':''}`} style={{cursor:'default'}}>
+            {m.accent==='ai' && <div className="kcard-ai-badge"><SparkleIcon s={11} c="#217E7E"/></div>}
+            <div className="k-lbl">{m.l}</div>
+            <div className={`k-val ${m.accent==='orange'?'orange':''}`}>{m.v}</div>
+            <div className="k-sub">{m.sub}</div>
           </div>
         ))}
-        <div style={{display:'flex',gap:12,fontSize:10,marginTop:4}}>
-          <span style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:6,height:6,borderRadius:1,background:'var(--green)'}}/> Compliant</span>
-          <span style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:6,height:6,borderRadius:1,background:'var(--red)'}}/> Non-Compliant</span>
-          <span style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:6,height:6,borderRadius:1,background:'var(--orange)'}}/> Pending</span>
-          <span style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:6,height:6,borderRadius:1,background:'var(--gll)'}}/> Not Enrolled</span>
+      </div>
+      {/* Behavioral scatter replaces the redundant maverick-amount table */}
+      <VendorScatter vendors={MAV_VENDORS} onPick={(name)=>onNavigate('vendDetail',name)}/>
+      <div className="g2" style={{marginTop:16}}>
+        <div className="card">
+          <div className="ct">Vendor Channel Mix</div>
+          <div style={{display:'flex',justifyContent:'center',padding:'12px 0'}}>
+            <DonutChart segs={[{pct:28,color:'var(--ch3)'},{pct:72,color:'var(--orange)'}]} size={140} thick={22} center={{val:'28%',label:'Online'}}/>
+          </div>
+          <div style={{display:'flex',justifyContent:'center',gap:16,marginTop:8,fontSize:11}}>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:'50%',background:'var(--ch3)'}}/> Online (74)</span>
+            <span style={{display:'flex',alignItems:'center',gap:4}}><div style={{width:8,height:8,borderRadius:'50%',background:'var(--orange)'}}/> Offline (187)</span>
+          </div>
+        </div>
+        <div className="card">
+          <div className="ct">Vendor by Type</div>
+          {VENDOR_NETWORK.byType.map((t,i) => (
+            <div key={i} style={{marginBottom:14}}>
+              <div style={{display:'flex',justifyContent:'space-between',marginBottom:4}}>
+                <span style={{fontSize:12,fontWeight:600}}>{t.type}</span>
+                <span style={{fontSize:12,fontWeight:600}}>{t.total} vendors</span>
+              </div>
+              <div style={{display:'flex',height:8,borderRadius:4,overflow:'hidden'}}>
+                <div style={{width:`${(t.compliant/t.total)*100}%`,background:'var(--green)'}}/>
+                <div style={{width:`${(t.nonCompliant/t.total)*100}%`,background:'var(--red)'}}/>
+                <div style={{width:`${(t.pending/t.total)*100}%`,background:'var(--orange)'}}/>
+                <div style={{width:`${(t.notEnrolled/t.total)*100}%`,background:'var(--gll)'}}/>
+              </div>
+            </div>
+          ))}
+          <div style={{display:'flex',gap:12,fontSize:10,marginTop:4}}>
+            <span style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:6,height:6,borderRadius:1,background:'var(--green)'}}/> Compliant</span>
+            <span style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:6,height:6,borderRadius:1,background:'var(--red)'}}/> Non-Compliant</span>
+            <span style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:6,height:6,borderRadius:1,background:'var(--orange)'}}/> Pending</span>
+            <span style={{display:'flex',alignItems:'center',gap:3}}><div style={{width:6,height:6,borderRadius:1,background:'var(--gll)'}}/> Not Enrolled</span>
+          </div>
         </div>
       </div>
     </div>
-    <div className="sh" style={{marginTop:0}}><div className="sh-t">Maverick Spend by Top Vendor <span className="sh-badge">2 Non-Compliant</span></div></div>
-    <div className="card" style={{padding:0,overflow:'hidden'}}>
-      <table className="dt">
-        <thead><tr><th>Vendor</th><th>Property</th><th>Category</th><th className="r">Maverick Amount</th><th style={{textAlign:'center'}}>Violations</th><th>Credentialing</th><th>Status</th></tr></thead>
-        <tbody>
-          {MAV_VENDORS.map((v,i) => (
-            <tr key={i}>
-              <td><div><span className="vlink">{v.name}</span></div><div style={{fontSize:10,color:'var(--gd)',marginTop:1}}>{v.contact}</div></td>
-              <td>{v.prop}</td>
-              <td>{v.cat}</td>
-              <td className="r fw6" style={{color:'var(--orange)'}}>${v.spend.toLocaleString()}</td>
-              <td style={{textAlign:'center'}}><span style={{display:'inline-flex',alignItems:'center',justifyContent:'center',width:22,height:22,borderRadius:'50%',fontSize:11,fontWeight:700,background:v.viol>=5?'var(--red)':v.viol>=3?'var(--orange)':'var(--gll)',color:v.viol>=3?'#fff':'var(--gd)'}}>{v.viol}</span></td>
-              <td><span className={`tag ${v.cred==='Credentialed'?'g':v.cred==='Pending'?'y':'r'}`}>{v.cred}</span></td>
-              <td><span className={`ds-badge ${v.status}`}>{v.status==='non-compliant'?'Non-Compliant':v.status==='under-review'?'Under Review':'Compliant'}</span></td>
-            </tr>
+  );
+};
+
+/* ──────────────────────────────────────────────────────────────
+   VENDOR DETAIL — opens when user clicks a scatter dot
+   ────────────────────────────────────────────────────────────── */
+const VendorDetail = ({onNavigate,vendorName}) => {
+  const v = MAV_VENDORS.find(x=>x.name===vendorName) || MAV_VENDORS[0];
+  const vendorDetections = AI_DETECTIONS.filter(d=>d.vendor && v.name.toLowerCase().includes(d.vendor.toLowerCase().split(' ')[0]));
+  const avgInvoice = Math.round(v.spend / (v.freq * 12));
+  const stageLabel = {prospect:'Prospect',candidate:'Onboarding candidate',review:'Under review',preferred:'Preferred',phased:'Phased-out'}[v.stage];
+  return (
+    <div className="page-body panim">
+      <div className="breadcrumb">
+        <a onClick={()=>onNavigate('compliance')}>Spend Overview</a><span>›</span>
+        <a onClick={()=>onNavigate('vendor')}>Vendor</a><span>›</span>
+        <span>{v.name}</span>
+      </div>
+      <div className="vd-hero">
+        <div className="vd-hero-row">
+          <div>
+            <div className="vd-hero-name">{v.name}</div>
+            <div className="vd-hero-meta">
+              <span>{v.cat}</span>
+              <span>·</span>
+              <span>Contact: {v.contact}</span>
+              <span>·</span>
+              <span>First seen {v.firstSeen}</span>
+            </div>
+            <div style={{marginTop:10}}>
+              <span className={`vd-stage vd-stage-${v.stage}`}><SparkleIcon s={10} c="currentColor"/>{stageLabel}</span>
+            </div>
+            <div className="vd-actions">
+              {v.stage==='candidate' && <button className="vd-action-btn primary">Move to onboarding queue</button>}
+              {v.stage==='review' && <button className="vd-action-btn primary">Open review case</button>}
+              {v.stage==='prospect' && <button className="vd-action-btn">Watchlist</button>}
+              {v.stage==='phased' && <button className="vd-action-btn">Archive</button>}
+              <button className="vd-action-btn">Request COI</button>
+              <button className="vd-action-btn">Block vendor</button>
+            </div>
+          </div>
+          <div style={{flex:1,maxWidth:280}}>
+            <div style={{fontSize:11,color:'rgba(255,255,255,0.7)',marginBottom:6,textTransform:'uppercase',letterSpacing:'.4px',fontWeight:600}}>6-month spend trend</div>
+            <svg viewBox="0 0 280 80" style={{width:'100%',height:60}}>
+              {(() => {
+                const max = Math.max(...v.trend);
+                const pts = v.trend.map((p,i)=>`${(i/(v.trend.length-1))*270+5},${70-(p/max)*60}`).join(' ');
+                return <>
+                  <polyline points={pts} fill="none" stroke="#7fd8d8" strokeWidth="2"/>
+                  {v.trend.map((p,i)=>(
+                    <circle key={i} cx={(i/(v.trend.length-1))*270+5} cy={70-(p/max)*60} r="3" fill="#7fd8d8"/>
+                  ))}
+                </>;
+              })()}
+            </svg>
+          </div>
+        </div>
+      </div>
+      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
+        {[
+          {l:'Annualized Spend',v:`$${(v.spend/1000).toFixed(0)}K`,sub:`${v.freq*12} invoices/year`},
+          {l:'Invoice Cadence',v:`${v.freq}/mo`,sub:v.freq>=8?'Weekly pattern':v.freq>=4?'Bi-weekly':'Occasional'},
+          {l:'Avg Invoice',v:`$${avgInvoice.toLocaleString()}`,sub:'Per invoice average'},
+          {l:'Credentialing',v:v.cred,sub:v.cred==='Credentialed'?'On file':v.cred==='Pending'?'In process':'Missing',accent:v.cred!=='Credentialed'},
+        ].map((m,i) => (
+          <div key={i} className={`kcard ${m.accent?'orange':''}`} style={{cursor:'default'}}>
+            <div className="k-lbl">{m.l}</div>
+            <div className={`k-val ${m.accent?'orange':''}`} style={{fontSize:m.v.length>10?18:22}}>{m.v}</div>
+            <div className="k-sub">{m.sub}</div>
+          </div>
+        ))}
+      </div>
+      <div className="g2">
+        <div className="ai-feed">
+          <div className="ai-feed-hdr">
+            <div className="ai-feed-title"><SparkleIcon s={14} c="#217E7E"/> AI Observations for this vendor <span className="ai-feed-live">Live</span></div>
+            <div className="ai-feed-count">{vendorDetections.length || 1} signal{vendorDetections.length===1?'':'s'}</div>
+          </div>
+          <div className="ai-feed-item">
+            <div className={`ai-feed-dot ${v.stage==='review'?'high':v.stage==='candidate'?'med':'low'}`}/>
+            <div className="ai-feed-body">
+              <div className="ai-feed-meta">
+                <span className="ai-feed-time">Ongoing</span>
+                <span className="ai-feed-cat">{v.cat}</span>
+              </div>
+              <div className="ai-feed-text">{v.aiObs}</div>
+            </div>
+          </div>
+          {vendorDetections.map((d,i)=>(
+            <div key={i} className="ai-feed-item">
+              <div className={`ai-feed-dot ${d.severity}`}/>
+              <div className="ai-feed-body">
+                <div className="ai-feed-meta">
+                  <span className="ai-feed-time">{d.time}</span>
+                  <span className="ai-feed-cat">{d.cat}</span>
+                </div>
+                <div className="ai-feed-text">{d.text}</div>
+              </div>
+            </div>
           ))}
-        </tbody>
-      </table>
+          {vendorDetections.length===0 && (
+            <div className="ai-feed-item">
+              <div className="ai-feed-dot low"/>
+              <div className="ai-feed-body">
+                <div className="ai-feed-meta"><span className="ai-feed-time">No recent detections</span></div>
+                <div className="ai-feed-text">AI has not flagged new patterns for this vendor in the last 7 days.</div>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="card">
+          <div className="ct">At-a-glance</div>
+          <div style={{display:'flex',flexDirection:'column',gap:12,marginTop:8}}>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',paddingBottom:10,borderBottom:'1px solid var(--gll)'}}>
+              <span style={{fontSize:12,color:'var(--gd)'}}>Primary property</span>
+              <span style={{fontSize:13,fontWeight:600}}>{v.prop}</span>
+            </div>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',paddingBottom:10,borderBottom:'1px solid var(--gll)'}}>
+              <span style={{fontSize:12,color:'var(--gd)'}}>Violations (90d)</span>
+              <span style={{fontSize:13,fontWeight:700,color:v.viol>=5?'var(--red)':v.viol>=3?'var(--orange)':'var(--rp-black)'}}>{v.viol}</span>
+            </div>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center',paddingBottom:10,borderBottom:'1px solid var(--gll)'}}>
+              <span style={{fontSize:12,color:'var(--gd)'}}>Processing channel</span>
+              <span className="tag gr">Offline</span>
+            </div>
+            <div style={{display:'flex',justifyContent:'space-between',alignItems:'center'}}>
+              <span style={{fontSize:12,color:'var(--gd)'}}>Preferred alternative</span>
+              <span style={{fontSize:13,fontWeight:600,color:'var(--rp)'}}>See category →</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style={{marginTop:16}}>
+        <button className="btn bg sm" onClick={()=>onNavigate('vendor')}><Icon n="arrowLeft" s={14}/> Back to Vendor Map</button>
+      </div>
     </div>
-  </div>
-);
+  );
+};
 
 /* ══════════════════════════════════════════════════════════════
    INVESTIGATIONS / AI ACTIVITY LOG
@@ -1910,7 +2230,7 @@ const SpendCompliancePage = ({activeView,onNavigate,detailName}) => {
             {id:'budget',label:'Budget Compliance'},
             {id:'vendor',label:'Vendor'},
           ].map(t => (
-            <div key={t.id} className={`tab ${activeView===t.id||(activeView==='catDetail'&&t.id==='category')||(activeView==='propDetail'&&t.id==='property')?'on':''}`} onClick={()=>onNavigate(t.id)}>
+            <div key={t.id} className={`tab ${activeView===t.id||(activeView==='catDetail'&&t.id==='category')||(activeView==='propDetail'&&t.id==='property')||(activeView==='vendDetail'&&t.id==='vendor')?'on':''}`} onClick={()=>onNavigate(t.id)}>
               {t.label}
             </div>
           ))}
@@ -1925,6 +2245,7 @@ const SpendCompliancePage = ({activeView,onNavigate,detailName}) => {
       {(activeView==='property'||activeView==='propDetail'||activeView==='regDetail') && <PropertyDrilldown onNavigate={onNavigate} detailName={(activeView==='propDetail'||activeView==='regDetail')?detailName:null}/>}
       {activeView==='budget' && <BudgetCompliance onNavigate={onNavigate}/>}
       {activeView==='vendor' && <VendorDrilldown onNavigate={onNavigate}/>}
+      {activeView==='vendDetail' && <VendorDetail onNavigate={onNavigate} vendorName={detailName}/>}
     </div>
   );
 };
@@ -1948,6 +2269,9 @@ const App = () => {
     } else if (target === 'regDetail') {
       setPage('propDetail');
       setDetailName(name);
+    } else if (target === 'vendDetail') {
+      setPage('vendDetail');
+      setDetailName(name);
     } else {
       setPage(target);
       if (!name) setDetailName(null);
@@ -1958,7 +2282,7 @@ const App = () => {
   };
 
   const getActiveView = () => {
-    const spendViews = ['compliance','category','catDetail','property','propDetail','regDetail','budget','vendor'];
+    const spendViews = ['compliance','category','catDetail','property','propDetail','regDetail','budget','vendor','vendDetail'];
     if (spendViews.includes(page)) return page;
     return null;
   };
