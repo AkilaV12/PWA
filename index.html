@@ -223,6 +223,38 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .vd-action-btn:hover{background:rgba(255,255,255,0.25)}
 .vd-action-btn.primary{background:#217E7E;border-color:#217E7E}
 .vd-action-btn.primary:hover{background:#1a6464}
+/* Property page: period + month-range filter controls */
+.pf-row{display:flex;align-items:center;gap:14px;flex-wrap:wrap;background:#fff;border:1px solid var(--gll);border-radius:8px;padding:12px 16px;margin-bottom:16px;box-shadow:var(--shadow)}
+.pf-label{font-size:11px;font-weight:700;color:var(--gd);text-transform:uppercase;letter-spacing:.4px}
+.pf-pills{display:inline-flex;border:1px solid var(--gll);border-radius:6px;overflow:hidden}
+.pf-pill{padding:6px 14px;font-size:12px;font-weight:600;color:var(--rp-black);background:#fff;cursor:pointer;border-right:1px solid var(--gll);transition:all .12s}
+.pf-pill:last-child{border-right:none}
+.pf-pill.on{background:#217E7E;color:#fff}
+.pf-pill:hover:not(.on){background:var(--gl)}
+.pf-sel{font-family:var(--font);font-size:12px;font-weight:500;color:var(--rp-black);padding:6px 10px;border:1px solid var(--gll);border-radius:6px;background:#fff;cursor:pointer;min-width:90px}
+.pf-sel:focus{outline:none;border-color:#217E7E}
+.pf-range-sep{font-size:12px;color:var(--gd);font-weight:500}
+.pf-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(33,126,126,0.1);color:#217E7E;border-radius:12px;font-size:11px;font-weight:600}
+/* Monthly heatmap strip */
+.hmap-wrap{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:20px;box-shadow:var(--shadow);margin-top:16px}
+.hmap-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:16px;flex-wrap:wrap}
+.hmap-title{font-family:'Roboto',sans-serif;font-size:16px;font-weight:700;color:var(--rp-black);display:flex;align-items:center;gap:8px}
+.hmap-sub{font-size:12px;color:var(--gd);margin-top:2px}
+.hmap-legend{display:flex;gap:10px;font-size:11px;color:var(--rp-black);align-items:center}
+.hmap-legend-sw{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:4px;vertical-align:middle}
+.hmap-grid{display:grid;grid-template-columns:170px repeat(12,1fr);gap:3px;align-items:center}
+.hmap-label{font-size:11px;font-weight:600;color:var(--rp-black);padding:6px 8px 6px 0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.hmap-label:hover{color:var(--rp);text-decoration:underline}
+.hmap-col-hd{font-size:10px;font-weight:700;color:var(--gd);text-align:center;padding:4px 0;text-transform:uppercase;letter-spacing:.3px}
+.hmap-col-hd.active{color:#217E7E}
+.hmap-cell{height:28px;border-radius:3px;cursor:pointer;position:relative;transition:transform .1s,box-shadow .1s}
+.hmap-cell:hover{transform:scale(1.12);box-shadow:0 2px 6px rgba(0,0,0,.15);z-index:2}
+.hmap-cell.active{outline:2px solid #217E7E;outline-offset:1px}
+.hmap-cell.good{background:linear-gradient(135deg,#118837,#1ca74a)}
+.hmap-cell.watch{background:linear-gradient(135deg,#F06000,#ff8833)}
+.hmap-cell.drift{background:linear-gradient(135deg,#D01A1F,#e33c40)}
+.hmap-rowavg{font-size:11px;font-weight:700;color:var(--rp-black);text-align:right;padding-right:6px}
+.hmap-scale-note{font-size:11px;color:var(--gd);margin-top:10px;font-style:italic}
 .tag{display:inline-flex;align-items:center;gap:4px;font-size:11px;font-weight:500;padding:2px 8px;border-radius:2px}
 .tag.g{background:var(--gbg);color:var(--green)}.tag.r{background:var(--rbg);color:var(--red)}.tag.y{background:var(--ybg);color:var(--orange)}.tag.b{background:rgba(0,118,204,0.1);color:var(--rp)}.tag.gr{background:var(--gll);color:var(--rp-black)}.tag.p{background:var(--pbg);color:var(--pur)}
 .rpill{display:inline-flex;align-items:center;font-size:10px;font-weight:600;padding:2px 7px;border-radius:2px;text-transform:uppercase;gap:3px}
@@ -451,14 +483,18 @@ const REGIONS_DATA = [
   {name:'West Coast',spend:2400000,mavSpend:360000,mavPct:15,props:12,topCat:'Painting',offlineRate:18},
 ];
 
+/* Property compliance by month — drives heatmap strip and single-month filter.
+   12 entries per property = Jan–Dec of current year. The `compliance` field
+   above is the YTD rollup shown when period=Year. */
 const PROPS_DATA = [
-  {name:'Sunset Ridge Apts',region:'Southeast',status:'non-compliant',totalSpend:188000,mavSpend:71000,compliance:62,topCat:'HVAC',offlineRate:42},
-  {name:'Lakeview Commons',region:'Southeast',status:'under-review',totalSpend:142000,mavSpend:37000,compliance:74,topCat:'Plumbing',offlineRate:35},
-  {name:'Harbor Point Towers',region:'Northeast',status:'compliant',totalSpend:198000,mavSpend:24000,compliance:88,topCat:'Electrical',offlineRate:15},
-  {name:'Meadowbrook Village',region:'Midwest',status:'compliant',totalSpend:124000,mavSpend:11000,compliance:91,topCat:'Appliances',offlineRate:12},
-  {name:'Oak Park Residences',region:'West Coast',status:'compliant',totalSpend:156000,mavSpend:23000,compliance:85,topCat:'Painting',offlineRate:20},
-  {name:'Riverside Landing',region:'Southwest',status:'under-review',totalSpend:134000,mavSpend:28000,compliance:79,topCat:'Landscaping',offlineRate:28},
+  {name:'Sunset Ridge Apts',region:'Southeast',status:'non-compliant',totalSpend:188000,mavSpend:71000,compliance:62,topCat:'HVAC',offlineRate:42,monthly:[72,70,68,66,64,63,62,60,58,60,62,62]},
+  {name:'Lakeview Commons',region:'Southeast',status:'under-review',totalSpend:142000,mavSpend:37000,compliance:74,topCat:'Plumbing',offlineRate:35,monthly:[68,70,71,72,73,74,75,74,74,73,74,74]},
+  {name:'Harbor Point Towers',region:'Northeast',status:'compliant',totalSpend:198000,mavSpend:24000,compliance:88,topCat:'Electrical',offlineRate:15,monthly:[85,86,86,87,88,88,89,89,88,88,88,88]},
+  {name:'Meadowbrook Village',region:'Midwest',status:'compliant',totalSpend:124000,mavSpend:11000,compliance:91,topCat:'Appliances',offlineRate:12,monthly:[89,90,90,91,91,92,92,91,91,91,91,91]},
+  {name:'Oak Park Residences',region:'West Coast',status:'compliant',totalSpend:156000,mavSpend:23000,compliance:85,topCat:'Painting',offlineRate:20,monthly:[80,82,83,84,85,85,86,86,85,85,85,85]},
+  {name:'Riverside Landing',region:'Southwest',status:'under-review',totalSpend:134000,mavSpend:28000,compliance:79,topCat:'Landscaping',offlineRate:28,monthly:[76,77,78,79,79,80,80,79,78,79,79,79]},
 ];
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 const EXCEPTIONS_PREFERRED = [
   {vendor:'HVAC',invoiceSplit:89.3,offlineInv:78,onlineInv:77,spend:134011},
@@ -1303,9 +1339,26 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
     );
   }
 
-  // Property list — treemap grid
+  // Property list — treemap grid with period + month-range filter
+  const [period,setPeriod] = useState('year'); // 'year' | 'quarter' | 'month'
+  const [mFrom,setMFrom] = useState(0);  // Jan index
+  const [mTo,setMTo] = useState(11);     // Dec index
+  const [qSel,setQSel] = useState(0);    // Q1..Q4 index
+  // Compute compliance per property for the selected window
+  const getScoped = (p) => {
+    if (period === 'year') return p.compliance;
+    if (period === 'quarter') {
+      const qMonths = p.monthly.slice(qSel*3, qSel*3+3);
+      return Math.round(qMonths.reduce((s,v)=>s+v,0)/qMonths.length);
+    }
+    // month range
+    const lo = Math.min(mFrom,mTo), hi = Math.max(mFrom,mTo);
+    const slice = p.monthly.slice(lo,hi+1);
+    return Math.round(slice.reduce((s,v)=>s+v,0)/slice.length);
+  };
+  const scopedProps = PROPS_DATA.map(p => ({...p, scopedCompliance: getScoped(p)}));
   const medianCompliance = (() => {
-    const sorted = [...PROPS_DATA].map(p=>p.compliance).sort((a,b)=>a-b);
+    const sorted = scopedProps.map(p=>p.scopedCompliance).sort((a,b)=>a-b);
     const mid = Math.floor(sorted.length/2);
     return sorted.length%2===0 ? Math.round((sorted[mid-1]+sorted[mid])/2) : sorted[mid];
   })();
@@ -1318,7 +1371,7 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
     'Oak Park Residences':'Painting cadence steady · no anomalies detected',
     'Riverside Landing':'Landscaping vendor rotation detected · monitoring',
   };
-  const sortedProps = [...PROPS_DATA].sort((a,b)=>a.compliance-b.compliance);
+  const sortedProps = [...scopedProps].sort((a,b)=>a.scopedCompliance-b.scopedCompliance);
   const spanFor = (spend) => {
     const share = spend / totalSpend;
     return Math.max(3, Math.min(6, Math.round(share * 12 * 2.2)));
@@ -1329,17 +1382,58 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
     if (compliance >= 70) return 'tmap-tile-watch';
     return 'tmap-tile-drift';
   };
-  const belowMedian = PROPS_DATA.filter(p=>p.compliance<medianCompliance).length;
+  const cellTier = (v) => v >= 85 ? 'good' : v >= 70 ? 'watch' : 'drift';
+  const belowMedian = scopedProps.filter(p=>p.scopedCompliance<medianCompliance).length;
+  const periodLabel = period==='year' ? 'Full year' : period==='quarter' ? `Q${qSel+1}` : (mFrom===mTo ? MONTHS[mFrom] : `${MONTHS[Math.min(mFrom,mTo)]}–${MONTHS[Math.max(mFrom,mTo)]}`);
+  const activeMonths = (() => {
+    if (period==='year') return new Set(Array.from({length:12},(_,i)=>i));
+    if (period==='quarter') return new Set([qSel*3,qSel*3+1,qSel*3+2]);
+    const lo=Math.min(mFrom,mTo),hi=Math.max(mFrom,mTo);
+    return new Set(Array.from({length:hi-lo+1},(_,i)=>lo+i));
+  })();
   return (
     <div className="page-body panim">
       <div className="li-card" style={{marginBottom:16,borderLeft:'3px solid #217E7E'}}>
         <div className="li-type"><SparkleIcon s={12} c="#217E7E"/> Lumina Observation</div>
-        <div className="li-ttl">{belowMedian} of {PROPS_DATA.length} properties sit below the portfolio median of {medianCompliance}%. Tile size reflects spend share · color reflects compliance tier. Click any tile to drill into property detail.</div>
+        <div className="li-ttl">Showing <b>{periodLabel}</b> · {belowMedian} of {PROPS_DATA.length} properties sit below the portfolio median of {medianCompliance}%. Tile size reflects spend share · color reflects compliance tier. Heatmap below shows month-by-month drift per property.</div>
+      </div>
+      {/* Period + month-range filter */}
+      <div className="pf-row">
+        <span className="pf-label">Period</span>
+        <div className="pf-pills">
+          {[{k:'year',l:'Yearly'},{k:'quarter',l:'Quarterly'},{k:'month',l:'Monthly'}].map(x => (
+            <div key={x.k} className={`pf-pill ${period===x.k?'on':''}`} onClick={()=>setPeriod(x.k)}>{x.l}</div>
+          ))}
+        </div>
+        {period==='quarter' && (
+          <>
+            <span className="pf-label">Quarter</span>
+            <select className="pf-sel" value={qSel} onChange={e=>setQSel(parseInt(e.target.value))}>
+              {[0,1,2,3].map(i => <option key={i} value={i}>Q{i+1} ({MONTHS[i*3]}–{MONTHS[i*3+2]})</option>)}
+            </select>
+          </>
+        )}
+        {period==='month' && (
+          <>
+            <span className="pf-label">From</span>
+            <select className="pf-sel" value={mFrom} onChange={e=>setMFrom(parseInt(e.target.value))}>
+              {MONTHS.map((m,i) => <option key={i} value={i}>{m}</option>)}
+            </select>
+            <span className="pf-range-sep">to</span>
+            <select className="pf-sel" value={mTo} onChange={e=>setMTo(parseInt(e.target.value))}>
+              {MONTHS.map((m,i) => <option key={i} value={i}>{m}</option>)}
+            </select>
+            <span className="pf-chip">{mFrom===mTo ? `Single month · ${MONTHS[mFrom]}` : `Range · ${Math.abs(mTo-mFrom)+1} months`}</span>
+          </>
+        )}
+        <div style={{marginLeft:'auto'}}>
+          <span className="pf-label">Viewing</span> <span style={{fontSize:13,fontWeight:700,marginLeft:6,color:'#217E7E'}}>{periodLabel}</span>
+        </div>
       </div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
         {[
           {l:'Total Properties',v:PROPS_DATA.length,sub:'In portfolio view'},
-          {l:'Portfolio Median',v:`${medianCompliance}%`,sub:'Compliance benchmark'},
+          {l:'Portfolio Median',v:`${medianCompliance}%`,sub:`Benchmark · ${periodLabel}`},
           {l:'Below Median',v:belowMedian,sub:'Drift candidates',accent:true},
           {l:'Avg Offline Rate',v:`${Math.round(PROPS_DATA.reduce((s,p)=>s+p.offlineRate,0)/PROPS_DATA.length)}%`,sub:'Target: 20%',accent:true},
         ].map((m,i) => (
@@ -1353,7 +1447,7 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
       <div className="tmap-wrap">
         <div className="tmap-hdr">
           <div>
-            <div className="tmap-title"><SparkleIcon s={14} c="#217E7E"/> Property Compliance Map</div>
+            <div className="tmap-title"><SparkleIcon s={14} c="#217E7E"/> Property Compliance Map <span className="pf-chip" style={{marginLeft:8}}>{periodLabel}</span></div>
             <div className="tmap-sub">Tile size = spend share · tile color = compliance tier · delta = vs portfolio median</div>
           </div>
           <div className="tmap-legend">
@@ -1364,21 +1458,21 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
         </div>
         <div className="tmap-grid">
           {sortedProps.map((p,i) => {
-            const delta = p.compliance - medianCompliance;
+            const delta = p.scopedCompliance - medianCompliance;
             const span = spanFor(p.totalSpend);
             const rowSpan = rowSpanFor(p.totalSpend);
             return (
               <div
                 key={i}
-                className={`tmap-tile ${tileClass(p.compliance)}`}
+                className={`tmap-tile ${tileClass(p.scopedCompliance)}`}
                 style={{gridColumn:`span ${span}`,gridRow:`span ${rowSpan}`}}
                 onClick={()=>onNavigate('propDetail',p.name)}
-                title={`${p.name} — ${p.compliance}% compliant`}
+                title={`${p.name} — ${p.scopedCompliance}% compliant (${periodLabel})`}
               >
                 <div className="tmap-tile-delta">{delta>=0?'+':''}{delta} vs med</div>
                 <div>
                   <div className="tmap-tile-name">{p.name}</div>
-                  <div className="tmap-tile-pct">{p.compliance}%</div>
+                  <div className="tmap-tile-pct">{p.scopedCompliance}%</div>
                 </div>
                 <div>
                   <div className="tmap-tile-spend">{fmtM(p.totalSpend)} · top: {p.topCat}</div>
@@ -1388,6 +1482,40 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
             );
           })}
         </div>
+      </div>
+      {/* Monthly heatmap strip — always visible, highlights active window */}
+      <div className="hmap-wrap">
+        <div className="hmap-hdr">
+          <div>
+            <div className="hmap-title"><SparkleIcon s={14} c="#217E7E"/> Month-by-Month Drift</div>
+            <div className="hmap-sub">Every property · every month · cell color = that month's compliance tier. Active period highlighted.</div>
+          </div>
+          <div className="hmap-legend">
+            <span><span className="hmap-legend-sw" style={{background:'linear-gradient(135deg,#118837,#1ca74a)'}}/>≥85%</span>
+            <span><span className="hmap-legend-sw" style={{background:'linear-gradient(135deg,#F06000,#ff8833)'}}/>70–84%</span>
+            <span><span className="hmap-legend-sw" style={{background:'linear-gradient(135deg,#D01A1F,#e33c40)'}}/>&lt;70%</span>
+          </div>
+        </div>
+        <div className="hmap-grid">
+          <div></div>
+          {MONTHS.map((m,i) => (
+            <div key={i} className={`hmap-col-hd ${activeMonths.has(i)?'active':''}`}>{m}</div>
+          ))}
+          {PROPS_DATA.map((p,pi) => (
+            <React.Fragment key={pi}>
+              <div className="hmap-label" onClick={()=>onNavigate('propDetail',p.name)}>{p.name}</div>
+              {p.monthly.map((v,mi) => (
+                <div
+                  key={mi}
+                  className={`hmap-cell ${cellTier(v)} ${activeMonths.has(mi)?'active':''}`}
+                  title={`${p.name} · ${MONTHS[mi]}: ${v}%`}
+                  onClick={()=>{ setPeriod('month'); setMFrom(mi); setMTo(mi); }}
+                />
+              ))}
+            </React.Fragment>
+          ))}
+        </div>
+        <div className="hmap-scale-note">Click any cell to focus that month · click a property name to drill in.</div>
       </div>
     </div>
   );
