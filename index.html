@@ -235,6 +235,71 @@ body{font-family:var(--font);background:var(--gl);color:var(--rp-black);font-siz
 .pf-sel:focus{outline:none;border-color:#217E7E}
 .pf-range-sep{font-size:12px;color:var(--gd);font-weight:500}
 .pf-chip{display:inline-flex;align-items:center;gap:6px;padding:4px 10px;background:rgba(33,126,126,0.1);color:#217E7E;border-radius:12px;font-size:11px;font-weight:600}
+/* Secondary filter strip (page-scoped, additive to global period filter) */
+.sf-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;background:#fff;border:1px solid var(--gll);border-radius:8px;padding:10px 14px;margin-bottom:16px;box-shadow:var(--shadow)}
+.sf-label{font-size:11px;font-weight:700;color:var(--gd);text-transform:uppercase;letter-spacing:.4px}
+.sf-chipgroup{display:inline-flex;gap:6px}
+.sf-chip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;font-size:12px;font-weight:600;color:var(--rp-black);background:#fff;border:1px solid var(--gll);border-radius:16px;cursor:pointer;transition:all .12s}
+.sf-chip:hover:not(.on){background:var(--gl);border-color:var(--gm)}
+.sf-chip.on{color:#fff;border-color:transparent}
+.sf-chip.on.all{background:var(--rp-black)}
+.sf-chip.on.drift{background:#D01A1F}
+.sf-chip.on.watch{background:#F06000}
+.sf-chip.on.good{background:#118837}
+.sf-chip-dot{width:8px;height:8px;border-radius:50%}
+.sf-chip-dot.all{background:var(--rp-black)}
+.sf-chip-dot.drift{background:#D01A1F}
+.sf-chip-dot.watch{background:#F06000}
+.sf-chip-dot.good{background:#118837}
+.sf-sel{font-family:var(--font);font-size:12px;font-weight:500;color:var(--rp-black);padding:6px 10px;border:1px solid var(--gll);border-radius:6px;background:#fff;cursor:pointer;min-width:120px}
+.sf-sel:focus{outline:none;border-color:#217E7E}
+.sf-search-wrap{position:relative;flex:0 0 200px}
+.sf-search{height:32px;width:100%;border:1px solid var(--gll);border-radius:6px;padding:0 10px 0 30px;font-size:12px;font-family:var(--font);outline:none;background:#fff;color:var(--rp-black)}
+.sf-search:focus{border-color:#217E7E}
+.sf-search-ic{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--gm);pointer-events:none}
+.sf-clear{font-size:11px;font-weight:600;color:#217E7E;cursor:pointer;padding:4px 8px;border-radius:4px}
+.sf-clear:hover{background:rgba(33,126,126,0.1)}
+.sf-count{font-size:11px;color:var(--gd);font-weight:500}
+/* Pareto card — dollar-share concentration */
+.par-card{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:18px 20px;box-shadow:var(--shadow);margin-top:16px}
+.par-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;gap:16px}
+.par-title{font-family:'Roboto',sans-serif;font-size:15px;font-weight:700;color:var(--rp-black);display:flex;align-items:center;gap:8px}
+.par-sub{font-size:12px;color:var(--gd);margin-top:2px}
+.par-bars{display:flex;flex-direction:column;gap:6px}
+.par-row{display:grid;grid-template-columns:150px 1fr 70px 60px;gap:10px;align-items:center;font-size:12px}
+.par-name{font-weight:600;color:var(--rp-black);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;cursor:pointer}
+.par-name:hover{color:#217E7E;text-decoration:underline}
+.par-bar-bg{height:16px;background:var(--gl);border-radius:3px;overflow:hidden}
+.par-bar-fill{height:100%;border-radius:3px;transition:width .3s}
+.par-bar-fill.drift{background:linear-gradient(90deg,#D01A1F,#e33c40)}
+.par-bar-fill.watch{background:linear-gradient(90deg,#F06000,#ff8833)}
+.par-bar-fill.good{background:linear-gradient(90deg,#118837,#1ca74a)}
+.par-val{font-weight:700;color:var(--rp-black);text-align:right}
+.par-cum{font-size:11px;color:var(--gd);text-align:right}
+.par-callout{background:rgba(240,96,0,0.08);border-left:3px solid #F06000;padding:10px 14px;border-radius:4px;font-size:13px;color:var(--rp-black);margin-top:12px}
+.par-callout b{color:#F06000}
+/* Sortable property table */
+.ptbl-wrap{background:#fff;border:1px solid var(--gll);border-radius:8px;box-shadow:var(--shadow);margin-top:16px;overflow:hidden}
+.ptbl-hdr{padding:16px 20px;border-bottom:1px solid var(--gll);display:flex;align-items:center;justify-content:space-between;gap:12px}
+.ptbl-title{font-family:'Roboto',sans-serif;font-size:15px;font-weight:700;color:var(--rp-black);display:flex;align-items:center;gap:8px}
+.ptbl{width:100%;border-collapse:collapse;font-size:12px}
+.ptbl thead th{background:var(--gl);padding:10px 14px;text-align:left;font-size:11px;font-weight:700;color:var(--gd);text-transform:uppercase;letter-spacing:.4px;border-bottom:1px solid var(--gll);cursor:pointer;user-select:none;white-space:nowrap}
+.ptbl thead th:hover{background:#eef1f3;color:var(--rp-black)}
+.ptbl thead th.sorted{color:#217E7E}
+.ptbl thead th .srt{font-size:9px;margin-left:4px;opacity:.7}
+.ptbl tbody tr{border-bottom:1px solid var(--gll);cursor:pointer;transition:background .1s}
+.ptbl tbody tr:hover{background:var(--gl)}
+.ptbl td{padding:11px 14px;color:var(--rp-black);vertical-align:middle}
+.ptbl td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+.ptbl .cbadge{display:inline-flex;align-items:center;gap:5px;padding:3px 8px;border-radius:10px;font-size:11px;font-weight:700}
+.ptbl .cbadge.good{background:var(--gbg);color:#118837}
+.ptbl .cbadge.watch{background:var(--ybg);color:#F06000}
+.ptbl .cbadge.drift{background:var(--rbg);color:#D01A1F}
+.ptbl .trend-arr{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700}
+.ptbl .trend-arr.up{color:#118837}
+.ptbl .trend-arr.dn{color:#D01A1F}
+.ptbl .trend-arr.flat{color:var(--gd)}
+.ptbl-empty{padding:40px 20px;text-align:center;color:var(--gd);font-size:13px}
 /* Monthly heatmap strip */
 .hmap-wrap{background:#fff;border:1px solid var(--gll);border-radius:8px;padding:20px;box-shadow:var(--shadow);margin-top:16px}
 .hmap-hdr{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:14px;gap:16px;flex-wrap:wrap}
@@ -486,13 +551,18 @@ const REGIONS_DATA = [
 /* Property compliance by month — drives heatmap strip and single-month filter.
    12 entries per property = Jan–Dec of current year. The `compliance` field
    above is the YTD rollup shown when period=Year. */
+// units = apartment count (size proxy). type = building class. trend auto-derived from monthly[].
+// aiSignal = 1-line observation (observation-first AI framing).
+// cats = top 3 spend categories with % share — drives "category driver" filter + detail.
 const PROPS_DATA = [
-  {name:'Sunset Ridge Apts',region:'Southeast',status:'non-compliant',totalSpend:188000,mavSpend:71000,compliance:62,topCat:'HVAC',offlineRate:42,monthly:[72,70,68,66,64,63,62,60,58,60,62,62]},
-  {name:'Lakeview Commons',region:'Southeast',status:'under-review',totalSpend:142000,mavSpend:37000,compliance:74,topCat:'Plumbing',offlineRate:35,monthly:[68,70,71,72,73,74,75,74,74,73,74,74]},
-  {name:'Harbor Point Towers',region:'Northeast',status:'compliant',totalSpend:198000,mavSpend:24000,compliance:88,topCat:'Electrical',offlineRate:15,monthly:[85,86,86,87,88,88,89,89,88,88,88,88]},
-  {name:'Meadowbrook Village',region:'Midwest',status:'compliant',totalSpend:124000,mavSpend:11000,compliance:91,topCat:'Appliances',offlineRate:12,monthly:[89,90,90,91,91,92,92,91,91,91,91,91]},
-  {name:'Oak Park Residences',region:'West Coast',status:'compliant',totalSpend:156000,mavSpend:23000,compliance:85,topCat:'Painting',offlineRate:20,monthly:[80,82,83,84,85,85,86,86,85,85,85,85]},
-  {name:'Riverside Landing',region:'Southwest',status:'under-review',totalSpend:134000,mavSpend:28000,compliance:79,topCat:'Landscaping',offlineRate:28,monthly:[76,77,78,79,79,80,80,79,78,79,79,79]},
+  {name:'Sunset Ridge Apts',region:'Southeast',type:'Garden',units:248,status:'non-compliant',totalSpend:188000,mavSpend:71000,compliance:62,topCat:'HVAC',offlineRate:42,monthly:[72,70,68,66,64,63,62,60,58,60,62,62],aiSignal:'3 invoices bypassed catalog · HVAC offline spiking',lastAction:'2026-03-18',cats:[{n:'HVAC',pct:48},{n:'Plumbing',pct:22},{n:'Landscaping',pct:14}]},
+  {name:'Lakeview Commons',region:'Southeast',type:'Midrise',units:180,status:'under-review',totalSpend:142000,mavSpend:37000,compliance:74,topCat:'Plumbing',offlineRate:35,monthly:[68,70,71,72,73,74,75,74,74,73,74,74],aiSignal:'Plumbing compliance recovering · +5pts QoQ',lastAction:'2026-04-02',cats:[{n:'Plumbing',pct:39},{n:'HVAC',pct:24},{n:'Appliances',pct:18}]},
+  {name:'Harbor Point Towers',region:'Northeast',type:'Highrise',units:412,status:'compliant',totalSpend:198000,mavSpend:24000,compliance:88,topCat:'Electrical',offlineRate:15,monthly:[85,86,86,87,88,88,89,89,88,88,88,88],aiSignal:'Strongest in portfolio · all top vendors credentialed',lastAction:'2026-01-12',cats:[{n:'Electrical',pct:33},{n:'HVAC',pct:26},{n:'Plumbing',pct:19}]},
+  {name:'Meadowbrook Village',region:'Midwest',type:'Garden',units:156,status:'compliant',totalSpend:124000,mavSpend:11000,compliance:91,topCat:'Appliances',offlineRate:12,monthly:[89,90,90,91,91,92,92,91,91,91,91,91],aiSignal:'Steady · appliance spend matches preferred pricing',lastAction:'2025-11-20',cats:[{n:'Appliances',pct:34},{n:'Plumbing',pct:21},{n:'Landscaping',pct:17}]},
+  {name:'Oak Park Residences',region:'West Coast',type:'Midrise',units:210,status:'compliant',totalSpend:156000,mavSpend:23000,compliance:85,topCat:'Painting',offlineRate:20,monthly:[80,82,83,84,85,85,86,86,85,85,85,85],aiSignal:'Painting cadence steady · no anomalies detected',lastAction:'2026-02-08',cats:[{n:'Painting',pct:29},{n:'HVAC',pct:23},{n:'Landscaping',pct:20}]},
+  {name:'Riverside Landing',region:'Southwest',type:'Garden',units:192,status:'under-review',totalSpend:134000,mavSpend:28000,compliance:79,topCat:'Landscaping',offlineRate:28,monthly:[76,77,78,79,79,80,80,79,78,79,79,79],aiSignal:'Landscaping vendor rotation detected · monitoring',lastAction:'2026-03-30',cats:[{n:'Landscaping',pct:36},{n:'HVAC',pct:22},{n:'Plumbing',pct:16}]},
+  {name:'Pinecrest Commons',region:'Northeast',type:'Garden',units:164,status:'non-compliant',totalSpend:112000,mavSpend:49000,compliance:56,topCat:'Plumbing',offlineRate:48,monthly:[64,62,60,58,56,54,52,54,55,56,57,56],aiSignal:'Plumbing maverick share climbing · 2 new off-catalog vendors',lastAction:'2026-04-11',cats:[{n:'Plumbing',pct:44},{n:'HVAC',pct:21},{n:'Electrical',pct:15}]},
+  {name:'Cedar Heights',region:'Midwest',type:'Midrise',units:228,status:'compliant',totalSpend:168000,mavSpend:18000,compliance:89,topCat:'HVAC',offlineRate:14,monthly:[84,85,86,87,88,89,89,90,90,89,89,89],aiSignal:'Catalog adoption up 12% · good benchmark candidate',lastAction:'2026-02-22',cats:[{n:'HVAC',pct:31},{n:'Appliances',pct:24},{n:'Painting',pct:18}]},
 ];
 const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
@@ -1379,51 +1449,128 @@ const PropertyDrilldown = ({onNavigate,detailName,filter}) => {
     );
   }
 
-  // Property list — treemap grid; period/month filter is lifted to global FilterBar
+  // ── Property list — period filter from global FilterBar, secondary filters local ──
   const period = filter?.period || 'year';
   const qSel = filter?.qSel ?? 0;
   const mFrom = filter?.mFrom ?? 0;
   const mTo = filter?.mTo ?? 11;
-  // Compute compliance per property for the selected window
+
+  // Secondary, page-scoped filters
+  const [tierFilter,setTierFilter] = useState('all'); // 'all'|'drift'|'watch'|'good'
+  const [catFilter,setCatFilter] = useState('all');
+  const [trendFilter,setTrendFilter] = useState('all'); // 'all'|'up'|'dn'|'flat'
+  const [sizeFilter,setSizeFilter] = useState('all');   // 'all'|'small'|'mid'|'large'
+  const [typeFilter,setTypeFilter] = useState('all');
+  const [search,setSearch] = useState('');
+  const [sortCol,setSortCol] = useState('scopedCompliance');
+  const [sortDir,setSortDir] = useState('asc');
+
+  // Compute compliance for the selected window + trend direction
   const getScoped = (p) => {
     if (period === 'year') return p.compliance;
     if (period === 'quarter') {
       const qMonths = p.monthly.slice(qSel*3, qSel*3+3);
       return Math.round(qMonths.reduce((s,v)=>s+v,0)/qMonths.length);
     }
-    // month range
     const lo = Math.min(mFrom,mTo), hi = Math.max(mFrom,mTo);
     const slice = p.monthly.slice(lo,hi+1);
     return Math.round(slice.reduce((s,v)=>s+v,0)/slice.length);
   };
-  const scopedProps = PROPS_DATA.map(p => ({...p, scopedCompliance: getScoped(p)}));
+  const getTrend = (p) => {
+    // trend across the selected window (first vs last month in window)
+    let lo, hi;
+    if (period === 'year') { lo=0; hi=11; }
+    else if (period === 'quarter') { lo=qSel*3; hi=qSel*3+2; }
+    else { lo=Math.min(mFrom,mTo); hi=Math.max(mFrom,mTo); }
+    if (lo===hi) { // single month → compare to prior month
+      const prev = Math.max(0,lo-1);
+      const diff = p.monthly[lo]-p.monthly[prev];
+      return diff>1?'up':diff<-1?'dn':'flat';
+    }
+    const diff = p.monthly[hi]-p.monthly[lo];
+    return diff>2?'up':diff<-2?'dn':'flat';
+  };
+  const sizeBucket = (s) => s >= 180000 ? 'large' : s >= 140000 ? 'mid' : 'small';
+
+  // Enrich props with computed fields
+  const enrichedAll = PROPS_DATA.map(p => ({
+    ...p,
+    scopedCompliance: getScoped(p),
+    trendDir: getTrend(p),
+    mavPct: Math.round(p.mavSpend/p.totalSpend*100),
+    sizeBucket: sizeBucket(p.totalSpend),
+  }));
+
+  // All unique categories (for filter dropdown)
+  const allCats = [...new Set(PROPS_DATA.flatMap(p => p.cats.map(c=>c.n)))].sort();
+  const allTypes = [...new Set(PROPS_DATA.map(p => p.type))].sort();
+
+  // Apply filters
+  const filtered = enrichedAll.filter(p => {
+    if (tierFilter!=='all') {
+      const t = p.scopedCompliance>=85?'good':p.scopedCompliance>=70?'watch':'drift';
+      if (t !== tierFilter) return false;
+    }
+    if (catFilter!=='all' && !p.cats.some(c=>c.n===catFilter)) return false;
+    if (trendFilter!=='all' && p.trendDir!==trendFilter) return false;
+    if (sizeFilter!=='all' && p.sizeBucket!==sizeFilter) return false;
+    if (typeFilter!=='all' && p.type!==typeFilter) return false;
+    if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
+    return true;
+  });
+  const activeFilterCount = (tierFilter!=='all'?1:0)+(catFilter!=='all'?1:0)+(trendFilter!=='all'?1:0)+(sizeFilter!=='all'?1:0)+(typeFilter!=='all'?1:0)+(search?1:0);
+  const clearAll = () => { setTierFilter('all'); setCatFilter('all'); setTrendFilter('all'); setSizeFilter('all'); setTypeFilter('all'); setSearch(''); };
+
+  // Derived stats — run on filtered set
   const medianCompliance = (() => {
-    const sorted = scopedProps.map(p=>p.scopedCompliance).sort((a,b)=>a-b);
+    if (filtered.length===0) return 0;
+    const sorted = filtered.map(p=>p.scopedCompliance).sort((a,b)=>a-b);
     const mid = Math.floor(sorted.length/2);
     return sorted.length%2===0 ? Math.round((sorted[mid-1]+sorted[mid])/2) : sorted[mid];
   })();
-  const totalSpend = PROPS_DATA.reduce((s,p)=>s+p.totalSpend,0);
-  const propObs = {
-    'Sunset Ridge Apts':'HVAC offline rate spiking · 3 invoices bypassed catalog',
-    'Lakeview Commons':'Plumbing compliance recovering · +5pts this quarter',
-    'Harbor Point Towers':'Strongest in portfolio · all top vendors credentialed',
-    'Meadowbrook Village':'Steady · appliance spend matches preferred pricing',
-    'Oak Park Residences':'Painting cadence steady · no anomalies detected',
-    'Riverside Landing':'Landscaping vendor rotation detected · monitoring',
+  const totalSpendFiltered = filtered.reduce((s,p)=>s+p.totalSpend,0);
+  const totalMavFiltered = filtered.reduce((s,p)=>s+p.mavSpend,0);
+  const atRisk = filtered.filter(p => p.scopedCompliance < 70);
+  const atRiskMav = atRisk.reduce((s,p)=>s+p.mavSpend,0);
+  const improving = filtered.filter(p=>p.trendDir==='up').length;
+  const declining = filtered.filter(p=>p.trendDir==='dn').length;
+  const flat = filtered.filter(p=>p.trendDir==='flat').length;
+  const worst = filtered.reduce((w,p)=>!w||p.scopedCompliance<w.scopedCompliance?p:w, null);
+  const portfolioAvg = filtered.length ? Math.round(filtered.reduce((s,p)=>s+p.scopedCompliance,0)/filtered.length) : 0;
+
+  // Pareto: sort by mavSpend desc, cumulative %
+  const paretoSorted = [...filtered].sort((a,b)=>b.mavSpend-a.mavSpend);
+  let cumMav = 0;
+  const paretoRows = paretoSorted.map(p => {
+    cumMav += p.mavSpend;
+    return {...p, cumPct: totalMavFiltered ? Math.round(cumMav/totalMavFiltered*100) : 0};
+  });
+  // How many properties drive the first 80% of maverick $
+  const top80 = paretoRows.findIndex(r => r.cumPct >= 80) + 1;
+  const top80Pct = paretoRows[0] && paretoRows[Math.max(0,top80-1)] ? paretoRows[Math.max(0,top80-1)].cumPct : 0;
+
+  // Sorting for table
+  const sortedRows = [...filtered].sort((a,b) => {
+    const va = a[sortCol], vb = b[sortCol];
+    const cmp = typeof va==='string' ? va.localeCompare(vb) : (va-vb);
+    return sortDir==='asc' ? cmp : -cmp;
+  });
+  const handleSort = (col) => {
+    if (sortCol===col) setSortDir(d => d==='asc'?'desc':'asc');
+    else { setSortCol(col); setSortDir('asc'); }
   };
-  const sortedProps = [...scopedProps].sort((a,b)=>a.scopedCompliance-b.scopedCompliance);
+  const sortIcon = (col) => sortCol!==col ? '' : (sortDir==='asc'?'▲':'▼');
+
+  // Treemap / heatmap helpers
+  const sortedProps = [...filtered].sort((a,b)=>a.scopedCompliance-b.scopedCompliance);
   const spanFor = (spend) => {
-    const share = spend / totalSpend;
+    const share = totalSpendFiltered ? spend/totalSpendFiltered : 0;
     return Math.max(3, Math.min(6, Math.round(share * 12 * 2.2)));
   };
-  const rowSpanFor = (spend) => spend > (totalSpend/PROPS_DATA.length)*1.2 ? 2 : 1;
-  const tileClass = (compliance) => {
-    if (compliance >= 85) return 'tmap-tile-good';
-    if (compliance >= 70) return 'tmap-tile-watch';
-    return 'tmap-tile-drift';
-  };
-  const cellTier = (v) => v >= 85 ? 'good' : v >= 70 ? 'watch' : 'drift';
-  const belowMedian = scopedProps.filter(p=>p.scopedCompliance<medianCompliance).length;
+  const rowSpanFor = (spend) => filtered.length && spend > (totalSpendFiltered/filtered.length)*1.2 ? 2 : 1;
+  const tileClass = (compliance) => compliance>=85?'tmap-tile-good':compliance>=70?'tmap-tile-watch':'tmap-tile-drift';
+  const cellTier = (v) => v>=85?'good':v>=70?'watch':'drift';
+  const tierOf = (v) => cellTier(v);
   const periodLabel = period==='year' ? 'Full year' : period==='quarter' ? `Q${qSel+1}` : (mFrom===mTo ? MONTHS[mFrom] : `${MONTHS[Math.min(mFrom,mTo)]}–${MONTHS[Math.max(mFrom,mTo)]}`);
   const activeMonths = (() => {
     if (period==='year') return new Set(Array.from({length:12},(_,i)=>i));
@@ -1431,99 +1578,274 @@ const PropertyDrilldown = ({onNavigate,detailName,filter}) => {
     const lo=Math.min(mFrom,mTo),hi=Math.max(mFrom,mTo);
     return new Set(Array.from({length:hi-lo+1},(_,i)=>lo+i));
   })();
+
+  // KPIs — dollar-framed, observation-first
+  const kpis = [
+    {
+      l:'Properties at Risk',
+      v:`${atRisk.length} of ${filtered.length}`,
+      sub:`$${(atRiskMav/1000).toFixed(0)}K maverick exposure`,
+      accent:atRisk.length>0,
+      signal:atRisk.length>0?`${atRisk[0].name} is worst`:'None below 70%',
+    },
+    {
+      l:'Portfolio Avg Compliance',
+      v:`${portfolioAvg}%`,
+      sub:`Median ${medianCompliance}% · target 85%`,
+      trend: portfolioAvg>=85?'up':portfolioAvg>=70?'flat':'dn',
+    },
+    {
+      l:'Maverick Spend',
+      v:fmtM(totalMavFiltered),
+      sub:`${Math.round(totalMavFiltered/totalSpendFiltered*100)||0}% of ${fmtM(totalSpendFiltered)} total`,
+      accent:true,
+    },
+    {
+      l:'Biggest Outlier',
+      v: worst ? `${worst.scopedCompliance}%` : '—',
+      sub: worst ? worst.name : 'No properties',
+      accent: worst && worst.scopedCompliance < 70,
+      clickable: worst,
+    },
+    {
+      l:'Trend Mix',
+      v:`↑${improving} · ↓${declining} · ─${flat}`,
+      sub:`${declining>improving?'More declining than improving':'Net improving'}`,
+      accent:declining>improving,
+    },
+  ];
+
   return (
     <div className="page-body panim">
-      <div className="li-card" style={{marginBottom:16,borderLeft:'3px solid #217E7E'}}>
-        <div className="li-type"><SparkleIcon s={12} c="#217E7E"/> Lumina Observation</div>
-        <div className="li-ttl">Showing <b>{periodLabel}</b> · {belowMedian} of {PROPS_DATA.length} properties sit below the portfolio median of {medianCompliance}%. Tile size reflects spend share · color reflects compliance tier. Heatmap below shows month-by-month drift per property.</div>
+      {/* Lumina insight — contextual, respects active filters */}
+      <div className="li-card" style={{marginBottom:16,borderLeft:`3px solid ${atRisk.length>0?'#D01A1F':'#217E7E'}`}}>
+        <div className="li-type"><SparkleIcon s={12} c={atRisk.length>0?'#D01A1F':'#217E7E'}/> Lumina Observation</div>
+        <div className="li-ttl">
+          Showing <b>{periodLabel}</b> · {filtered.length} of {PROPS_DATA.length} properties {activeFilterCount>0?'(filtered)':''} · {atRisk.length>0 ? <>Top drift: <b>{atRisk[0].name}</b> at {atRisk[0].scopedCompliance}% — {atRisk[0].aiSignal}. </> : 'No properties below 70% this window. '}
+          {top80>0 && top80<=Math.ceil(filtered.length/2) && <>Top <b>{top80}</b> {top80===1?'property':'properties'} drive {top80Pct}% of maverick spend.</>}
+        </div>
       </div>
-      <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
-        {[
-          {l:'Total Properties',v:PROPS_DATA.length,sub:'In portfolio view'},
-          {l:'Portfolio Median',v:`${medianCompliance}%`,sub:`Benchmark · ${periodLabel}`},
-          {l:'Below Median',v:belowMedian,sub:'Drift candidates',accent:true},
-          {l:'Avg Offline Rate',v:`${Math.round(PROPS_DATA.reduce((s,p)=>s+p.offlineRate,0)/PROPS_DATA.length)}%`,sub:'Target: 20%',accent:true},
-        ].map((m,i) => (
-          <div key={i} className={`kcard ${m.accent?'orange':''}`} style={{cursor:'default'}}>
+
+      {/* KPI row — 5 cards, $-framed, trend-aware */}
+      <div style={{display:'grid',gridTemplateColumns:'repeat(5,1fr)',gap:12,marginBottom:16}}>
+        {kpis.map((m,i) => (
+          <div
+            key={i}
+            className={`kcard ${m.accent?'orange':''}`}
+            style={{cursor:m.clickable?'pointer':'default'}}
+            onClick={m.clickable?()=>onNavigate('propDetail',worst.name):undefined}
+          >
             <div className="k-lbl">{m.l}</div>
-            <div className={`k-val ${m.accent?'orange':''}`}>{m.v}</div>
+            <div className={`k-val ${m.accent?'orange':''}`} style={{fontSize:m.v.length>10?18:24}}>{m.v}</div>
+            {m.trend && <div className={`k-delta ${m.trend}`} style={{fontSize:11}}>{m.trend==='up'?'▲':m.trend==='dn'?'▼':'─'} vs target</div>}
             <div className="k-sub">{m.sub}</div>
+            {m.signal && <div className="k-sub" style={{color:'#217E7E',fontWeight:600,marginTop:4}}><SparkleIcon s={10} c="#217E7E"/> {m.signal}</div>}
           </div>
         ))}
       </div>
-      <div className="tmap-wrap">
-        <div className="tmap-hdr">
-          <div>
-            <div className="tmap-title"><SparkleIcon s={14} c="#217E7E"/> Property Compliance Map <span className="pf-chip" style={{marginLeft:8}}>{periodLabel}</span></div>
-            <div className="tmap-sub">Tile size = spend share · tile color = compliance tier · delta = vs portfolio median</div>
-          </div>
-          <div className="tmap-legend">
-            <span><span className="tmap-legend-swatch" style={{background:'linear-gradient(135deg,#118837,#0d6d2c)'}}/>≥85% healthy</span>
-            <span><span className="tmap-legend-swatch" style={{background:'linear-gradient(135deg,#F06000,#c44e00)'}}/>70–84% watch</span>
-            <span><span className="tmap-legend-swatch" style={{background:'linear-gradient(135deg,#D01A1F,#a5141a)'}}/>&lt;70% drift</span>
-          </div>
-        </div>
-        <div className="tmap-grid">
-          {sortedProps.map((p,i) => {
-            const delta = p.scopedCompliance - medianCompliance;
-            const span = spanFor(p.totalSpend);
-            const rowSpan = rowSpanFor(p.totalSpend);
-            return (
-              <div
-                key={i}
-                className={`tmap-tile ${tileClass(p.scopedCompliance)}`}
-                style={{gridColumn:`span ${span}`,gridRow:`span ${rowSpan}`}}
-                onClick={()=>onNavigate('propDetail',p.name)}
-                title={`${p.name} — ${p.scopedCompliance}% compliant (${periodLabel})`}
-              >
-                <div className="tmap-tile-delta">{delta>=0?'+':''}{delta} vs med</div>
-                <div>
-                  <div className="tmap-tile-name">{p.name}</div>
-                  <div className="tmap-tile-pct">{p.scopedCompliance}%</div>
-                </div>
-                <div>
-                  <div className="tmap-tile-spend">{fmtM(p.totalSpend)} · top: {p.topCat}</div>
-                  <div className="tmap-tile-obs">{propObs[p.name] || 'No recent AI signals'}</div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      {/* Monthly heatmap strip — always visible, highlights active window */}
-      <div className="hmap-wrap">
-        <div className="hmap-hdr">
-          <div>
-            <div className="hmap-title"><SparkleIcon s={14} c="#217E7E"/> Month-by-Month Drift</div>
-            <div className="hmap-sub">Every property · every month · cell color = that month's compliance tier. Active period highlighted.</div>
-          </div>
-          <div className="hmap-legend">
-            <span><span className="hmap-legend-sw" style={{background:'linear-gradient(135deg,#118837,#1ca74a)'}}/>≥85%</span>
-            <span><span className="hmap-legend-sw" style={{background:'linear-gradient(135deg,#F06000,#ff8833)'}}/>70–84%</span>
-            <span><span className="hmap-legend-sw" style={{background:'linear-gradient(135deg,#D01A1F,#e33c40)'}}/>&lt;70%</span>
-          </div>
-        </div>
-        <div className="hmap-grid">
-          <div></div>
-          {MONTHS.map((m,i) => (
-            <div key={i} className={`hmap-col-hd ${activeMonths.has(i)?'active':''}`}>{m}</div>
+
+      {/* Secondary filter strip */}
+      <div className="sf-row">
+        <span className="sf-label">Tier</span>
+        <div className="sf-chipgroup">
+          {[{k:'all',l:`All (${enrichedAll.length})`},{k:'drift',l:'Drift'},{k:'watch',l:'Watch'},{k:'good',l:'Healthy'}].map(x => (
+            <div key={x.k} className={`sf-chip ${tierFilter===x.k?'on '+x.k:''}`} onClick={()=>setTierFilter(x.k)}>
+              {x.k!=='all' && <span className={`sf-chip-dot ${x.k}`}/>} {x.l}
+            </div>
           ))}
-          {PROPS_DATA.map((p,pi) => (
-            <React.Fragment key={pi}>
-              <div className="hmap-label" onClick={()=>onNavigate('propDetail',p.name)}>{p.name}</div>
-              {p.monthly.map((v,mi) => (
+        </div>
+        <span className="sf-label">Category</span>
+        <select className="sf-sel" value={catFilter} onChange={e=>setCatFilter(e.target.value)}>
+          <option value="all">All categories</option>
+          {allCats.map(c => <option key={c} value={c}>{c}</option>)}
+        </select>
+        <span className="sf-label">Trend</span>
+        <select className="sf-sel" value={trendFilter} onChange={e=>setTrendFilter(e.target.value)} style={{minWidth:110}}>
+          <option value="all">Any</option>
+          <option value="up">Improving ↑</option>
+          <option value="dn">Declining ↓</option>
+          <option value="flat">Flat ─</option>
+        </select>
+        <span className="sf-label">Size</span>
+        <select className="sf-sel" value={sizeFilter} onChange={e=>setSizeFilter(e.target.value)} style={{minWidth:130}}>
+          <option value="all">All spend sizes</option>
+          <option value="large">Large (≥$180K)</option>
+          <option value="mid">Mid ($140–180K)</option>
+          <option value="small">Small (&lt;$140K)</option>
+        </select>
+        <span className="sf-label">Type</span>
+        <select className="sf-sel" value={typeFilter} onChange={e=>setTypeFilter(e.target.value)} style={{minWidth:110}}>
+          <option value="all">All types</option>
+          {allTypes.map(t => <option key={t} value={t}>{t}</option>)}
+        </select>
+        <div className="sf-search-wrap">
+          <svg className="sf-search-ic" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <input className="sf-search" placeholder="Search property…" value={search} onChange={e=>setSearch(e.target.value)}/>
+        </div>
+        {activeFilterCount>0 && <span className="sf-clear" onClick={clearAll}>✕ Clear all</span>}
+        <span className="sf-count" style={{marginLeft:'auto'}}>{filtered.length} / {enrichedAll.length} properties</span>
+      </div>
+
+      {/* Treemap */}
+      {filtered.length > 0 ? (
+        <div className="tmap-wrap">
+          <div className="tmap-hdr">
+            <div>
+              <div className="tmap-title"><SparkleIcon s={14} c="#217E7E"/> Property Compliance Map <span className="pf-chip" style={{marginLeft:8}}>{periodLabel}</span></div>
+              <div className="tmap-sub">Tile size = spend share · tile color = compliance tier · delta = vs portfolio median</div>
+            </div>
+            <div className="tmap-legend">
+              <span><span className="tmap-legend-swatch" style={{background:'linear-gradient(135deg,#118837,#0d6d2c)'}}/>≥85% healthy</span>
+              <span><span className="tmap-legend-swatch" style={{background:'linear-gradient(135deg,#F06000,#c44e00)'}}/>70–84% watch</span>
+              <span><span className="tmap-legend-swatch" style={{background:'linear-gradient(135deg,#D01A1F,#a5141a)'}}/>&lt;70% drift</span>
+            </div>
+          </div>
+          <div className="tmap-grid">
+            {sortedProps.map((p,i) => {
+              const delta = p.scopedCompliance - medianCompliance;
+              const span = spanFor(p.totalSpend);
+              const rowSpan = rowSpanFor(p.totalSpend);
+              return (
                 <div
-                  key={mi}
-                  className={`hmap-cell ${cellTier(v)} ${activeMonths.has(mi)?'active':''}`}
-                  title={`${p.name} · ${MONTHS[mi]}: ${v}%`}
-                  onClick={()=>{ filter?.setPeriod&&filter.setPeriod('month'); filter?.setMFrom&&filter.setMFrom(mi); filter?.setMTo&&filter.setMTo(mi); }}
-                />
-              ))}
-            </React.Fragment>
-          ))}
+                  key={i}
+                  className={`tmap-tile ${tileClass(p.scopedCompliance)}`}
+                  style={{gridColumn:`span ${span}`,gridRow:`span ${rowSpan}`}}
+                  onClick={()=>onNavigate('propDetail',p.name)}
+                  title={`${p.name} — ${p.scopedCompliance}% compliant (${periodLabel})`}
+                >
+                  <div className="tmap-tile-delta">{delta>=0?'+':''}{delta} vs med</div>
+                  <div>
+                    <div className="tmap-tile-name">{p.name}</div>
+                    <div className="tmap-tile-pct">{p.scopedCompliance}%</div>
+                  </div>
+                  <div>
+                    <div className="tmap-tile-spend">{fmtM(p.totalSpend)} · top: {p.topCat}</div>
+                    <div className="tmap-tile-obs">{p.aiSignal || 'No recent AI signals'}</div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
         </div>
-        <div className="hmap-scale-note">Click any cell to focus that month · click a property name to drill in.</div>
-      </div>
+      ) : (
+        <div className="tmap-wrap" style={{textAlign:'center',padding:60,color:'var(--gd)'}}>
+          No properties match the current filter set. <span className="sf-clear" onClick={clearAll}>Clear filters</span>
+        </div>
+      )}
+
+      {/* Pareto — maverick $ concentration */}
+      {filtered.length > 1 && totalMavFiltered > 0 && (
+        <div className="par-card">
+          <div className="par-hdr">
+            <div>
+              <div className="par-title"><SparkleIcon s={14} c="#217E7E"/> Maverick Spend Concentration</div>
+              <div className="par-sub">Where is the portfolio's non-compliant dollar flow concentrated? Bar = that property's share of maverick $. Cum% shows cumulative rollup.</div>
+            </div>
+            <div className="pf-chip">{periodLabel}</div>
+          </div>
+          <div className="par-bars">
+            {paretoRows.slice(0,8).map((p,i) => {
+              const share = Math.round(p.mavSpend/totalMavFiltered*100);
+              const tier = tierOf(p.scopedCompliance);
+              return (
+                <div key={i} className="par-row">
+                  <div className="par-name" onClick={()=>onNavigate('propDetail',p.name)}>{p.name}</div>
+                  <div className="par-bar-bg"><div className={`par-bar-fill ${tier}`} style={{width:`${share}%`}}/></div>
+                  <div className="par-val">{fmtM(p.mavSpend)}</div>
+                  <div className="par-cum">cum {p.cumPct}%</div>
+                </div>
+              );
+            })}
+          </div>
+          {top80>0 && (
+            <div className="par-callout">
+              <SparkleIcon s={12} c="#F06000"/> <b>Top {top80} {top80===1?'property accounts':'properties account'} for {top80Pct}%</b> of the portfolio's ${(totalMavFiltered/1000).toFixed(0)}K maverick spend {periodLabel.toLowerCase()}. Focus remediation here for highest impact.
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* Monthly heatmap strip — only filtered properties */}
+      {filtered.length > 0 && (
+        <div className="hmap-wrap">
+          <div className="hmap-hdr">
+            <div>
+              <div className="hmap-title"><SparkleIcon s={14} c="#217E7E"/> Month-by-Month Drift</div>
+              <div className="hmap-sub">Every filtered property · every month · cell color = that month's compliance tier. Active period highlighted.</div>
+            </div>
+            <div className="hmap-legend">
+              <span><span className="hmap-legend-sw" style={{background:'linear-gradient(135deg,#118837,#1ca74a)'}}/>≥85%</span>
+              <span><span className="hmap-legend-sw" style={{background:'linear-gradient(135deg,#F06000,#ff8833)'}}/>70–84%</span>
+              <span><span className="hmap-legend-sw" style={{background:'linear-gradient(135deg,#D01A1F,#e33c40)'}}/>&lt;70%</span>
+            </div>
+          </div>
+          <div className="hmap-grid">
+            <div></div>
+            {MONTHS.map((m,i) => (
+              <div key={i} className={`hmap-col-hd ${activeMonths.has(i)?'active':''}`}>{m}</div>
+            ))}
+            {filtered.map((p,pi) => (
+              <React.Fragment key={pi}>
+                <div className="hmap-label" onClick={()=>onNavigate('propDetail',p.name)}>{p.name}</div>
+                {p.monthly.map((v,mi) => (
+                  <div
+                    key={mi}
+                    className={`hmap-cell ${cellTier(v)} ${activeMonths.has(mi)?'active':''}`}
+                    title={`${p.name} · ${MONTHS[mi]}: ${v}%`}
+                    onClick={()=>{ filter?.setPeriod&&filter.setPeriod('month'); filter?.setMFrom&&filter.setMFrom(mi); filter?.setMTo&&filter.setMTo(mi); }}
+                  />
+                ))}
+              </React.Fragment>
+            ))}
+          </div>
+          <div className="hmap-scale-note">Click any cell to focus that month · click a property name to drill in.</div>
+        </div>
+      )}
+
+      {/* Sortable property table — full detail */}
+      {filtered.length > 0 && (
+        <div className="ptbl-wrap">
+          <div className="ptbl-hdr">
+            <div className="ptbl-title"><SparkleIcon s={14} c="#217E7E"/> Property Detail</div>
+            <div style={{fontSize:11,color:'var(--gd)'}}>Click column to sort · click row to drill in</div>
+          </div>
+          <table className="ptbl">
+            <thead>
+              <tr>
+                <th className={sortCol==='name'?'sorted':''} onClick={()=>handleSort('name')}>Property <span className="srt">{sortIcon('name')}</span></th>
+                <th className={sortCol==='type'?'sorted':''} onClick={()=>handleSort('type')}>Type <span className="srt">{sortIcon('type')}</span></th>
+                <th className={sortCol==='units'?'sorted':''} onClick={()=>handleSort('units')}>Units <span className="srt">{sortIcon('units')}</span></th>
+                <th className={`num ${sortCol==='totalSpend'?'sorted':''}`} onClick={()=>handleSort('totalSpend')}>Spend <span className="srt">{sortIcon('totalSpend')}</span></th>
+                <th className={`num ${sortCol==='mavPct'?'sorted':''}`} onClick={()=>handleSort('mavPct')}>Mav % <span className="srt">{sortIcon('mavPct')}</span></th>
+                <th className={`num ${sortCol==='scopedCompliance'?'sorted':''}`} onClick={()=>handleSort('scopedCompliance')}>Compliance <span className="srt">{sortIcon('scopedCompliance')}</span></th>
+                <th className={sortCol==='trendDir'?'sorted':''} onClick={()=>handleSort('trendDir')}>Trend <span className="srt">{sortIcon('trendDir')}</span></th>
+                <th className={sortCol==='topCat'?'sorted':''} onClick={()=>handleSort('topCat')}>Top Cat <span className="srt">{sortIcon('topCat')}</span></th>
+                <th className={`num ${sortCol==='offlineRate'?'sorted':''}`} onClick={()=>handleSort('offlineRate')}>Offline % <span className="srt">{sortIcon('offlineRate')}</span></th>
+                <th>Signal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {sortedRows.map((p,i) => {
+                const tier = tierOf(p.scopedCompliance);
+                return (
+                  <tr key={i} onClick={()=>onNavigate('propDetail',p.name)}>
+                    <td style={{fontWeight:700}}>{p.name}</td>
+                    <td>{p.type}</td>
+                    <td>{p.units}</td>
+                    <td className="num">{fmtM(p.totalSpend)}</td>
+                    <td className="num" style={{color:p.mavPct>30?'#D01A1F':p.mavPct>15?'#F06000':'var(--rp-black)'}}>{p.mavPct}%</td>
+                    <td className="num"><span className={`cbadge ${tier}`}>{p.scopedCompliance}%</span></td>
+                    <td><span className={`trend-arr ${p.trendDir}`}>{p.trendDir==='up'?'▲':p.trendDir==='dn'?'▼':'─'} {p.trendDir==='up'?'up':p.trendDir==='dn'?'down':'flat'}</span></td>
+                    <td>{p.topCat}</td>
+                    <td className="num" style={{color:p.offlineRate>30?'#D01A1F':p.offlineRate>20?'#F06000':'var(--rp-black)'}}>{p.offlineRate}%</td>
+                    <td style={{fontSize:11,color:'var(--gd)',maxWidth:260}}>{p.aiSignal}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      )}
     </div>
   );
 };
