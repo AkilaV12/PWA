@@ -696,17 +696,57 @@ const FSelect = ({label,width=96,children}) => (
   </div>
 );
 
-const FilterBar = () => (
-  <div className="fbar">
-    <div className="fsearch-wrap">
-      <svg className="fsearch-ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-      <input className="fsearch" placeholder="Search..."/>
+const FilterBar = ({filter}) => {
+  const f = filter || {};
+  const period = f.period || 'year';
+  const qSel = f.qSel ?? 0;
+  const mFrom = f.mFrom ?? 0;
+  const mTo = f.mTo ?? 11;
+  const setPeriod = f.setPeriod || (()=>{});
+  const setQSel = f.setQSel || (()=>{});
+  const setMFrom = f.setMFrom || (()=>{});
+  const setMTo = f.setMTo || (()=>{});
+  const periodLabel = period==='year' ? 'Full year' : period==='quarter' ? `Q${qSel+1}` : (mFrom===mTo ? MONTHS[mFrom] : `${MONTHS[Math.min(mFrom,mTo)]}–${MONTHS[Math.max(mFrom,mTo)]}`);
+  return (
+    <div className="fbar">
+      <div className="fsearch-wrap">
+        <svg className="fsearch-ic" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        <input className="fsearch" placeholder="Search..."/>
+      </div>
+      <span className="pf-label">Period</span>
+      <div className="pf-pills">
+        {[{k:'year',l:'Yearly'},{k:'quarter',l:'Quarterly'},{k:'month',l:'Monthly'}].map(x => (
+          <div key={x.k} className={`pf-pill ${period===x.k?'on':''}`} onClick={()=>setPeriod(x.k)}>{x.l}</div>
+        ))}
+      </div>
+      {period==='quarter' && (
+        <>
+          <span className="pf-label">Quarter</span>
+          <select className="pf-sel" value={qSel} onChange={e=>setQSel(parseInt(e.target.value))}>
+            {[0,1,2,3].map(i => <option key={i} value={i}>Q{i+1} ({MONTHS[i*3]}–{MONTHS[i*3+2]})</option>)}
+          </select>
+        </>
+      )}
+      {period==='month' && (
+        <>
+          <span className="pf-label">From</span>
+          <select className="pf-sel" value={mFrom} onChange={e=>setMFrom(parseInt(e.target.value))}>
+            {MONTHS.map((m,i) => <option key={i} value={i}>{m}</option>)}
+          </select>
+          <span className="pf-range-sep">to</span>
+          <select className="pf-sel" value={mTo} onChange={e=>setMTo(parseInt(e.target.value))}>
+            {MONTHS.map((m,i) => <option key={i} value={i}>{m}</option>)}
+          </select>
+          <span className="pf-chip">{mFrom===mTo ? `Single month · ${MONTHS[mFrom]}` : `Range · ${Math.abs(mTo-mFrom)+1} months`}</span>
+        </>
+      )}
+      <div style={{marginLeft:'auto',display:'flex',alignItems:'center',gap:6}}>
+        <span className="pf-label">Viewing</span>
+        <span style={{fontSize:13,fontWeight:700,color:'#217E7E'}}>{periodLabel}</span>
+      </div>
     </div>
-    <FSelect label="Time Period" width={110}><option>YTD</option><option>QTD</option><option>MTD</option></FSelect>
-    <FSelect label="Region" width={90}><option>All</option><option>Southeast</option><option>Southwest</option><option>Midwest</option><option>Northeast</option><option>West Coast</option></FSelect>
-    <div style={{marginLeft:'auto'}}/>
-  </div>
-);
+  );
+};
 
 const fmtM = (v) => v >= 1000000 ? `$${(v/1000000).toFixed(1)}M` : v >= 1000 ? `$${(v/1000).toFixed(0)}K` : `$${v}`;
 const slbl = (s) => s === 'g' ? 'Compliant' : s === 'r' ? 'High Risk' : 'Needs Review';
@@ -1295,7 +1335,7 @@ const CategoryDrilldown = ({onNavigate,detailName}) => {
 /* ══════════════════════════════════════════════════════════════
    PROPERTY DRILLDOWN
    ══════════════════════════════════════════════════════════════ */
-const PropertyDrilldown = ({onNavigate,detailName}) => {
+const PropertyDrilldown = ({onNavigate,detailName,filter}) => {
   if (detailName) {
     const prop = PROPS_DATA.find(p=>p.name===detailName) || PROPS_DATA[0];
     return (
@@ -1339,11 +1379,11 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
     );
   }
 
-  // Property list — treemap grid with period + month-range filter
-  const [period,setPeriod] = useState('year'); // 'year' | 'quarter' | 'month'
-  const [mFrom,setMFrom] = useState(0);  // Jan index
-  const [mTo,setMTo] = useState(11);     // Dec index
-  const [qSel,setQSel] = useState(0);    // Q1..Q4 index
+  // Property list — treemap grid; period/month filter is lifted to global FilterBar
+  const period = filter?.period || 'year';
+  const qSel = filter?.qSel ?? 0;
+  const mFrom = filter?.mFrom ?? 0;
+  const mTo = filter?.mTo ?? 11;
   // Compute compliance per property for the selected window
   const getScoped = (p) => {
     if (period === 'year') return p.compliance;
@@ -1396,39 +1436,6 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
       <div className="li-card" style={{marginBottom:16,borderLeft:'3px solid #217E7E'}}>
         <div className="li-type"><SparkleIcon s={12} c="#217E7E"/> Lumina Observation</div>
         <div className="li-ttl">Showing <b>{periodLabel}</b> · {belowMedian} of {PROPS_DATA.length} properties sit below the portfolio median of {medianCompliance}%. Tile size reflects spend share · color reflects compliance tier. Heatmap below shows month-by-month drift per property.</div>
-      </div>
-      {/* Period + month-range filter */}
-      <div className="pf-row">
-        <span className="pf-label">Period</span>
-        <div className="pf-pills">
-          {[{k:'year',l:'Yearly'},{k:'quarter',l:'Quarterly'},{k:'month',l:'Monthly'}].map(x => (
-            <div key={x.k} className={`pf-pill ${period===x.k?'on':''}`} onClick={()=>setPeriod(x.k)}>{x.l}</div>
-          ))}
-        </div>
-        {period==='quarter' && (
-          <>
-            <span className="pf-label">Quarter</span>
-            <select className="pf-sel" value={qSel} onChange={e=>setQSel(parseInt(e.target.value))}>
-              {[0,1,2,3].map(i => <option key={i} value={i}>Q{i+1} ({MONTHS[i*3]}–{MONTHS[i*3+2]})</option>)}
-            </select>
-          </>
-        )}
-        {period==='month' && (
-          <>
-            <span className="pf-label">From</span>
-            <select className="pf-sel" value={mFrom} onChange={e=>setMFrom(parseInt(e.target.value))}>
-              {MONTHS.map((m,i) => <option key={i} value={i}>{m}</option>)}
-            </select>
-            <span className="pf-range-sep">to</span>
-            <select className="pf-sel" value={mTo} onChange={e=>setMTo(parseInt(e.target.value))}>
-              {MONTHS.map((m,i) => <option key={i} value={i}>{m}</option>)}
-            </select>
-            <span className="pf-chip">{mFrom===mTo ? `Single month · ${MONTHS[mFrom]}` : `Range · ${Math.abs(mTo-mFrom)+1} months`}</span>
-          </>
-        )}
-        <div style={{marginLeft:'auto'}}>
-          <span className="pf-label">Viewing</span> <span style={{fontSize:13,fontWeight:700,marginLeft:6,color:'#217E7E'}}>{periodLabel}</span>
-        </div>
       </div>
       <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:16}}>
         {[
@@ -1509,7 +1516,7 @@ const PropertyDrilldown = ({onNavigate,detailName}) => {
                   key={mi}
                   className={`hmap-cell ${cellTier(v)} ${activeMonths.has(mi)?'active':''}`}
                   title={`${p.name} · ${MONTHS[mi]}: ${v}%`}
-                  onClick={()=>{ setPeriod('month'); setMFrom(mi); setMTo(mi); }}
+                  onClick={()=>{ filter?.setPeriod&&filter.setPeriod('month'); filter?.setMFrom&&filter.setMFrom(mi); filter?.setMTo&&filter.setMTo(mi); }}
                 />
               ))}
             </React.Fragment>
@@ -2327,7 +2334,7 @@ const SideNav = ({page,onPage,col}) => {
 /* ══════════════════════════════════════════════════════════════
    SPEND COMPLIANCE WRAPPER — Page header + sub-navigation
    ══════════════════════════════════════════════════════════════ */
-const SpendCompliancePage = ({activeView,onNavigate,detailName}) => {
+const SpendCompliancePage = ({activeView,onNavigate,detailName,filter}) => {
   const getGreeting = () => {
     const h = new Date().getHours();
     if (h < 12) return 'Good morning';
@@ -2365,12 +2372,12 @@ const SpendCompliancePage = ({activeView,onNavigate,detailName}) => {
         </div>
       </div>
 
-      <FilterBar/>
+      <FilterBar filter={filter}/>
 
       {/* Render active view */}
       {activeView==='compliance' && <SpendOverview onNavigate={onNavigate}/>}
       {(activeView==='category'||activeView==='catDetail') && <CategoryDrilldown onNavigate={onNavigate} detailName={activeView==='catDetail'?detailName:null}/>}
-      {(activeView==='property'||activeView==='propDetail'||activeView==='regDetail') && <PropertyDrilldown onNavigate={onNavigate} detailName={(activeView==='propDetail'||activeView==='regDetail')?detailName:null}/>}
+      {(activeView==='property'||activeView==='propDetail'||activeView==='regDetail') && <PropertyDrilldown onNavigate={onNavigate} detailName={(activeView==='propDetail'||activeView==='regDetail')?detailName:null} filter={filter}/>}
       {activeView==='budget' && <BudgetCompliance onNavigate={onNavigate}/>}
       {activeView==='vendor' && <VendorDrilldown onNavigate={onNavigate}/>}
       {activeView==='vendDetail' && <VendorDetail onNavigate={onNavigate} vendorName={detailName}/>}
@@ -2386,6 +2393,12 @@ const App = () => {
   const [aiOpen,setAiOpen] = useState(false);
   const [navCol,setNavCol] = useState(false);
   const [detailName,setDetailName] = useState(null);
+  // Global period filter — persists across all Spend Compliance sub-pages
+  const [period,setPeriod] = useState('year'); // 'year' | 'quarter' | 'month'
+  const [qSel,setQSel] = useState(0);          // 0..3 (Q1..Q4)
+  const [mFrom,setMFrom] = useState(0);        // 0..11 (Jan..Dec)
+  const [mTo,setMTo] = useState(11);
+  const filter = {period,setPeriod,qSel,setQSel,mFrom,setMFrom,mTo,setMTo};
 
   const handleNavigate = (target,name) => {
     if (target === 'catDetail') {
@@ -2418,11 +2431,11 @@ const App = () => {
   const renderPage = () => {
     const activeView = getActiveView();
     if (activeView) {
-      return <SpendCompliancePage activeView={activeView} onNavigate={handleNavigate} detailName={detailName}/>;
+      return <SpendCompliancePage activeView={activeView} onNavigate={handleNavigate} detailName={detailName} filter={filter}/>;
     }
     if (page === 'investigations') return <Investigations onNavigate={handleNavigate}/>;
     // Default: show spend compliance
-    return <SpendCompliancePage activeView="compliance" onNavigate={handleNavigate} detailName={null}/>;
+    return <SpendCompliancePage activeView="compliance" onNavigate={handleNavigate} detailName={null} filter={filter}/>;
   };
 
   return (
